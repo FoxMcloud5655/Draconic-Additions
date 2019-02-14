@@ -1,0 +1,18 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "textures": {
+      "layer0": "blocks/dirt"
+    },
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "type":{
+      "potatohelm": { "textures": { "layer0": "draconicadditions:items/armor/potato_helmet"  } },
+      "potatochest":{ "textures": { "layer0": "draconicadditions:items/armor/potato_chestplate" } },
+      "potatolegs": { "textures": { "layer0": "draconicadditions:items/armor/potato_leggings"  } },
+      "potatoboots":  { "textures": { "layer0": "draconicadditions:items/armor/potato_boots"   } }
+    }
+  }
+}

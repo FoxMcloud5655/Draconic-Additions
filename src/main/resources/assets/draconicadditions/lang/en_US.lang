@@ -1,0 +1,6 @@
+item.draconicadditions:potato_helm.name=Potato Helmet
+item.draconicadditions:potato_chest.name=Potato Chestplate
+item.draconicadditions:potato_legs.name=Potato Leggings
+item.draconicadditions:potato_boots.name=Potato Boots
+
+itemGroup.draconicadditions=Draconic Additions

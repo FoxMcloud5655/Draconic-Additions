@@ -1,14 +1,26 @@
-.gradle
-/build/
+# Exclude Everything!!!
 
-# Ignore Gradle GUI config
-gradle-app.setting
+/*
 
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
+# Except the stuff i want to keep
 
-# Cache of project
-.gradletasknamecache
+# Gradle Stuff
+!gradle/
+!gradlew
+!gradlew.bat
+!build.gradle
+!build.properties
+!settings.gradle
 
-# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
-# gradle/wrapper/gradle-wrapper.properties
+# Git Stuff
+!.gitignore
+
+# Other Important Files
+!LICENSE
+!README.md
+!Change Log.txt
+!VERSION.txt
+!curse_upload.json
+
+# Other Important Folders
+!src/
