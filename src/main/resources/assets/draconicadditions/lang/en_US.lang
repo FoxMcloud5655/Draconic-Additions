@@ -1,6 +1,27 @@
-item.draconicadditions:potato_helm.name=Potato Helmet
-item.draconicadditions:potato_chest.name=Potato Chestplate
-item.draconicadditions:potato_legs.name=Potato Leggings
-item.draconicadditions:potato_boots.name=Potato Boots
+item.draconicadditions:inert_potato_helm.name=Inert Potato Helmet
+item.draconicadditions:inert_potato_chest.name=Inert Potato Chestplate
+item.draconicadditions:inert_potato_legs.name=Inert Potato Leggings
+item.draconicadditions:inert_potato_boots.name=Inert Potato Boots
+item.draconicadditions:infused_potato_helm.name=Infused Potato Helmet
+item.draconicadditions:infused_potato_chest.name=Infused Potato Chestplate
+item.draconicadditions:infused_potato_legs.name=Infused Potato Leggings
+item.draconicadditions:infused_potato_boots.name=Infused Potato Boots
+item.draconicadditions:potato_helm.name=Energized Potato Helmet
+item.draconicadditions:potato_chest.name=Energized Potato Chestplate
+item.draconicadditions:potato_legs.name=Energized Potato Leggings
+item.draconicadditions:potato_boots.name=Energized Potato Boots
+
+item.draconicadditions:inert_potato_helm.lore=2Pathetic, yet you can feel some\npotential yet to be discovered...
+item.draconicadditions:inert_potato_chest.lore=2Pathetic, yet you can feel some\npotential yet to be discovered...
+item.draconicadditions:inert_potato_legs.lore=2Pathetic, yet you can feel some\npotential yet to be discovered...
+item.draconicadditions:inert_potato_boots.lore=2Pathetic, yet you can feel some\npotential yet to be discovered...
+item.draconicadditions:infused_potato_helm.lore=2Infused, but not yet powered.\nMaybe it needs a jumpstart?
+item.draconicadditions:infused_potato_chest.lore=2Infused, but not yet powered.\nMaybe it needs a jumpstart?
+item.draconicadditions:infused_potato_legs.lore=2Infused, but not yet powered.\nMaybe it needs a jumpstart?
+item.draconicadditions:infused_potato_boots.lore=2Infused, but not yet powered.\nMaybe it needs a jumpstart?
+item.draconicadditions:potato_helm.lore=2While the wild growth was unexpected,\nit's now energized.  Finally.
+item.draconicadditions:potato_chest.lore=2While the wild growth was unexpected,\nit's now energized.  Finally.
+item.draconicadditions:potato_legs.lore=2While the wild growth was unexpected,\nit's now energized.  Finally.
+item.draconicadditions:potato_boots.lore=2While the wild growth was unexpected,\nit's now energized.  Finally.
 
 itemGroup.draconicadditions=Draconic Additions

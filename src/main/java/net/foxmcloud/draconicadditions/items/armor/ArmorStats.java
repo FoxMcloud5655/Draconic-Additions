@@ -22,4 +22,7 @@ public class ArmorStats {
     @ModConfigProperty(category = "Armor Tweaks", name = "potatoBaseCapacity", comment = "Allows you to adjust how much RF the Potato Armor can hold.", autoSync = true)
     @ModConfigProperty.MinMax(min = "0", max = "2147483647")
     public static int POTATO_BASE_CAPACITY = 10000;
+    @ModConfigProperty(category = "Armor Tweaks", name = "potatoUpgradeLevel", comment = "Specifies how far the Potato Armor can be upgraded using Fusion Crafting.\n0 = No Upgrades, 1 = Basic, 2 = Wyvern, 3 = Draconic, 4 = Chaotic", autoSync = true)
+    @ModConfigProperty.MinMax(min = "0", max = "4")
+    public static int POTATO_UPGRADE_LEVEL = 0;
 }

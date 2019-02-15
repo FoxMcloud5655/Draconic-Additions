@@ -9,6 +9,14 @@
   },
   "variants": {
     "type":{
+      "inertpotatohelm": { "textures": { "layer0": "draconicadditions:items/armor/inert_potato_helmet"  } },
+      "inertpotatochest":{ "textures": { "layer0": "draconicadditions:items/armor/inert_potato_chestplate" } },
+      "inertpotatolegs": { "textures": { "layer0": "draconicadditions:items/armor/inert_potato_leggings"  } },
+      "inertpotatoboots":  { "textures": { "layer0": "draconicadditions:items/armor/inert_potato_boots"   } },
+      "infusedpotatohelm": { "textures": { "layer0": "draconicadditions:items/armor/infused_potato_helmet"  } },
+      "infusedpotatochest":{ "textures": { "layer0": "draconicadditions:items/armor/infused_potato_chestplate" } },
+      "infusedpotatolegs": { "textures": { "layer0": "draconicadditions:items/armor/infused_potato_leggings"  } },
+      "infusedpotatoboots":  { "textures": { "layer0": "draconicadditions:items/armor/infused_potato_boots"   } },
       "potatohelm": { "textures": { "layer0": "draconicadditions:items/armor/potato_helmet"  } },
       "potatochest":{ "textures": { "layer0": "draconicadditions:items/armor/potato_chestplate" } },
       "potatolegs": { "textures": { "layer0": "draconicadditions:items/armor/potato_leggings"  } },

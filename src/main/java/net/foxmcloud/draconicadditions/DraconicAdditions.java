@@ -4,8 +4,10 @@ import com.brandon3055.brandonscore.registry.ModFeatureParser;
 import com.brandon3055.draconicevolution.utils.LogHelper;
 
 import net.foxmcloud.draconicadditions.client.ClientProxy;
+import net.foxmcloud.draconicadditions.lib.DARecipes;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = DraconicAdditions.MODID, name = DraconicAdditions.NAME, version = DraconicAdditions.VERSION, dependencies = "required-after:draconicevolution")
@@ -30,5 +32,10 @@ public class DraconicAdditions
     public void preInit(FMLPreInitializationEvent event) {
         ModFeatureParser.registerModFeatures(MODID);
         proxy.preInit(event);
+    }
+    
+    @Mod.EventHandler
+    public void init(FMLInitializationEvent event) {
+        DARecipes.addRecipes();
     }
 }

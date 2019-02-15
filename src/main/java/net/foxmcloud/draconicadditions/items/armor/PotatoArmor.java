@@ -17,9 +17,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PotatoArmor extends WyvernArmor {
-
-    private static ArmorMaterial potatoMaterial = EnumHelper.addArmorMaterial("potatoArmor", DraconicAdditions.MODID + ":potato_armor", -1, new int[]{1, 2, 1, 1}, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
-
+	
+    private static ArmorMaterial potatoMaterial = EnumHelper.addArmorMaterial("potatoArmor", DraconicAdditions.MODID + ":potato_armor", -1, new int[]{1, 1, 2, 1}, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
+    
     public PotatoArmor(int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) {
         super(potatoMaterial, renderIndexIn, equipmentSlotIn);
     }
@@ -30,7 +30,7 @@ public class PotatoArmor extends WyvernArmor {
     
     @Override
     public int getMaxUpgradeLevel(ItemStack stack, String upgrade) {
-        return 0;
+        return ArmorStats.POTATO_UPGRADE_LEVEL;
     }
     
     public ItemConfigFieldRegistry getFields(ItemStack stack, ItemConfigFieldRegistry registry) {
@@ -62,8 +62,7 @@ public class PotatoArmor extends WyvernArmor {
             this.model.bipedLeftLeg.showModel = (armorType == EntityEquipmentSlot.LEGS || armorType == EntityEquipmentSlot.FEET);
             this.model.bipedRightLeg.showModel = (armorType == EntityEquipmentSlot.LEGS || armorType == EntityEquipmentSlot.FEET);
         }
-
-
+        
         if (entityLiving == null) {
             return model;
         }
