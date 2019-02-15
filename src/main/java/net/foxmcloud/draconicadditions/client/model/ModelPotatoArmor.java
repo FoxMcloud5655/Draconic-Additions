@@ -23,15 +23,15 @@ public class ModelPotatoArmor extends ModelBiped {
 	public ModelPotatoArmor(float modelSize, boolean isHelmet, boolean isChestPiece, boolean isLeggings, boolean isdBoots) {
 		super(modelSize);
 		
-		this.head = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":models/armor/potato_helmet.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":models/armor/potato_helmet"));
-		this.body = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":models/armor/potato_body.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":models/armor/potato_body"));
-		this.rightArm = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":models/armor/potato_right_arm.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":models/armor/potato_right_arm"));
-		this.leftArm = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":models/armor/potato_left_arm.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":models/armor/potato_left_arm"));
-		this.belt = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":models/armor/potato_belt.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":models/armor/potato_belt"));
-		this.rightLeg = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":models/armor/potato_right_leg.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":models/armor/potato_right_leg"));
-		this.leftLeg = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":models/armor/potato_left_leg.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":models/armor/potato_left_leg"));
-		this.rightBoot = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":models/armor/potato_right_boot.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":models/armor/potato_right_boot"));
-		this.leftBoot = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":models/armor/potato_left_boot.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":models/armor/potato_left_boot"));
+		this.head = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_helmet.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_helmet"));
+		this.body = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_body.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_body"));
+		this.rightArm = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_right_arm.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_right_arm"));
+		this.leftArm = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_left_arm.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_left_arm"));
+		this.belt = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_belt.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_belt"));
+		this.rightLeg = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_right_leg.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_right_leg"));
+		this.leftLeg = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_left_leg.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_left_leg"));
+		this.rightBoot = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_right_boot.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_right_boot"));
+		this.leftBoot = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_left_boot.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_left_boot"));
 
 		this.bipedHead.cubeList.clear();
 		this.bipedHeadwear.cubeList.clear();

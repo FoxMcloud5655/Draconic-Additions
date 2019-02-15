@@ -11,17 +11,11 @@ item.draconicadditions:potato_chest.name=Energized Potato Chestplate
 item.draconicadditions:potato_legs.name=Energized Potato Leggings
 item.draconicadditions:potato_boots.name=Energized Potato Boots
 
-item.draconicadditions:inert_potato_helm.lore=2Pathetic, yet you can feel some\npotential yet to be discovered...
-item.draconicadditions:inert_potato_chest.lore=2Pathetic, yet you can feel some\npotential yet to be discovered...
-item.draconicadditions:inert_potato_legs.lore=2Pathetic, yet you can feel some\npotential yet to be discovered...
-item.draconicadditions:inert_potato_boots.lore=2Pathetic, yet you can feel some\npotential yet to be discovered...
-item.draconicadditions:infused_potato_helm.lore=2Infused, but not yet powered.\nMaybe it needs a jumpstart?
-item.draconicadditions:infused_potato_chest.lore=2Infused, but not yet powered.\nMaybe it needs a jumpstart?
-item.draconicadditions:infused_potato_legs.lore=2Infused, but not yet powered.\nMaybe it needs a jumpstart?
-item.draconicadditions:infused_potato_boots.lore=2Infused, but not yet powered.\nMaybe it needs a jumpstart?
-item.draconicadditions:potato_helm.lore=2While the wild growth was unexpected,\nit's now energized.  Finally.
-item.draconicadditions:potato_chest.lore=2While the wild growth was unexpected,\nit's now energized.  Finally.
-item.draconicadditions:potato_legs.lore=2While the wild growth was unexpected,\nit's now energized.  Finally.
-item.draconicadditions:potato_boots.lore=2While the wild growth was unexpected,\nit's now energized.  Finally.
+item.draconicadditions:infused_potato.lore=Infused, but not yet powered...
+item.draconicadditions:infused_potato.lore2=Maybe it needs a jumpstart?
+item.draconicadditions:potato.lore=While the wild growth was unexpected,
+item.draconicadditions:potato.lore2=it's now energized. Strange, but still useful.
+
+msg.da.infusedTransformation=Shaking the armor piece, it starts sprouting growths in an oddly familiar shape!
 
 itemGroup.draconicadditions=Draconic Additions

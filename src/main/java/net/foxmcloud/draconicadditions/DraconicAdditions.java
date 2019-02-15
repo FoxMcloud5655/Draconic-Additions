@@ -17,6 +17,7 @@ public class DraconicAdditions
     public static final String NAME = "Draconic Additions";
     public static final String PROXY_CLIENT = "net.foxmcloud.draconicadditions.client.ClientProxy";
     public static final String VERSION = "0.1";
+    public static final String MODID_PREFIX = MODID + ":";
     
     @Mod.Instance(DraconicAdditions.MODID)
     public static DraconicAdditions instance;

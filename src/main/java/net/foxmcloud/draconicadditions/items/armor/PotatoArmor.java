@@ -1,5 +1,9 @@
 package net.foxmcloud.draconicadditions.items.armor;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import com.brandon3055.draconicevolution.DEConfig;
 import com.brandon3055.draconicevolution.api.itemconfig.ItemConfigFieldRegistry;
 import com.brandon3055.draconicevolution.items.armor.WyvernArmor;
@@ -7,18 +11,21 @@ import com.brandon3055.draconicevolution.items.armor.WyvernArmor;
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.client.model.ModelPotatoArmor;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PotatoArmor extends WyvernArmor {
 	
-    private static ArmorMaterial potatoMaterial = EnumHelper.addArmorMaterial("potatoArmor", DraconicAdditions.MODID + ":potato_armor", -1, new int[]{1, 1, 2, 1}, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
+    private static ArmorMaterial potatoMaterial = EnumHelper.addArmorMaterial("potatoArmor", DraconicAdditions.MODID_PREFIX + "potato_armor", -1, new int[]{1, 1, 2, 1}, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
     
     public PotatoArmor(int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) {
         super(potatoMaterial, renderIndexIn, equipmentSlotIn);
@@ -85,6 +92,13 @@ public class PotatoArmor extends WyvernArmor {
     public float getProtectionPoints(ItemStack stack) {
         float points = ArmorStats.POTATO_BASE_SHIELD_CAPACITY * getProtectionShare();
         return points;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World playerIn, List<String> tooltip, ITooltipFlag advanced) {
+    	tooltip.add(I18n.format("item.draconicadditions:potato.lore"));
+    	tooltip.add(I18n.format("item.draconicadditions:potato.lore2"));
     }
     
     @Override

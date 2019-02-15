@@ -23,7 +23,7 @@ public class DAArmorModelHelper extends ArmorModelHelper {
 
     public void registerIcons(TextureMap textureMap) {
     	for (String resource : resources) {
-    		textureMap.registerSprite(ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID + ":" + resource));
+    		textureMap.registerSprite(ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + resource));
     	}
         DAFeatures.potatoHelm.model = null;
         DAFeatures.potatoChest.model = null;
