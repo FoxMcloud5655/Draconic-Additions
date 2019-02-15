@@ -10,13 +10,14 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = DraconicAdditions.MODID, name = DraconicAdditions.NAME, version = DraconicAdditions.VERSION, dependencies = "required-after:draconicevolution")
+@Mod(modid = DraconicAdditions.MODID, name = DraconicAdditions.NAME, version = DraconicAdditions.VERSION, guiFactory = DraconicAdditions.GUI_FACTORY, dependencies = "required-after:draconicevolution")
 public class DraconicAdditions
 {
     public static final String MODID = "draconicadditions";
     public static final String NAME = "Draconic Additions";
     public static final String PROXY_CLIENT = "net.foxmcloud.draconicadditions.client.ClientProxy";
     public static final String VERSION = "0.1";
+    public static final String GUI_FACTORY = "net.foxmcloud.draconicadditions.DAGuiFactory";
     public static final String MODID_PREFIX = MODID + ":";
     
     @Mod.Instance(DraconicAdditions.MODID)

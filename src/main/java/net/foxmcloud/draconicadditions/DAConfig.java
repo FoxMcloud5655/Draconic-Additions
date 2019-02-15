@@ -8,8 +8,13 @@ import com.brandon3055.brandonscore.handlers.FileHandler;
 import com.brandon3055.brandonscore.registry.IModConfigHelper;
 import com.brandon3055.brandonscore.registry.ModConfigContainer;
 
+import net.minecraftforge.common.config.Config.Type;
+import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @ModConfigContainer(modid = DraconicAdditions.MODID)
 public class DAConfig implements IModConfigHelper {
@@ -29,4 +34,14 @@ public class DAConfig implements IModConfigHelper {
     public String getCategoryComment(String category) {
         return comments.getOrDefault(category, "");
     }
+    
+	@Mod.EventBusSubscriber
+	private static class EventHandler {
+		@SubscribeEvent
+		public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
+			if (event.getModID().equals(DraconicAdditions.MODID)) {
+				ConfigManager.sync(DraconicAdditions.MODID, Type.INSTANCE);
+			}
+		}
+	}
 }
