@@ -59,7 +59,7 @@ minecraft {
     makeObfSourceJar = false
 }
 
-String buildNo = "2"
+String buildNo = config.buildNo
 if (System.getenv("BUILD_NUMBER") != null) {
     buildNo = System.getenv("BUILD_NUMBER")
 }
