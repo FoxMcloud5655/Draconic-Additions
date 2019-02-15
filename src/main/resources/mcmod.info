@@ -2,14 +2,14 @@
 {
   "modid": "draconicadditions",
   "name": "Draconic Additions",
-  "description": "Adds various Draconic Evolution items to help with mid-game as well as post-late-game.  Fully configurable.",
+  "description": "Adds various Draconic Evolution items to help with your mid-game without being OP.  Fully configurable.",
   "version": "${version}",
   "mcversion": "${mc_version}",
   "url": "",
   "updateUrl": "",
   "authorList": ["FoxMcloud5655"],
-  "credits": "brandon3055 for Draconic Evolution!",
-  "logoFile": "",
+  "credits": "brandon3055 - Draconic Evolution",
+  "logoFile": "banner.png",
   "screenshots": [],
   "dependencies": []
 }

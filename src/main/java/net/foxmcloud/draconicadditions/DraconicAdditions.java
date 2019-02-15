@@ -25,7 +25,7 @@ public class DraconicAdditions
     public static ClientProxy proxy;
 
     public DraconicAdditions() {
-        LogHelper.info("Additions to my draconic arsonal?  You bet!!!  Let's go, Draconic Additions!");
+        LogHelper.info("Upping the potential for my draconic arsonal?  You bet!!!  Let's go, Draconic Additions!");
     }
     
     @Mod.EventHandler
