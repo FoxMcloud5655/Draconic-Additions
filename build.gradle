@@ -28,8 +28,12 @@ repositories {
         url "http://maven.cil.li/"
     }
     maven {
-        name "JEI Maven."
+        name "JEI Maven"
         url "http://dvs1.progwml6.com/files/maven"
+    }
+    maven {
+        name "GitHub Maven"
+        url 'https://jitpack.io'
     }
 }
 
@@ -51,7 +55,7 @@ sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
 minecraft {
-    version = "${config.mc_version}-latest"
+    version = "${config.mc_version}-${config.forge_version}"
     runDir = "run"
     mappings = "${config.mappings}"
     replace '${mod_version}', project.config.mod_version
@@ -69,6 +73,7 @@ dependencies {
     compile "com.brandon3055.brandonscore:BrandonsCore:${config.mc_version}-${config.bcore_version}:deobf"
     compile "com.brandon3055.projectintelligence:ProjectIntelligence:${config.mc_version}-${config.pi_version}:deobf"
     compile "com.brandon3055.draconicevolution:Draconic-Evolution:${config.mc_version}-${config.de_version}:deobf"
+    deobfCompile "com.github.azanor:Baubles:${config.baubles_version}"
     
 }
 

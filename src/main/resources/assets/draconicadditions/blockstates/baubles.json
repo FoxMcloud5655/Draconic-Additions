@@ -1,0 +1,17 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "textures": {
+      "layer0": "blocks/dirt"
+    },
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "type":{
+      "basicshieldnecklace": { "textures": { "layer0": "draconicadditions:items/baubles/basic_shield_necklace"  } },
+      "wyvernshieldnecklace": { "textures": { "layer0": "draconicadditions:items/baubles/wyvern_shield_necklace"  } },
+      "draconicshieldnecklace": { "textures": { "layer0": "draconicadditions:items/baubles/draconic_shield_necklace"  } }
+    }
+  }
+}

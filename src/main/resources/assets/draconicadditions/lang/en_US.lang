@@ -10,6 +10,7 @@ item.draconicadditions:potato_helm.name=Energized Potato Helmet
 item.draconicadditions:potato_chest.name=Energized Potato Chestplate
 item.draconicadditions:potato_legs.name=Energized Potato Leggings
 item.draconicadditions:potato_boots.name=Energized Potato Boots
+item.draconicadditions:basic_shield_necklace.name=Basic Necklace of Shielding
 
 item.draconicadditions:infused_potato.lore=Infused, but not yet powered...
 item.draconicadditions:infused_potato.lore2=Maybe it needs a jumpstart?

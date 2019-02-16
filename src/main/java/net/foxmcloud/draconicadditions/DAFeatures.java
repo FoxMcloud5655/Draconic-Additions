@@ -10,6 +10,7 @@ import com.brandon3055.draconicevolution.client.creativetab.DETab;
 
 import net.foxmcloud.draconicadditions.items.armor.InfusedPotatoArmor;
 import net.foxmcloud.draconicadditions.items.armor.PotatoArmor;
+import net.foxmcloud.draconicadditions.items.baubles.ShieldNecklace;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -68,7 +69,12 @@ public class DAFeatures implements IModFeatures {
     @ModFeature(name = "potato_boots", cTab = 0, stateOverride = "armor#type=potatoBoots")
     public static PotatoArmor potatoBoots = new PotatoArmor(3, EntityEquipmentSlot.FEET);
     
-
+    @ModFeature(name = "basic_shield_necklace", cTab = 0, stateOverride = "baubles#type=basicShieldNecklace")
+    public static ShieldNecklace basicShieldNecklace = new ShieldNecklace(0);
     
-
+    @ModFeature(name = "wyvern_shield_necklace", cTab = 0, stateOverride = "baubles#type=wyvernShieldNecklace")
+    public static ShieldNecklace wyvernShieldNecklace = new ShieldNecklace(1);
+    
+    @ModFeature(name = "draconic_shield_necklace", cTab = 0, stateOverride = "baubles#type=draconicShieldNecklace")
+    public static ShieldNecklace draconicShieldNecklace = new ShieldNecklace(2);
 }
