@@ -5,17 +5,22 @@ import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 import com.brandon3055.draconicevolution.entity.EntityPersistentItem;
 import com.brandon3055.draconicevolution.items.armor.ICustomArmor;
 
+import baubles.api.BaubleType;
+import baubles.api.IBauble;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
-public class ShieldNecklace extends Item implements ICustomArmor {
+public class ShieldNecklace extends Item implements ICustomArmor, IBauble {
 
 	private int level;
+	private boolean isEquipped = false;
 	
 	public ShieldNecklace(int level) {
 		this.level = level;
@@ -138,7 +143,29 @@ public class ShieldNecklace extends Item implements ICustomArmor {
     }
 
     @Override
-    public Entity createEntity(World world, Entity location, ItemStack itemstack) {
-        return new EntityPersistentItem(world, location, itemstack);
+    public Entity createEntity(World world, Entity location, ItemStack stack) {
+        return new EntityPersistentItem(world, location, stack);
     }
+
+	@Override
+	public BaubleType getBaubleType(ItemStack stack) {
+		return BaubleType.AMULET;
+	}
+	
+	@Override
+	public boolean hasEffect(ItemStack stack) {
+		return isEquipped;
+	}
+	
+	@Override
+	public void onEquipped(ItemStack itemstack, EntityLivingBase player) {
+		isEquipped = true;
+		player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, .75F, 1.75f);
+	}
+
+	@Override
+	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
+		isEquipped = false;
+		player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, .75F, 2f);
+	}
 }

@@ -18,8 +18,8 @@ public class BaubleStats {
     public static double NECKLACE_SHIELD_RECOVERY = 1D;
     @ModConfigProperty(category = "Bauble Tweaks", name = "necklaceMaxRecieve", comment = "Allows you to adjust how fast the basic necklace is able to recieve RF/tick.  Note: This value doubles every upgrade.", autoSync = true)
     @ModConfigProperty.MinMax(min = "0", max = "2147483647")
-    public static int NECKLACE_MAX_RECIEVE = 500;
+    public static int NECKLACE_MAX_RECIEVE = 2500;
     @ModConfigProperty(category = "Bauble Tweaks", name = "necklaceBaseCapacity", comment = "Allows you to adjust how much RF the basic necklace can hold.  Note: This value doubles every upgrade.", autoSync = true)
     @ModConfigProperty.MinMax(min = "0", max = "2147483647")
-    public static int NECKLACE_BASE_CAPACITY = 10000;
+    public static int NECKLACE_BASE_CAPACITY = 50000;
 }

@@ -1,12 +1,12 @@
 package net.foxmcloud.draconicadditions.lib;
 
-import static com.brandon3055.draconicevolution.DEFeatures.draconicCore;
-import static com.brandon3055.draconicevolution.DEFeatures.wyvernEnergyCore;
+import static com.brandon3055.draconicevolution.DEFeatures.*;
 import static com.brandon3055.draconicevolution.lib.RecipeManager.addShaped;
+import static com.brandon3055.draconicevolution.lib.RecipeManager.addShapeless;
 import static com.brandon3055.draconicevolution.lib.RecipeManager.RecipeDifficulty.*;
 import static net.foxmcloud.draconicadditions.DAFeatures.*;
-import static net.minecraft.init.Blocks.DIAMOND_BLOCK;
-import static net.minecraft.init.Items.POISONOUS_POTATO;
+import static net.minecraft.init.Blocks.*;
+import static net.minecraft.init.Items.*;
 
 import com.brandon3055.draconicevolution.utils.LogHelper;
 
@@ -24,5 +24,9 @@ public class DARecipes {
     	addShaped(ALL, inertPotatoBoots, "A A", "A A", 'A', POISONOUS_POTATO);
     	addShaped(NORMAL, infusedPotatoBoots, "ABA", "ACA", "ADA", 'A', "ingotDraconium", 'B', draconicCore, 'C', inertPotatoBoots, 'D', wyvernEnergyCore);
     	addShaped(HARD, infusedPotatoBoots, "ABA", "CDC", "AEA", 'A', "blockDraconium", 'B', draconicCore, 'C', DIAMOND_BLOCK, 'D', inertPotatoBoots, 'E', wyvernEnergyCore);
+    	addShaped(NORMAL, basicShieldNecklace, "AAA", "ACA", " B ", 'A', GOLD_INGOT, 'B', draconicCore, 'C', wyvernEnergyCore);
+    	addShaped(HARD, basicShieldNecklace, "AAA", "ACA", " B ", 'A', GOLD_BLOCK, 'B', draconicCore, 'C', wyvernEnergyCore);
+    	addShapeless(ALL, wyvernShieldNecklace, basicShieldNecklace, wyvernCore);
+    	addShapeless(ALL, draconicShieldNecklace, wyvernShieldNecklace, awakenedCore);
     }
 }

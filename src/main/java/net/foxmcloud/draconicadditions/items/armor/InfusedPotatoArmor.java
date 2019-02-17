@@ -8,6 +8,7 @@ import net.foxmcloud.draconicadditions.DAFeatures;
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -17,7 +18,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
@@ -39,30 +42,54 @@ public class InfusedPotatoArmor extends ItemArmor {
 	}
 	
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand)
     {
-    	ItemStack returnItem;
-    	ItemStack itemStack = playerIn.getHeldItem(handIn);
-    	if (!itemStack.hasTagCompound()) {
-    		itemStack.setTagCompound(new NBTTagCompound());
-    		ItemArmor item = (ItemArmor)itemStack.getItem();
-    		EntityEquipmentSlot slot = item.getEquipmentSlot();
-    		PotatoArmor armor;
-    		if (slot.equals(EntityEquipmentSlot.HEAD)) armor = DAFeatures.potatoHelm;
-    		else if (slot.equals(EntityEquipmentSlot.CHEST)) armor = DAFeatures.potatoChest;
-    		else if (slot.equals(EntityEquipmentSlot.LEGS)) armor = DAFeatures.potatoLegs;
-    		else if (slot.equals(EntityEquipmentSlot.FEET)) armor = DAFeatures.potatoBoots;
-    		else throw new Error();
-    		ItemStack armorItem = new ItemStack(armor);
-    		NBTTagCompound nbt = new NBTTagCompound();
-    		nbt.setFloat("Energy", ArmorStats.POTATO_BASE_CAPACITY);
-    		armorItem.setTagCompound(nbt);
-    		//playerIn.setHeldItem(handIn, armorItem);
-    		playerIn.sendStatusMessage(new TextComponentTranslation("msg.da.infusedTransformation"), true);
-    		returnItem = armorItem;
-    	}
-    	else returnItem = itemStack;
-    	return new ActionResult<ItemStack>(EnumActionResult.FAIL, returnItem);
+    	return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, transformItem(player, hand, false));
+    }
+    
+    @Override
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand)
+    {
+    	transformItem(player, hand, true);
+        return EnumActionResult.SUCCESS;
+    }
+    
+    @Override
+    public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity)
+    {
+    	transformItem(player, stack, true);
+        return false;
+    }
+    
+    @Override
+    public boolean onDroppedByPlayer(ItemStack stack, EntityPlayer player)
+    {
+    	transformItem(player, stack, true);
+        return false;
+    }
+    
+    private ItemStack transformItem(EntityPlayer player, EnumHand hand, boolean replace) {
+    	ItemStack itemStack = player.getHeldItem(hand);
+    	return transformItem(player, itemStack, true);
+    }
+    
+    private ItemStack transformItem(EntityPlayer player, ItemStack stack, boolean replace) {
+    	ItemArmor item = (ItemArmor)stack.getItem();
+    	EntityEquipmentSlot slot = item.getEquipmentSlot();
+    	PotatoArmor armor;
+    	if (slot.equals(EntityEquipmentSlot.HEAD)) armor = DAFeatures.potatoHelm;
+    	else if (slot.equals(EntityEquipmentSlot.CHEST)) armor = DAFeatures.potatoChest;
+    	else if (slot.equals(EntityEquipmentSlot.LEGS)) armor = DAFeatures.potatoLegs;
+    	else if (slot.equals(EntityEquipmentSlot.FEET)) armor = DAFeatures.potatoBoots;
+    	else throw new Error();
+    	ItemStack armorItem = new ItemStack(armor);
+    	NBTTagCompound nbt = new NBTTagCompound();
+    	nbt.setFloat("Energy", ArmorStats.POTATO_BASE_CAPACITY);
+    	armorItem.setTagCompound(nbt);
+    	player.inventory.deleteStack(stack);
+    	if (replace) player.addItemStackToInventory(armorItem);
+    	player.sendStatusMessage(new TextComponentTranslation("msg.da.infusedTransformation"), true);
+    	return armorItem;
     }
     
     @SideOnly(Side.CLIENT)
