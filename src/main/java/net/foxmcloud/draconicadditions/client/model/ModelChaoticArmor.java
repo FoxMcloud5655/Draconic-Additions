@@ -45,17 +45,17 @@ public class ModelChaoticArmor extends ModelBiped {
 		rightArm.offsetY = 0.755F;
 		leftArm.offsetY = 0.755F;
 
-		head.offsetY = 0.0F;
+		head.offsetY = 0F;
 		head.offsetX = -0.05F;
 		head.offsetZ = 0.05F;
 		body.offsetY = 0.75F;
 		body.offsetZ = -0.06F;
 		rightArm.offsetY = 0.8F;
-		rightArm.offsetX = -0.21F;
-		rightArm.offsetZ = -0.05F;
+		rightArm.offsetX = -0.2F;
+		rightArm.offsetZ = -0.04F;
 		leftArm.offsetY = 0.8F;
-		leftArm.offsetX = 0.21F;
-		leftArm.offsetZ = -0.05F;
+		leftArm.offsetX = 0.2F;
+		leftArm.offsetZ = -0.04F;
 		belt.offsetY = 0.756F;
 		belt.offsetZ = -0.04F;
 		rightLeg.offsetY = 0.6F;

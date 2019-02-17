@@ -45,7 +45,7 @@ public class ModelPotatoArmor extends ModelBiped {
 		rightArm.offsetY = 0.755F;
 		leftArm.offsetY = 0.755F;
 
-		head.offsetY = -0.07F;
+		head.offsetY = 0F;
 		body.offsetY = 0.755F;
 		body.offsetZ = -0.03F;
 		rightArm.offsetY = 0.72F;
