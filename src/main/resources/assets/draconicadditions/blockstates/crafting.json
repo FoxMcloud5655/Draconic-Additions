@@ -1,0 +1,19 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "textures": {
+      "layer0": "blocks/dirt"
+    },
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "type":{
+      "inertpotatohelm":   { "textures": { "layer0": "draconicadditions:items/crafting/inert_potato_helmet"  } },
+      "inertpotatochest":  { "textures": { "layer0": "draconicadditions:items/crafting/inert_potato_chestplate" } },
+      "inertpotatolegs":   { "textures": { "layer0": "draconicadditions:items/crafting/inert_potato_leggings"  } },
+      "inertpotatoboots":  { "textures": { "layer0": "draconicadditions:items/crafting/inert_potato_boots"   } },
+      "chaoticecore":  { "textures": { "layer0": "draconicadditions:items/crafting/chaotic_energy_core"   } }
+    }
+  }
+}

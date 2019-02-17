@@ -8,6 +8,7 @@ import com.brandon3055.brandonscore.registry.ModFeature;
 import com.brandon3055.brandonscore.registry.ModFeatures;
 import com.brandon3055.draconicevolution.client.creativetab.DETab;
 
+import net.foxmcloud.draconicadditions.items.ChaoticEnergyCore;
 import net.foxmcloud.draconicadditions.items.armor.ChaoticArmor;
 import net.foxmcloud.draconicadditions.items.armor.InfusedPotatoArmor;
 import net.foxmcloud.draconicadditions.items.armor.PotatoArmor;
@@ -32,17 +33,20 @@ public class DAFeatures implements IModFeatures {
 
     //Crafting Components
     
-    @ModFeature(name = "inert_potato_helm", cTab = 0, stateOverride = "armor#type=inertPotatoHelm")
+    @ModFeature(name = "inert_potato_helm", cTab = 0, stateOverride = "crafting#type=inertPotatoHelm")
     public static Item inertPotatoHelm = new Item();
     
-    @ModFeature(name = "inert_potato_chest", cTab = 0, stateOverride = "armor#type=inertPotatoChest")
+    @ModFeature(name = "inert_potato_chest", cTab = 0, stateOverride = "crafting#type=inertPotatoChest")
     public static Item inertPotatoChest = new Item();
     
-    @ModFeature(name = "inert_potato_legs", cTab = 0, stateOverride = "armor#type=inertPotatoLegs")
+    @ModFeature(name = "inert_potato_legs", cTab = 0, stateOverride = "crafting#type=inertPotatoLegs")
     public static Item inertPotatoLegs = new Item();
     
-    @ModFeature(name = "inert_potato_boots", cTab = 0, stateOverride = "armor#type=inertPotatoBoots")
+    @ModFeature(name = "inert_potato_boots", cTab = 0, stateOverride = "crafting#type=inertPotatoBoots")
     public static Item inertPotatoBoots = new Item();
+    
+    @ModFeature(name = "chaotic_energy_core", cTab = 0, stateOverride = "crafting#type=chaoticECore")
+    public static ChaoticEnergyCore chaoticEnergyCore = new ChaoticEnergyCore();
     
     //Potato Armor
     
@@ -70,6 +74,8 @@ public class DAFeatures implements IModFeatures {
     @ModFeature(name = "potato_boots", cTab = 0, stateOverride = "armor#type=potatoBoots")
     public static PotatoArmor potatoBoots = new PotatoArmor(3, EntityEquipmentSlot.FEET);
     
+    //Chaotic Armor
+    
     @ModFeature(name = "chaotic_helm", cTab = 0, stateOverride = "armor#type=chaoticHelm")
     public static ChaoticArmor chaoticHelm = new ChaoticArmor(0, EntityEquipmentSlot.HEAD);
 
@@ -81,6 +87,8 @@ public class DAFeatures implements IModFeatures {
 
     @ModFeature(name = "chaotic_boots", cTab = 0, stateOverride = "armor#type=chaoticBoots")
     public static ChaoticArmor chaoticBoots = new ChaoticArmor(3, EntityEquipmentSlot.FEET);
+    
+    //Shield Baubles
     
     @ModFeature(name = "basic_shield_necklace", cTab = 0, stateOverride = "baubles#type=basicShieldNecklace")
     public static ShieldNecklace basicShieldNecklace = new ShieldNecklace(0);
