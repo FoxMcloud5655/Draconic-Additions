@@ -53,9 +53,9 @@ public class DARecipes {
 
     	//Shield Baubles
     	
-    	addShaped(NORMAL, basicShieldNecklace, "AAA", "ACA", " B ", 'A', GOLD_INGOT, 'B', draconicCore, 'C', wyvernEnergyCore);
-    	addShaped(HARD, basicShieldNecklace, "AAA", "ACA", " B ", 'A', GOLD_BLOCK, 'B', draconicCore, 'C', wyvernEnergyCore);
-    	addShapeless(ALL, wyvernShieldNecklace, basicShieldNecklace, wyvernCore);
-    	addShapeless(ALL, draconicShieldNecklace, wyvernShieldNecklace, awakenedCore);
+    	//addShaped(NORMAL, basicShieldNecklace, "AAA", "ACA", " B ", 'A', GOLD_INGOT, 'B', draconicCore, 'C', wyvernEnergyCore);
+    	//addShaped(HARD, basicShieldNecklace, "AAA", "ACA", " B ", 'A', GOLD_BLOCK, 'B', draconicCore, 'C', wyvernEnergyCore);
+    	//addShapeless(ALL, wyvernShieldNecklace, basicShieldNecklace, wyvernCore);
+    	//addShapeless(ALL, draconicShieldNecklace, wyvernShieldNecklace, awakenedCore);
     }
 }
