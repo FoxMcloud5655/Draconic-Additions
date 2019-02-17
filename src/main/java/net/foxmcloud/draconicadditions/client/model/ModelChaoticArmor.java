@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityArmorStand;
 
-public class ModelPotatoArmor extends ModelBiped {
+public class ModelChaoticArmor extends ModelBiped {
 	public ModelRenderOBJ head;
 	public ModelRenderOBJ body;
 	public ModelRenderOBJ rightArm;
@@ -20,18 +20,18 @@ public class ModelPotatoArmor extends ModelBiped {
 	public ModelRenderOBJ rightBoot;
 	public ModelRenderOBJ leftBoot;
 
-	public ModelPotatoArmor(float modelSize, boolean isHelmet, boolean isChestPiece, boolean isLeggings, boolean isBoots) {
+	public ModelChaoticArmor(float modelSize, boolean isHelmet, boolean isChestPiece, boolean isLeggings, boolean isBoots) {
 		super(modelSize);
 		
-		this.head = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_helmet.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_helmet"));
-		this.body = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_body.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_body"));
-		this.rightArm = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_right_arm.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_right_arm"));
-		this.leftArm = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_left_arm.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_left_arm"));
-		this.belt = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_belt.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_belt"));
-		this.rightLeg = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_right_leg.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_right_leg"));
-		this.leftLeg = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_left_leg.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_left_leg"));
-		this.rightBoot = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_right_boot.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_right_boot"));
-		this.leftBoot = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_left_boot.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_left_boot"));
+		this.head = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_helmet.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_helmet"));
+		this.body = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_body.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_body"));
+		this.rightArm = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_right_arm.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_right_arm"));
+		this.leftArm = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_left_arm.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_left_arm"));
+		this.belt = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_belt.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_belt"));
+		this.rightLeg = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_right_leg.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_right_leg"));
+		this.leftLeg = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_left_leg.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_left_leg"));
+		this.rightBoot = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_right_boot.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_right_boot"));
+		this.leftBoot = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_left_boot.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_left_boot"));
 
 		this.bipedHead.cubeList.clear();
 		this.bipedHeadwear.cubeList.clear();
@@ -45,15 +45,17 @@ public class ModelPotatoArmor extends ModelBiped {
 		rightArm.offsetY = 0.755F;
 		leftArm.offsetY = 0.755F;
 
-		head.offsetY = -0.07F;
-		body.offsetY = 0.755F;
-		body.offsetZ = -0.03F;
-		rightArm.offsetY = 0.72F;
+		head.offsetY = 0.0F;
+		head.offsetX = -0.05F;
+		head.offsetZ = 0.05F;
+		body.offsetY = 0.75F;
+		body.offsetZ = -0.06F;
+		rightArm.offsetY = 0.8F;
 		rightArm.offsetX = -0.21F;
-		rightArm.offsetZ = 0.F;
-		leftArm.offsetY = 0.72F;
+		rightArm.offsetZ = -0.05F;
+		leftArm.offsetY = 0.8F;
 		leftArm.offsetX = 0.21F;
-		leftArm.offsetZ = 0F;
+		leftArm.offsetZ = -0.05F;
 		belt.offsetY = 0.756F;
 		belt.offsetZ = -0.04F;
 		rightLeg.offsetY = 0.6F;
@@ -134,10 +136,10 @@ public class ModelPotatoArmor extends ModelBiped {
 			GlStateManager.translate(0.0F, 0.2F, 0.0F);
 		}
 
-		this.bipedHead.render(1F / 13F);
-		this.bipedRightArm.render(1F / 16F);
-		this.bipedLeftArm.render(1F / 16F);
-		this.bipedBody.render(1F / 16F);
+		this.bipedHead.render(1F / 10F);
+		this.bipedRightArm.render(1F / 15F);
+		this.bipedLeftArm.render(1F / 15F);
+		this.bipedBody.render(1F / 15F);
 		this.bipedRightLeg.render(1F / 16F);
 		this.bipedLeftLeg.render(1F / 16F);
 		GlStateManager.popMatrix();

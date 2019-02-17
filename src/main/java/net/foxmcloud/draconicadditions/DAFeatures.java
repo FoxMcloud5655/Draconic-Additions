@@ -8,6 +8,7 @@ import com.brandon3055.brandonscore.registry.ModFeature;
 import com.brandon3055.brandonscore.registry.ModFeatures;
 import com.brandon3055.draconicevolution.client.creativetab.DETab;
 
+import net.foxmcloud.draconicadditions.items.armor.ChaoticArmor;
 import net.foxmcloud.draconicadditions.items.armor.InfusedPotatoArmor;
 import net.foxmcloud.draconicadditions.items.armor.PotatoArmor;
 import net.foxmcloud.draconicadditions.items.baubles.ShieldNecklace;
@@ -68,6 +69,18 @@ public class DAFeatures implements IModFeatures {
 
     @ModFeature(name = "potato_boots", cTab = 0, stateOverride = "armor#type=potatoBoots")
     public static PotatoArmor potatoBoots = new PotatoArmor(3, EntityEquipmentSlot.FEET);
+    
+    @ModFeature(name = "chaotic_helm", cTab = 0, stateOverride = "armor#type=chaoticHelm")
+    public static ChaoticArmor chaoticHelm = new ChaoticArmor(0, EntityEquipmentSlot.HEAD);
+
+    @ModFeature(name = "chaotic_chest", cTab = 0, stateOverride = "armor#type=chaoticChest")
+    public static ChaoticArmor chaoticChest = new ChaoticArmor(1, EntityEquipmentSlot.CHEST);
+
+    @ModFeature(name = "chaotic_legs", cTab = 0, stateOverride = "armor#type=chaoticLegs")
+    public static ChaoticArmor chaoticLegs = new ChaoticArmor(2, EntityEquipmentSlot.LEGS);
+
+    @ModFeature(name = "chaotic_boots", cTab = 0, stateOverride = "armor#type=chaoticBoots")
+    public static ChaoticArmor chaoticBoots = new ChaoticArmor(3, EntityEquipmentSlot.FEET);
     
     @ModFeature(name = "basic_shield_necklace", cTab = 0, stateOverride = "baubles#type=basicShieldNecklace")
     public static ShieldNecklace basicShieldNecklace = new ShieldNecklace(0);

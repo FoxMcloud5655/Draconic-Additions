@@ -18,7 +18,16 @@ public class DAArmorModelHelper extends ArmorModelHelper {
 	        "models/armor/potato_right_leg",
 	        "models/armor/potato_left_leg",
 	        "models/armor/potato_right_boot",
-	        "models/armor/potato_left_boot"
+	        "models/armor/potato_left_boot",
+	        "models/armor/chaotic_helmet",
+	        "models/armor/chaotic_body",
+	        "models/armor/chaotic_right_arm",
+	        "models/armor/chaotic_left_arm",
+	        "models/armor/chaotic_belt",
+	        "models/armor/chaotic_right_leg",
+	        "models/armor/chaotic_left_leg",
+	        "models/armor/chaotic_right_boot",
+	        "models/armor/chaotic_left_boot"
 	};
 
     public void registerIcons(TextureMap textureMap) {
@@ -29,5 +38,9 @@ public class DAArmorModelHelper extends ArmorModelHelper {
         DAFeatures.potatoChest.model = null;
         DAFeatures.potatoLegs.model = null;
         DAFeatures.potatoBoots.model = null;
+        DAFeatures.chaoticHelm.model = null;
+        DAFeatures.chaoticChest.model = null;
+        DAFeatures.chaoticLegs.model = null;
+        DAFeatures.chaoticBoots.model = null;
     }
 }
