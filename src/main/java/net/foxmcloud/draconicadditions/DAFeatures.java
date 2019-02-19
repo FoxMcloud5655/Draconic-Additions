@@ -88,7 +88,7 @@ public class DAFeatures implements IModFeatures {
     @ModFeature(name = "chaotic_boots", cTab = 0, stateOverride = "armor#type=chaoticBoots")
     public static ChaoticArmor chaoticBoots = new ChaoticArmor(3, EntityEquipmentSlot.FEET);
     
-    //Shield Baubles
+    //Shield Baubles //TODO: Remove comments once updating DE.
     
     //@ModFeature(name = "basic_shield_necklace", cTab = 0, stateOverride = "baubles#type=basicShieldNecklace")
     //public static ShieldNecklace basicShieldNecklace = new ShieldNecklace(0);

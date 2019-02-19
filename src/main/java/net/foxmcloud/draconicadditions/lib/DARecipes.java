@@ -51,7 +51,7 @@ public class DARecipes {
         addFusionTool(NORMAL, new ItemStack(chaoticBoots), new ItemStack(draconicBoots), 3200000, 3, new ItemStack(chaosShard, 1, 1), chaoticCore, new ItemStack(chaosShard, 1, 1), chaoticEnergyCore);
         addFusionTool(HARD, new ItemStack(chaoticBoots), new ItemStack(draconicBoots), 64000000, 3, new ItemStack(chaosShard, 1, 0), chaoticCore, chaoticEnergyCore);
 
-    	//Shield Baubles
+    	//Shield Baubles //TODO: Remove comments once updating DE.
     	
     	//addShaped(NORMAL, basicShieldNecklace, "AAA", "ACA", " B ", 'A', GOLD_INGOT, 'B', draconicCore, 'C', wyvernEnergyCore);
     	//addShaped(HARD, basicShieldNecklace, "AAA", "ACA", " B ", 'A', GOLD_BLOCK, 'B', draconicCore, 'C', wyvernEnergyCore);
