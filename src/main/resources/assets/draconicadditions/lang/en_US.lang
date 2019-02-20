@@ -17,6 +17,7 @@ item.draconicadditions:chaotic_boots.name=Chaotic Boots
 item.draconicadditions:basic_shield_necklace.name=Basic Necklace of Shielding
 item.draconicadditions:wyvern_shield_necklace.name=Wyvern Necklace of Shielding
 item.draconicadditions:draconic_shield_necklace.name=Draconic Necklace of Shielding
+item.draconicadditions:overload_belt.name=Draconic Belt of Overloading
 item.draconicadditions:chaotic_energy_core.name=Chaotic Energy Core
 
 item.draconicadditions:infused_potato.lore=Infused, but not yet powered...
@@ -27,3 +28,5 @@ item.draconicadditions:potato.lore2=it's now energized. Strange, but still usefu
 msg.da.infusedTransformation=Shaking the armor piece, it starts sprouting growths in an oddly familiar shape!
 
 itemGroup.draconicadditions=Draconic Additions
+
+key.overload=Activate Overload

@@ -57,5 +57,9 @@ public class DARecipes {
     	//addShaped(HARD, basicShieldNecklace, "AAA", "ACA", " B ", 'A', GOLD_BLOCK, 'B', draconicCore, 'C', wyvernEnergyCore);
     	//addShapeless(ALL, wyvernShieldNecklace, basicShieldNecklace, wyvernCore);
     	//addShapeless(ALL, draconicShieldNecklace, wyvernShieldNecklace, awakenedCore);
+        
+        //Other Baubles
+        
+        addShaped(NORMAL, overloadBelt, "AAA", "ACA", " B ", 'A', "ingotDraconium", 'B', awakenedCore, 'C', LEATHER);
     }
 }

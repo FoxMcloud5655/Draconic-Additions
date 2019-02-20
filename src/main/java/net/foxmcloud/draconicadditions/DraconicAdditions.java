@@ -52,5 +52,6 @@ public class DraconicAdditions
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         DARecipes.addRecipes();
+        proxy.init(event);
     }
 }

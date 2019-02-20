@@ -12,6 +12,7 @@ import net.foxmcloud.draconicadditions.items.ChaoticEnergyCore;
 import net.foxmcloud.draconicadditions.items.armor.ChaoticArmor;
 import net.foxmcloud.draconicadditions.items.armor.InfusedPotatoArmor;
 import net.foxmcloud.draconicadditions.items.armor.PotatoArmor;
+import net.foxmcloud.draconicadditions.items.baubles.OverloadBelt;
 import net.foxmcloud.draconicadditions.items.baubles.ShieldNecklace;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -98,4 +99,9 @@ public class DAFeatures implements IModFeatures {
     
     //@ModFeature(name = "draconic_shield_necklace", cTab = 0, stateOverride = "baubles#type=draconicShieldNecklace")
     //public static ShieldNecklace draconicShieldNecklace = new ShieldNecklace(2);
+    
+    //Other Baubles
+    
+    @ModFeature(name = "overload_belt", cTab = 0, stateOverride = "baubles#type=overloadBelt")
+    public static OverloadBelt overloadBelt = new OverloadBelt();
 }

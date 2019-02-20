@@ -30,7 +30,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ShieldBauble extends Item implements ICustomArmor, IBauble {
+public class ShieldBauble extends BasicBauble implements ICustomArmor {
 	
 	/**
 	 * Must be overridden!
@@ -122,23 +122,6 @@ public class ShieldBauble extends Item implements ICustomArmor, IBauble {
 
         return energyReceived;
     }
-    
-	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-		if(!world.isRemote) { 
-			IBaublesItemHandler baubles = BaublesApi.getBaublesHandler(player);
-			for(int i = 0; i < baubles.getSlots(); i++) 
-				if((baubles.getStackInSlot(i) == null || baubles.getStackInSlot(i).isEmpty()) && baubles.isItemValidForSlot(i, player.getHeldItem(hand), player)) {
-					baubles.setStackInSlot(i, player.getHeldItem(hand).copy());
-					if(!player.capabilities.isCreativeMode){
-						player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
-					}
-					onEquipped(player.getHeldItem(hand), player);
-					break;
-				}
-		}
-		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
-	}
 
 	@Override
 	public float getFlightSpeedModifier(ItemStack arg0, EntityPlayer arg1) {
@@ -200,16 +183,6 @@ public class ShieldBauble extends Item implements ICustomArmor, IBauble {
     public ICapabilityProvider initCapabilities(final ItemStack stack, NBTTagCompound nbt) {
         return new EnergyContainerWrapper(stack);
     }
-    
-    @Override
-    public boolean hasCustomEntity(ItemStack stack) {
-        return true;
-    }
-
-    @Override
-    public Entity createEntity(World world, Entity location, ItemStack stack) {
-        return new EntityPersistentItem(world, location, stack);
-    }
 	
 	@Override
 	public boolean hasEffect(ItemStack stack) {
@@ -219,12 +192,12 @@ public class ShieldBauble extends Item implements ICustomArmor, IBauble {
 	@Override
 	public void onEquipped(ItemStack stack, EntityLivingBase player) {
 		ItemNBTHelper.setBoolean(stack, "Equipped", true);
-		player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, .75F, 1.75f);
+		super.onEquipped(stack, player);
 	}
 
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
 		ItemNBTHelper.setBoolean(stack, "Equipped", false);
-		player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, .75F, 2f);
+		super.onUnequipped(stack, player);
 	}
 }
