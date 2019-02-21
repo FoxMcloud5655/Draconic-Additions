@@ -20,6 +20,7 @@ public class DraconicAdditions
 {
     public static final String MODID = "draconicadditions";
     public static final String NAME = "Draconic Additions";
+    public static final String PROXY_COMMON = "net.foxmcloud.draconicadditions.CommonProxy";
     public static final String PROXY_CLIENT = "net.foxmcloud.draconicadditions.client.ClientProxy";
     public static final String VERSION = "0.1";
     public static final String GUI_FACTORY = "net.foxmcloud.draconicadditions.DAGuiFactory";
@@ -30,8 +31,8 @@ public class DraconicAdditions
     @Mod.Instance(DraconicAdditions.MODID)
     public static DraconicAdditions instance;
 
-    @SidedProxy(clientSide = DraconicAdditions.PROXY_CLIENT)
-    public static ClientProxy proxy;
+    @SidedProxy(clientSide = DraconicAdditions.PROXY_CLIENT, serverSide = DraconicAdditions.PROXY_COMMON)
+    public static CommonProxy proxy;
 
     public DraconicAdditions() {
     	if (Loader.isModLoaded("draconicevolution")) {
