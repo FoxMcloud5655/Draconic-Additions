@@ -14,6 +14,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 @Mod(modid = DraconicAdditions.MODID, name = DraconicAdditions.NAME, version = DraconicAdditions.VERSION, guiFactory = DraconicAdditions.GUI_FACTORY, dependencies = "required-after:draconicevolution")
 public class DraconicAdditions
@@ -25,6 +27,8 @@ public class DraconicAdditions
     public static final String VERSION = "0.1";
     public static final String GUI_FACTORY = "net.foxmcloud.draconicadditions.DAGuiFactory";
     public static final String MODID_PREFIX = MODID + ":";
+    public static final String networkChannelName = "DAdditionsNC";
+    public static SimpleNetworkWrapper network;
     
     private static Logger logger = LogManager.getLogger(DraconicAdditions.MODID);
     

@@ -102,6 +102,6 @@ public class DAFeatures implements IModFeatures {
     
     //Other Baubles
     
-    //@ModFeature(name = "overload_belt", cTab = 0, stateOverride = "baubles#type=overloadBelt")
-    //public static OverloadBelt overloadBelt = new OverloadBelt();
+    @ModFeature(name = "overload_belt", cTab = 0, stateOverride = "baubles#type=overloadBelt")
+    public static OverloadBelt overloadBelt = new OverloadBelt();
 }
