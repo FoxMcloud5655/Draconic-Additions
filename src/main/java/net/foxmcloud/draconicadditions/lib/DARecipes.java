@@ -60,6 +60,7 @@ public class DARecipes {
         
         //Other Baubles
         
-        addShaped(NORMAL, overloadBelt, "AAA", "ACA", " B ", 'A', "ingotDraconium", 'B', awakenedCore, 'C', LEATHER);
+        addShaped(ALL, overloadBelt, "AAA", "ACA", " B ", 'A', "ingotDraconium", 'B', awakenedCore, 'C', LEATHER);
+        addShaped(ALL, vampiricShirt, "A A", "BCB", "ACA", 'A', "ingotDraconiumAwakened", 'B', awakenedCore, 'C', WOOL);
     }
 }

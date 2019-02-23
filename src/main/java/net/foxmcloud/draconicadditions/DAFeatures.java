@@ -14,6 +14,7 @@ import net.foxmcloud.draconicadditions.items.armor.InfusedPotatoArmor;
 import net.foxmcloud.draconicadditions.items.armor.PotatoArmor;
 import net.foxmcloud.draconicadditions.items.baubles.OverloadBelt;
 import net.foxmcloud.draconicadditions.items.baubles.ShieldNecklace;
+import net.foxmcloud.draconicadditions.items.baubles.VampiricShirt;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -104,4 +105,7 @@ public class DAFeatures implements IModFeatures {
     
     @ModFeature(name = "overload_belt", cTab = 0, stateOverride = "baubles#type=overloadBelt")
     public static OverloadBelt overloadBelt = new OverloadBelt();
+    
+    @ModFeature(name = "vampiric_shirt", cTab = 0, stateOverride = "baubles#type=vampiricShirt")
+    public static VampiricShirt vampiricShirt = new VampiricShirt();
 }

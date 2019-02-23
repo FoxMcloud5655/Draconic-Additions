@@ -44,14 +44,14 @@ public class InfusedPotatoArmor extends ItemArmor {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand)
     {
-    	return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, transformItem(player, hand, false));
+    	return new ActionResult<ItemStack>(EnumActionResult.FAIL, transformItem(player, hand, false));
     }
     
     @Override
     public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand)
     {
     	transformItem(player, hand, true);
-        return EnumActionResult.SUCCESS;
+        return EnumActionResult.FAIL;
     }
     
     @Override

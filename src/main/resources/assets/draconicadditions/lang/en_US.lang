@@ -1,3 +1,5 @@
+//Armors
+
 item.draconicadditions:inert_potato_helm.name=Inert Potato Helmet
 item.draconicadditions:inert_potato_chest.name=Inert Potato Chestplate
 item.draconicadditions:inert_potato_legs.name=Inert Potato Leggings
@@ -14,11 +16,20 @@ item.draconicadditions:chaotic_helm.name=Chaotic Helmet
 item.draconicadditions:chaotic_chest.name=Chaotic Chestplate
 item.draconicadditions:chaotic_legs.name=Chaotic Leggings
 item.draconicadditions:chaotic_boots.name=Chaotic Boots
+
+//Baubles
+
 item.draconicadditions:basic_shield_necklace.name=Basic Necklace of Shielding
 item.draconicadditions:wyvern_shield_necklace.name=Wyvern Necklace of Shielding
 item.draconicadditions:draconic_shield_necklace.name=Draconic Necklace of Shielding
 item.draconicadditions:overload_belt.name=Draconic Belt of Overloading
+item.draconicadditions:vampiric_shirt.name=Draconic Undershirt of Self-Siphoning
+
+//Crafting Componants
+
 item.draconicadditions:chaotic_energy_core.name=Chaotic Energy Core
+
+//Lore
 
 item.draconicadditions:infused_potato.lore=Infused, but not yet powered...
 item.draconicadditions:infused_potato.lore2=Maybe it needs a jumpstart?
@@ -27,6 +38,13 @@ item.draconicadditions:potato.lore2=it's now energized. Strange, but still usefu
 
 msg.da.infusedTransformation=Shaking the armor piece, it starts sprouting growths in an oddly familiar shape!
 
+//Misc
+
 itemGroup.draconicadditions=Draconic Additions
+
+config.field.shirtSafetyCutoff.entry=Safety Cutoff
+config.field.shirtSafetyCutoff.description=Allows you to set the point where this shirt will stop functioning and preserve your remaining life.\n\nNote: This is counted in HP, or half-hearts.
+config.field.shirtEntropyActivate.entry=Entropy Activation
+config.field.shirtEntropyActivate.description=Allows you to set at what entropy percent the shirt will start stealing your life to fuel your shields.
 
 key.overload=Activate Overload

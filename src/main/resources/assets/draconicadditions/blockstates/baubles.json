@@ -12,7 +12,8 @@
       "basicshieldnecklace": { "textures": { "layer0": "draconicadditions:items/baubles/basic_shield_necklace"  } },
       "wyvernshieldnecklace": { "textures": { "layer0": "draconicadditions:items/baubles/wyvern_shield_necklace"  } },
       "draconicshieldnecklace": { "textures": { "layer0": "draconicadditions:items/baubles/draconic_shield_necklace"  } },
-      "overloadbelt": { "textures": { "layer0": "draconicadditions:items/baubles/overload_belt"  } }
+      "overloadbelt": { "textures": { "layer0": "draconicadditions:items/baubles/overload_belt"  } },
+      "vampiricshirt": { "textures": { "layer0": "draconicadditions:items/baubles/vampiric_shirt"  } }
     }
   }
 }

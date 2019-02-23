@@ -13,9 +13,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 
 public class OverloadBelt extends BasicBauble {
-	
-	public OverloadBelt() {
-	}
 
 	@Override
 	public BaubleType getBaubleType(ItemStack itemstack) {
@@ -58,7 +55,7 @@ public class OverloadBelt extends BasicBauble {
 					int remainingPoints = 0;
 					for (int i = 0; i < summary.allocation.length; i++) {
 						if (summary.allocation[i] == 0) continue;
-						ItemStack armorPeace = summary.armorStacks.get(i);
+						ItemStack armor = summary.armorStacks.get(i);
 
 						float dmgShear = summary.allocation[i] / summary.protectionPoints;
 						float dmg = dmgShear * pointsToSubtract;
@@ -67,8 +64,8 @@ public class OverloadBelt extends BasicBauble {
 						totalAbsorbed += absorbed;
 						summary.allocation[i] -= absorbed;
 						remainingPoints += summary.allocation[i];
-						ItemNBTHelper.setFloat(armorPeace, "ProtectionPoints", summary.allocation[i]);
-						ItemNBTHelper.setFloat(armorPeace, "ShieldEntropy", newEntropy);
+						ItemNBTHelper.setFloat(armor, "ProtectionPoints", summary.allocation[i]);
+						ItemNBTHelper.setFloat(armor, "ShieldEntropy", newEntropy);
 					}
 					//CustomArmorHandler.replaceBaubles(summary, player);
 					int strengthCalc = (int)(Math.round(totalAbsorbed) / 2);
