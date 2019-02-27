@@ -52,6 +52,7 @@ public class VampiricShirt extends BasicBauble implements IConfigurableItem {
 			ItemStack armor = summary.armorStacks.get(i);
 			ItemNBTHelper.setFloat(armor, "ShieldEntropy", newEntropy);
 		}
+		summary.saveStacks(player);
 		if (!player.isCreative()) {
 			player.setHealth(player.getHealth() - 1);
 			player.playSound(SoundEvents.BLOCK_FIRE_EXTINGUISH, 0.5F, 1F);

@@ -90,16 +90,16 @@ public class DAFeatures implements IModFeatures {
     @ModFeature(name = "chaotic_boots", cTab = 0, stateOverride = "armor#type=chaoticBoots")
     public static ChaoticArmor chaoticBoots = new ChaoticArmor(3, EntityEquipmentSlot.FEET);
     
-    //Shield Baubles //TODO: Remove comments once updating DE.
+    //Shield Baubles
     
-    //@ModFeature(name = "basic_shield_necklace", cTab = 0, stateOverride = "baubles#type=basicShieldNecklace")
-    //public static ShieldNecklace basicShieldNecklace = new ShieldNecklace(0);
+    @ModFeature(name = "basic_shield_necklace", cTab = 0, stateOverride = "baubles#type=basicShieldNecklace")
+    public static ShieldNecklace basicShieldNecklace = new ShieldNecklace(0);
     
-    //@ModFeature(name = "wyvern_shield_necklace", cTab = 0, stateOverride = "baubles#type=wyvernShieldNecklace")
-    //public static ShieldNecklace wyvernShieldNecklace = new ShieldNecklace(1);
+    @ModFeature(name = "wyvern_shield_necklace", cTab = 0, stateOverride = "baubles#type=wyvernShieldNecklace")
+    public static ShieldNecklace wyvernShieldNecklace = new ShieldNecklace(1);
     
-    //@ModFeature(name = "draconic_shield_necklace", cTab = 0, stateOverride = "baubles#type=draconicShieldNecklace")
-    //public static ShieldNecklace draconicShieldNecklace = new ShieldNecklace(2);
+    @ModFeature(name = "draconic_shield_necklace", cTab = 0, stateOverride = "baubles#type=draconicShieldNecklace")
+    public static ShieldNecklace draconicShieldNecklace = new ShieldNecklace(2);
     
     //Other Baubles
     

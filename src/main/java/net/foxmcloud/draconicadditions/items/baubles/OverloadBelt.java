@@ -1,6 +1,7 @@
 package net.foxmcloud.draconicadditions.items.baubles;
 
 import com.brandon3055.brandonscore.utils.ItemNBTHelper;
+import com.brandon3055.draconicevolution.handlers.CustomArmorHandler;
 import com.brandon3055.draconicevolution.handlers.CustomArmorHandler.ArmorSummery;
 
 import baubles.api.BaubleType;
@@ -39,13 +40,12 @@ public class OverloadBelt extends BasicBauble {
 	public void onWornTick(ItemStack stack, EntityLivingBase entity) {
 		if (stack.getTagCompound() != null) {
 			if (stack.getTagCompound().getBoolean("Active")) {
-				if (!stack.getTagCompound().getBoolean("Recharging")) {
+				if (entity.ticksExisted % 2 == 0) {
 					final float damagePercent = 1F;
 					EntityPlayer player = (EntityPlayer)entity;
 					ArmorSummery summary = new ArmorSummery().getSummery(player);
-					if (summary == null || summary.protectionPoints <= 0) {
+					if (summary.protectionPoints <= 1) {
 						ItemNBTHelper.setBoolean(stack, "Active", false);
-						ItemNBTHelper.setBoolean(stack, "Recharging", false);
 						player.playSound(SoundEvents.BLOCK_END_GATEWAY_SPAWN, 0.7F, 1.4F);
 						return;
 					}
@@ -67,28 +67,23 @@ public class OverloadBelt extends BasicBauble {
 						ItemNBTHelper.setFloat(armor, "ProtectionPoints", summary.allocation[i]);
 						ItemNBTHelper.setFloat(armor, "ShieldEntropy", newEntropy);
 					}
-					//CustomArmorHandler.replaceBaubles(summary, player);
+					
 					int strengthCalc = (int)(Math.round(totalAbsorbed) / 2);
 					if (strengthCalc > 0) {
 						player.removeActivePotionEffect(MobEffects.STRENGTH);
 						player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 2, strengthCalc, true, false));
-						ItemNBTHelper.setBoolean(stack, "Recharging", true);
 					}
 					else {
 						player.removeActivePotionEffect(MobEffects.STRENGTH);
-						ItemNBTHelper.setBoolean(stack, "Active", false);
-						ItemNBTHelper.setBoolean(stack, "Recharging", false);
-						player.playSound(SoundEvents.BLOCK_END_GATEWAY_SPAWN, 0.7F, 1.4F);
 					}
+					summary.saveStacks(player);
 					player.playSound(SoundEvents.BLOCK_CHORUS_FLOWER_GROW, 0.9F, (float)Math.random() + 0.5F);
 				}
-				else ItemNBTHelper.setBoolean(stack, "Recharging", false);
 			}
 		}
 		else {
 			NBTTagCompound nbt = new NBTTagCompound();
 			nbt.setBoolean("Active", false);
-			nbt.setBoolean("Recharging", false);
 			stack.setTagCompound(nbt);
 		}
 	}
