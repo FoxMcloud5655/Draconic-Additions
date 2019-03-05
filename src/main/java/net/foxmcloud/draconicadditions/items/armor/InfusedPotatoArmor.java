@@ -70,7 +70,7 @@ public class InfusedPotatoArmor extends ItemArmor {
     
     private ItemStack transformItem(EntityPlayer player, EnumHand hand, boolean replace) {
     	ItemStack itemStack = player.getHeldItem(hand);
-    	return transformItem(player, itemStack, true);
+    	return transformItem(player, itemStack, replace);
     }
     
     private ItemStack transformItem(EntityPlayer player, ItemStack stack, boolean replace) {
