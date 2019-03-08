@@ -44,14 +44,19 @@ public class InfusedPotatoArmor extends ItemArmor {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand)
     {
-    	return new ActionResult<ItemStack>(EnumActionResult.FAIL, transformItem(player, hand, false));
+    	if (ArmorStats.INFUSED_POTATO_RIGHT_CLICK)
+    		return new ActionResult<ItemStack>(EnumActionResult.FAIL, transformItem(player, hand, false));
+    	else return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(hand));
     }
     
     @Override
     public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand)
     {
-    	transformItem(player, hand, true);
-        return EnumActionResult.FAIL;
+    	if (ArmorStats.INFUSED_POTATO_RIGHT_CLICK) {
+    		transformItem(player, hand, true);
+        	return EnumActionResult.FAIL;
+    	}
+    	else return EnumActionResult.PASS;
     }
     
     @Override
@@ -64,8 +69,11 @@ public class InfusedPotatoArmor extends ItemArmor {
     @Override
     public boolean onDroppedByPlayer(ItemStack stack, EntityPlayer player)
     {
-    	transformItem(player, stack, true);
-        return false;
+    	if (ArmorStats.INFUSED_POTATO_DROP) {
+    		transformItem(player, stack, true);
+        	return false;
+    	}
+    	else return true;
     }
     
     private ItemStack transformItem(EntityPlayer player, EnumHand hand, boolean replace) {
@@ -87,8 +95,11 @@ public class InfusedPotatoArmor extends ItemArmor {
     	nbt.setFloat("Energy", ArmorStats.POTATO_BASE_CAPACITY);
     	armorItem.setTagCompound(nbt);
     	player.inventory.deleteStack(stack);
-    	if (replace) player.addItemStackToInventory(armorItem);
-    	player.sendStatusMessage(new TextComponentTranslation("msg.da.infusedTransformation"), true);
+    	if (replace) {
+    		player.addItemStackToInventory(armorItem);
+        	player.sendStatusMessage(new TextComponentTranslation("msg.da.infusedTransformation.smack"), true);
+    	}
+    	else player.sendStatusMessage(new TextComponentTranslation("msg.da.infusedTransformation.normal"), true);
     	return armorItem;
     }
     
