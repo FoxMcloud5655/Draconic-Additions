@@ -19,10 +19,10 @@ public class DARecipes {
     	
     	//Ingredients
     	
-    	addShaped(ALL, inertPotatoHelm, "AAA", "A A", 'A', POISONOUS_POTATO);
-    	addShaped(ALL, inertPotatoChest, "A A", "AAA", "AAA", 'A', POISONOUS_POTATO);
-    	addShaped(ALL, inertPotatoLegs, "AAA", "A A", "A A", 'A', POISONOUS_POTATO);
-    	addShaped(ALL, inertPotatoBoots, "A A", "A A", 'A', POISONOUS_POTATO);
+    	addShaped(ALL, inertPotatoHelm, "BAB", "B B", 'A', POISONOUS_POTATO, 'B', POTATO);
+    	addShaped(ALL, inertPotatoChest, "B B", "BAB", "BAB", 'A', POISONOUS_POTATO, 'B', POTATO);
+    	addShaped(ALL, inertPotatoLegs, "ABA", "B B", "B B", 'A', POISONOUS_POTATO, 'B', POTATO);
+    	addShaped(ALL, inertPotatoBoots, "A A", "A A", 'A', POTATO);
     	addShapeless(ALL, new ItemStack(chaosShard, 9, 1), new ItemStack(chaosShard, 1, 0));
     	addShapeless(ALL, new ItemStack(chaosShard, 9, 2), new ItemStack(chaosShard, 1, 1));
     	addShapeless(ALL, new ItemStack(chaosShard, 9, 3), new ItemStack(chaosShard, 1, 2));
