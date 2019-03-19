@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 import com.brandon3055.draconicevolution.DEConfig;
+import com.brandon3055.draconicevolution.DEFeatures;
 import com.brandon3055.draconicevolution.api.itemconfig.ItemConfigFieldRegistry;
 import com.brandon3055.draconicevolution.items.armor.WyvernArmor;
 
@@ -15,9 +17,11 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -92,6 +96,29 @@ public class PotatoArmor extends WyvernArmor {
     public float getProtectionPoints(ItemStack stack) {
         float points = ArmorStats.POTATO_BASE_SHIELD_CAPACITY * getProtectionShare();
         return points;
+    }
+    
+    @Override
+    public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+        if (!stack.isEmpty()) {
+            PotatoArmor armor = (PotatoArmor)stack.getItem();
+            if (armor.getEnergyStored(stack) == 0 && ItemNBTHelper.getFloat(stack, "ProtectionPoints", 0) == 0) {
+            	ItemStack draconiumDust = new ItemStack(DEFeatures.draconiumDust);
+            	ItemStack diamond = new ItemStack(Items.DIAMOND);
+            	if (DEConfig.hardMode) {
+            		draconiumDust.setCount(36);
+            		diamond.setCount(18);
+            	}
+            	else {
+            		draconiumDust.setCount(4);
+            		diamond.setCount(2);
+            	}
+            	player.addItemStackToInventory(draconiumDust);
+            	player.addItemStackToInventory(diamond);
+            	player.inventory.deleteStack(stack);
+            	player.sendStatusMessage(new TextComponentTranslation("msg.da.energizedBreak"), true);
+            }
+        }
     }
     
     @SideOnly(Side.CLIENT)

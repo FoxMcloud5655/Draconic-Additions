@@ -38,7 +38,9 @@ item.draconicadditions:potato.lore=While the wild growth was unexpected,
 item.draconicadditions:potato.lore2=it's now energized. Strange, but still useful.
 
 msg.da.infusedTransformation.normal=Shaking the armor piece, it starts sprouting growths in an oddly familiar shape!
-msg.da.infusedTransformation.smack=Smacking around the armor piece, it starts sprouting growths in an oddly familiar shape!
+msg.da.infusedTransformation.smack=Smacking the armor piece on a mob, it starts sprouting growths in an oddly familiar shape!
+
+msg.da.energizedBreak=As your armor runs out of juice, it breaks apart into its components!
 
 //Misc
 
