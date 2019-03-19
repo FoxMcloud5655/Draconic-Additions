@@ -23,7 +23,7 @@ public class DAConfig implements IModConfigHelper {
 
     static {
         comments.put("Armor Tweaks", "These allow you to tweak the stats of the armor found in this mod.");
-        //comments.put("Bauble Tweaks", "These allow you to tweak the stats of the baubles found in this mod.");
+        comments.put("Bauble Tweaks", "These allow you to tweak the stats of the baubles found in this mod.");
     }
 
     @Override
