@@ -15,54 +15,54 @@ import com.brandon3055.draconicevolution.utils.LogHelper;
 import net.minecraft.item.ItemStack;
 
 public class DARecipes {
-    public static void addRecipes() {
-    	
-    	//Ingredients
-    	
-    	addShaped(ALL, inertPotatoHelm, "BAB", "B B", 'A', POISONOUS_POTATO, 'B', POTATO);
-    	addShaped(ALL, inertPotatoChest, "B B", "BAB", "BAB", 'A', POISONOUS_POTATO, 'B', POTATO);
-    	addShaped(ALL, inertPotatoLegs, "ABA", "B B", "B B", 'A', POISONOUS_POTATO, 'B', POTATO);
-    	addShaped(ALL, inertPotatoBoots, "A A", "A A", 'A', POTATO);
-    	addShapeless(ALL, new ItemStack(chaosShard, 9, 1), new ItemStack(chaosShard, 1, 0));
-    	addShapeless(ALL, new ItemStack(chaosShard, 9, 2), new ItemStack(chaosShard, 1, 1));
-    	addShapeless(ALL, new ItemStack(chaosShard, 9, 3), new ItemStack(chaosShard, 1, 2));
-        addFusion(NORMAL, new ItemStack(chaoticEnergyCore), new ItemStack(draconicEnergyCore), 100000000, 3, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), "blockRedstone", "blockRedstone", "blockRedstone", "blockRedstone");
-        addFusion(HARD, new ItemStack(chaoticEnergyCore), new ItemStack(chaosShard, 1, 0), 200000000, 3, draconicEnergyCore, draconicEnergyCore, draconicEnergyCore, draconicEnergyCore, "blockDraconium", "blockDraconium", "blockDraconium", "blockDraconium");
+	public static void addRecipes() {
 
-    	//Potato Armor
-    	
-    	addShaped(NORMAL, infusedPotatoHelm, "ABA", "ACA", "ADA", 'A', "ingotDraconium", 'B', draconicCore, 'C', inertPotatoHelm, 'D', wyvernEnergyCore);
-    	addShaped(HARD, infusedPotatoHelm, "ABA", "CDC", "AEA", 'A', "blockDraconium", 'B', draconicCore, 'C', DIAMOND_BLOCK, 'D', inertPotatoHelm, 'E', wyvernEnergyCore);
-    	addShaped(NORMAL, infusedPotatoChest, "ABA", "ACA", "ADA", 'A', "ingotDraconium", 'B', draconicCore, 'C', inertPotatoChest, 'D', wyvernEnergyCore);
-    	addShaped(HARD, infusedPotatoChest, "ABA", "CDC", "AEA", 'A', "blockDraconium", 'B', draconicCore, 'C', DIAMOND_BLOCK, 'D', inertPotatoChest, 'E', wyvernEnergyCore);
-    	addShaped(NORMAL, infusedPotatoLegs, "ABA", "ACA", "ADA", 'A', "ingotDraconium", 'B', draconicCore, 'C', inertPotatoLegs, 'D', wyvernEnergyCore);
-    	addShaped(HARD, infusedPotatoLegs, "ABA", "CDC", "AEA", 'A', "blockDraconium", 'B', draconicCore, 'C', DIAMOND_BLOCK, 'D', inertPotatoLegs, 'E', wyvernEnergyCore);
-    	addShaped(NORMAL, infusedPotatoBoots, "ABA", "ACA", "ADA", 'A', "ingotDraconium", 'B', draconicCore, 'C', inertPotatoBoots, 'D', wyvernEnergyCore);
-    	addShaped(HARD, infusedPotatoBoots, "ABA", "CDC", "AEA", 'A', "blockDraconium", 'B', draconicCore, 'C', DIAMOND_BLOCK, 'D', inertPotatoBoots, 'E', wyvernEnergyCore);
+		// Ingredients
 
-    	//Chaotic Armor
-    	
-        addFusionTool(NORMAL, new ItemStack(chaoticHelm), new ItemStack(draconicHelm), 3200000, 3, new ItemStack(chaosShard, 1, 1), chaoticCore, new ItemStack(chaosShard, 1, 1), chaoticEnergyCore);
-        addFusionTool(HARD, new ItemStack(chaoticHelm), new ItemStack(draconicHelm), 64000000, 3, new ItemStack(chaosShard, 1, 0), chaoticCore, chaoticEnergyCore);
-        addFusionTool(NORMAL, new ItemStack(chaoticChest), new ItemStack(draconicChest), 3200000, 3, new ItemStack(chaosShard, 1, 1), chaoticCore, new ItemStack(chaosShard, 1, 1), chaoticEnergyCore);
-        addFusionTool(HARD, new ItemStack(chaoticChest), new ItemStack(draconicChest), 64000000, 3, new ItemStack(chaosShard, 1, 0), chaoticCore, chaoticEnergyCore);
-        addFusionTool(NORMAL, new ItemStack(chaoticLegs), new ItemStack(draconicLegs), 3200000, 3, new ItemStack(chaosShard, 1, 1), chaoticCore, new ItemStack(chaosShard, 1, 1), chaoticEnergyCore);
-        addFusionTool(HARD, new ItemStack(chaoticLegs), new ItemStack(draconicLegs), 64000000, 3, new ItemStack(chaosShard, 1, 0), chaoticCore, chaoticEnergyCore);
-        addFusionTool(NORMAL, new ItemStack(chaoticBoots), new ItemStack(draconicBoots), 3200000, 3, new ItemStack(chaosShard, 1, 1), chaoticCore, new ItemStack(chaosShard, 1, 1), chaoticEnergyCore);
-        addFusionTool(HARD, new ItemStack(chaoticBoots), new ItemStack(draconicBoots), 64000000, 3, new ItemStack(chaosShard, 1, 0), chaoticCore, chaoticEnergyCore);
+		addShaped(ALL, inertPotatoHelm, "BAB", "B B", 'A', POISONOUS_POTATO, 'B', POTATO);
+		addShaped(ALL, inertPotatoChest, "B B", "BAB", "BAB", 'A', POISONOUS_POTATO, 'B', POTATO);
+		addShaped(ALL, inertPotatoLegs, "ABA", "B B", "B B", 'A', POISONOUS_POTATO, 'B', POTATO);
+		addShaped(ALL, inertPotatoBoots, "A A", "A A", 'A', POTATO);
+		addShapeless(ALL, new ItemStack(chaosShard, 9, 1), new ItemStack(chaosShard, 1, 0));
+		addShapeless(ALL, new ItemStack(chaosShard, 9, 2), new ItemStack(chaosShard, 1, 1));
+		addShapeless(ALL, new ItemStack(chaosShard, 9, 3), new ItemStack(chaosShard, 1, 2));
+		addFusion(NORMAL, new ItemStack(chaoticEnergyCore), new ItemStack(draconicEnergyCore), 100000000, 3, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), "blockRedstone", "blockRedstone", "blockRedstone", "blockRedstone");
+		addFusion(HARD, new ItemStack(chaoticEnergyCore), new ItemStack(chaosShard, 1, 0), 200000000, 3, draconicEnergyCore, draconicEnergyCore, draconicEnergyCore, draconicEnergyCore, "blockDraconium", "blockDraconium", "blockDraconium", "blockDraconium");
 
-    	//Shield Baubles
-    	
-    	//addShaped(NORMAL, basicShieldNecklace, "AAA", "ACA", " B ", 'A', GOLD_INGOT, 'B', draconicCore, 'C', wyvernEnergyCore);
-    	//addShaped(HARD, basicShieldNecklace, " A ", "ACA", " B ", 'A', GOLD_BLOCK, 'B', draconicCore, 'C', wyvernEnergyCore);
-    	//addShapeless(ALL, wyvernShieldNecklace, basicShieldNecklace, wyvernCore);
-    	//addShapeless(ALL, draconicShieldNecklace, wyvernShieldNecklace, awakenedCore);
-        
-        //Other Baubles
-        
-        addShaped(ALL, overloadBelt, "AAA", "ACA", " B ", 'A', "ingotDraconium", 'B', awakenedCore, 'C', LEATHER);
-        addShaped(ALL, vampiricShirt, "A A", "BCB", "ACA", 'A', "ingotDraconiumAwakened", 'B', awakenedCore, 'C', WOOL);
-        addShaped(NORMAL, inertiaCancelRing, "ABA", "B B", "ABA", 'A', GOLD_INGOT, 'B', wyvernEnergyCore);
-        addShaped(HARD, inertiaCancelRing, "ABA", "B B", "ABA", 'A', GOLD_INGOT, 'B', wyvernCore);
-    }
+		// Potato Armor
+
+		addShaped(NORMAL, infusedPotatoHelm, "ABA", "ACA", "ADA", 'A', "ingotDraconium", 'B', draconicCore, 'C', inertPotatoHelm, 'D', wyvernEnergyCore);
+		addShaped(HARD, infusedPotatoHelm, "ABA", "CDC", "AEA", 'A', "blockDraconium", 'B', draconicCore, 'C', DIAMOND_BLOCK, 'D', inertPotatoHelm, 'E', wyvernEnergyCore);
+		addShaped(NORMAL, infusedPotatoChest, "ABA", "ACA", "ADA", 'A', "ingotDraconium", 'B', draconicCore, 'C', inertPotatoChest, 'D', wyvernEnergyCore);
+		addShaped(HARD, infusedPotatoChest, "ABA", "CDC", "AEA", 'A', "blockDraconium", 'B', draconicCore, 'C', DIAMOND_BLOCK, 'D', inertPotatoChest, 'E', wyvernEnergyCore);
+		addShaped(NORMAL, infusedPotatoLegs, "ABA", "ACA", "ADA", 'A', "ingotDraconium", 'B', draconicCore, 'C', inertPotatoLegs, 'D', wyvernEnergyCore);
+		addShaped(HARD, infusedPotatoLegs, "ABA", "CDC", "AEA", 'A', "blockDraconium", 'B', draconicCore, 'C', DIAMOND_BLOCK, 'D', inertPotatoLegs, 'E', wyvernEnergyCore);
+		addShaped(NORMAL, infusedPotatoBoots, "ABA", "ACA", "ADA", 'A', "ingotDraconium", 'B', draconicCore, 'C', inertPotatoBoots, 'D', wyvernEnergyCore);
+		addShaped(HARD, infusedPotatoBoots, "ABA", "CDC", "AEA", 'A', "blockDraconium", 'B', draconicCore, 'C', DIAMOND_BLOCK, 'D', inertPotatoBoots, 'E', wyvernEnergyCore);
+
+		// Chaotic Armor
+
+		addFusionTool(NORMAL, new ItemStack(chaoticHelm), new ItemStack(draconicHelm), 3200000, 3, new ItemStack(chaosShard, 1, 1), chaoticCore, new ItemStack(chaosShard, 1, 1), chaoticEnergyCore);
+		addFusionTool(HARD, new ItemStack(chaoticHelm), new ItemStack(draconicHelm), 64000000, 3, new ItemStack(chaosShard, 1, 0), chaoticCore, chaoticEnergyCore);
+		addFusionTool(NORMAL, new ItemStack(chaoticChest), new ItemStack(draconicChest), 3200000, 3, new ItemStack(chaosShard, 1, 1), chaoticCore, new ItemStack(chaosShard, 1, 1), chaoticEnergyCore);
+		addFusionTool(HARD, new ItemStack(chaoticChest), new ItemStack(draconicChest), 64000000, 3, new ItemStack(chaosShard, 1, 0), chaoticCore, chaoticEnergyCore);
+		addFusionTool(NORMAL, new ItemStack(chaoticLegs), new ItemStack(draconicLegs), 3200000, 3, new ItemStack(chaosShard, 1, 1), chaoticCore, new ItemStack(chaosShard, 1, 1), chaoticEnergyCore);
+		addFusionTool(HARD, new ItemStack(chaoticLegs), new ItemStack(draconicLegs), 64000000, 3, new ItemStack(chaosShard, 1, 0), chaoticCore, chaoticEnergyCore);
+		addFusionTool(NORMAL, new ItemStack(chaoticBoots), new ItemStack(draconicBoots), 3200000, 3, new ItemStack(chaosShard, 1, 1), chaoticCore, new ItemStack(chaosShard, 1, 1), chaoticEnergyCore);
+		addFusionTool(HARD, new ItemStack(chaoticBoots), new ItemStack(draconicBoots), 64000000, 3, new ItemStack(chaosShard, 1, 0), chaoticCore, chaoticEnergyCore);
+
+		// Shield Baubles
+
+		// addShaped(NORMAL, basicShieldNecklace, "AAA", "ACA", " B ", 'A', GOLD_INGOT, 'B', draconicCore, 'C', wyvernEnergyCore);
+		// addShaped(HARD, basicShieldNecklace, " A ", "ACA", " B ", 'A', GOLD_BLOCK, 'B', draconicCore, 'C', wyvernEnergyCore);
+		// addShapeless(ALL, wyvernShieldNecklace, basicShieldNecklace, wyvernCore);
+		// addShapeless(ALL, draconicShieldNecklace, wyvernShieldNecklace, awakenedCore);
+
+		// Other Baubles
+
+		addShaped(ALL, overloadBelt, "AAA", "ACA", " B ", 'A', "ingotDraconium", 'B', awakenedCore, 'C', LEATHER);
+		addShaped(ALL, vampiricShirt, "A A", "BCB", "ACA", 'A', "ingotDraconiumAwakened", 'B', awakenedCore, 'C', WOOL);
+		addShaped(NORMAL, inertiaCancelRing, "ABA", "B B", "ABA", 'A', GOLD_INGOT, 'B', wyvernEnergyCore);
+		addShaped(HARD, inertiaCancelRing, "ABA", "B B", "ABA", 'A', GOLD_INGOT, 'B', wyvernCore);
+	}
 }

@@ -19,23 +19,23 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @ModConfigContainer(modid = DraconicAdditions.MODID)
 public class DAConfig implements IModConfigHelper {
 
-    public static Map<String, String> comments = new HashMap<String, String>();
+	public static Map<String, String> comments = new HashMap<String, String>();
 
-    static {
-        comments.put("Armor Tweaks", "These allow you to tweak the stats of the armor found in this mod.");
-        comments.put("Bauble Tweaks", "These allow you to tweak the stats of the baubles found in this mod.");
-    }
+	static {
+		comments.put("Armor Tweaks", "These allow you to tweak the stats of the armor found in this mod.");
+		comments.put("Bauble Tweaks", "These allow you to tweak the stats of the baubles found in this mod.");
+	}
 
-    @Override
-    public Configuration createConfiguration(FMLPreInitializationEvent event) {
-        return new Configuration(new File(FileHandler.brandon3055Folder, "DraconicAdditions.cfg"), true);
-    }
+	@Override
+	public Configuration createConfiguration(FMLPreInitializationEvent event) {
+		return new Configuration(new File(FileHandler.brandon3055Folder, "DraconicAdditions.cfg"), true);
+	}
 
-    @Override
-    public String getCategoryComment(String category) {
-        return comments.getOrDefault(category, "");
-    }
-    
+	@Override
+	public String getCategoryComment(String category) {
+		return comments.getOrDefault(category, "");
+	}
+
 	@Mod.EventBusSubscriber
 	private static class EventHandler {
 		@SubscribeEvent

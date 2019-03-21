@@ -9,12 +9,11 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class CommonProxy {
-    public void preInit(FMLPreInitializationEvent event) {
-    	DraconicAdditions.network = NetworkRegistry.INSTANCE.newSimpleChannel(DraconicAdditions.networkChannelName);
-    	DraconicAdditions.network.registerMessage(PacketOverloadBelt.Handler.class, PacketOverloadBelt.class, 0, Side.SERVER);
-    	MinecraftForge.EVENT_BUS.register(new DAEventHandler());
-    }
-    
-    public void init(FMLInitializationEvent event) {
-    }
+	public void preInit(FMLPreInitializationEvent event) {
+		DraconicAdditions.network = NetworkRegistry.INSTANCE.newSimpleChannel(DraconicAdditions.networkChannelName);
+		DraconicAdditions.network.registerMessage(PacketOverloadBelt.Handler.class, PacketOverloadBelt.class, 0, Side.SERVER);
+		MinecraftForge.EVENT_BUS.register(new DAEventHandler());
+	}
+
+	public void init(FMLInitializationEvent event) {}
 }

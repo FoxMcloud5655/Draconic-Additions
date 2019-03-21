@@ -22,7 +22,7 @@ public class ModelPotatoArmor extends ModelBiped {
 
 	public ModelPotatoArmor(float modelSize, boolean isHelmet, boolean isChestPiece, boolean isLeggings, boolean isBoots) {
 		super(modelSize);
-		
+
 		this.head = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_helmet.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_helmet"));
 		this.body = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_body.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_body"));
 		this.rightArm = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_right_arm.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/potato_right_arm"));

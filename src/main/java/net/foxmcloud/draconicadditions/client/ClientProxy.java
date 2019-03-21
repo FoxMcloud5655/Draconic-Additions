@@ -16,16 +16,16 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class ClientProxy extends CommonProxy {
 
 	@Override
-    public void preInit(FMLPreInitializationEvent event) {
-    	super.preInit(event);
-    	MinecraftForge.EVENT_BUS.register(new KeyInputHandler());
-        OBJLoader.INSTANCE.addDomain(DraconicAdditions.MODID);
-        TextureUtils.addIconRegister(new DAArmorModelHelper());
-    }
-    
+	public void preInit(FMLPreInitializationEvent event) {
+		super.preInit(event);
+		MinecraftForge.EVENT_BUS.register(new KeyInputHandler());
+		OBJLoader.INSTANCE.addDomain(DraconicAdditions.MODID);
+		TextureUtils.addIconRegister(new DAArmorModelHelper());
+	}
+
 	@Override
-    public void init(FMLInitializationEvent event) {
-    	super.init(event);
-    	KeyBindings.init();
-    }
+	public void init(FMLInitializationEvent event) {
+		super.init(event);
+		KeyBindings.init();
+	}
 }

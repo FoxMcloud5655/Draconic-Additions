@@ -22,7 +22,7 @@ public class ModelChaoticArmor extends ModelBiped {
 
 	public ModelChaoticArmor(float modelSize, boolean isHelmet, boolean isChestPiece, boolean isLeggings, boolean isBoots) {
 		super(modelSize);
-		
+
 		this.head = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_helmet.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_helmet"));
 		this.body = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_body.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_body"));
 		this.rightArm = new ModelRenderOBJ(this, ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_right_arm.obj"), ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "models/armor/chaotic_right_arm"));

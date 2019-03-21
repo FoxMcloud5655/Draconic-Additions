@@ -15,19 +15,19 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class KeyInputHandler {
-	
-    @SideOnly(Side.CLIENT)
-    @SubscribeEvent
-    public void onKeyInput(InputEvent.KeyInputEvent event) {
-        EntityPlayer player = Minecraft.getMinecraft().player;
-        if (player != null) {
-        	onInput(player);
-        }
-    }
-    
-    private void onInput(EntityPlayer player) {
-    	if (KeyBindings.activateOverload.isPressed()) {
-    		DraconicAdditions.network.sendToServer(new PacketOverloadBelt());
-        }
-    }
+
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onKeyInput(InputEvent.KeyInputEvent event) {
+		EntityPlayer player = Minecraft.getMinecraft().player;
+		if (player != null) {
+			onInput(player);
+		}
+	}
+
+	private void onInput(EntityPlayer player) {
+		if (KeyBindings.activateOverload.isPressed()) {
+			DraconicAdditions.network.sendToServer(new PacketOverloadBelt());
+		}
+	}
 }

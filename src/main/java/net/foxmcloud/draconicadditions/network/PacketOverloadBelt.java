@@ -17,35 +17,31 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketOverloadBelt implements IMessage {
-	
-	public PacketOverloadBelt() {
-	}
+
+	public PacketOverloadBelt() {}
 
 	@Override
-	public void toBytes(ByteBuf buf) {
-	}
+	public void toBytes(ByteBuf buf) {}
 
 	@Override
-	public void fromBytes(ByteBuf buf) {
-	}
-	
+	public void fromBytes(ByteBuf buf) {}
+
 	public static class Handler implements IMessageHandler<PacketOverloadBelt, IMessage> {
-		
-		public Handler() {
-		}
-		
+
+		public Handler() {}
+
 		@Override
 		public IMessage onMessage(PacketOverloadBelt message, MessageContext ctx) {
 			EntityPlayerMP player = ctx.getServerHandler().player;
-            player.getServerWorld().addScheduledTask(() -> {
-            	ItemStack belt = BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.BELT.getValidSlots()[0]).copy();
-            	if (belt.getItem() instanceof OverloadBelt) {
-            		NBTTagCompound beltNBT = belt.getTagCompound();
-            		if (beltNBT.getBoolean("Active")) beltNBT.setBoolean("Active", false);
-            		else beltNBT.setBoolean("Active", true);
-            		BaublesApi.getBaublesHandler(player).setStackInSlot(BaubleType.BELT.getValidSlots()[0], belt);
-            	}
-            });
+			player.getServerWorld().addScheduledTask(() -> {
+				ItemStack belt = BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.BELT.getValidSlots()[0]).copy();
+				if (belt.getItem() instanceof OverloadBelt) {
+					NBTTagCompound beltNBT = belt.getTagCompound();
+					if (beltNBT.getBoolean("Active")) beltNBT.setBoolean("Active", false);
+					else beltNBT.setBoolean("Active", true);
+					BaublesApi.getBaublesHandler(player).setStackInSlot(BaubleType.BELT.getValidSlots()[0], belt);
+				}
+			});
 			return null;
 		}
 	}
