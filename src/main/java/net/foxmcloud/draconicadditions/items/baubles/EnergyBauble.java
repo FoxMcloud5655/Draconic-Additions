@@ -86,13 +86,18 @@ public class EnergyBauble extends BasicBauble implements IEnergyContainerItem {
 
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
-		return 1D - ((double) getEnergyStored(stack) / (double) getMaxEnergyStored(stack));
+		if (getMaxEnergyStored(stack) > 0) {
+			return 1D - ((double) getEnergyStored(stack) / (double) getMaxEnergyStored(stack));
+		}
+		else return 1D;
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World playerIn, List<String> tooltip, ITooltipFlag advanced) {
-		InfoHelper.addEnergyInfo(stack, tooltip);
+		if (getMaxEnergyStored(stack) > 0) {
+			InfoHelper.addEnergyInfo(stack, tooltip);
+		}
 	}
 
 	@Override

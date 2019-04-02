@@ -23,6 +23,7 @@ public class DAConfig implements IModConfigHelper {
 
 	static {
 		comments.put("Armor Tweaks", "These allow you to tweak the stats of the armor found in this mod.");
+		comments.put("Tool Tweaks", "These allow you to tweak the stats of the tools found in this mod.");
 		comments.put("Bauble Tweaks", "These allow you to tweak the stats of the baubles found in this mod.");
 	}
 
@@ -35,7 +36,20 @@ public class DAConfig implements IModConfigHelper {
 	public String getCategoryComment(String category) {
 		return comments.getOrDefault(category, "");
 	}
-
+	
+    @Override
+    public void onConfigChanged(String propertyName, String propertyCategory) {
+        loadToolStats();
+    }
+    
+    @Override
+    public void onConfigLoaded() {
+        loadToolStats();
+    }
+    
+    private void loadToolStats() {
+    	DAFeatures.chaoticStaffOfPower.loadStatConfig();
+    }
 	@Mod.EventBusSubscriber
 	private static class EventHandler {
 		@SubscribeEvent

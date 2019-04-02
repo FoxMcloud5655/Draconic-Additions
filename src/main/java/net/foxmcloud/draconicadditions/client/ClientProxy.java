@@ -1,13 +1,13 @@
 package net.foxmcloud.draconicadditions.client;
 
-import com.brandon3055.draconicevolution.utils.LogHelper;
-
 import codechicken.lib.texture.TextureUtils;
+import codechicken.lib.util.ResourceUtils;
 import net.foxmcloud.draconicadditions.CommonProxy;
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.client.keybinding.KeyBindings;
 import net.foxmcloud.draconicadditions.client.keybinding.KeyInputHandler;
 import net.foxmcloud.draconicadditions.client.model.DAArmorModelHelper;
+import net.foxmcloud.draconicadditions.utils.DATextures;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -21,6 +21,8 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new KeyInputHandler());
 		OBJLoader.INSTANCE.addDomain(DraconicAdditions.MODID);
 		TextureUtils.addIconRegister(new DAArmorModelHelper());
+        TextureUtils.addIconRegister(new DATextures());
+        ResourceUtils.registerReloadListener(new DATextures());
 	}
 
 	@Override

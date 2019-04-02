@@ -29,6 +29,11 @@ public class DARecipes {
 		addFusion(NORMAL, new ItemStack(chaoticEnergyCore), new ItemStack(draconicEnergyCore), 100000000, 3, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), "blockRedstone", "blockRedstone", "blockRedstone", "blockRedstone");
 		addFusion(HARD, new ItemStack(chaoticEnergyCore), new ItemStack(chaosShard, 1, 0), 200000000, 3, draconicEnergyCore, draconicEnergyCore, draconicEnergyCore, draconicEnergyCore, "blockDraconium", "blockDraconium", "blockDraconium", "blockDraconium");
 
+		// Tools
+		
+		addFusionTool(NORMAL, new ItemStack(chaoticStaffOfPower), new ItemStack(draconicStaffOfPower), 16000000, 3, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), chaoticCore, chaoticEnergyCore);
+		addFusionTool(HARD, new ItemStack(chaoticStaffOfPower), new ItemStack(draconicStaffOfPower), 64000000, 3, new ItemStack(chaosShard, 1, 0), new ItemStack(chaosShard, 1, 0), chaoticCore, chaoticEnergyCore);
+		
 		// Potato Armor
 
 		addShaped(NORMAL, infusedPotatoHelm, "ABA", "ACA", "ADA", 'A', "ingotDraconium", 'B', draconicCore, 'C', inertPotatoHelm, 'D', wyvernEnergyCore);
@@ -53,10 +58,10 @@ public class DARecipes {
 
 		// Shield Baubles
 
-		// addShaped(NORMAL, basicShieldNecklace, "AAA", "ACA", " B ", 'A', GOLD_INGOT, 'B', draconicCore, 'C', wyvernEnergyCore);
-		// addShaped(HARD, basicShieldNecklace, " A ", "ACA", " B ", 'A', GOLD_BLOCK, 'B', draconicCore, 'C', wyvernEnergyCore);
-		// addShapeless(ALL, wyvernShieldNecklace, basicShieldNecklace, wyvernCore);
-		// addShapeless(ALL, draconicShieldNecklace, wyvernShieldNecklace, awakenedCore);
+		addShaped(NORMAL, basicShieldNecklace, "AAA", "ACA", " B ", 'A', GOLD_INGOT, 'B', draconicCore, 'C', wyvernEnergyCore);
+		addShaped(HARD, basicShieldNecklace, " A ", "ACA", " B ", 'A', GOLD_BLOCK, 'B', draconicCore, 'C', wyvernEnergyCore);
+		addShapeless(ALL, wyvernShieldNecklace, basicShieldNecklace, wyvernCore);
+		addShapeless(ALL, draconicShieldNecklace, wyvernShieldNecklace, awakenedCore);
 
 		// Other Baubles
 

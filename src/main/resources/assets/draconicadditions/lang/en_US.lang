@@ -17,6 +17,10 @@ item.draconicadditions:chaotic_chest.name=Chaotic Chestplate
 item.draconicadditions:chaotic_legs.name=Chaotic Leggings
 item.draconicadditions:chaotic_boots.name=Chaotic Boots
 
+//Tools
+
+item.draconicadditions:chaotic_staff_of_power.name=Chaotic Staff of Power
+
 //Baubles
 
 item.draconicadditions:basic_shield_necklace.name=Basic Necklace of Shielding

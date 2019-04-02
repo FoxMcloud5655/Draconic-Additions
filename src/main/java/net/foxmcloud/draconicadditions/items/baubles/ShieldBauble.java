@@ -1,12 +1,17 @@
 package net.foxmcloud.draconicadditions.items.baubles;
 
+import com.brandon3055.draconicevolution.handlers.CustomArmorHandler.ArmorSummery;
 import com.brandon3055.draconicevolution.items.armor.ICustomArmor;
 
 import baubles.api.BaubleType;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 
 public class ShieldBauble extends EnergyBauble implements ICustomArmor {
+	
+	private boolean[] canFly = {false, false, false};
 
 	/**
 	 * Can be overridden! This method is called when inquiring about how much energy
@@ -97,13 +102,15 @@ public class ShieldBauble extends EnergyBauble implements ICustomArmor {
 	}
 
 	/**
-	 * Can be overridden! This method is called when inquiring about the flight
-	 * capabilities of this bauble.
+	 * DO NOT OVERRIDE! This method is called when inquiring about the flight
+	 * capabilities of this bauble.  If you need to set flight parameters, change
+	 * the "canFly" variable and override the "onEquipped" method.
+	 * Note: Doing so will force your parameters over all others.
 	 * 
 	 */
 	@Override
 	public boolean[] hasFlight(ItemStack arg0) {
-		return new boolean[] {false, false, false};
+		return canFly;
 	}
 
 	/**
@@ -114,5 +121,19 @@ public class ShieldBauble extends EnergyBauble implements ICustomArmor {
 	@Override
 	public boolean hasHillStep(ItemStack arg0, EntityPlayer arg1) {
 		return false;
+	}
+	
+	/**
+	 * Can be overridden! This method is called upon equipping this bauble.
+	 * Make sure to call "super.onEquipped()" in your override if you do not wish 
+	 * to make this bauble grant flight, as it currently contains a hacky fix to 
+	 * get around DE's method of granting flight.
+	 * 
+	 */
+	@Override
+	public void onEquipped(ItemStack stack, EntityLivingBase player) {
+		ArmorSummery armorSummary = new ArmorSummery().getSummery((EntityPlayer)player);
+		canFly = armorSummary.flight;
+		super.onEquipped(stack, player);
 	}
 }

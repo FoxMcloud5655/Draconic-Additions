@@ -6,6 +6,7 @@ import com.brandon3055.brandonscore.registry.Feature;
 import com.brandon3055.brandonscore.registry.IModFeatures;
 import com.brandon3055.brandonscore.registry.ModFeature;
 import com.brandon3055.brandonscore.registry.ModFeatures;
+import com.brandon3055.draconicevolution.items.tools.DraconicStaffOfPower;
 
 import net.foxmcloud.draconicadditions.client.creativetab.DATab;
 import net.foxmcloud.draconicadditions.items.ChaoticEnergyCore;
@@ -16,6 +17,7 @@ import net.foxmcloud.draconicadditions.items.baubles.InertiaCancelRing;
 import net.foxmcloud.draconicadditions.items.baubles.OverloadBelt;
 import net.foxmcloud.draconicadditions.items.baubles.ShieldNecklace;
 import net.foxmcloud.draconicadditions.items.baubles.VampiricShirt;
+import net.foxmcloud.draconicadditions.items.tools.ChaoticStaffOfPower;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -50,6 +52,11 @@ public class DAFeatures implements IModFeatures {
 
 	@ModFeature(name = "chaotic_energy_core", stateOverride = "crafting#type=chaoticECore")
 	public static ChaoticEnergyCore chaoticEnergyCore = new ChaoticEnergyCore();
+	
+	// Tools
+	
+    @ModFeature(name = "chaotic_staff_of_power")
+    public static ChaoticStaffOfPower chaoticStaffOfPower = new ChaoticStaffOfPower();
 
 	// Potato Armor
 
@@ -93,14 +100,14 @@ public class DAFeatures implements IModFeatures {
 
 	// Shield Baubles
 
-	// @ModFeature(name = "basic_shield_necklace", stateOverride = "baubles#type=basicShieldNecklace")
-	// public static ShieldNecklace basicShieldNecklace = new ShieldNecklace(0);
+	@ModFeature(name = "basic_shield_necklace", stateOverride = "baubles#type=basicShieldNecklace", isActive = false)
+	public static ShieldNecklace basicShieldNecklace = new ShieldNecklace(0);
 
-	// @ModFeature(name = "wyvern_shield_necklace", stateOverride = "baubles#type=wyvernShieldNecklace")
-	// public static ShieldNecklace wyvernShieldNecklace = new ShieldNecklace(1);
+	@ModFeature(name = "wyvern_shield_necklace", stateOverride = "baubles#type=wyvernShieldNecklace", isActive = false)
+	public static ShieldNecklace wyvernShieldNecklace = new ShieldNecklace(1);
 
-	// @ModFeature(name = "draconic_shield_necklace", stateOverride = "baubles#type=draconicShieldNecklace")
-	// public static ShieldNecklace draconicShieldNecklace = new ShieldNecklace(2);
+	@ModFeature(name = "draconic_shield_necklace", stateOverride = "baubles#type=draconicShieldNecklace", isActive = false)
+	public static ShieldNecklace draconicShieldNecklace = new ShieldNecklace(2);
 
 	// Other Baubles
 
