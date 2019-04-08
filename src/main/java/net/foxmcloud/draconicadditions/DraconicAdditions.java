@@ -30,7 +30,7 @@ public class DraconicAdditions {
 	public static final String dependencies = "required-after:draconicevolution;required-after:baubles";
 	public static SimpleNetworkWrapper network;
 
-	private static Logger logger = LogManager.getLogger(DraconicAdditions.MODID);
+	public static Logger logger = LogManager.getLogger(DraconicAdditions.MODID);
 
 	@Mod.Instance(DraconicAdditions.MODID)
 	public static DraconicAdditions instance;
@@ -60,13 +60,11 @@ public class DraconicAdditions {
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		ModFeatureParser.registerModFeatures(MODID);
 		proxy.preInit(event);
 	}
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
-		DARecipes.addRecipes();
 		proxy.init(event);
 	}
 }

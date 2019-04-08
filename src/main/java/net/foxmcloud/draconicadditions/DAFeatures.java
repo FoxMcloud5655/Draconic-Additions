@@ -2,12 +2,14 @@ package net.foxmcloud.draconicadditions;
 
 import javax.annotation.Nullable;
 
+import com.brandon3055.brandonscore.blocks.ItemBlockBCore;
 import com.brandon3055.brandonscore.registry.Feature;
 import com.brandon3055.brandonscore.registry.IModFeatures;
 import com.brandon3055.brandonscore.registry.ModFeature;
 import com.brandon3055.brandonscore.registry.ModFeatures;
-import com.brandon3055.draconicevolution.items.tools.DraconicStaffOfPower;
 
+import net.foxmcloud.draconicadditions.blocks.chaosritual.ChaosStabilizerCore;
+import net.foxmcloud.draconicadditions.blocks.chaosritual.tileentity.TileChaosStabilizerCore;
 import net.foxmcloud.draconicadditions.client.creativetab.DATab;
 import net.foxmcloud.draconicadditions.items.ChaoticEnergyCore;
 import net.foxmcloud.draconicadditions.items.armor.ChaoticArmor;
@@ -52,6 +54,11 @@ public class DAFeatures implements IModFeatures {
 
 	@ModFeature(name = "chaotic_energy_core", stateOverride = "crafting#type=chaoticECore")
 	public static ChaoticEnergyCore chaoticEnergyCore = new ChaoticEnergyCore();
+	
+	// Blocks
+	
+    @ModFeature(name = "chaos_stabilizer_core", tileEntity = TileChaosStabilizerCore.class, itemBlock = ItemBlockBCore.class)
+    public static ChaosStabilizerCore chaosStabilizerCore = new ChaosStabilizerCore();
 	
 	// Tools
 	

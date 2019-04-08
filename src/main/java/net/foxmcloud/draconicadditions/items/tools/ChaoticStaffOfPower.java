@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.brandon3055.brandonscore.lib.PairKV;
 import com.brandon3055.brandonscore.registry.Feature;
+import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 import com.brandon3055.draconicevolution.api.itemconfig.ItemConfigFieldRegistry;
 import com.brandon3055.draconicevolution.api.itemconfig.ToolConfigHelper;
 import com.brandon3055.draconicevolution.api.itemupgrade.UpgradeHelper;
@@ -13,6 +14,7 @@ import com.brandon3055.draconicevolution.client.model.tool.ToolOverrideList;
 import com.brandon3055.draconicevolution.items.ToolUpgrade;
 import com.brandon3055.draconicevolution.items.tools.DraconicStaffOfPower;
 
+import net.foxmcloud.draconicadditions.items.IChaosItem;
 import net.foxmcloud.draconicadditions.utils.DATextures;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -22,15 +24,11 @@ import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ChaoticStaffOfPower extends DraconicStaffOfPower {
+public class ChaoticStaffOfPower extends DraconicStaffOfPower implements IChaosItem {
     
 	public ChaoticStaffOfPower() {
 		super();
 	}
-	
-    public boolean isChaosStable() {
-    	return false;
-    }
 
     @Override
     public double getBaseMinSpeedConfig() {
@@ -88,7 +86,7 @@ public class ChaoticStaffOfPower extends DraconicStaffOfPower {
 
     @Override
     public ItemConfigFieldRegistry getFields(ItemStack stack, ItemConfigFieldRegistry registry) {
-    	if (isChaosStable()) {
+    	if (isChaosStable(stack)) {
     		super.getFields(stack, registry);
     	}
     	else addEnchantConfig(stack, registry);

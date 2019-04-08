@@ -21,6 +21,7 @@ import codechicken.lib.math.MathHelper;
 import net.foxmcloud.draconicadditions.DAFeatures;
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.client.model.ModelChaoticArmor;
+import net.foxmcloud.draconicadditions.items.IChaosItem;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,7 +41,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
-public class ChaoticArmor extends DraconicArmor {
+public class ChaoticArmor extends DraconicArmor implements IChaosItem {
 
 	private static ArmorMaterial chaoticMaterial = EnumHelper.addArmorMaterial("chaoticArmor", DraconicAdditions.MODID_PREFIX + "chaotic_armor", -1, new int[] {6, 12, 16, 6}, 0, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 6.0F);
 
