@@ -55,6 +55,7 @@ msg.da.chaosStabilizer.alreadyStabilized=The stabilizer remains inert. You've al
 msg.da.chaosStabilizer.cannotStabilize=The stabilizer actively rejects the item in your hand!
 msg.da.chaosStabilizer.emptyHand=ARE YOU CRAZY? Don't be sticking your hands into pure Chaos!
 msg.da.chaosStabilizer.full=There is already an item present in the stabilizer.
+msg.da.chaosStabilizer.notMultiblock=The stabilizer doesn't seem to be responding to anything...
 
 //Misc
 
