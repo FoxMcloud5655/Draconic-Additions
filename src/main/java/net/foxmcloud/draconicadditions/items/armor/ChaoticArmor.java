@@ -60,34 +60,38 @@ public class ChaoticArmor extends DraconicArmor implements IChaosItem {
 
 	@Override
 	public ItemConfigFieldRegistry getFields(ItemStack stack, ItemConfigFieldRegistry registry) {
-		if (armorType == HEAD) {
+		if (armorType == HEAD && isChaosStable(stack)) {
 			registry.register(stack, new BooleanConfigField("armorNV", false, "config.field.armorNV.description"));
 			registry.register(stack, new BooleanConfigField("armorNVLock", false, "config.field.armorNVLock.description"));
 			registry.register(stack, new BooleanConfigField("armorAutoFeed", false, "config.field.armorAutoFeed.description"));
 		}
 		if (armorType == CHEST) {
-			registry.register(stack, new IntegerConfigField("armorFSpeedModifier", 0, 0, MathHelper.clip(DEConfig.flightSpeedLimit != -1 ? DEConfig.flightSpeedLimit : 600, 0, 1200), "config.field.armorFSpeedModifier.description", SLIDER).setPrefix("+").setExtension("%"));
-			registry.register(stack, new IntegerConfigField("armorVFSpeedModifier", 0, 0, 600, "config.field.armorVFSpeedModifier.description", SLIDER).setPrefix("+").setExtension("%"));
+			int speedLimit = MathHelper.clip(DEConfig.flightSpeedLimit != -1 ? DEConfig.flightSpeedLimit : 600, 0, 1200);
+			registry.register(stack, new IntegerConfigField("armorFSpeedModifier", 0, isChaosStable(stack) ? 0 : speedLimit, speedLimit, "config.field.armorFSpeedModifier.description", SLIDER).setPrefix("+").setExtension("%"));
+			registry.register(stack, new IntegerConfigField("armorVFSpeedModifier", 0, isChaosStable(stack) ? 0 : speedLimit, speedLimit, "config.field.armorVFSpeedModifier.description", SLIDER).setPrefix("+").setExtension("%"));
 			registry.register(stack, new BooleanConfigField("armorInertiaCancel", false, "config.field.armorInertiaCancel.description"));
 			registry.register(stack, new BooleanConfigField("armorFlightLock", false, "config.field.armorFlightLock.description"));
 		}
 		if (armorType == LEGS) {
 			int u = UpgradeHelper.getUpgradeLevel(stack, ToolUpgrade.MOVE_SPEED);
 			int i = 200 + (100 * u) + (Math.max(u - 1, 0) * 100) + (Math.max(u - 2, 0) * 100);
-			registry.register(stack, new IntegerConfigField("armorSpeedModifier", 0, 0, i, "config.field.armorSpeedModifier.description", SLIDER).setPrefix("+").setExtension("%"));
-			registry.register(stack, new BooleanConfigField("armorSpeedFOVWarp", false, "config.field.armorSpeedFOVWarp.description"));
+			registry.register(stack, new IntegerConfigField("armorSpeedModifier", 0, isChaosStable(stack) ? 0 : i, i, "config.field.armorSpeedModifier.description", SLIDER).setPrefix("+").setExtension("%"));
+			if (isChaosStable(stack))
+				registry.register(stack, new BooleanConfigField("armorSpeedFOVWarp", false, "config.field.armorSpeedFOVWarp.description"));
 		}
 		if (armorType == FEET) {
 			int u = UpgradeHelper.getUpgradeLevel(stack, ToolUpgrade.JUMP_BOOST);
 			int i = 200 + (100 * u) + (Math.max(u - 1, 0) * 100) + (Math.max(u - 2, 0) * 100);
-			registry.register(stack, new IntegerConfigField("armorJumpModifier", 0, 0, i, "config.field.armorSpeedModifier.description", SLIDER).setPrefix("+").setExtension("%"));
+			registry.register(stack, new IntegerConfigField("armorJumpModifier", 0, isChaosStable(stack) ? 0 : i, i, "config.field.armorSpeedModifier.description", SLIDER).setPrefix("+").setExtension("%"));
 			registry.register(stack, new BooleanConfigField("armorHillStep", true, "config.field.armorHillStep.description"));
 		}
-		if (armorType == FEET || armorType == LEGS || armorType == CHEST) {
+		if ((armorType == FEET || armorType == LEGS || armorType == CHEST) && isChaosStable(stack)) {
 			registry.register(stack, new BooleanConfigField("sprintBoost", false, "config.field.sprintBoost.description"));
 		}
 
-		registry.register(stack, new BooleanConfigField("hideArmor", false, "config.field.hideArmor.description"));
+		if (isChaosStable(stack)) {
+			registry.register(stack, new BooleanConfigField("hideArmor", false, "config.field.hideArmor.description"));
+		}
 
 		return registry;
 	}

@@ -33,8 +33,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ChaosStabilizerCore extends BlockBCore implements ITileEntityProvider, IRenderOverride {
 
     private static final AxisAlignedBB FULL_AABB = new AxisAlignedBB(0, 0, 0, 1, 1, 1);
-    private static final AxisAlignedBB NO_AABB = new AxisAlignedBB(0.5, 0.5, 0.5, 0.5, 0.5, 0.5);
-
+    
     public ChaosStabilizerCore() {
     	super();
     }
