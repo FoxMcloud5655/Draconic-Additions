@@ -58,7 +58,7 @@ public class InfusedPotatoArmor extends ItemArmor {
 
 	@Override
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
-		if (ArmorStats.INFUSED_POTATO_RIGHT_CLICK) {
+		if (ArmorStats.INFUSED_POTATO_SMACK) {
 			transformItem(player, stack, true);
 		}
 		return false;

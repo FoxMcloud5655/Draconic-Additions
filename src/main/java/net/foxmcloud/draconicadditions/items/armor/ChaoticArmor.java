@@ -23,6 +23,7 @@ import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.client.model.ModelChaoticArmor;
 import net.foxmcloud.draconicadditions.items.IChaosItem;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -102,6 +103,18 @@ public class ChaoticArmor extends DraconicArmor implements IChaosItem {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
+        if (ToolConfigHelper.getBooleanField("hideArmor", itemStack)) {
+            if (model_invisible == null) {
+                model_invisible = new ModelBiped() {
+                    @Override
+                    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+                    }
+                };
+            }
+
+            return model_invisible;
+        }
+		
 		if (DEConfig.disable3DModels) {
 			return super.getArmorModel(entityLiving, itemStack, armorSlot, _default);
 		}

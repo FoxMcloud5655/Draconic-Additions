@@ -70,6 +70,8 @@ if (System.getenv("BUILD_NUMBER") != null) {
 version = version + ".${buildNo}"
 
 dependencies {
+    compile "com.brandon3055.brandonscore:BrandonsCore:${config.mc_version}-${config.bcore_version}:deobf"
+    compile "com.brandon3055.projectintelligence:ProjectIntelligence:${config.mc_version}-${config.pi_version}:deobf"
     compile "com.brandon3055.draconicevolution:Draconic-Evolution:${config.mc_version}-${config.de_version}:deobf"
     deobfCompile "com.github.azanor:Baubles:${config.baubles_version}"
 }

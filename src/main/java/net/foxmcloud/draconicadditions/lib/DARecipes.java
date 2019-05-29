@@ -10,6 +10,7 @@ import static net.foxmcloud.draconicadditions.DAFeatures.*;
 import static net.minecraft.init.Blocks.*;
 import static net.minecraft.init.Items.*;
 
+import com.brandon3055.draconicevolution.DEFeatures;
 import com.brandon3055.draconicevolution.utils.LogHelper;
 
 import net.minecraft.item.ItemStack;
@@ -26,8 +27,8 @@ public class DARecipes {
 		addShapeless(ALL, new ItemStack(chaosShard, 9, 1), new ItemStack(chaosShard, 1, 0));
 		addShapeless(ALL, new ItemStack(chaosShard, 9, 2), new ItemStack(chaosShard, 1, 1));
 		addShapeless(ALL, new ItemStack(chaosShard, 9, 3), new ItemStack(chaosShard, 1, 2));
-		addFusion(NORMAL, new ItemStack(chaoticEnergyCore), new ItemStack(draconicEnergyCore), 100000000, 3, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), "blockRedstone", "blockRedstone", "blockRedstone", "blockRedstone");
-		addFusion(HARD, new ItemStack(chaoticEnergyCore), new ItemStack(chaosShard, 1, 0), 200000000, 3, draconicEnergyCore, draconicEnergyCore, draconicEnergyCore, draconicEnergyCore, "blockDraconium", "blockDraconium", "blockDraconium", "blockDraconium");
+		addFusion(NORMAL, new ItemStack(chaosStabilizerCore), new ItemStack(reactorCore), 125000000, 3, new ItemStack(chaosShard, 1, 0), new ItemStack(chaosShard, 1, 0), infusedObsidian, infusedObsidian);
+		addFusion(HARD, new ItemStack(chaosStabilizerCore), new ItemStack(reactorCore), 250000000, 3,  new ItemStack(chaosShard, 1, 0), new ItemStack(chaosShard, 1, 0), infusedObsidian, infusedObsidian);
 
 		// Tools
 		
@@ -55,6 +56,11 @@ public class DARecipes {
 		addFusionTool(HARD, new ItemStack(chaoticLegs), new ItemStack(draconicLegs), 64000000, 3, new ItemStack(chaosShard, 1, 0), chaoticCore, chaoticEnergyCore);
 		addFusionTool(NORMAL, new ItemStack(chaoticBoots), new ItemStack(draconicBoots), 3200000, 3, new ItemStack(chaosShard, 1, 1), chaoticCore, new ItemStack(chaosShard, 1, 1), chaoticEnergyCore);
 		addFusionTool(HARD, new ItemStack(chaoticBoots), new ItemStack(draconicBoots), 64000000, 3, new ItemStack(chaosShard, 1, 0), chaoticCore, chaoticEnergyCore);
+
+		// Blocks
+		
+		addFusion(NORMAL, new ItemStack(chaoticEnergyCore), new ItemStack(draconicEnergyCore), 100000000, 3, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), "blockRedstone", "blockRedstone", "blockRedstone", "blockRedstone");
+		addFusion(HARD, new ItemStack(chaoticEnergyCore), new ItemStack(chaosShard, 1, 0), 200000000, 3, draconicEnergyCore, draconicEnergyCore, draconicEnergyCore, draconicEnergyCore, "blockDraconium", "blockDraconium", "blockDraconium", "blockDraconium");
 
 		// Shield Baubles
 
