@@ -44,7 +44,7 @@ public class OverloadBelt extends BasicBauble {
 					final float damagePercent = 1F;
 					EntityPlayer player = (EntityPlayer) entity;
 					ArmorSummery summary = new ArmorSummery().getSummery(player);
-					if (summary.protectionPoints <= 1) {
+					if (summary == null || summary.protectionPoints <= 1) {
 						ItemNBTHelper.setBoolean(stack, "Active", false);
 						player.playSound(SoundEvents.BLOCK_END_GATEWAY_SPAWN, 0.7F, 1.4F);
 						return;
