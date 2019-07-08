@@ -23,7 +23,7 @@ public class DraconicAdditions {
 	public static final String NAME = "Draconic Additions";
 	public static final String PROXY_COMMON = "net.foxmcloud.draconicadditions.CommonProxy";
 	public static final String PROXY_CLIENT = "net.foxmcloud.draconicadditions.client.ClientProxy";
-	public static final String VERSION = "1.0";
+	public static final String VERSION = "${mod_version}";
 	public static final String GUI_FACTORY = "net.foxmcloud.draconicadditions.DAGuiFactory";
 	public static final String MODID_PREFIX = MODID + ":";
 	public static final String networkChannelName = "DAdditionsNC";
