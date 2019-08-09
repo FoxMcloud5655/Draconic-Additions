@@ -107,13 +107,13 @@ public class DAFeatures implements IModFeatures {
 
 	// Shield Baubles
 
-	@ModFeature(name = "basic_shield_necklace", stateOverride = "baubles#type=basicShieldNecklace", isActive = false)
+	@ModFeature(name = "basic_shield_necklace", stateOverride = "baubles#type=basicShieldNecklace")
 	public static ShieldNecklace basicShieldNecklace = new ShieldNecklace(0);
 
-	@ModFeature(name = "wyvern_shield_necklace", stateOverride = "baubles#type=wyvernShieldNecklace", isActive = false)
+	@ModFeature(name = "wyvern_shield_necklace", stateOverride = "baubles#type=wyvernShieldNecklace")
 	public static ShieldNecklace wyvernShieldNecklace = new ShieldNecklace(1);
 
-	@ModFeature(name = "draconic_shield_necklace", stateOverride = "baubles#type=draconicShieldNecklace", isActive = false)
+	@ModFeature(name = "draconic_shield_necklace", stateOverride = "baubles#type=draconicShieldNecklace")
 	public static ShieldNecklace draconicShieldNecklace = new ShieldNecklace(2);
 
 	// Other Baubles
