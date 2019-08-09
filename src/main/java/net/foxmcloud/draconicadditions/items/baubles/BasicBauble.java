@@ -33,7 +33,7 @@ public class BasicBauble extends Item implements IBauble {
 		IBaublesItemHandler baubles = BaublesApi.getBaublesHandler(player);
 		for (int i = 0; i < baubles.getSlots(); i++) if ((baubles.getStackInSlot(i) == null || baubles.getStackInSlot(i).isEmpty()) && baubles.isItemValidForSlot(i, player.getHeldItem(hand), player)) {
 			ItemStack bauble = player.getHeldItem(hand).copy();
-			((BasicBauble)bauble.getItem()).onEquipped(bauble, player);
+			player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, .75F, 1.75f);
 			player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
 			baubles.setStackInSlot(i, bauble);
 			break;
