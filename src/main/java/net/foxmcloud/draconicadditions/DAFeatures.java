@@ -10,16 +10,13 @@ import com.brandon3055.brandonscore.registry.ModFeatures;
 
 import net.foxmcloud.draconicadditions.blocks.chaosritual.ChaosStabilizerCore;
 import net.foxmcloud.draconicadditions.blocks.chaosritual.tileentity.TileChaosStabilizerCore;
+import net.foxmcloud.draconicadditions.blocks.machines.*;
+import net.foxmcloud.draconicadditions.blocks.tileentity.*;
 import net.foxmcloud.draconicadditions.client.creativetab.DATab;
-import net.foxmcloud.draconicadditions.items.ChaoticEnergyCore;
-import net.foxmcloud.draconicadditions.items.armor.ChaoticArmor;
-import net.foxmcloud.draconicadditions.items.armor.InfusedPotatoArmor;
-import net.foxmcloud.draconicadditions.items.armor.PotatoArmor;
-import net.foxmcloud.draconicadditions.items.baubles.InertiaCancelRing;
-import net.foxmcloud.draconicadditions.items.baubles.OverloadBelt;
-import net.foxmcloud.draconicadditions.items.baubles.ShieldNecklace;
-import net.foxmcloud.draconicadditions.items.baubles.VampiricShirt;
-import net.foxmcloud.draconicadditions.items.tools.ChaoticStaffOfPower;
+import net.foxmcloud.draconicadditions.items.*;
+import net.foxmcloud.draconicadditions.items.armor.*;
+import net.foxmcloud.draconicadditions.items.baubles.*;
+import net.foxmcloud.draconicadditions.items.tools.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -59,11 +56,23 @@ public class DAFeatures implements IModFeatures {
 	
     @ModFeature(name = "chaos_stabilizer_core", tileEntity = TileChaosStabilizerCore.class, itemBlock = ItemBlockBCore.class)
     public static ChaosStabilizerCore chaosStabilizerCore = new ChaosStabilizerCore();
+    
+    @ModFeature(name = "armor_generator", tileEntity = TileArmorGenerator.class, itemBlock = ItemBlockBCore.class)
+    public static ArmorGenerator armorGenerator = new ArmorGenerator();
+    
+    @ModFeature(name = "chaotic_armor_generator", tileEntity = TileChaoticArmorGenerator.class, itemBlock = ItemBlockBCore.class)
+    public static ChaoticArmorGenerator chaoticArmorGenerator = new ChaoticArmorGenerator();
+    
+    @ModFeature(name = "chaos_liquefier", tileEntity = TileChaosLiquefier.class, itemBlock = ItemBlockBCore.class)
+    public static ChaosLiquefier chaosLiquefier = new ChaosLiquefier();
 	
 	// Tools
 	
     @ModFeature(name = "chaotic_staff_of_power")
     public static ChaoticStaffOfPower chaoticStaffOfPower = new ChaoticStaffOfPower();
+    
+    @ModFeature(name = "chaos_container", stateOverride = "misc#type=normal")
+    public static ChaosContainer chaosContainer = new ChaosContainer();
 
 	// Potato Armor
 

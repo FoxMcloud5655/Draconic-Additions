@@ -20,10 +20,14 @@ item.draconicadditions:chaotic_boots.name=Chaotic Boots
 //Blocks
 
 tile.draconicadditions:chaos_stabilizer_core.name=Chaos Stabilizer Core
+tile.draconicadditions:armor_generator.name=Armor Generator
+tile.draconicadditions:chaotic_armor_generator.name=Chaotic Armor Generator
+tile.draconicadditions:chaos_liquefier.name=Chaos Liquefier
 
 //Tools
 
 item.draconicadditions:chaotic_staff_of_power.name=Chaotic Staff of Power
+item.draconicadditions:chaos_container.name=Chaos Container
 
 //Baubles
 
@@ -34,7 +38,7 @@ item.draconicadditions:overload_belt.name=Draconic Belt of Overloading
 item.draconicadditions:vampiric_shirt.name=Draconic Undershirt of Self-Siphoning
 item.draconicadditions:inertia_cancel_ring.name=Ring of Inertia Cancellation
 
-//Crafting Componants
+//Crafting Components
 
 item.draconicadditions:chaotic_energy_core.name=Chaotic Energy Core
 
@@ -57,6 +61,9 @@ msg.da.chaosStabilizer.emptyHand=ARE YOU CRAZY? Don't be sticking your hands int
 msg.da.chaosStabilizer.full=There is already an item present in the stabilizer.
 msg.da.chaosStabilizer.notMultiblock=The stabilizer doesn't seem to be responding to anything...
 
+msg.da.chaosContainer.explode=Your Chaos Container's shielding fails and it suddenly explodes!
+msg.da.chaosContainer.cantdrop=Throwing a container of Liquid Chaos on the ground seems like a bad idea.
+
 //Misc
 
 itemGroup.draconicadditions=Draconic Additions
@@ -65,5 +72,8 @@ config.field.shirtSafetyCutoff.entry=Safety Cutoff
 config.field.shirtSafetyCutoff.description=Allows you to set the point where this shirt will stop functioning and preserve your remaining life.\n\nNote: This is counted in HP, or half-hearts.
 config.field.shirtEntropyActivate.entry=Entropy Activation
 config.field.shirtEntropyActivate.description=Allows you to set at what entropy percent the shirt will start stealing your life to fuel your shields.
+
+info.da.shieldcharge.txt=Shield Charge
+info.da.storedchaos.txt=Stored Chaos
 
 key.overload=Activate Overload

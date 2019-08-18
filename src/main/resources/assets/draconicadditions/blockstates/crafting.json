@@ -8,7 +8,7 @@
     "transform": "forge:default-item"
   },
   "variants": {
-    "type":{
+    "type": {
       "inertpotatohelm":   { "textures": { "layer0": "draconicadditions:items/crafting/inert_potato_helmet"  } },
       "inertpotatochest":  { "textures": { "layer0": "draconicadditions:items/crafting/inert_potato_chestplate" } },
       "inertpotatolegs":   { "textures": { "layer0": "draconicadditions:items/crafting/inert_potato_leggings"  } },

@@ -1,5 +1,6 @@
 package net.foxmcloud.draconicadditions.items.baubles;
 
+import com.brandon3055.brandonscore.items.ItemBCore;
 import com.brandon3055.draconicevolution.entity.EntityPersistentItem;
 
 import baubles.api.BaubleType;
@@ -10,14 +11,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
-public class BasicBauble extends Item implements IBauble {
+public class BasicBauble extends ItemBCore implements IBauble {
 
 	public BasicBauble() {
 		this.setMaxStackSize(1);

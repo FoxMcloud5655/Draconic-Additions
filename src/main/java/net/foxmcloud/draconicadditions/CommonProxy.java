@@ -3,6 +3,7 @@ package net.foxmcloud.draconicadditions;
 import com.brandon3055.brandonscore.registry.ModFeatureParser;
 
 import net.foxmcloud.draconicadditions.handlers.DAEventHandler;
+import net.foxmcloud.draconicadditions.integration.AE2Compat;
 import net.foxmcloud.draconicadditions.lib.DARecipes;
 import net.foxmcloud.draconicadditions.network.PacketOverloadBelt;
 import net.minecraftforge.common.MinecraftForge;
@@ -21,5 +22,6 @@ public class CommonProxy {
 
 	public void init(FMLInitializationEvent event) {
 		DARecipes.addRecipes();
+		AE2Compat.init();
 	}
 }

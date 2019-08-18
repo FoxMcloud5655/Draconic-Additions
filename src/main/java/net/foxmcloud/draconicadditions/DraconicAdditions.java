@@ -4,17 +4,13 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.brandon3055.brandonscore.registry.ModFeatureParser;
 import com.brandon3055.draconicevolution.utils.LogHelper;
 
-import net.foxmcloud.draconicadditions.client.ClientProxy;
-import net.foxmcloud.draconicadditions.lib.DARecipes;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 @Mod(modid = DraconicAdditions.MODID, name = DraconicAdditions.NAME, version = DraconicAdditions.VERSION, guiFactory = DraconicAdditions.GUI_FACTORY, dependencies = DraconicAdditions.dependencies)
@@ -65,6 +61,7 @@ public class DraconicAdditions {
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
+		GUIHandler.initialize();
 		proxy.init(event);
 	}
 }

@@ -1,5 +1,7 @@
 package net.foxmcloud.draconicadditions.blocks.chaosritual;
 
+import java.util.Random;
+
 import javax.annotation.Nullable;
 
 import com.brandon3055.brandonscore.blocks.BlockBCore;
@@ -10,20 +12,15 @@ import codechicken.lib.model.ModelRegistryHelper;
 import net.foxmcloud.draconicadditions.blocks.chaosritual.tileentity.TileChaosStabilizerCore;
 import net.foxmcloud.draconicadditions.client.render.item.RenderItemChaosStabilizerCore;
 import net.foxmcloud.draconicadditions.client.render.tile.RenderTileChaosStabilizerCore;
-import net.foxmcloud.draconicadditions.items.IChaosItem;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -106,4 +103,22 @@ public class ChaosStabilizerCore extends BlockBCore implements ITileEntityProvid
         	super.onBlockExploded(world, pos, explosion);
         }
     }
+    
+	@SideOnly(Side.CLIENT)
+	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+		if (worldIn.getTileEntity(pos) instanceof TileChaosStabilizerCore) {
+			TileChaosStabilizerCore tile = (TileChaosStabilizerCore)worldIn.getTileEntity(pos);
+			if (tile.isMultiblock.value) {
+				for (int i = 0; i < 10; i++) {
+					double x = pos.getX() + 0.5D + ((0.5D - rand.nextDouble()) * 2);
+					double y = pos.getY() + 0.5D + ((0.5D - rand.nextDouble()) * 2);
+					double z = pos.getZ() + 0.5D + ((0.5D - rand.nextDouble()) * 2);
+					double xspeed = (x - pos.getX()) / 1;
+					double yspeed = -0.5D + ((y - pos.getY()) / 1);
+					double zspeed = (z - pos.getZ()) / 1;
+					worldIn.spawnParticle(EnumParticleTypes.PORTAL, x, y, z, xspeed, yspeed, zspeed, new int[0]);
+				}
+			}
+		}
+	}
 }

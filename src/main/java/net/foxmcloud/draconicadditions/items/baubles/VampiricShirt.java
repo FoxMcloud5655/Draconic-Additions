@@ -3,14 +3,12 @@ package net.foxmcloud.draconicadditions.items.baubles;
 import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 import com.brandon3055.draconicevolution.api.itemconfig.IConfigurableItem;
 import com.brandon3055.draconicevolution.api.itemconfig.IItemConfigField.EnumControlType;
-import com.brandon3055.draconicevolution.handlers.CustomArmorHandler.ArmorSummery;
-
-import baubles.api.BaubleType;
-
 import com.brandon3055.draconicevolution.api.itemconfig.IntegerConfigField;
 import com.brandon3055.draconicevolution.api.itemconfig.ItemConfigFieldRegistry;
 import com.brandon3055.draconicevolution.api.itemconfig.ToolConfigHelper;
+import com.brandon3055.draconicevolution.handlers.CustomArmorHandler.ArmorSummery;
 
+import baubles.api.BaubleType;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;

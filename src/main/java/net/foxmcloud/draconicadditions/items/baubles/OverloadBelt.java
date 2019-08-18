@@ -1,7 +1,6 @@
 package net.foxmcloud.draconicadditions.items.baubles;
 
 import com.brandon3055.brandonscore.utils.ItemNBTHelper;
-import com.brandon3055.draconicevolution.handlers.CustomArmorHandler;
 import com.brandon3055.draconicevolution.handlers.CustomArmorHandler.ArmorSummery;
 
 import baubles.api.BaubleType;

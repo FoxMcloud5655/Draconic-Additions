@@ -1,14 +1,9 @@
 package net.foxmcloud.draconicadditions.network;
 
-import com.brandon3055.brandonscore.BrandonsCore;
-
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import io.netty.buffer.ByteBuf;
-import net.foxmcloud.draconicadditions.client.keybinding.KeyBindings;
 import net.foxmcloud.draconicadditions.items.baubles.OverloadBelt;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

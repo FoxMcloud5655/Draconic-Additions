@@ -6,7 +6,6 @@ import com.brandon3055.draconicevolution.items.armor.ICustomArmor;
 import baubles.api.BaubleType;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 
 public class ShieldBauble extends EnergyBauble implements ICustomArmor {

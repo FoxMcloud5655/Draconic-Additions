@@ -2,6 +2,7 @@ package net.foxmcloud.draconicadditions.items.armor;
 
 import com.brandon3055.brandonscore.registry.ModConfigContainer;
 import com.brandon3055.brandonscore.registry.ModConfigProperty;
+
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 
 @ModConfigContainer(modid = DraconicAdditions.MODID)

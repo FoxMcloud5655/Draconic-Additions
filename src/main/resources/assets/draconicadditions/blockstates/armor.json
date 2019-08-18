@@ -8,19 +8,19 @@
     "transform": "forge:default-item"
   },
   "variants": {
-    "type":{
-      "infusedpotatohelm":   { "textures": { "layer0": "draconicadditions:items/armor/infused_potato_helmet"  } },
-      "infusedpotatochest":  { "textures": { "layer0": "draconicadditions:items/armor/infused_potato_chestplate" } },
-      "infusedpotatolegs":   { "textures": { "layer0": "draconicadditions:items/armor/infused_potato_leggings"  } },
-      "infusedpotatoboots":  { "textures": { "layer0": "draconicadditions:items/armor/infused_potato_boots"   } },
-      "potatohelm":   { "textures": { "layer0": "draconicadditions:items/armor/potato_helmet"  } },
-      "potatochest":  { "textures": { "layer0": "draconicadditions:items/armor/potato_chestplate" } },
-      "potatolegs":   { "textures": { "layer0": "draconicadditions:items/armor/potato_leggings"  } },
-      "potatoboots":  { "textures": { "layer0": "draconicadditions:items/armor/potato_boots"   } },
-      "chaotichelm":   { "textures": { "layer0": "draconicadditions:items/armor/chaotic_helmet"  } },
-      "chaoticchest":  { "textures": { "layer0": "draconicadditions:items/armor/chaotic_chestplate" } },
-      "chaoticlegs":   { "textures": { "layer0": "draconicadditions:items/armor/chaotic_leggings"  } },
-      "chaoticboots":  { "textures": { "layer0": "draconicadditions:items/armor/chaotic_boots"   } }
+    "type": {
+      "infusedpotatohelm":  { "textures": { "layer0": "draconicadditions:items/armor/infused_potato_helmet"     } },
+      "infusedpotatochest": { "textures": { "layer0": "draconicadditions:items/armor/infused_potato_chestplate" } },
+      "infusedpotatolegs":  { "textures": { "layer0": "draconicadditions:items/armor/infused_potato_leggings"   } },
+      "infusedpotatoboots": { "textures": { "layer0": "draconicadditions:items/armor/infused_potato_boots"      } },
+      "potatohelm":         { "textures": { "layer0": "draconicadditions:items/armor/potato_helmet"             } },
+      "potatochest":        { "textures": { "layer0": "draconicadditions:items/armor/potato_chestplate"         } },
+      "potatolegs":         { "textures": { "layer0": "draconicadditions:items/armor/potato_leggings"           } },
+      "potatoboots":        { "textures": { "layer0": "draconicadditions:items/armor/potato_boots"              } },
+      "chaotichelm":        { "textures": { "layer0": "draconicadditions:items/armor/chaotic_helmet"            } },
+      "chaoticchest":       { "textures": { "layer0": "draconicadditions:items/armor/chaotic_chestplate"        } },
+      "chaoticlegs":        { "textures": { "layer0": "draconicadditions:items/armor/chaotic_leggings"          } },
+      "chaoticboots":       { "textures": { "layer0": "draconicadditions:items/armor/chaotic_boots"             } }
     }
   }
 }
