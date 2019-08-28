@@ -1,0 +1,82 @@
+//Armors
+
+item.draconicadditions:inert_potato_helm.name=Инертный картофельный шлем
+item.draconicadditions:inert_potato_chest.name=Инертный картофельный нагрудник
+item.draconicadditions:inert_potato_legs.name=Инертные картофельные поножи
+item.draconicadditions:inert_potato_boots.name=Инертные картофельные ботинки
+item.draconicadditions:infused_potato_helm.name=Пробуждённый картофельный шлем
+item.draconicadditions:infused_potato_chest.name=Пробуждённый картофельный нагрудник
+item.draconicadditions:infused_potato_legs.name=Пробуждённые картофельные поножи
+item.draconicadditions:infused_potato_boots.name=Пробуждённые картофельные ботинки 
+item.draconicadditions:potato_helm.name=Заряженный картофельный шлем
+item.draconicadditions:potato_chest.name=Заряженный картофельный нагрудник
+item.draconicadditions:potato_legs.name=Заряженные картофельные поножи
+item.draconicadditions:potato_boots.name=Заряженные картофельные ботинки
+item.draconicadditions:chaotic_helm.name=Шлем хаоса
+item.draconicadditions:chaotic_chest.name=Нагрудник хаоса
+item.draconicadditions:chaotic_legs.name=Поножи хаоса
+item.draconicadditions:chaotic_boots.name=Ботинки хаоса
+
+//Blocks
+
+tile.draconicadditions:chaos_stabilizer_core.name=Хаотическое ядро стабилизации
+tile.draconicadditions:armor_generator.name=Броневой генератор
+tile.draconicadditions:chaotic_armor_generator.name=Броневой генератор хаоса
+tile.draconicadditions:chaos_liquefier.name=Ожижитель хаоса
+
+//Tools
+
+item.draconicadditions:chaotic_staff_of_power.name=Хаотический посох силы
+item.draconicadditions:chaos_container.name=Контейнер хаоса
+
+//Baubles
+
+item.draconicadditions:basic_shield_necklace.name=Основное ожерелье экранирования
+item.draconicadditions:wyvern_shield_necklace.name=Виверновое ожерелье экранирования
+item.draconicadditions:draconic_shield_necklace.name=Дракониевое ожерелье экранирования
+item.draconicadditions:overload_belt.name=Пояс драконьей перезагрузки
+item.draconicadditions:vampiric_shirt.name=Майка драконьего самосифонирования
+item.draconicadditions:inertia_cancel_ring.name=Кольцо отмены инерции
+
+//Crafting Components
+
+item.draconicadditions:chaotic_energy_core.name=Энергетическое ядро хаоса
+
+//Lore
+
+item.draconicadditions:infused_potato.lore=Заряжен, но еще не включен...
+item.draconicadditions:infused_potato.lore2=Может быть, для этого нужен старт?
+item.draconicadditions:potato.lore=Хотя дикий рост был неожиданным,
+item.draconicadditions:potato.lore2=сейчас он находится под напряжением. Странно, но полезно.
+
+msg.da.infusedTransformation.normal=Встряхивая часть брони, она начинает проростать в странно знакомой форме!
+msg.da.infusedTransformation.smack=Хлопая по часть брони на мобе, она начинает проростать в странно знакомой форме!
+
+msg.da.energizedBreak=Когда в ваше броне кончается сок, она распадается на части!
+
+msg.da.chaosStabilizer.canStabilize=Вы чувствуете, что предмет в вашей руке тянется к стабилизатору...
+msg.da.chaosStabilizer.alreadyStabilized=Стабилизатор остаётся инертным. Вы уже стабилизировали этот предмет.
+msg.da.chaosStabilizer.cannotStabilize=Стабилизатор активно отбрасывает предмет в ваших руках!
+msg.da.chaosStabilizer.emptyHand=ТЫ СУМАСШЕДШИЙ! Не засовывайте руки в чистый хаос!
+msg.da.chaosStabilizer.full=Стабилизатор уже стабилизировал это.
+msg.da.chaosStabilizer.notMultiblock=Стабилизатор не реагирует на это...
+
+msg.da.chaosContainer.explode=Щиты, защищающие ваш контейнер хаоса, терпят неудачу, и он внезапно взрывается!
+msg.da.chaosContainer.cantdrop=Бросить контейнер с жидким хаосом на землю кажется плохой идеей.
+
+//Misc
+
+itemGroup.draconicadditions=Draconic Additions
+
+config.field.shirtSafetyCutoff.entry=Безопасное отключение
+config.field.shirtSafetyCutoff.description=Позволяет установить точку, в которой эта рубашка перестанет функционировать и сохранит оставшуюся жизнь. \n\nПримечание: Это считается в HP, или в полу-сердцах.
+config.field.shirtEntropyActivate.entry=Активация энтропии
+config.field.shirtEntropyActivate.description=Позволяет вам указать, какой процент энтропии рубашка начнет поглощать вашу жизнь, чтобы питать ваши щиты.
+
+info.da.shieldcharge.txt=Заряд щита
+info.da.storedchaos.txt=Хранящийся хаос
+
+key.overload=Активировать перезагрузку
+
+//Russian translation by Lewui
+//Modified by FoxMcloud5655
