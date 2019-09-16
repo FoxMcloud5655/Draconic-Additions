@@ -18,7 +18,7 @@ import net.minecraft.util.math.BlockPos;
 public class TileArmorGenerator extends TileChaosHolderBase implements IEnergyProvider, ITickable, IChangeListener {
 
 	private int burnSpeed = 50;
-	private int baseRFMult = 20;
+	private int baseRFMult = 40;
 
 	public final ManagedInt burnTime = register("burnTime", new ManagedInt(1)).saveToTile().saveToItem().syncViaContainer().finish();
 	public final ManagedInt burnTimeRemaining = register("burnTimeRemaining", new ManagedInt(0)).saveToTile().saveToItem().syncViaContainer().finish();
@@ -29,7 +29,7 @@ public class TileArmorGenerator extends TileChaosHolderBase implements IEnergyPr
 	public TileArmorGenerator() {
 		setInventorySize(1);
 		setEnergySyncMode().syncViaContainer();
-		setCapacityAndTransfer(1000000, 0, 5000);
+		setCapacityAndTransfer(10000000, 0, 50000);
 		setShouldRefreshOnBlockChange();
 		setMaxChaos(0);
 	}
@@ -63,7 +63,7 @@ public class TileArmorGenerator extends TileChaosHolderBase implements IEnergyPr
 		if (!stack.isEmpty() && !(stack.getItem() instanceof IEnergyContainerItem)) {
 			if (stack.getItem() instanceof ItemArmor) {
 				ItemArmor item = (ItemArmor)stack.getItem();
-				int itemBurnTime = item.damageReduceAmount * (item.getMaxDamage(stack) - item.getDamage(stack)) * baseRFMult;
+				int itemBurnTime = item.damageReduceAmount * (item.getMaxDamage(stack) - item.getDamage(stack) + 1) * baseRFMult;
 				burnSpeedMultiplier.value = (int)Math.round(item.toughness > 0 ? 1 + item.toughness : 1);
 				if (stack.isItemEnchanted()) {
 					NBTTagList list = stack.getEnchantmentTagList();
@@ -71,7 +71,7 @@ public class TileArmorGenerator extends TileChaosHolderBase implements IEnergyPr
 			        	double lvls = 1.0F;
 			            for (int i = 0; i < list.tagCount(); i++) {
 			                NBTTagCompound compound = list.getCompoundTagAt(i);
-			                lvls += compound.getShort("lvl") / 10.0D;
+			                lvls += compound.getShort("lvl") / 5.0D;
 			            }
 		                itemBurnTime *= lvls;
 		                burnSpeedMultiplier.value = burnSpeedMultiplier.value * lvls;
@@ -85,11 +85,11 @@ public class TileArmorGenerator extends TileChaosHolderBase implements IEnergyPr
 						stack.shrink(1);
 					}
 					setInventorySlotContents(0, stack);
-					burnSpeedMultiplier.value *= (1 + (chaos.value / 2.0D));
-					burnTime.value = (int)(itemBurnTime * (1 + (chaos.value / 2.0D)));
-					burnTimeRemaining.value = burnTime.value;
 					if (chaos.value > 0) {
-						chaos.value = chaos.value / 2;
+						burnSpeedMultiplier.value *= (1 + (chaos.value / 2.0D));
+						burnTime.value = (int)(itemBurnTime * (1 + (chaos.value / 2.0D)));
+						burnTimeRemaining.value = burnTime.value;
+						chaos.value -= (int)Math.floor(Math.random() * (chaos.value / 8));
 					}
 				}
 			}

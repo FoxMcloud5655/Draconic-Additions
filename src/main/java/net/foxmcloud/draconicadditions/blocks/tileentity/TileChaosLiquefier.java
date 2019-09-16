@@ -15,7 +15,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class TileChaosLiquefier extends TileChaosHolderBase implements IEnergyReceiver, ITickable, IChangeListener {
 	
-	private int chargeRate = 250000;
+	private int chargeRate = 10000000;
 	public int maxCharge = 200;
 
 	public final ManagedInt charge = register("charge", new ManagedInt(0)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
@@ -26,7 +26,7 @@ public class TileChaosLiquefier extends TileChaosHolderBase implements IEnergyRe
 	public TileChaosLiquefier() {
 		setInventorySize(1);
 		setEnergySyncMode().syncViaContainer();
-		setCapacityAndTransfer(50000000, 500000, 500000);
+		setCapacityAndTransfer(2000000000, 20000000, 20000000);
 		setShouldRefreshOnBlockChange();
 	}
 
