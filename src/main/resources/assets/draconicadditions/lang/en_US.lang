@@ -22,6 +22,7 @@ item.draconicadditions:chaotic_boots.name=Chaotic Boots
 tile.draconicadditions:chaos_stabilizer_core.name=Chaos Stabilizer Core
 tile.draconicadditions:armor_generator.name=Armor Generator
 tile.draconicadditions:chaotic_armor_generator.name=Chaotic Armor Generator
+tile.draconicadditions:item_drainer.name=Item Drainer
 tile.draconicadditions:chaos_liquefier.name=Chaos Liquefier
 
 //Tools
@@ -75,5 +76,6 @@ config.field.shirtEntropyActivate.description=Allows you to set at what entropy 
 
 info.da.shieldcharge.txt=Shield Charge
 info.da.storedchaos.txt=Stored Chaos
+info.da.cooldown.txt=Cooldown
 
 key.overload=Activate Overload

@@ -2,10 +2,13 @@ package net.foxmcloud.draconicadditions;
 
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileArmorGenerator;
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosLiquefier;
+import net.foxmcloud.draconicadditions.blocks.tileentity.TileItemDrainer;
 import net.foxmcloud.draconicadditions.client.gui.GUIArmorGenerator;
 import net.foxmcloud.draconicadditions.client.gui.GUIChaoticGenerator;
+import net.foxmcloud.draconicadditions.client.gui.GUIItemDrainer;
 import net.foxmcloud.draconicadditions.inventory.ContainerArmorGenerator;
 import net.foxmcloud.draconicadditions.inventory.ContainerChaoticGenerator;
+import net.foxmcloud.draconicadditions.inventory.ContainerItemDrainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -19,6 +22,7 @@ public class GUIHandler implements IGuiHandler {
 
     public static final int GUIID_ARMOR_GENERATOR = 0;
     public static final int GUIID_CHAOTIC_GENERATOR = 1;
+    public static final int GUIID_ITEM_DRAINER = 2;
     
     public static void initialize() {
         NetworkRegistry.INSTANCE.registerGuiHandler(DraconicAdditions.instance, instance);
@@ -39,6 +43,11 @@ public class GUIHandler implements IGuiHandler {
                     return new ContainerChaoticGenerator(player, (TileChaosLiquefier) tile);
                 }
                 break;
+            case GUIID_ITEM_DRAINER:
+            	if (tile instanceof TileItemDrainer) {
+                    return new ContainerItemDrainer(player, (TileItemDrainer) tile);
+                }
+                break;
         }
         return null;
     }
@@ -56,6 +65,11 @@ public class GUIHandler implements IGuiHandler {
             case GUIID_CHAOTIC_GENERATOR:
                 if (tile instanceof TileChaosLiquefier) {
                     return new GUIChaoticGenerator(player, (TileChaosLiquefier) tile);
+                }
+                break;
+            case GUIID_ITEM_DRAINER:
+                if (tile instanceof TileItemDrainer) {
+                    return new GUIItemDrainer(player, (TileItemDrainer) tile);
                 }
                 break;
         }

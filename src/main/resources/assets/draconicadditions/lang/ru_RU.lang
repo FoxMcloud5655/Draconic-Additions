@@ -22,6 +22,7 @@ item.draconicadditions:chaotic_boots.name=Ботинки хаоса
 tile.draconicadditions:chaos_stabilizer_core.name=Хаотическое ядро стабилизации
 tile.draconicadditions:armor_generator.name=Броневой генератор
 tile.draconicadditions:chaotic_armor_generator.name=Броневой генератор хаоса
+tile.draconicadditions:item_drainer.name=Сливная машина
 tile.draconicadditions:chaos_liquefier.name=Ожижитель хаоса
 
 //Tools
@@ -75,6 +76,7 @@ config.field.shirtEntropyActivate.description=Позволяет вам указ
 
 info.da.shieldcharge.txt=Заряд щита
 info.da.storedchaos.txt=Хранящийся хаос
+info.da.cooldown.txt=время перезарядки
 
 key.overload=Активировать перезагрузку
 

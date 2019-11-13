@@ -31,6 +31,7 @@ public class DATextures implements IIconRegister, IResourceManagerReloadListener
     public static TextureAtlasSprite CHAOTIC_STAFF_OF_POWER;
     
     public static final ResourceLocation GUI_ARMOR_GENERATOR = ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "textures/gui/armor_generator.png");
+    public static final ResourceLocation GUI_ITEM_DRAINER = ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "textures/gui/item_drainer.png");
     public static final ResourceLocation GUI_CHAOTIC_GENERATOR = ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "textures/gui/chaotic_generator.png");
     
     @Override

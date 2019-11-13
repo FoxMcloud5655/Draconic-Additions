@@ -63,6 +63,9 @@ public class DAFeatures implements IModFeatures {
     @ModFeature(name = "chaotic_armor_generator", tileEntity = TileChaoticArmorGenerator.class, itemBlock = ItemBlockBCore.class)
     public static ChaoticArmorGenerator chaoticArmorGenerator = new ChaoticArmorGenerator();
     
+    @ModFeature(name = "item_drainer", tileEntity = TileItemDrainer.class, itemBlock = ItemBlockBCore.class)
+    public static ItemDrainer itemDrainer = new ItemDrainer();
+    
     @ModFeature(name = "chaos_liquefier", tileEntity = TileChaosLiquefier.class, itemBlock = ItemBlockBCore.class)
     public static ChaosLiquefier chaosLiquefier = new ChaosLiquefier();
 	

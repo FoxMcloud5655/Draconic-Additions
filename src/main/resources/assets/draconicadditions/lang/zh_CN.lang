@@ -22,6 +22,7 @@ item.draconicadditions:chaotic_boots.name=混沌龙靴子
 tile.draconicadditions:chaos_stabilizer_core.name=混沌稳定核心
 tile.draconicadditions:armor_generator.name=装甲发电机
 tile.draconicadditions:chaotic_armor_generator.name=混沌装甲发电机
+tile.draconicadditions:item_drainer.name=排水机
 tile.draconicadditions:chaos_liquefier.name=混沌液化机
 
 //Tools
@@ -75,7 +76,9 @@ config.field.shirtEntropyActivate.description=允许你设定虹吸的百分比�
 
 info.da.shieldcharge.txt=屏蔽充能
 info.da.storedchaos.txt=存储混沌
+info.da.cooldown.txt=技能冷却时间
 
 key.overload=激活过载
 
 //Chinese translation by pc18344
+//Modified by FoxMcloud5655
