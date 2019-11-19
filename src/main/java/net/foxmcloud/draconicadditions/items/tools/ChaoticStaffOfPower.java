@@ -92,7 +92,8 @@ public class ChaoticStaffOfPower extends DraconicStaffOfPower implements IChaosI
 
 	@Override
 	public double getWeaponAOE(ItemStack stack) {
-		return ToolConfigHelper.getDoubleField("attackAOE", stack) > 0 ? ToolConfigHelper.getDoubleField("attackAOE", stack) : getMaxAttackAOE(stack);
+		if (!isChaosStable(stack)) return getMaxAttackAOE(stack);
+		else return ToolConfigHelper.getDoubleField("attackAOE", stack);
 	}
 
 	@Override
