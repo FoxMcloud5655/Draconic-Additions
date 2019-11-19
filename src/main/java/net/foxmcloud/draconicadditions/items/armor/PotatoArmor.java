@@ -44,6 +44,7 @@ public class PotatoArmor extends WyvernArmor {
 		return ArmorStats.POTATO_UPGRADE_LEVEL;
 	}
 
+	@Override
 	public ItemConfigFieldRegistry getFields(ItemStack stack, ItemConfigFieldRegistry registry) {
 		return registry;
 	}

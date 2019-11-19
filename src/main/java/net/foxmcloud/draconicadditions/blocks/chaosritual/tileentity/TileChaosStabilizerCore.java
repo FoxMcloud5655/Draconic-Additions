@@ -72,7 +72,7 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 					if (e instanceof EntityItem) {
 						EntityItem eItem = (EntityItem) e;
 						if (eItem.getItem().getItem() instanceof IChaosItem) {
-							if (((IChaosItem)eItem.getItem().getItem()).isChaosStable(eItem.getItem())) {
+							if (((IChaosItem) eItem.getItem().getItem()).isChaosStable(eItem.getItem())) {
 								continue;
 							}
 						}
@@ -113,7 +113,7 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 		else {
 			if (isMultiblock.value) {
 				ritualTicks.value++;
-				List<Entity> suckEntities = this.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos).grow(suckRadius*2));
+				List<Entity> suckEntities = this.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos).grow(suckRadius * 2));
 				for (Entity e : suckEntities) {
 					double dx = (pos.getX() + 0.5D - e.posX);
 					double dy = (pos.getY() + 0.5D - e.posY);
@@ -134,10 +134,10 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 							}
 						}
 						else if (e instanceof EntityLiving) {
-							((EntityLiving)e).attackEntityFrom(chaosBurst, 20);
+							((EntityLiving) e).attackEntityFrom(chaosBurst, 20);
 						}
 					}
-					double limit = 1.0 - (distance / (suckRadius*2));
+					double limit = 1.0 - (distance / (suckRadius * 2));
 					if (limit > 0.0D) {
 						limit *= limit;
 						e.motionX += dx / distance * limit * 0.8D;
@@ -152,16 +152,16 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 					if (DEEventHandler.serverTicks % 2 == 0 && rand.nextBoolean()) {
 						int i = rand.nextInt(4);
 						switch (i) {
-						case 0: //West Pillar
+						case 0: // West Pillar
 							world.spawnEntity(new EntityLightningBolt(world, pos.getX() + 2, pos.getY() + 1, pos.getZ(), false));
 							break;
-						case 1: //East Pillar
+						case 1: // East Pillar
 							world.spawnEntity(new EntityLightningBolt(world, pos.getX() - 2, pos.getY() + 1, pos.getZ(), false));
 							break;
-						case 2: //South Pillar
+						case 2: // South Pillar
 							world.spawnEntity(new EntityLightningBolt(world, pos.getX(), pos.getY() + 1, pos.getZ() + 2, false));
 							break;
-						case 3: //North Pillar
+						case 3: // North Pillar
 							world.spawnEntity(new EntityLightningBolt(world, pos.getX(), pos.getY() + 1, pos.getZ() - 2, false));
 							break;
 						}
@@ -171,8 +171,7 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 					}
 				}
 				if (ritualTicks.value >= 300) {
-					if (checkMultiblock())
-						endRitual(true);
+					if (checkMultiblock()) endRitual(true);
 					else endRitual(false);
 				}
 			}
@@ -278,7 +277,7 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 			if (!stack.equals(ItemStack.EMPTY) && stack.getCount() > 0) {
 				if (getStackInSlot(0) == ItemStack.EMPTY) {
 					if (stack.getItem() instanceof IChaosItem) {
-						IChaosItem item = (IChaosItem)stack.getItem();
+						IChaosItem item = (IChaosItem) stack.getItem();
 						if (item.isChaosStable(stack)) {
 							sendMessage(player, "msg.da.chaosStabilizer.alreadyStabilized");
 						}
@@ -359,7 +358,7 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 						world.setBlockToAir(checkPos);
 						world.spawnEntity(new EntityLightningBolt(world, checkPos.getX(), checkPos.getY() + 1, checkPos.getZ(), false));
 					}
-					((IChaosItem)invStack.getItem()).setChaosStable(invStack, true);
+					((IChaosItem) invStack.getItem()).setChaosStable(invStack, true);
 				}
 				EntityItem chaosItem = new EntityItem(world, pos.getX(), pos.getY() + 1.01D, pos.getZ(), invStack);
 				world.spawnEntity(chaosItem);

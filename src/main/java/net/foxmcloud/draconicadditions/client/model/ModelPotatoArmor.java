@@ -143,6 +143,7 @@ public class ModelPotatoArmor extends ModelBiped {
 		GlStateManager.popMatrix();
 	}
 
+	@Override
 	public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float scale, Entity p_78087_7_) {
 		this.bipedRightArm.rotateAngleZ = 0.0F;
 		this.bipedLeftArm.rotateAngleZ = 0.0F;

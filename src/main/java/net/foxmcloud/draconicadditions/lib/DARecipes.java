@@ -30,14 +30,14 @@ public class DARecipes {
 		addShapeless(ALL, new ItemStack(chaosShard, 9, 2), new ItemStack(chaosShard, 1, 1));
 		addShapeless(ALL, new ItemStack(chaosShard, 9, 3), new ItemStack(chaosShard, 1, 2));
 		addFusion(NORMAL, new ItemStack(chaosStabilizerCore), new ItemStack(reactorCore), 1250000000, 3, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), infusedObsidian, infusedObsidian);
-		addFusion(HARD, new ItemStack(chaosStabilizerCore), new ItemStack(reactorCore), 2000000000, 3,  new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), infusedObsidian, infusedObsidian);
+		addFusion(HARD, new ItemStack(chaosStabilizerCore), new ItemStack(reactorCore), 2000000000, 3, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), infusedObsidian, infusedObsidian);
 
 		// Tools
-		
+
 		addFusionTool(NORMAL, new ItemStack(chaoticStaffOfPower), new ItemStack(draconicStaffOfPower), 16000000, 3, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), chaoticCore, chaoticEnergyCore);
 		addFusionTool(HARD, new ItemStack(chaoticStaffOfPower), new ItemStack(draconicStaffOfPower), 64000000, 3, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), chaoticCore, chaoticEnergyCore);
 		addFusion(ALL, new ItemStack(chaosContainer), new ItemStack(BUCKET), 250000, 2, infusedObsidian, infusedObsidian, infusedObsidian, infusedObsidian);
-		
+
 		// Potato Armor
 
 		addShaped(NORMAL, infusedPotatoHelm, "ABA", "ACA", "ADA", 'A', "ingotDraconium", 'B', draconicCore, 'C', inertPotatoHelm, 'D', wyvernEnergyCore);
@@ -61,7 +61,7 @@ public class DARecipes {
 		addFusionTool(HARD, new ItemStack(chaoticBoots), new ItemStack(draconicBoots), 64000000, 3, infusedObsidian, chaoticCore, infusedObsidian, chaoticEnergyCore);
 
 		// Blocks
-		
+
 		addFusion(NORMAL, new ItemStack(chaoticEnergyCore), new ItemStack(draconicEnergyCore), 1000000000, 2, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), "blockRedstone", "blockRedstone", "blockRedstone", "blockRedstone");
 		addFusion(HARD, new ItemStack(chaoticEnergyCore), new ItemStack(chaosShard, 1, 0), 2000000000, 2, draconicEnergyCore, draconicEnergyCore, draconicEnergyCore, draconicEnergyCore, "blockDraconium", "blockDraconium", "blockDraconium", "blockDraconium");
 		addShapeless(ALL, armorGenerator, generator, IRON_CHESTPLATE);
@@ -69,7 +69,7 @@ public class DARecipes {
 		addFusion(NORMAL, new ItemStack(chaoticArmorGenerator), new ItemStack(armorGenerator), 50000, 3, chaosContainer);
 		addFusion(HARD, new ItemStack(chaoticArmorGenerator), new ItemStack(armorGenerator), 500000, 3, chaosContainer, infusedObsidian);
 		addFusion(ALL, new ItemStack(chaosLiquefier), new ItemStack(generator), 2500000, 3, reactorCore, chaosContainer);
-		
+
 		// Shield Baubles
 
 		addShaped(NORMAL, basicShieldNecklace, "AAA", "ACA", " B ", 'A', GOLD_INGOT, 'B', draconicCore, 'C', wyvernEnergyCore);

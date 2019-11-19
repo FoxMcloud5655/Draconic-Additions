@@ -14,7 +14,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 
 public class TileChaosLiquefier extends TileChaosHolderBase implements IEnergyReceiver, ITickable, IChangeListener {
-	
+
 	private int chargeRate = 10000000;
 	public int maxCharge = 200;
 
@@ -36,13 +36,13 @@ public class TileChaosLiquefier extends TileChaosHolderBase implements IEnergyRe
 		if (world.isRemote) {
 			if (active.value) {
 				if (charge.value >= 0 && charge.value < chargeTo.value - 1) {
-					float beamPitch = (1.5F * (float)charge.value / (float)maxCharge) + 0.5F;
-					world.playSound((double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, DESoundHandler.beam, SoundCategory.BLOCKS, 0.2F, beamPitch, false);
-					//charge.value += 1;
+					float beamPitch = (1.5F * charge.value / maxCharge) + 0.5F;
+					world.playSound(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, DESoundHandler.beam, SoundCategory.BLOCKS, 0.2F, beamPitch, false);
+					// charge.value += 1;
 				}
 				else {
-					world.playSound((double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, DESoundHandler.boom, SoundCategory.BLOCKS, 1.0F, 2.0F, false);
-					//charge.value = 0;
+					world.playSound(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, DESoundHandler.boom, SoundCategory.BLOCKS, 1.0F, 2.0F, false);
+					// charge.value = 0;
 				}
 			}
 		}
@@ -83,39 +83,47 @@ public class TileChaosLiquefier extends TileChaosHolderBase implements IEnergyRe
 		}
 		charge.value = 0;
 	}
-	
+
 	public int calcChaos(ItemStack stack) {
 		if (isItemValidForSlot(0, stack)) {
 			switch (stack.getItem().getMetadata(stack)) {
-			case 0: return 729;
-			case 1: return 81;
-			case 2: return 9;
-			case 3: return 1;
-			default: return 0;
-			}
-		}
-		else return 0;
-	}
-	
-	public int calcCharge(ItemStack stack) {
-		if (isItemValidForSlot(0, stack)) {
-			switch (stack.getItem().getMetadata(stack)) {
-			case 0: return maxCharge;
-			case 1: return maxCharge / 2;
-			case 2: return maxCharge / 4;
-			case 3: return maxCharge / 8;
-			default: return maxCharge;
+			case 0:
+				return 729;
+			case 1:
+				return 81;
+			case 2:
+				return 9;
+			case 3:
+				return 1;
+			default:
+				return 0;
 			}
 		}
 		else return 0;
 	}
 
-	//region IEnergyProvider
+	public int calcCharge(ItemStack stack) {
+		if (isItemValidForSlot(0, stack)) {
+			switch (stack.getItem().getMetadata(stack)) {
+			case 0:
+				return maxCharge;
+			case 1:
+				return maxCharge / 2;
+			case 2:
+				return maxCharge / 4;
+			case 3:
+				return maxCharge / 8;
+			default:
+				return maxCharge;
+			}
+		}
+		else return 0;
+	}
+
 	@Override
 	public boolean canConnectEnergy(EnumFacing from) {
 		return true;
 	}
-	//endregion
 
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {

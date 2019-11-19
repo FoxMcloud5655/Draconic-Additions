@@ -67,7 +67,7 @@ public class OverloadBelt extends BasicBauble {
 						ItemNBTHelper.setFloat(armor, "ShieldEntropy", newEntropy);
 					}
 
-					int strengthCalc = (int) (Math.round(totalAbsorbed) / 2);
+					int strengthCalc = Math.round(totalAbsorbed) / 2;
 					if (strengthCalc > 0) {
 						player.removeActivePotionEffect(MobEffects.STRENGTH);
 						player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 2, strengthCalc, true, false));

@@ -39,7 +39,7 @@ public class TileItemDrainer extends TileChaosHolderBase implements IEnergyProvi
 		super.update();
 		if (world.isRemote) {
 			if (active.value && !clientPlayedSound) {
-				world.playSound((double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, DESoundHandler.boom, SoundCategory.BLOCKS, 1.0F, 2.0F, false);
+				world.playSound(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, DESoundHandler.boom, SoundCategory.BLOCKS, 1.0F, 2.0F, false);
 				clientPlayedSound = true;
 			}
 			else if (!active.value && clientPlayedSound) {
@@ -83,7 +83,6 @@ public class TileItemDrainer extends TileChaosHolderBase implements IEnergyProvi
 		}
 	}
 
-	//region IEnergyProvider
 	@Override
 	public int extractEnergy(EnumFacing from, int maxExtract, boolean simulate) {
 		return super.extractEnergy(from, maxExtract, simulate);
@@ -103,7 +102,6 @@ public class TileItemDrainer extends TileChaosHolderBase implements IEnergyProvi
 	public boolean canConnectEnergy(EnumFacing from) {
 		return true;
 	}
-	//endregion
 
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {

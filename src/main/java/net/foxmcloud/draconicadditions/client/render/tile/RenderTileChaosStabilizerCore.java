@@ -50,12 +50,12 @@ public class RenderTileChaosStabilizerCore extends TESRBase<TileChaosStabilizerC
 		GlStateTracker.pushState();
 		GlStateManager.disableLighting();
 		setLighting(100);
-		double diameter = te.getCoreDiameter(); //How big to render.
-		double t = te.getCoreIntensity(); //How hot to render.
+		double diameter = te.getCoreDiameter(); // How big to render.
+		double t = te.getCoreIntensity(); // How hot to render.
 		double intensity = t <= 0.2 ? Utils.map(t, 0, 0.2, 0, 0.3) : t <= 0.8 ? Utils.map(t, 0.2, 0.8, 0.3, 1) : Utils.map(t, 0.8, 1, 1, 1.3);
 		if (MinecraftForgeClient.getRenderPass() == 0) {
 			float animation = partialTicks / 10F;
-			renderCore(x, y, z, partialTicks, (float)intensity, animation, diameter, DEShaders.useShaders());
+			renderCore(x, y, z, partialTicks, (float) intensity, animation, diameter, DEShaders.useShaders());
 		}
 
 		resetLighting();

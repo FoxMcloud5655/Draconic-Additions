@@ -33,7 +33,7 @@ import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ArmorGenerator extends BlockBCore implements ITileEntityProvider { 
+public class ArmorGenerator extends BlockBCore implements ITileEntityProvider {
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
 	public static final PropertyBool ACTIVE = PropertyBool.create("active");
 
@@ -42,7 +42,6 @@ public class ArmorGenerator extends BlockBCore implements ITileEntityProvider {
 		this.setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVE, false));
 	}
 
-	//region BlockState
 	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, FACING, ACTIVE);
@@ -90,7 +89,6 @@ public class ArmorGenerator extends BlockBCore implements ITileEntityProvider {
 		worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
 		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 	}
-	//endregion
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
@@ -110,19 +108,20 @@ public class ArmorGenerator extends BlockBCore implements ITileEntityProvider {
 		return true;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings("incomplete-switch")
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 		if (stateIn.getActualState(worldIn, pos).getValue(ACTIVE)) {
-			EnumFacing enumfacing = (EnumFacing) stateIn.getValue(FACING);
-			double d0 = (double) pos.getX() + 0.5D;
-			double d1 = (double) pos.getY() + 0.4 + rand.nextDouble() * 0.2;
-			double d2 = (double) pos.getZ() + 0.5D;
+			EnumFacing enumfacing = stateIn.getValue(FACING);
+			double d0 = pos.getX() + 0.5D;
+			double d1 = pos.getY() + 0.4 + rand.nextDouble() * 0.2;
+			double d2 = pos.getZ() + 0.5D;
 			double d3 = 0.52D;
 			double d4 = rand.nextDouble() * 0.4D - 0.2D;
 
 			if (rand.nextDouble() < 0.1D) {
-				worldIn.playSound((double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, SoundEvents.BLOCK_CHORUS_FLOWER_DEATH, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+				worldIn.playSound(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, SoundEvents.BLOCK_CHORUS_FLOWER_DEATH, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
 			}
 
 			switch (enumfacing) {

@@ -9,7 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 public class ShieldBauble extends EnergyBauble implements ICustomArmor {
-	
+
 	private boolean[] canFly = {false, false, false};
 
 	/**
@@ -102,10 +102,10 @@ public class ShieldBauble extends EnergyBauble implements ICustomArmor {
 
 	/**
 	 * DO NOT OVERRIDE! This method is called when inquiring about the flight
-	 * capabilities of this bauble.  If you need to set flight parameters, change
-	 * the "canFly" variable and override the "onEquipped" method.
-	 * Note: Doing so will force your parameters over all others.
-	 * 
+	 * capabilities of this bauble. If you need to set flight parameters, change the
+	 * "canFly" variable and override the "onEquipped" method. Note: Doing so will
+	 * force your parameters over all others.
+	 *
 	 */
 	@Override
 	public boolean[] hasFlight(ItemStack arg0) {
@@ -115,23 +115,23 @@ public class ShieldBauble extends EnergyBauble implements ICustomArmor {
 	/**
 	 * Can be overridden! This method is called when inquiring if this bauble grants
 	 * full-block step-up.
-	 * 
+	 *
 	 */
 	@Override
 	public boolean hasHillStep(ItemStack arg0, EntityPlayer arg1) {
 		return false;
 	}
-	
+
 	/**
-	 * Can be overridden! This method is called upon equipping this bauble.
-	 * Make sure to call "super.onEquipped()" in your override if you do not wish 
-	 * to make this bauble grant flight, as it currently contains a hacky fix to 
-	 * get around DE's method of granting flight.
-	 * 
+	 * Can be overridden! This method is called upon equipping this bauble. Make
+	 * sure to call "super.onEquipped()" in your override if you do not wish to make
+	 * this bauble grant flight, as it currently contains a hacky fix to get around
+	 * DE's method of granting flight.
+	 *
 	 */
 	@Override
 	public void onEquipped(ItemStack stack, EntityLivingBase player) {
-		ArmorSummery armorSummary = new ArmorSummery().getSummery((EntityPlayer)player);
+		ArmorSummery armorSummary = new ArmorSummery().getSummery((EntityPlayer) player);
 		canFly = armorSummary.flight;
 		super.onEquipped(stack, player);
 	}

@@ -51,31 +51,31 @@ public class DAFeatures implements IModFeatures {
 
 	@ModFeature(name = "chaotic_energy_core", stateOverride = "crafting#type=chaoticECore")
 	public static ChaoticEnergyCore chaoticEnergyCore = new ChaoticEnergyCore();
-	
+
 	// Blocks
-	
-    @ModFeature(name = "chaos_stabilizer_core", tileEntity = TileChaosStabilizerCore.class, itemBlock = ItemBlockBCore.class)
-    public static ChaosStabilizerCore chaosStabilizerCore = new ChaosStabilizerCore();
-    
-    @ModFeature(name = "armor_generator", tileEntity = TileArmorGenerator.class, itemBlock = ItemBlockBCore.class)
-    public static ArmorGenerator armorGenerator = new ArmorGenerator();
-    
-    @ModFeature(name = "chaotic_armor_generator", tileEntity = TileChaoticArmorGenerator.class, itemBlock = ItemBlockBCore.class)
-    public static ChaoticArmorGenerator chaoticArmorGenerator = new ChaoticArmorGenerator();
-    
-    @ModFeature(name = "item_drainer", tileEntity = TileItemDrainer.class, itemBlock = ItemBlockBCore.class)
-    public static ItemDrainer itemDrainer = new ItemDrainer();
-    
-    @ModFeature(name = "chaos_liquefier", tileEntity = TileChaosLiquefier.class, itemBlock = ItemBlockBCore.class)
-    public static ChaosLiquefier chaosLiquefier = new ChaosLiquefier();
-	
+
+	@ModFeature(name = "chaos_stabilizer_core", tileEntity = TileChaosStabilizerCore.class, itemBlock = ItemBlockBCore.class)
+	public static ChaosStabilizerCore chaosStabilizerCore = new ChaosStabilizerCore();
+
+	@ModFeature(name = "armor_generator", tileEntity = TileArmorGenerator.class, itemBlock = ItemBlockBCore.class)
+	public static ArmorGenerator armorGenerator = new ArmorGenerator();
+
+	@ModFeature(name = "chaotic_armor_generator", tileEntity = TileChaoticArmorGenerator.class, itemBlock = ItemBlockBCore.class)
+	public static ChaoticArmorGenerator chaoticArmorGenerator = new ChaoticArmorGenerator();
+
+	@ModFeature(name = "item_drainer", tileEntity = TileItemDrainer.class, itemBlock = ItemBlockBCore.class)
+	public static ItemDrainer itemDrainer = new ItemDrainer();
+
+	@ModFeature(name = "chaos_liquefier", tileEntity = TileChaosLiquefier.class, itemBlock = ItemBlockBCore.class)
+	public static ChaosLiquefier chaosLiquefier = new ChaosLiquefier();
+
 	// Tools
-	
-    @ModFeature(name = "chaotic_staff_of_power")
-    public static ChaoticStaffOfPower chaoticStaffOfPower = new ChaoticStaffOfPower();
-    
-    @ModFeature(name = "chaos_container", stateOverride = "misc#type=normal")
-    public static ChaosContainer chaosContainer = new ChaosContainer();
+
+	@ModFeature(name = "chaotic_staff_of_power")
+	public static ChaoticStaffOfPower chaoticStaffOfPower = new ChaoticStaffOfPower();
+
+	@ModFeature(name = "chaos_container", stateOverride = "misc#type=normal")
+	public static ChaosContainer chaosContainer = new ChaosContainer();
 
 	// Potato Armor
 

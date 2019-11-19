@@ -12,12 +12,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 
-public class ChaoticArmorGenerator extends ArmorGenerator implements IBlockChaosHolder { 
+public class ChaoticArmorGenerator extends ArmorGenerator implements IBlockChaosHolder {
 
 	public ChaoticArmorGenerator() {
 		super();
 	}
-	
+
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileChaoticArmorGenerator();

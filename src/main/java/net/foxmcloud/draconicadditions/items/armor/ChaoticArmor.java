@@ -77,8 +77,7 @@ public class ChaoticArmor extends DraconicArmor implements IChaosItem {
 			int u = UpgradeHelper.getUpgradeLevel(stack, ToolUpgrade.MOVE_SPEED);
 			int i = 200 + (100 * u) + (Math.max(u - 1, 0) * 100) + (Math.max(u - 2, 0) * 100);
 			registry.register(stack, new IntegerConfigField("armorSpeedModifier", 0, isChaosStable(stack) ? 0 : i, i, "config.field.armorSpeedModifier.description", SLIDER).setPrefix("+").setExtension("%"));
-			if (isChaosStable(stack))
-				registry.register(stack, new BooleanConfigField("armorSpeedFOVWarp", false, "config.field.armorSpeedFOVWarp.description"));
+			if (isChaosStable(stack)) registry.register(stack, new BooleanConfigField("armorSpeedFOVWarp", false, "config.field.armorSpeedFOVWarp.description"));
 		}
 		if (armorType == FEET) {
 			int u = UpgradeHelper.getUpgradeLevel(stack, ToolUpgrade.JUMP_BOOST);
@@ -103,18 +102,17 @@ public class ChaoticArmor extends DraconicArmor implements IChaosItem {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
-        if (ToolConfigHelper.getBooleanField("hideArmor", itemStack)) {
-            if (model_invisible == null) {
-                model_invisible = new ModelBiped() {
-                    @Override
-                    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-                    }
-                };
-            }
+		if (ToolConfigHelper.getBooleanField("hideArmor", itemStack)) {
+			if (model_invisible == null) {
+				model_invisible = new ModelBiped() {
+					@Override
+					public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {}
+				};
+			}
 
-            return model_invisible;
-        }
-		
+			return model_invisible;
+		}
+
 		if (DEConfig.disable3DModels) {
 			return super.getArmorModel(entityLiving, itemStack, armorSlot, _default);
 		}
@@ -199,7 +197,7 @@ public class ChaoticArmor extends DraconicArmor implements IChaosItem {
 										DelayedTask.run(20, () -> world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, .5F, world.rand.nextFloat() * 0.1F + 0.9F));
 									}
 
-									world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.PLAYERS, 0.5F + 0.5F * (float) world.rand.nextInt(2), (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.0F);
+									world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.PLAYERS, 0.5F + 0.5F * world.rand.nextInt(2), (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.0F);
 									foodStack = handler.insertItem(i, foodStack, false);
 									this.modifyEnergy(stack, -500);
 									if (!foodStack.isEmpty()) {

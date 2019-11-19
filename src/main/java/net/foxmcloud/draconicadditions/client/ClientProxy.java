@@ -21,8 +21,8 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new KeyInputHandler());
 		OBJLoader.INSTANCE.addDomain(DraconicAdditions.MODID);
 		TextureUtils.addIconRegister(new DAArmorModelHelper());
-        TextureUtils.addIconRegister(new DATextures());
-        ResourceUtils.registerReloadListener(new DATextures());
+		TextureUtils.addIconRegister(new DATextures());
+		ResourceUtils.registerReloadListener(new DATextures());
 	}
 
 	@Override

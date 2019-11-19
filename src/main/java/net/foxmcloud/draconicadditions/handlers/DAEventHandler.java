@@ -5,9 +5,7 @@ import com.brandon3055.draconicevolution.handlers.CustomArmorHandler;
 import net.foxmcloud.draconicadditions.DAFeatures;
 import net.foxmcloud.draconicadditions.items.ChaosContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.GuiScreenEvent.MouseInputEvent;
@@ -46,26 +44,26 @@ public class DAEventHandler {
 			}
 		}
 	}
-	
+
 	@SideOnly(value = Side.CLIENT)
-    @SubscribeEvent(priority = EventPriority.HIGH)
-    public void guiMouse(MouseInputEvent.Pre event) {
-        if (event.getGui() instanceof GuiContainer) {
-            GuiContainer inventory = (GuiContainer)event.getGui();
-            Slot slot = inventory.getSlotUnderMouse();
-            if (slot != null) {
-                ItemStack stack = slot.getStack();
-                if (stack != null && stack.getItem() instanceof ChaosContainer) {
-                    event.setCanceled(((ChaosContainer)stack.getItem()).getChaos(stack) > 0);
-                }
-            }
-        }
-    }
-    
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onRightClickEntity(EntityInteract event) {
-    	if (event.getItemStack().getItem() instanceof ChaosContainer) {
-    		event.getItemStack().getItem().onLeftClickEntity(event.getItemStack(), event.getEntityPlayer(), event.getTarget());
-    	}
-    }
+	@SubscribeEvent(priority = EventPriority.HIGH)
+	public void guiMouse(MouseInputEvent.Pre event) {
+		if (event.getGui() instanceof GuiContainer) {
+			GuiContainer inventory = (GuiContainer) event.getGui();
+			Slot slot = inventory.getSlotUnderMouse();
+			if (slot != null) {
+				ItemStack stack = slot.getStack();
+				if (stack != null && stack.getItem() instanceof ChaosContainer) {
+					event.setCanceled(((ChaosContainer) stack.getItem()).getChaos(stack) > 0);
+				}
+			}
+		}
+	}
+
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public void onRightClickEntity(EntityInteract event) {
+		if (event.getItemStack().getItem() instanceof ChaosContainer) {
+			event.getItemStack().getItem().onLeftClickEntity(event.getItemStack(), event.getEntityPlayer(), event.getTarget());
+		}
+	}
 }

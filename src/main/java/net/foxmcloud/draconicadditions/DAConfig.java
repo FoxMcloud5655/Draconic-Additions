@@ -36,20 +36,21 @@ public class DAConfig implements IModConfigHelper {
 	public String getCategoryComment(String category) {
 		return comments.getOrDefault(category, "");
 	}
-	
-    @Override
-    public void onConfigChanged(String propertyName, String propertyCategory) {
-        loadToolStats();
-    }
-    
-    @Override
-    public void onConfigLoaded() {
-        loadToolStats();
-    }
-    
-    private void loadToolStats() {
-    	DAFeatures.chaoticStaffOfPower.loadStatConfig();
-    }
+
+	@Override
+	public void onConfigChanged(String propertyName, String propertyCategory) {
+		loadToolStats();
+	}
+
+	@Override
+	public void onConfigLoaded() {
+		loadToolStats();
+	}
+
+	private void loadToolStats() {
+		DAFeatures.chaoticStaffOfPower.loadStatConfig();
+	}
+
 	@Mod.EventBusSubscriber
 	private static class EventHandler {
 		@SubscribeEvent
