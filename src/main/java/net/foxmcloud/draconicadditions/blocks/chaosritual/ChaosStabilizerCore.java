@@ -40,6 +40,7 @@ public class ChaosStabilizerCore extends BlockBCore implements ITileEntityProvid
 		return new TileChaosStabilizerCore();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public float getBlockHardness(IBlockState blockState, World world, BlockPos pos) {
 		TileEntity tile = world.getTileEntity(pos);
@@ -85,6 +86,7 @@ public class ChaosStabilizerCore extends BlockBCore implements ITileEntityProvid
 		return FULL_AABB;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Nullable
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos) {
 		TileEntity tile = worldIn.getTileEntity(pos);
