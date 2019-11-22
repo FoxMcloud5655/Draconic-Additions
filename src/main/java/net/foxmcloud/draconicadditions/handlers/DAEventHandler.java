@@ -3,7 +3,7 @@ package net.foxmcloud.draconicadditions.handlers;
 import com.brandon3055.draconicevolution.handlers.CustomArmorHandler;
 
 import net.foxmcloud.draconicadditions.DAFeatures;
-import net.foxmcloud.draconicadditions.items.ChaosContainer;
+import net.foxmcloud.draconicadditions.items.tools.ChaosContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Slot;

@@ -3,7 +3,7 @@ package net.foxmcloud.draconicadditions.blocks.tileentity;
 import com.brandon3055.brandonscore.blocks.TileEnergyInventoryBase;
 import com.brandon3055.brandonscore.lib.datamanager.ManagedInt;
 
-import net.foxmcloud.draconicadditions.items.ChaosContainer;
+import net.foxmcloud.draconicadditions.items.tools.ChaosContainer;
 import net.minecraft.item.ItemStack;
 
 public class TileChaosHolderBase extends TileEnergyInventoryBase {

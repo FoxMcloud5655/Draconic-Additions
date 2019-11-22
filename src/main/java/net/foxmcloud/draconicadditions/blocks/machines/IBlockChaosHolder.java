@@ -1,7 +1,7 @@
 package net.foxmcloud.draconicadditions.blocks.machines;
 
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosHolderBase;
-import net.foxmcloud.draconicadditions.items.ChaosContainer;
+import net.foxmcloud.draconicadditions.items.tools.ChaosContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;

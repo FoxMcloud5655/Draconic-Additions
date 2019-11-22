@@ -1,4 +1,4 @@
-package net.foxmcloud.draconicadditions.items;
+package net.foxmcloud.draconicadditions.items.tools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +33,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ChaosContainer extends ItemEnergyBase implements IUpgradableItem, IInvCharge {
 
-	private int maxChaos = 1000;
-	private int maxRF = 2000000;
-	private int maxReceive = 100000;
-	private int RFperChaos = 10;
-
 	private DamageSource chaosBurst = new DamageSource("chaosBurst").setDamageBypassesArmor();
 
 	public ChaosContainer() {
@@ -54,13 +49,22 @@ public class ChaosContainer extends ItemEnergyBase implements IUpgradableItem, I
 			subItems.add(stack);
 		}
 	}
-
-	public void addChaos(ItemStack stack, int chaos) {
-		ItemNBTHelper.setInteger(stack, "chaos", ItemNBTHelper.getInteger(stack, "chaos", 0) + chaos);
+	/**
+	 * Adds chaos to the container.  Returns the amount of chaos that was not added.
+	 */
+	public int addChaos(ItemStack stack, int chaos) {
+		int chaosToAdd = Math.min(getMaxChaos(stack) - getChaos(stack), chaos);
+		ItemNBTHelper.setInteger(stack, "chaos", ItemNBTHelper.getInteger(stack, "chaos", 0) + chaosToAdd);
+		return chaos - chaosToAdd;
 	}
 
-	public void removeChaos(ItemStack stack, int chaos) {
-		addChaos(stack, -chaos);
+	/**
+	 * Removes chaos from the container.  Returns the amount that was removed.
+	 */
+	public int removeChaos(ItemStack stack, int chaos) {
+		int chaosToRemove = Math.min(getChaos(stack), chaos);
+		ItemNBTHelper.setInteger(stack, "chaos", ItemNBTHelper.getInteger(stack, "chaos", 0) - chaosToRemove);
+		return chaosToRemove;
 	}
 
 	public int getChaos(ItemStack stack) {
@@ -69,24 +73,24 @@ public class ChaosContainer extends ItemEnergyBase implements IUpgradableItem, I
 
 	public int getMaxChaos(ItemStack stack) {
 		int upgrade = UpgradeHelper.getUpgradeLevel(stack, ToolUpgrade.SHIELD_CAPACITY);
-		return maxChaos * (upgrade + 1);
+		return ToolStats.CHAOS_CONTAINER_MAX_CHAOS * (upgrade + 1);
 	}
 
 	@Override
 	public int getCapacity(ItemStack stack) {
 		int upgrade = UpgradeHelper.getUpgradeLevel(stack, ToolUpgrade.RF_CAPACITY);
-		return maxRF * (upgrade + 1);
+		return ToolStats.CHAOS_CONTAINER_MAX_RF * (upgrade + 1);
 	}
 
 	@Override
 	public int getMaxReceive(ItemStack stack) {
 		int upgrade = UpgradeHelper.getUpgradeLevel(stack, ToolUpgrade.RF_CAPACITY);
-		return maxReceive * (upgrade + 1);
+		return ToolStats.CHAOS_CONTAINER_MAX_TRANSFER * (upgrade + 1);
 	}
 
 	@Override
 	public int getMaxExtract(ItemStack stack) {
-		return getMaxChaos(stack) * RFperChaos * 2;
+		return getMaxChaos(stack) * ToolStats.CHAOS_CONTAINER_RF_PER_CHAOS * 2;
 	}
 
 	@Override
@@ -118,8 +122,8 @@ public class ChaosContainer extends ItemEnergyBase implements IUpgradableItem, I
 
 	public void upkeep(EntityPlayer player, ItemStack stack, World world) {
 		if (hasEffect(stack) && !player.isCreative()) {
-			int drainedRF = extractEnergy(stack, getChaos(stack) * RFperChaos, false);
-			if (drainedRF != getChaos(stack) * RFperChaos) {
+			int drainedRF = extractEnergy(stack, getChaos(stack) * ToolStats.CHAOS_CONTAINER_RF_PER_CHAOS, false);
+			if (drainedRF != getChaos(stack) * ToolStats.CHAOS_CONTAINER_RF_PER_CHAOS) {
 				Vec3D pos = new Vec3D(player.posX, player.posY, player.posZ);
 				explodeEntity(pos, world);
 				player.attackEntityFrom(chaosBurst, getChaos(stack));
@@ -169,6 +173,7 @@ public class ChaosContainer extends ItemEnergyBase implements IUpgradableItem, I
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World playerIn, List<String> tooltip, ITooltipFlag advanced) {
 		tooltip.add(I18n.format("info.da.storedchaos.txt") + ": " + getChaos(stack) + " / " + getMaxChaos(stack) + " mB");
+		if (getMaxEnergyStored(stack) > 0)
 		tooltip.add(I18n.format("info.da.shieldcharge.txt") + ": " + getEnergyStored(stack) + " / " + getMaxEnergyStored(stack) + " RF");
 	}
 
