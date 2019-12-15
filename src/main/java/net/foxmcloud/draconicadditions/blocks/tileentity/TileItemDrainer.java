@@ -84,21 +84,6 @@ public class TileItemDrainer extends TileChaosHolderBase implements IEnergyProvi
 	}
 
 	@Override
-	public int extractEnergy(EnumFacing from, int maxExtract, boolean simulate) {
-		return super.extractEnergy(from, maxExtract, simulate);
-	}
-
-	@Override
-	public int getEnergyStored(EnumFacing from) {
-		return super.getEnergyStored();
-	}
-
-	@Override
-	public int getMaxEnergyStored(EnumFacing from) {
-		return super.getMaxEnergyStored();
-	}
-
-	@Override
 	public boolean canConnectEnergy(EnumFacing from) {
 		return true;
 	}

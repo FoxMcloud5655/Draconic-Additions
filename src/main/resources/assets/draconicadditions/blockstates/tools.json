@@ -9,9 +9,7 @@
   },
   "variants": {
     "type": {
-      "normal": {
-        "textures": {"layer0": "draconicadditions:items/tools/animated/chaos_container"}
-      }
+      "chaoscontainer":    { "textures": {"layer0": "draconicadditions:items/tools/animated/chaos_container"}}
     }
   }
 }
