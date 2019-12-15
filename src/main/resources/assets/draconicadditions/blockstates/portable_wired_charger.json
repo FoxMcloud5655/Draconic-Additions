@@ -1,0 +1,22 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "textures": {
+      "layer0": "blocks/dirt"
+    },
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "type": {
+      "basic":          { "textures": {"layer0": "draconicadditions:items/tools/portable_wired_charger_basic"}},
+      "basicactive":    { "textures": {"layer0": "draconicadditions:items/tools/portable_wired_charger_basic_active"}},
+      "wyvern":         { "textures": {"layer0": "draconicadditions:items/tools/portable_wired_charger_wyvern"}},
+      "wyvernactive":   { "textures": {"layer0": "draconicadditions:items/tools/portable_wired_charger_wyvern_active"}},
+      "draconic":       { "textures": {"layer0": "draconicadditions:items/tools/portable_wired_charger_draconic"}},
+      "draconicactive": { "textures": {"layer0": "draconicadditions:items/tools/portable_wired_charger_draconic_active"}},
+      "chaotic":        { "textures": {"layer0": "draconicadditions:items/tools/portable_wired_charger_chaotic"}},
+      "chaoticactive":  { "textures": {"layer0": "draconicadditions:items/tools/portable_wired_charger_chaotic_active"}}
+    }
+  }
+}

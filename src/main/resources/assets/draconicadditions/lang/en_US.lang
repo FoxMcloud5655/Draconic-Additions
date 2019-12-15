@@ -29,6 +29,14 @@ tile.draconicadditions:chaos_liquefier.name=Chaos Liquefier
 
 item.draconicadditions:chaotic_staff_of_power.name=Chaotic Staff of Power
 item.draconicadditions:chaos_container.name=Chaos Container
+item.draconicadditions:portable_wired_charger.basic.name=Portable Wired Basic Charger
+item.draconicadditions:portable_wired_charger.basicactive.name=Portable Wired Basic Charger (Active)
+item.draconicadditions:portable_wired_charger.wyvern.name=Portable Wired Wyvern Charger
+item.draconicadditions:portable_wired_charger.wyvernactive.name=Portable Wired Wyvern Charger (Active)
+item.draconicadditions:portable_wired_charger.draconic.name=Portable Wired Draconic Charger
+item.draconicadditions:portable_wired_charger.draconicactive.name=Portable Wired Draconic Charger (Active)
+item.draconicadditions:portable_wired_charger.chaotic.name=Portable Wired Chaotic Charger
+item.draconicadditions:portable_wired_charger.chaoticactive.name=Portable Wired Chaotic Charger (Active)
 
 //Baubles
 
@@ -64,6 +72,9 @@ msg.da.chaosStabilizer.notMultiblock=The stabilizer doesn't seem to be respondin
 
 msg.da.chaosContainer.explode=Your Chaos Container's shielding fails and it suddenly explodes!
 msg.da.chaosContainer.cantdrop=Throwing a container of Liquid Chaos on the ground seems like a bad idea.
+
+msg.da.portableWiredCharger.connectEnergySource=You must connect to a valid energy source.
+msg.da.portableWiredCharger.invalidSide=That side of the block does not output energy.
 
 //Misc
 

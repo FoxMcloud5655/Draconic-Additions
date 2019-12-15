@@ -4,16 +4,8 @@ import static com.brandon3055.draconicevolution.DEFeatures.*;
 import static com.brandon3055.draconicevolution.lib.RecipeManager.*;
 import static com.brandon3055.draconicevolution.lib.RecipeManager.RecipeDifficulty.*;
 import static net.foxmcloud.draconicadditions.DAFeatures.*;
-import static net.minecraft.init.Blocks.DIAMOND_BLOCK;
-import static net.minecraft.init.Blocks.GOLD_BLOCK;
-import static net.minecraft.init.Blocks.WOOL;
-import static net.minecraft.init.Items.BUCKET;
-import static net.minecraft.init.Items.GOLD_INGOT;
-import static net.minecraft.init.Items.IRON_CHESTPLATE;
-import static net.minecraft.init.Items.IRON_PICKAXE;
-import static net.minecraft.init.Items.LEATHER;
-import static net.minecraft.init.Items.POISONOUS_POTATO;
-import static net.minecraft.init.Items.POTATO;
+import static net.minecraft.init.Blocks.*;
+import static net.minecraft.init.Items.*;
 
 import net.minecraft.item.ItemStack;
 
@@ -37,6 +29,11 @@ public class DARecipes {
 		addFusionTool(NORMAL, new ItemStack(chaoticStaffOfPower), new ItemStack(draconicStaffOfPower), 16000000, 3, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), chaoticCore, chaoticEnergyCore);
 		addFusionTool(HARD, new ItemStack(chaoticStaffOfPower), new ItemStack(draconicStaffOfPower), 64000000, 3, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), chaoticCore, chaoticEnergyCore);
 		addFusion(ALL, new ItemStack(chaosContainer), new ItemStack(BUCKET), 250000, 2, infusedObsidian, infusedObsidian, infusedObsidian, infusedObsidian);
+		addShaped(NORMAL, pwcBasic, "AAB", " AC", " AD", 'A', IRON_INGOT, 'B', new ItemStack(DYE, 1, 0), 'C', REDSTONE, 'D', draconicCore);
+		addShaped(HARD, pwcBasic, " C ", "BAB", " D ", 'A', IRON_BLOCK, 'B', new ItemStack(DYE, 1, 0), 'C', REDSTONE, 'D', draconicCore);
+		addShapeless(ALL, pwcWyvern, pwcBasic, wyvernCore);
+		addShapeless(ALL, pwcDraconic, pwcBasic, draconicCore);
+		addShapeless(ALL, pwcChaotic, pwcBasic, chaoticCore);
 
 		// Potato Armor
 

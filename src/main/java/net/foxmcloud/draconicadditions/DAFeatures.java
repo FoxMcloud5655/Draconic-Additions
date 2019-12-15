@@ -20,6 +20,7 @@ import net.foxmcloud.draconicadditions.items.tools.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @GameRegistry.ObjectHolder(DraconicAdditions.MODID)
@@ -74,8 +75,17 @@ public class DAFeatures implements IModFeatures {
 	@ModFeature(name = "chaotic_staff_of_power")
 	public static ChaoticStaffOfPower chaoticStaffOfPower = new ChaoticStaffOfPower();
 
-	@ModFeature(name = "chaos_container", stateOverride = "misc#type=normal")
+	@ModFeature(name = "chaos_container", stateOverride = "tools#type=chaoscontainer")
 	public static ChaosContainer chaosContainer = new ChaosContainer();
+	
+	@ModFeature(name = "portable_wired_charger", variantMap = {
+			"0:type=basic", "1:type=wyvern", "2:type=draconic", "3:type=chaotic",
+			"4:type=basicactive", "5:type=wyvernactive", "6:type=draconicactive", "7:type=chaoticactive"})
+	public static PortableWiredCharger pwc = new PortableWiredCharger();
+	public static ItemStack pwcBasic = new ItemStack(pwc, 1, 0);
+	public static ItemStack pwcWyvern = new ItemStack(pwc, 1, 1);
+	public static ItemStack pwcDraconic = new ItemStack(pwc, 1, 2);
+	public static ItemStack pwcChaotic = new ItemStack(pwc, 1, 3);
 
 	// Potato Armor
 
