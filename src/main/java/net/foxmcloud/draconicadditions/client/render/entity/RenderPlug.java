@@ -18,6 +18,10 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public class RenderPlug extends Render<EntityPlug> {
+	
+    double xOffset = -0.45;
+    double yOffset = -0.045;
+    double zOffset = 0.4;
 
 	public RenderPlug(RenderManager renderManager) {
 		super(renderManager);
@@ -91,7 +95,7 @@ public class RenderPlug extends Render<EntityPlug> {
             {
                 float f10 = this.renderManager.options.fovSetting;
                 f10 = f10 / 100.0F;
-                Vec3d vec3d = new Vec3d((double)k * -0.36D * (double)f10, -0.045D * (double)f10, 0.4D);
+                Vec3d vec3d = new Vec3d((double)k * xOffset * (double)f10, yOffset * (double)f10, zOffset);
                 vec3d = vec3d.rotatePitch(-(entityplayer.prevRotationPitch + (entityplayer.rotationPitch - entityplayer.prevRotationPitch) * partialTicks) * 0.017453292F);
                 vec3d = vec3d.rotateYaw(-(entityplayer.prevRotationYaw + (entityplayer.rotationYaw - entityplayer.prevRotationYaw) * partialTicks) * 0.017453292F);
                 vec3d = vec3d.rotateYaw(f8 * 0.5F);
