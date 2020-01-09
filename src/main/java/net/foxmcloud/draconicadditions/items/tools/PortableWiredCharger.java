@@ -222,9 +222,9 @@ public class PortableWiredCharger extends ItemEnergyBase {
 	
 	public boolean isDistanceValid(BlockPos pos, EnumFacing side, EntityPlayer player) {
 		BlockPos offset = pos.offset(side).subtract(player.getPosition());
-		if (Math.abs(offset.getX()) > 2 ||
-			Math.abs(offset.getY()) > 2 ||
-			Math.abs(offset.getZ()) > 2) {
+		if (Math.abs(offset.getX()) > maxDistance ||
+			Math.abs(offset.getY()) > maxDistance ||
+			Math.abs(offset.getZ()) > maxDistance) {
 			return false;
 		}
 		else return true;
