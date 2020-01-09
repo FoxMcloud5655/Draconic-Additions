@@ -12,7 +12,6 @@ import com.brandon3055.draconicevolution.entity.EntityPersistentItem;
 import com.brandon3055.draconicevolution.integration.BaublesHelper;
 import com.brandon3055.draconicevolution.integration.ModHelper;
 
-import cofh.redstoneflux.api.IEnergyProvider;
 import net.foxmcloud.draconicadditions.DAFeatures;
 import net.foxmcloud.draconicadditions.entity.EntityPlug;
 import net.foxmcloud.draconicadditions.lib.DASoundHandler;
@@ -121,9 +120,8 @@ public class PortableWiredCharger extends ItemEnergyBase {
 		if (trace != null && trace.typeOfHit == RayTraceResult.Type.BLOCK && isDistanceValid(trace.getBlockPos(), trace.sideHit, player)) {
 			BlockPos pos = trace.getBlockPos();
 			TileEntity te = world.getTileEntity(pos);
-			if (te instanceof IEnergyProvider) {
-				IEnergyProvider energyProvider = (IEnergyProvider) te;
-				if (energyProvider.canConnectEnergy(trace.sideHit)) {
+			if (EnergyHelper.isEnergyTile(te, null)) {
+				if (EnergyHelper.isEnergyTile(te, trace.sideHit)) {
 					Vec3D vec = Vec3D.getCenter(trace.getBlockPos());
 					if (!world.isRemote) {
 						DASoundHandler.playSoundFromServer(world, vec, DASoundHandler.unplug, SoundCategory.BLOCKS, 0.8F, 1.5F, false, 64.0F);
