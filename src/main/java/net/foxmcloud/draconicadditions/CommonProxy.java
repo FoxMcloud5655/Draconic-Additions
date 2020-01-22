@@ -21,7 +21,7 @@ public class CommonProxy {
 		DraconicAdditions.network = NetworkRegistry.INSTANCE.newSimpleChannel(DraconicAdditions.networkChannelName);
 		DraconicAdditions.network.registerMessage(PacketOverloadBelt.Handler.class, PacketOverloadBelt.class, 0, Side.SERVER);
 		MinecraftForge.EVENT_BUS.register(new DAEventHandler());
-        EntityRegistry.registerModEntity(new ResourceLocation(DraconicAdditions.MODID, "Plug"), EntityPlug.class, "draconicadditions:plug", 1, DraconicAdditions.instance, 64, 5, false);
+		EntityRegistry.registerModEntity(new ResourceLocation(DraconicAdditions.MODID, "Plug"), EntityPlug.class, "draconicadditions:plug", 1, DraconicAdditions.instance, 64, 5, false);
 	}
 
 	public void init(FMLInitializationEvent event) {

@@ -77,7 +77,7 @@ public class DAFeatures implements IModFeatures {
 
 	@ModFeature(name = "chaos_container", stateOverride = "tools#type=chaoscontainer")
 	public static ChaosContainer chaosContainer = new ChaosContainer();
-	
+
 	@ModFeature(name = "portable_wired_charger", variantMap = {
 			"0:type=basic", "1:type=wyvern", "2:type=draconic", "3:type=chaotic",
 			"4:type=basicactive", "5:type=wyvernactive", "6:type=draconicactive", "7:type=chaoticactive"})

@@ -181,7 +181,7 @@ public class PortableWiredCharger extends ItemEnergyBase {
 			}
 		}
 	}
-	
+
 	public void extractEnergyFromSource(ItemStack stack, World world) {
 		if (active) {
 			TileEntity te = getTileEntity(stack, world);
@@ -195,7 +195,7 @@ public class PortableWiredCharger extends ItemEnergyBase {
 			}
 		}
 	}
-	
+
 	public void sendEnergyToSource(ItemStack stack, World world) {
 		if (active) {
 			TileEntity te = getTileEntity(stack, world);
@@ -209,7 +209,7 @@ public class PortableWiredCharger extends ItemEnergyBase {
 			}
 		}
 	}
-	
+
 	public void checkDistance(ItemStack stack, World world, EntityPlayer player) {
 		TileEntity te = getTileEntity(stack, world);
 		if (te != null) {
@@ -219,7 +219,7 @@ public class PortableWiredCharger extends ItemEnergyBase {
 			}
 		}
 	}
-	
+
 	public boolean isDistanceValid(BlockPos pos, EnumFacing side, EntityPlayer player) {
 		BlockPos offset = pos.offset(side).subtract(player.getPosition());
 		if (Math.abs(offset.getX()) > maxDistance ||
@@ -229,7 +229,7 @@ public class PortableWiredCharger extends ItemEnergyBase {
 		}
 		else return true;
 	}
-	
+
 	public void unplug(ItemStack stack, EntityPlayer player) {
 		if (!player.getEntityWorld().isRemote) DASoundHandler.playSoundFromServer(player.getEntityWorld(), Vec3D.getCenter(player.getPosition()), DASoundHandler.unplug, SoundCategory.BLOCKS, 0.8F, 1.0F, false, 64.0F);
 		ItemNBTHelper.setBoolean(stack, "pluggedIn", false);
@@ -239,7 +239,7 @@ public class PortableWiredCharger extends ItemEnergyBase {
 		ItemNBTHelper.setString(stack, "blockSide", "NONE");
 		updateActive(stack);
 	}
-	
+
 	public TileEntity getTileEntity(ItemStack stack, World world) {
 		if (active) {
 			int x = ItemNBTHelper.getInteger(stack, "blockX", 0);
@@ -250,7 +250,7 @@ public class PortableWiredCharger extends ItemEnergyBase {
 		}
 		return null;
 	}
-	
+
 	public void updateActive(ItemStack stack) {
 		active = ItemNBTHelper.getBoolean(stack, "pluggedIn", false);
 		int newDamage = stack.getItemDamage() % 4 + (active ? 4 : 0);
@@ -261,12 +261,12 @@ public class PortableWiredCharger extends ItemEnergyBase {
 	public boolean hasEffect(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, "pluggedIn", false);
 	}
-	
-    @Override
-    public boolean showDurabilityBar(ItemStack stack) {
-        return false;
-    }
-    
+
+	@Override
+	public boolean showDurabilityBar(ItemStack stack) {
+		return false;
+	}
+
 	@Override
 	public boolean onDroppedByPlayer(ItemStack stack, EntityPlayer player) {
 		if (active) {
@@ -274,27 +274,27 @@ public class PortableWiredCharger extends ItemEnergyBase {
 		}
 		return true;
 	}
-	
-    @Override
-    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-    	boolean isPWC = oldStack.getItem() instanceof PortableWiredCharger && newStack.getItem() instanceof PortableWiredCharger;
-    	boolean isSameDamage = oldStack.getItem().getDamage(oldStack) % 4 != newStack.getItem().getDamage(newStack) % 4;
-        return isPWC && isSameDamage;
-    }
+
+	@Override
+	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+		boolean isPWC = oldStack.getItem() instanceof PortableWiredCharger && newStack.getItem() instanceof PortableWiredCharger;
+		boolean isSameDamage = oldStack.getItem().getDamage(oldStack) % 4 != newStack.getItem().getDamage(newStack) % 4;
+		return isPWC && isSameDamage;
+	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World playerIn, List<String> tooltip, ITooltipFlag advanced) {
-        if (InfoHelper.holdShiftForDetails(tooltip)) {
-        	boolean pluggedIn = ItemNBTHelper.getBoolean(stack, "pluggedIn", false);
-            tooltip.add("Plugged In: " + pluggedIn);
-            if (pluggedIn) {
-            	tooltip.add("X: " + ItemNBTHelper.getInteger(stack, "blockX", 0));
-            	tooltip.add("Y: " + ItemNBTHelper.getInteger(stack, "blockY", 0));
-            	tooltip.add("Z: " + ItemNBTHelper.getInteger(stack, "blockZ", 0));
-            	tooltip.add("Side: " + ItemNBTHelper.getString(stack, "blockSide", "NONE"));
-            }
-        }
+		if (InfoHelper.holdShiftForDetails(tooltip)) {
+			boolean pluggedIn = ItemNBTHelper.getBoolean(stack, "pluggedIn", false);
+			tooltip.add("Plugged In: " + pluggedIn);
+			if (pluggedIn) {
+				tooltip.add("X: " + ItemNBTHelper.getInteger(stack, "blockX", 0));
+				tooltip.add("Y: " + ItemNBTHelper.getInteger(stack, "blockY", 0));
+				tooltip.add("Z: " + ItemNBTHelper.getInteger(stack, "blockZ", 0));
+				tooltip.add("Side: " + ItemNBTHelper.getString(stack, "blockSide", "NONE"));
+			}
+		}
 		InfoHelper.addEnergyInfo(stack, tooltip);
 	}
 

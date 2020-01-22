@@ -38,19 +38,17 @@ public class GUIArmorGenerator extends GuiContainer {
 
 		ResourceHelperDE.bindTexture(DATextures.GUI_ARMOR_GENERATOR);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
-		drawTexturedModalRect(guiLeft + 63, guiTop + 34, 0, ySize, 18, 18); // fuel box
-		drawTexturedModalRect(guiLeft + 97, guiTop + 34, 18, ySize, 18, 18); // flame box
+		drawTexturedModalRect(guiLeft + 63, guiTop + 34, 0, ySize, 18, 18); //Fuel box
+		drawTexturedModalRect(guiLeft + 97, guiTop + 34, 18, ySize, 18, 18); //Flame box
 		if (tile.getStackInSlot(0).isEmpty()) {
-			drawTexturedModalRect(guiLeft + 63, guiTop + 34, 36, ySize, 18, 18); // fuel box
+			drawTexturedModalRect(guiLeft + 63, guiTop + 34, 36, ySize, 18, 18); //Fuel box
 		}
 
 		float power = (float) tile.energySync.value / (float) tile.getMaxEnergyStored(EnumFacing.DOWN) * -1 + 1;
 		float fuel = tile.burnTimeRemaining.value / ((float) tile.burnTime.value) * -1 + 1;
 
-		drawTexturedModalRect(guiLeft + 83, guiTop + 11 + (int) (power * 40), xSize, (int) (power * 40), 12, 40 - (int) (power * 40)); // Power
-																																		// bar
-		drawTexturedModalRect(guiLeft + 100, guiTop + 37 + (int) (fuel * 13), xSize, 40 + (int) (fuel * 13), 18, 18 - (int) (fuel * 13)); // Power
-																																			// bar
+		drawTexturedModalRect(guiLeft + 83, guiTop + 11 + (int) (power * 40), xSize, (int) (power * 40), 12, 40 - (int) (power * 40)); //Power bar
+		drawTexturedModalRect(guiLeft + 100, guiTop + 37 + (int) (fuel * 13), xSize, 40 + (int) (fuel * 13), 18, 18 - (int) (fuel * 13)); //Power bar
 
 		if (tile instanceof TileChaoticArmorGenerator) {
 			fontRenderer.drawStringWithShadow("Chaos: " + tile.chaos.value + " mB", guiLeft + 60, guiTop - 8, 0x00FFFF);
@@ -74,7 +72,6 @@ public class GUIArmorGenerator extends GuiContainer {
 			guiUpdateTick = 0;
 		}
 		super.updateScreen();
-
 	}
 
 	@Override

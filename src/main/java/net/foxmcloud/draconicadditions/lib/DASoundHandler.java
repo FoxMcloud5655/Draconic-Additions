@@ -11,19 +11,19 @@ import net.minecraft.util.SoundEvent;
  * This stores all of the sound events for Draconic Additions.
  */
 public class DASoundHandler extends DESoundHandler {
-    public static final SoundEvent unplug;
-    static {
-        if (!Bootstrap.isRegistered()) {
-            throw new RuntimeException("Accessed Sounds before Bootstrap!");
-        }
-        else {
-            unplug = getRegisteredSoundEvent("draconicadditions:unplug");
-        }
-    }
+	public static final SoundEvent unplug;
+	static {
+		if (!Bootstrap.isRegistered()) {
+			throw new RuntimeException("Accessed Sounds before Bootstrap!");
+		}
+		else {
+			unplug = getRegisteredSoundEvent("draconicadditions:unplug");
+		}
+	}
 
-    private static SoundEvent getRegisteredSoundEvent(String id) {
-        SoundEvent soundevent = new SoundEvent(new ResourceLocation(id));
-        SOUND_EVENTS.put(id, soundevent);
+	private static SoundEvent getRegisteredSoundEvent(String id) {
+		SoundEvent soundevent = new SoundEvent(new ResourceLocation(id));
+		SOUND_EVENTS.put(id, soundevent);
 		return soundevent;
-    }
+	}
 }

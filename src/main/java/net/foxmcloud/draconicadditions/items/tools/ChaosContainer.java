@@ -49,6 +49,7 @@ public class ChaosContainer extends ItemEnergyBase implements IUpgradableItem, I
 			subItems.add(stack);
 		}
 	}
+
 	/**
 	 * Adds chaos to the container.  Returns the amount of chaos that was not added.
 	 */
