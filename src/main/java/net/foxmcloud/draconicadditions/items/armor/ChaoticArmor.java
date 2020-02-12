@@ -6,7 +6,12 @@ import static net.minecraft.inventory.EntityEquipmentSlot.FEET;
 import static net.minecraft.inventory.EntityEquipmentSlot.HEAD;
 import static net.minecraft.inventory.EntityEquipmentSlot.LEGS;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import com.brandon3055.brandonscore.lib.DelayedTask;
+import com.brandon3055.brandonscore.utils.InfoHelper;
 import com.brandon3055.brandonscore.utils.InventoryUtils;
 import com.brandon3055.draconicevolution.DEConfig;
 import com.brandon3055.draconicevolution.api.itemconfig.BooleanConfigField;
@@ -16,6 +21,7 @@ import com.brandon3055.draconicevolution.api.itemconfig.ToolConfigHelper;
 import com.brandon3055.draconicevolution.api.itemupgrade.UpgradeHelper;
 import com.brandon3055.draconicevolution.items.ToolUpgrade;
 import com.brandon3055.draconicevolution.items.armor.DraconicArmor;
+import com.brandon3055.draconicevolution.items.tools.ToolBase;
 
 import codechicken.lib.math.MathHelper;
 import net.foxmcloud.draconicadditions.DAFeatures;
@@ -23,6 +29,8 @@ import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.client.model.ModelChaoticArmor;
 import net.foxmcloud.draconicadditions.items.IChaosItem;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -95,6 +103,13 @@ public class ChaoticArmor extends DraconicArmor implements IChaosItem {
 
 		return registry;
 	}
+	
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World playerIn, List<String> tooltip, ITooltipFlag advanced) {
+    	if (getChaosInfo(stack) != null) tooltip.add(getChaosInfo(stack));
+        super.addInformation(stack, playerIn, tooltip, advanced);
+    }
 
 	@SideOnly(Side.CLIENT)
 	public ModelBiped model;
