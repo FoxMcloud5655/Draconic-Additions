@@ -4,10 +4,10 @@ import net.foxmcloud.draconicadditions.blocks.tileentity.TileArmorGenerator;
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosLiquefier;
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileItemDrainer;
 import net.foxmcloud.draconicadditions.client.gui.GUIArmorGenerator;
-import net.foxmcloud.draconicadditions.client.gui.GUIChaoticGenerator;
+import net.foxmcloud.draconicadditions.client.gui.GUIChaosLiquefier;
 import net.foxmcloud.draconicadditions.client.gui.GUIItemDrainer;
 import net.foxmcloud.draconicadditions.inventory.ContainerArmorGenerator;
-import net.foxmcloud.draconicadditions.inventory.ContainerChaoticGenerator;
+import net.foxmcloud.draconicadditions.inventory.ContainerChaosLiquefier;
 import net.foxmcloud.draconicadditions.inventory.ContainerItemDrainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -21,7 +21,7 @@ public class GUIHandler implements IGuiHandler {
 	public static final GUIHandler instance = new GUIHandler();
 
 	public static final int GUIID_ARMOR_GENERATOR = 0;
-	public static final int GUIID_CHAOTIC_GENERATOR = 1;
+	public static final int GUIID_CHAOS_LIQUEFIER = 1;
 	public static final int GUIID_ITEM_DRAINER = 2;
 
 	public static void initialize() {
@@ -38,9 +38,9 @@ public class GUIHandler implements IGuiHandler {
 				return new ContainerArmorGenerator(player, (TileArmorGenerator) tile);
 			}
 			break;
-		case GUIID_CHAOTIC_GENERATOR:
+		case GUIID_CHAOS_LIQUEFIER:
 			if (tile instanceof TileChaosLiquefier) {
-				return new ContainerChaoticGenerator(player, (TileChaosLiquefier) tile);
+				return new ContainerChaosLiquefier(player, (TileChaosLiquefier) tile);
 			}
 			break;
 		case GUIID_ITEM_DRAINER:
@@ -62,9 +62,9 @@ public class GUIHandler implements IGuiHandler {
 				return new GUIArmorGenerator(player, (TileArmorGenerator) tile);
 			}
 			break;
-		case GUIID_CHAOTIC_GENERATOR:
+		case GUIID_CHAOS_LIQUEFIER:
 			if (tile instanceof TileChaosLiquefier) {
-				return new GUIChaoticGenerator(player, (TileChaosLiquefier) tile);
+				return new GUIChaosLiquefier(player, (TileChaosLiquefier) tile);
 			}
 			break;
 		case GUIID_ITEM_DRAINER:

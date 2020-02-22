@@ -10,9 +10,9 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class ContainerChaoticGenerator extends ContainerBCBase<TileChaosLiquefier> {
+public class ContainerChaosLiquefier extends ContainerBCBase<TileChaosLiquefier> {
 
-	public ContainerChaoticGenerator(EntityPlayer player, TileChaosLiquefier tile) {
+	public ContainerChaosLiquefier(EntityPlayer player, TileChaosLiquefier tile) {
 		super(player, tile);
 
 		IInventory invPlayer = player.inventory;

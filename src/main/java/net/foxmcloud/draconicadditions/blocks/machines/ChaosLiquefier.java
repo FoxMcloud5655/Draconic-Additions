@@ -102,7 +102,7 @@ public class ChaosLiquefier extends BlockBCore implements ITileEntityProvider, I
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (!world.isRemote) {
 			if (!tryStoreChaos(world, pos, player, hand)) {
-				FMLNetworkHandler.openGui(player, DraconicAdditions.instance, GUIHandler.GUIID_CHAOTIC_GENERATOR, world, pos.getX(), pos.getY(), pos.getZ());
+				FMLNetworkHandler.openGui(player, DraconicAdditions.instance, GUIHandler.GUIID_CHAOS_LIQUEFIER, world, pos.getX(), pos.getY(), pos.getZ());
 			}
 		}
 		return true;

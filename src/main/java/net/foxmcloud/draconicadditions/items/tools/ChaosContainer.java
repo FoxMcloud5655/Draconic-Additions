@@ -16,6 +16,7 @@ import com.brandon3055.draconicevolution.client.DEParticles;
 import com.brandon3055.draconicevolution.items.ToolUpgrade;
 import com.brandon3055.draconicevolution.lib.DESoundHandler;
 
+import net.foxmcloud.draconicadditions.items.IChaosContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -31,7 +32,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ChaosContainer extends ItemEnergyBase implements IUpgradableItem, IInvCharge {
+public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, IUpgradableItem, IInvCharge {
 
 	private DamageSource chaosBurst = new DamageSource("chaosBurst").setDamageBypassesArmor();
 
@@ -48,28 +49,6 @@ public class ChaosContainer extends ItemEnergyBase implements IUpgradableItem, I
 			addChaos(stack, getMaxChaos(stack));
 			subItems.add(stack);
 		}
-	}
-
-	/**
-	 * Adds chaos to the container.  Returns the amount of chaos that was not added.
-	 */
-	public int addChaos(ItemStack stack, int chaos) {
-		int chaosToAdd = Math.min(getMaxChaos(stack) - getChaos(stack), chaos);
-		ItemNBTHelper.setInteger(stack, "chaos", ItemNBTHelper.getInteger(stack, "chaos", 0) + chaosToAdd);
-		return chaos - chaosToAdd;
-	}
-
-	/**
-	 * Removes chaos from the container.  Returns the amount that was removed.
-	 */
-	public int removeChaos(ItemStack stack, int chaos) {
-		int chaosToRemove = Math.min(getChaos(stack), chaos);
-		ItemNBTHelper.setInteger(stack, "chaos", ItemNBTHelper.getInteger(stack, "chaos", 0) - chaosToRemove);
-		return chaosToRemove;
-	}
-
-	public int getChaos(ItemStack stack) {
-		return ItemNBTHelper.getInteger(stack, "chaos", 0);
 	}
 
 	public int getMaxChaos(ItemStack stack) {
@@ -173,7 +152,7 @@ public class ChaosContainer extends ItemEnergyBase implements IUpgradableItem, I
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World playerIn, List<String> tooltip, ITooltipFlag advanced) {
-		tooltip.add(I18n.format("info.da.storedchaos.txt") + ": " + getChaos(stack) + " / " + getMaxChaos(stack) + " mB");
+		tooltip.add(getChaosInfo(stack));
 		if (getMaxEnergyStored(stack) > 0)
 		tooltip.add(I18n.format("info.da.shieldcharge.txt") + ": " + getEnergyStored(stack) + " / " + getMaxEnergyStored(stack) + " RF");
 	}

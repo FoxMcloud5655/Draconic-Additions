@@ -8,7 +8,7 @@ import com.brandon3055.brandonscore.client.utils.GuiHelper;
 import com.brandon3055.draconicevolution.helpers.ResourceHelperDE;
 
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosLiquefier;
-import net.foxmcloud.draconicadditions.inventory.ContainerChaoticGenerator;
+import net.foxmcloud.draconicadditions.inventory.ContainerChaosLiquefier;
 import net.foxmcloud.draconicadditions.utils.DATextures;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
@@ -16,13 +16,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.TextFormatting;
 
-public class GUIChaoticGenerator extends GuiContainer {
+public class GUIChaosLiquefier extends GuiContainer {
 	public EntityPlayer player;
 	private TileChaosLiquefier tile;
 	private int guiUpdateTick;
 
-	public GUIChaoticGenerator(EntityPlayer player, TileChaosLiquefier tile) {
-		super(new ContainerChaoticGenerator(player, tile));
+	public GUIChaosLiquefier(EntityPlayer player, TileChaosLiquefier tile) {
+		super(new ContainerChaosLiquefier(player, tile));
 
 		xSize = 176;
 		ySize = 162;
