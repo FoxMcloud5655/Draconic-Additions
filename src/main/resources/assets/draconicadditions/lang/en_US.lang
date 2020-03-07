@@ -24,6 +24,7 @@ tile.draconicadditions:armor_generator.name=Armor Generator
 tile.draconicadditions:chaotic_armor_generator.name=Chaotic Armor Generator
 tile.draconicadditions:item_drainer.name=Item Drainer
 tile.draconicadditions:chaos_liquefier.name=Chaos Liquefier
+tile.draconicadditions:chaos_infuser.name=Liquid Chaos Infuser
 
 //Tools
 

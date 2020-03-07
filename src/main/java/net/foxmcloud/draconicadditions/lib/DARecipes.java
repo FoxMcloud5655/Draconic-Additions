@@ -66,7 +66,9 @@ public class DARecipes {
 		addFusion(NORMAL, new ItemStack(chaoticArmorGenerator), new ItemStack(armorGenerator), 50000, 3, chaosContainer);
 		addFusion(HARD, new ItemStack(chaoticArmorGenerator), new ItemStack(armorGenerator), 500000, 3, chaosContainer, infusedObsidian);
 		addFusion(ALL, new ItemStack(chaosLiquefier), new ItemStack(generator), 2500000, 3, reactorCore, chaosContainer);
-
+		//addFusion(NORMAL, new ItemStack(chaosInfuser), new ItemStack(chaosLiquefier), 500000, 3, awakenedCore, awakenedCore);
+		//addFusion(HARD, new ItemStack(chaosInfuser), new ItemStack(chaosLiquefier), 250000, 3, awakenedCore, draconicEnergyCore, draconicEnergyCore);
+		
 		// Shield Baubles
 
 		addShaped(NORMAL, basicShieldNecklace, "AAA", "ACA", " B ", 'A', GOLD_INGOT, 'B', draconicCore, 'C', wyvernEnergyCore);

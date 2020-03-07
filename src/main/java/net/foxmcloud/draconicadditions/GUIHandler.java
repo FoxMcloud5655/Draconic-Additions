@@ -1,12 +1,15 @@
 package net.foxmcloud.draconicadditions;
 
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileArmorGenerator;
+import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosInfuser;
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosLiquefier;
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileItemDrainer;
 import net.foxmcloud.draconicadditions.client.gui.GUIArmorGenerator;
+import net.foxmcloud.draconicadditions.client.gui.GUIChaosInfuser;
 import net.foxmcloud.draconicadditions.client.gui.GUIChaosLiquefier;
 import net.foxmcloud.draconicadditions.client.gui.GUIItemDrainer;
 import net.foxmcloud.draconicadditions.inventory.ContainerArmorGenerator;
+import net.foxmcloud.draconicadditions.inventory.ContainerChaosInfuser;
 import net.foxmcloud.draconicadditions.inventory.ContainerChaosLiquefier;
 import net.foxmcloud.draconicadditions.inventory.ContainerItemDrainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,6 +26,7 @@ public class GUIHandler implements IGuiHandler {
 	public static final int GUIID_ARMOR_GENERATOR = 0;
 	public static final int GUIID_CHAOS_LIQUEFIER = 1;
 	public static final int GUIID_ITEM_DRAINER = 2;
+	public static final int GUIID_CHAOS_INFUSER = 3;
 
 	public static void initialize() {
 		NetworkRegistry.INSTANCE.registerGuiHandler(DraconicAdditions.instance, instance);
@@ -48,6 +52,11 @@ public class GUIHandler implements IGuiHandler {
 				return new ContainerItemDrainer(player, (TileItemDrainer) tile);
 			}
 			break;
+		case GUIID_CHAOS_INFUSER:
+			if (tile instanceof TileChaosInfuser) {
+				return new ContainerChaosInfuser(player, (TileChaosInfuser) tile);
+			}
+			break;
 		}
 		return null;
 	}
@@ -70,6 +79,11 @@ public class GUIHandler implements IGuiHandler {
 		case GUIID_ITEM_DRAINER:
 			if (tile instanceof TileItemDrainer) {
 				return new GUIItemDrainer(player, (TileItemDrainer) tile);
+			}
+			break;
+		case GUIID_CHAOS_INFUSER:
+			if (tile instanceof TileChaosInfuser) {
+				return new GUIChaosInfuser(player, (TileChaosInfuser) tile);
 			}
 			break;
 		}

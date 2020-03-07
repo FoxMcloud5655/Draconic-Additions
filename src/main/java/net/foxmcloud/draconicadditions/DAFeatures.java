@@ -69,6 +69,9 @@ public class DAFeatures implements IModFeatures {
 
 	@ModFeature(name = "chaos_liquefier", tileEntity = TileChaosLiquefier.class, itemBlock = ItemBlockBCore.class)
 	public static ChaosLiquefier chaosLiquefier = new ChaosLiquefier();
+	
+	//@ModFeature(name = "chaos_infuser", tileEntity = TileChaosInfuser.class, itemBlock = ItemBlockBCore.class)
+	//public static ChaosInfuser chaosInfuser = new ChaosInfuser();
 
 	// Tools
 
