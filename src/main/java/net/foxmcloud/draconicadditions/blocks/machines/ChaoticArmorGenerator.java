@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 
-public class ChaoticArmorGenerator extends ArmorGenerator implements IBlockChaosHolder {
+public class ChaoticArmorGenerator extends ArmorGenerator {
 
 	public ChaoticArmorGenerator() {
 		super();
@@ -26,9 +26,7 @@ public class ChaoticArmorGenerator extends ArmorGenerator implements IBlockChaos
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (!world.isRemote) {
-			if (!tryStoreChaos(world, pos, player, hand)) {
-				FMLNetworkHandler.openGui(player, DraconicAdditions.instance, GUIHandler.GUIID_ARMOR_GENERATOR, world, pos.getX(), pos.getY(), pos.getZ());
-			}
+			FMLNetworkHandler.openGui(player, DraconicAdditions.instance, GUIHandler.GUIID_ARMOR_GENERATOR, world, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 	}

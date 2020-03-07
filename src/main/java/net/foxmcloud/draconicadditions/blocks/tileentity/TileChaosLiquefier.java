@@ -88,13 +88,13 @@ public class TileChaosLiquefier extends TileChaosHolderBase implements IEnergyRe
 		if (isItemValidForSlot(0, stack)) {
 			switch (stack.getItem().getMetadata(stack)) {
 			case 0:
-				return 729;
+				return 1300;
 			case 1:
-				return 81;
+				return 150;
 			case 2:
-				return 9;
+				return 17;
 			case 3:
-				return 1;
+				return 2;
 			default:
 				return 0;
 			}

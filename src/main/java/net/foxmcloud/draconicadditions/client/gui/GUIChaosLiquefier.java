@@ -51,7 +51,7 @@ public class GUIChaosLiquefier extends GuiContainer {
 		drawTexturedModalRect(guiLeft + 100, guiTop + 37 + (int) (fuel * 13), xSize, 40 + (int) (fuel * 13), 18, 18 - (int) (fuel * 13)); // Power
 																																			// bar
 
-		fontRenderer.drawStringWithShadow("Chaos: " + tile.chaos.value + " mB", guiLeft + 60, guiTop - 8, 0x00FFFF);
+		fontRenderer.drawStringWithShadow("Chaos: " + tile.chaos.value + " B", guiLeft + 60, guiTop - 8, 0x00FFFF);
 
 		int x = X - guiLeft;
 		int y = Y - guiTop;

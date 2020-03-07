@@ -31,7 +31,7 @@ import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ChaosLiquefier extends BlockBCore implements ITileEntityProvider, IBlockChaosHolder {
+public class ChaosLiquefier extends BlockBCore implements ITileEntityProvider {
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
 	public static final PropertyBool ACTIVE = PropertyBool.create("active");
 
@@ -101,9 +101,7 @@ public class ChaosLiquefier extends BlockBCore implements ITileEntityProvider, I
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (!world.isRemote) {
-			if (!tryStoreChaos(world, pos, player, hand)) {
-				FMLNetworkHandler.openGui(player, DraconicAdditions.instance, GUIHandler.GUIID_CHAOS_LIQUEFIER, world, pos.getX(), pos.getY(), pos.getZ());
-			}
+			FMLNetworkHandler.openGui(player, DraconicAdditions.instance, GUIHandler.GUIID_CHAOS_LIQUEFIER, world, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 	}

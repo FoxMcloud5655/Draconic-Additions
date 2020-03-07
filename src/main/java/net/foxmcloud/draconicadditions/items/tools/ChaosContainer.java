@@ -12,10 +12,13 @@ import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 import com.brandon3055.draconicevolution.api.IInvCharge;
 import com.brandon3055.draconicevolution.api.itemupgrade.IUpgradableItem;
 import com.brandon3055.draconicevolution.api.itemupgrade.UpgradeHelper;
+import com.brandon3055.draconicevolution.blocks.reactor.tileentity.TileReactorCore;
+import com.brandon3055.draconicevolution.blocks.reactor.tileentity.TileReactorCore.ReactorState;
 import com.brandon3055.draconicevolution.client.DEParticles;
 import com.brandon3055.draconicevolution.items.ToolUpgrade;
 import com.brandon3055.draconicevolution.lib.DESoundHandler;
 
+import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosHolderBase;
 import net.foxmcloud.draconicadditions.items.IChaosContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -25,8 +28,12 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -137,6 +144,28 @@ public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, I
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+		if (!world.isRemote) {
+			ItemStack stack = player.getHeldItem(hand);
+			if (world.getTileEntity(pos) instanceof TileChaosHolderBase) {
+				TileChaosHolderBase tileEntity = (TileChaosHolderBase) world.getTileEntity(pos);
+				if (((ChaosContainer) stack.getItem()).getChaos(stack) > 0 && tileEntity.chaos.value != tileEntity.getMaxChaos()) {
+					int chaosToRemove = Math.min(getMaxChaos(stack) - tileEntity.chaos.value, getChaos(stack));
+					removeChaos(stack, chaosToRemove);
+					tileEntity.chaos.value += chaosToRemove;
+				}
+				else {
+					int chaosToAdd = Math.min(getMaxChaos(stack) - getChaos(stack), tileEntity.chaos.value);
+					addChaos(stack, chaosToAdd);
+					tileEntity.chaos.value -= chaosToAdd;
+				}
+				return EnumActionResult.SUCCESS;
+			}
+		}
+		return EnumActionResult.PASS;
 	}
 
 	public void explodeEntity(Vec3D pos, World world) {

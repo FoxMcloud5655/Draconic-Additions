@@ -85,11 +85,11 @@ public class TileArmorGenerator extends TileChaosHolderBase implements IEnergyPr
 						stack.shrink(1);
 					}
 					setInventorySlotContents(0, stack);
-					burnSpeedMultiplier.value *= (1 + (chaos.value / 2.0D));
-					burnTime.value = (int) (itemBurnTime * (1 + (chaos.value / 2.0D)));
+					burnSpeedMultiplier.value *= (1 + (chaos.value / 80D));
+					burnTime.value = (int) (itemBurnTime * (1 + (chaos.value / 80D)));
 					burnTimeRemaining.value = burnTime.value;
 					if (chaos.value > 0) {
-						chaos.value -= (int) Math.floor(Math.random() * (chaos.value / 8));
+						chaos.value -= (int) Math.floor(Math.random() * (chaos.value / 100));
 					}
 				}
 			}

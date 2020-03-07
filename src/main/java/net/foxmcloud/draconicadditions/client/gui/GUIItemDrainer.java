@@ -57,7 +57,7 @@ public class GUIItemDrainer extends GuiContainer {
 																																			// bar
 
 		// if (tile instanceof TileChaoticItemDrainer) {
-		// fontRenderer.drawStringWithShadow("Chaos: " + tile.chaos.value + " mB",
+		// fontRenderer.drawStringWithShadow("Chaos: " + tile.chaos.value + " B",
 		// guiLeft + 60, guiTop - 8, 0x00FFFF);
 		// }
 

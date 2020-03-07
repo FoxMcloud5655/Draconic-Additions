@@ -34,6 +34,6 @@ public interface IChaosContainer {
 	}
 	
 	public default String getChaosInfo(ItemStack stack) {
-		return I18n.format("info.da.storedchaos.txt") + ": " + getChaos(stack) + " / " + getMaxChaos(stack) + " mB";
+		return I18n.format("info.da.storedchaos.txt") + ": " + getChaos(stack) + " / " + getMaxChaos(stack) + " B";
 	}
 }

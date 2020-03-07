@@ -4,7 +4,7 @@ public class TileChaoticArmorGenerator extends TileArmorGenerator {
 
 	public TileChaoticArmorGenerator() {
 		super();
-		setMaxChaos(1000);
+		setMaxChaos(2000);
 	}
 
 	@Override
