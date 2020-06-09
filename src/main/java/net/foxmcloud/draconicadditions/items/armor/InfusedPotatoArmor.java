@@ -77,8 +77,8 @@ public class InfusedPotatoArmor extends ItemArmor {
 	}
 
 	private ItemStack transformItem(EntityPlayer player, ItemStack stack, boolean replace) {
-		ItemArmor item = (ItemArmor) stack.getItem();
-		EntityEquipmentSlot slot = item.getEquipmentSlot();
+		ItemArmor item = (ItemArmor)stack.getItem();
+		EntityEquipmentSlot slot = item.armorType;
 		PotatoArmor armor;
 		if (slot.equals(EntityEquipmentSlot.HEAD)) armor = DAFeatures.potatoHelm;
 		else if (slot.equals(EntityEquipmentSlot.CHEST)) armor = DAFeatures.potatoChest;
