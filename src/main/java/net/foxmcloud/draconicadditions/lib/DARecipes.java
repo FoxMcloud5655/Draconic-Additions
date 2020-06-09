@@ -32,7 +32,7 @@ public class DARecipes {
 		addShaped(NORMAL, pwcBasic, "AAB", " AC", " AD", 'A', IRON_INGOT, 'B', new ItemStack(DYE, 1, 0), 'C', REDSTONE, 'D', draconicCore);
 		addShaped(HARD, pwcBasic, " C ", "BAB", " D ", 'A', IRON_BLOCK, 'B', new ItemStack(DYE, 1, 0), 'C', REDSTONE, 'D', draconicCore);
 		addShapeless(ALL, pwcWyvern, pwcBasic, wyvernCore);
-		addShapeless(ALL, pwcDraconic, pwcBasic, draconicCore);
+		addShapeless(ALL, pwcDraconic, pwcBasic, awakenedCore);
 		addShapeless(ALL, pwcChaotic, pwcBasic, chaoticCore);
 
 		// Potato Armor
