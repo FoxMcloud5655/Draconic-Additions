@@ -132,7 +132,12 @@ public class ShieldBauble extends EnergyBauble implements ICustomArmor {
 	@Override
 	public void onEquipped(ItemStack stack, EntityLivingBase player) {
 		ArmorSummery armorSummary = new ArmorSummery().getSummery((EntityPlayer) player);
-		canFly = armorSummary.flight;
+		if (armorSummary == null) {
+			canFly = {false, false, false};
+		}
+		else {
+			canFly = armorSummary.flight;
+		}
 		super.onEquipped(stack, player);
 	}
 }
