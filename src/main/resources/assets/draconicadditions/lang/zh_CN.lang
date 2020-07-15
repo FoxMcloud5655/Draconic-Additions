@@ -24,11 +24,20 @@ tile.draconicadditions:armor_generator.name=装甲发电机
 tile.draconicadditions:chaotic_armor_generator.name=混沌装甲发电机
 tile.draconicadditions:item_drainer.name=排水机
 tile.draconicadditions:chaos_liquefier.name=混沌液化机
+tile.draconicadditions:chaos_infuser.name=混沌液体灌注机
 
 //Tools
 
 item.draconicadditions:chaotic_staff_of_power.name=混沌龙之力权杖
 item.draconicadditions:chaos_container.name=混沌容器
+item.draconicadditions:portable_wired_charger.basic.name=便携线缆基础充电器
+item.draconicadditions:portable_wired_charger.basicactive.name=便携线缆基础充电器（激活）
+item.draconicadditions:portable_wired_charger.wyvern.name=便携线缆双足飞龙充电器
+item.draconicadditions:portable_wired_charger.wyvernactive.name=便携线缆双足飞龙充电器（激活）
+item.draconicadditions:portable_wired_charger.draconic.name=便携线缆觉醒充电器
+item.draconicadditions:portable_wired_charger.draconicactive.name=便携线缆觉醒充电器（激活）
+item.draconicadditions:portable_wired_charger.chaotic.name=便携线缆混沌充电器
+item.draconicadditions:portable_wired_charger.chaoticactive.name=便携线缆混沌充电器（激活）
 
 //Baubles
 
@@ -49,21 +58,25 @@ item.draconicadditions:infused_potato.lore=注入, 但没有能量...
 item.draconicadditions:infused_potato.lore2=也许它需要一个快速启动?
 item.draconicadditions:potato.lore=虽然这种疯狂的增长是出乎意料的,
 item.draconicadditions:potato.lore2=它现在充满活力. 奇怪, 但仍然有用.
+item.draconicadditions:chaosItem.lore=混沌力量还没有稳定下来。
 
 msg.da.infusedTransformation.normal=摇动盔甲，它开始以一种奇怪熟悉的形状发芽生长!
 msg.da.infusedTransformation.smack=当盔甲受到怪物攻击时，它开始以一种奇怪而熟悉的形状发芽生长!
 
 msg.da.energizedBreak=当你的护甲耗尽能量时，它就会分解!
 
-msg.da.chaosStabilizer.canStabilize=你感觉到你手中的物品被稳定器吸引了……
+msg.da.chaosStabilizer.canStabilize=你感觉到你手中的物品被稳定器吸引了...
 msg.da.chaosStabilizer.alreadyStabilized=稳定器保持惰性。你已经稳定了这个项目。
 msg.da.chaosStabilizer.cannotStabilize=稳定器不能识别你手中的物品!
 msg.da.chaosStabilizer.emptyHand=你疯了吗?不要把你的手伸到纯粹的混沌中!
 msg.da.chaosStabilizer.full=稳定器中已经有一个物品.
-msg.da.chaosStabilizer.notMultiblock=稳定器似乎对任何物品都没有反应…
+msg.da.chaosStabilizer.notMultiblock=稳定器似乎对任何物品都没有反应...
 
 msg.da.chaosContainer.explode=你的混沌容器的屏蔽失败了，它突然爆炸了!
 msg.da.chaosContainer.cantdrop=把一个装满混沌液体的容器乱扔在地上似乎是个坏主意.
+
+msg.da.portableWiredCharger.connectEnergySource=你必须连接到一人有效的能源。
+msg.da.portableWiredCharger.invalidSide=机器这面不输出能量。
 
 //Misc
 
@@ -82,3 +95,4 @@ key.overload=激活过载
 
 //Chinese translation by pc18344
 //Modified by FoxMcloud5655
+//Compiled for version 1.12.2-1.11.1.32
