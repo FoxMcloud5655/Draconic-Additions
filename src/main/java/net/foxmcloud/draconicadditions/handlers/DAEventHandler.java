@@ -53,7 +53,7 @@ public class DAEventHandler {
 			Slot slot = inventory.getSlotUnderMouse();
 			if (slot != null) {
 				ItemStack stack = slot.getStack();
-				if (stack != null && stack.getItem() instanceof ChaosContainer) {
+				if (stack != null && stack.getItem() instanceof ChaosContainer && !event.getGui().mc.player.isCreative()) {
 					event.setCanceled(((ChaosContainer) stack.getItem()).getChaos(stack) > 0);
 				}
 			}
