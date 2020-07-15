@@ -24,6 +24,7 @@ tile.draconicadditions:armor_generator.name=Armor Generator
 tile.draconicadditions:chaotic_armor_generator.name=Chaotic Armor Generator
 tile.draconicadditions:item_drainer.name=Item Drainer
 tile.draconicadditions:chaos_liquefier.name=Chaos Liquefier
+tile.draconicadditions:capacitor_supplier.name=Capacitor Supplier
 tile.draconicadditions:chaos_infuser.name=Liquid Chaos Infuser
 
 //Tools
@@ -92,3 +93,6 @@ info.da.storedchaos.txt=Stored Chaos
 info.da.cooldown.txt=Cooldown
 
 key.overload=Activate Overload
+
+//Created by FoxMcloud5655
+//Compiled for version 1.12.2-1.11.1.32

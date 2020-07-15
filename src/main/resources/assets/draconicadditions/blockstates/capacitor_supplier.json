@@ -1,0 +1,16 @@
+{
+    "forge_marker": 1,
+    "variants": {
+        "normal": {"model": "draconicadditions:capacitor_supplier_open"},
+        "active": {
+            "false": {"model": "draconicadditions:capacitor_supplier_open"},
+            "true": {"model": "draconicadditions:capacitor_supplier_closed"}
+        },
+        "facing": {
+            "north": {},
+            "south": {"y": 180},
+            "west": {"y": 270},
+            "east": {"y": 90}
+        }
+    }
+}
