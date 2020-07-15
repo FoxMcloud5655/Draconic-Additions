@@ -22,7 +22,7 @@ public class ToolStats {
 	@ModConfigProperty(category = "Tool Tweaks", name = "Chaotic Staff of Power - Attack Speed", comment = "Allows you to adjust the speed at which the Chaotic Staff of Power can attack.", autoSync = true)
 	@ModConfigProperty.MinMax(min = "-104", max = "96")
 	public static double CHAOTIC_STAFF_ATTACK_SPEED = -2D;
-	@ModConfigProperty(category = "Tool Tweaks", name = "Chaos Container - Chaos Capacity", comment = "Allows you to adjust how much Liquid Chaos the Chaos Container can store.", autoSync = true)
+	@ModConfigProperty(category = "Tool Tweaks", name = "Chaos Container - Chaos Capacity", comment = "Allows you to adjust how many buckets of Liquid Chaos the Chaos Container can store.", autoSync = true)
 	@ModConfigProperty.MinMax(min = "1", max = "2147483647")
 	public static int CHAOS_CONTAINER_MAX_CHAOS = 1000;
 	@ModConfigProperty(category = "Tool Tweaks", name = "Chaos Container - RF Capacity", comment = "Allows you to adjust how much RF the Chaos Container can store.", autoSync = true)
@@ -31,7 +31,7 @@ public class ToolStats {
 	@ModConfigProperty(category = "Tool Tweaks", name = "Chaos Container - RF Recieve", comment = "Allows you to adjust how much RF the Chaos Container can recieve per tick.", autoSync = true)
 	@ModConfigProperty.MinMax(min = "0", max = "2147483647")
 	public static int CHAOS_CONTAINER_MAX_TRANSFER = 100000;
-	@ModConfigProperty(category = "Tool Tweaks", name = "Chaos Container - RF/Chaos", comment = "Allows you to adjust how much RF is drained per millibucket of Liquid Chaos inside the Chaos Container.", autoSync = true)
+	@ModConfigProperty(category = "Tool Tweaks", name = "Chaos Container - RF/Chaos", comment = "Allows you to adjust how much RF is drained per bucket of Liquid Chaos inside the Chaos Container.", autoSync = true)
 	@ModConfigProperty.MinMax(min = "0", max = "2147483647")
 	public static int CHAOS_CONTAINER_RF_PER_CHAOS = 10;
 }
