@@ -24,13 +24,14 @@ public class TileCapacitorSupplier extends TileEnergyInventoryBase implements IE
 
 	public final ManagedBool active = register("active", new ManagedBool(false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
 	public final ManagedBool powered = register("powered", new ManagedBool(false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
+	public final ManagedInt capacityBackup = register("capacityBackup", new ManagedInt(0)).saveToTile().saveToItem().finish();
+	public final ManagedInt energyBackup = register("energyBackup", new ManagedInt(0)).saveToTile().saveToItem().finish();
+	public final ManagedInt rateBackup = register("rateBackup", new ManagedInt(0)).saveToTile().saveToItem().finish();
 
 	public TileCapacitorSupplier() {
 		setInventorySize(1);
 		setEnergySyncMode().syncViaContainer();
 		setCapacityAndTransfer(0, 0, 0);
-		
-		//setShouldRefreshOnBlockChange();
 	}
 
 	@Override
@@ -39,6 +40,10 @@ public class TileCapacitorSupplier extends TileEnergyInventoryBase implements IE
 		if (world.isRemote) {
 			return;
 		}
+		if (getMaxEnergyStored() == 0 && capacityBackup.value > 0) {
+			setCapacityAndTransfer(capacityBackup.value, rateBackup.value, rateBackup.value);
+			energyStorage.setEnergyStored(energyBackup.value);
+		}
 		if (getStackInSlot(0).isEmpty() && active.value) {
 			active.value = false;
 		}
@@ -46,6 +51,7 @@ public class TileCapacitorSupplier extends TileEnergyInventoryBase implements IE
 			active.value = true;
 		}
 		energyStorage.modifyEnergyStored(-sendEnergyToAll());
+		backupValues();
 	}
 	
 	public ItemStack insertItem(ItemStack stack) {
@@ -62,6 +68,7 @@ public class TileCapacitorSupplier extends TileEnergyInventoryBase implements IE
 					ItemNBTHelper.setInteger(stack, "Energy", 0);
 					setInventorySlotContents(0, stack.copy());
 					stack = ItemStack.EMPTY;
+					backupValues();
 					markDirty();
 					updateBlock();
 				}
@@ -78,10 +85,17 @@ public class TileCapacitorSupplier extends TileEnergyInventoryBase implements IE
 			energyStorage.setEnergyStored(0);
 			setCapacityAndTransfer(0, 0, 0);
 			stack = removeStackFromSlot(0);
+			backupValues();
 			markDirty();
 			updateBlock();
 		}
 		return stack;
+	}
+	
+	protected void backupValues() {
+		energyBackup.value = getEnergyStored();
+		capacityBackup.value = getMaxEnergyStored();
+		rateBackup.value = energyStorage.getMaxExtract();
 	}
 	
 	@Override
