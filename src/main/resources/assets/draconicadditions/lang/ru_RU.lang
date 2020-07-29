@@ -4,81 +4,96 @@ item.draconicadditions:inert_potato_helm.name=Инертный картофел�
 item.draconicadditions:inert_potato_chest.name=Инертный картофельный нагрудник
 item.draconicadditions:inert_potato_legs.name=Инертные картофельные поножи
 item.draconicadditions:inert_potato_boots.name=Инертные картофельные ботинки
-item.draconicadditions:infused_potato_helm.name=Пробуждённый картофельный шлем
-item.draconicadditions:infused_potato_chest.name=Пробуждённый картофельный нагрудник
-item.draconicadditions:infused_potato_legs.name=Пробуждённые картофельные поножи
-item.draconicadditions:infused_potato_boots.name=Пробуждённые картофельные ботинки 
+item.draconicadditions:infused_potato_helm.name=Наполненный картофельный шлем
+item.draconicadditions:infused_potato_chest.name=Наполненный картофельный нагрудник
+item.draconicadditions:infused_potato_legs.name=Наполненные картофельные поножи
+item.draconicadditions:infused_potato_boots.name=Наполненные картофельные ботинки
 item.draconicadditions:potato_helm.name=Заряженный картофельный шлем
 item.draconicadditions:potato_chest.name=Заряженный картофельный нагрудник
 item.draconicadditions:potato_legs.name=Заряженные картофельные поножи
 item.draconicadditions:potato_boots.name=Заряженные картофельные ботинки
-item.draconicadditions:chaotic_helm.name=Шлем хаоса
-item.draconicadditions:chaotic_chest.name=Нагрудник хаоса
-item.draconicadditions:chaotic_legs.name=Поножи хаоса
-item.draconicadditions:chaotic_boots.name=Ботинки хаоса
+item.draconicadditions:chaotic_helm.name=Шлем Хаоса
+item.draconicadditions:chaotic_chest.name=Нагрудник Хаоса
+item.draconicadditions:chaotic_legs.name=Поножи Хаоса
+item.draconicadditions:chaotic_boots.name=Ботинки Хаоса
 
 //Blocks
 
-tile.draconicadditions:chaos_stabilizer_core.name=Хаотическое ядро стабилизации
-tile.draconicadditions:armor_generator.name=Броневой генератор
-tile.draconicadditions:chaotic_armor_generator.name=Броневой генератор хаоса
-tile.draconicadditions:item_drainer.name=Сливная машина
-tile.draconicadditions:chaos_liquefier.name=Ожижитель хаоса
+tile.draconicadditions:chaos_stabilizer_core.name=Ядро для стабилизации Хаоса
+tile.draconicadditions:armor_generator.name=Переработчик брони
+tile.draconicadditions:chaotic_armor_generator.name=Переработчик брони Хаоса
+tile.draconicadditions:item_drainer.name=Энергетический опустошитель
+tile.draconicadditions:chaos_liquefier.name=Разжижитель Хаоса
+tile.draconicadditions:capacitor_supplier.name=Capacitor Supplier
+tile.draconicadditions:chaos_infuser.name=Извлекатель жидкого Хаоса
 
 //Tools
 
-item.draconicadditions:chaotic_staff_of_power.name=Хаотический посох силы
-item.draconicadditions:chaos_container.name=Контейнер хаоса
+item.draconicadditions:chaotic_staff_of_power.name=Посох Хаоса
+item.draconicadditions:chaos_container.name=Хранилище Хаоса
+item.draconicadditions:portable_wired_charger.basic.name=Базовое портативное зарядное устройство
+item.draconicadditions:portable_wired_charger.basicactive.name=Базовое портативное зарядное устройство (Включено)
+item.draconicadditions:portable_wired_charger.wyvern.name=Портативное зарядное устройство Виверны
+item.draconicadditions:portable_wired_charger.wyvernactive.name=Портативное зарядное устройство Виверны (Включено)
+item.draconicadditions:portable_wired_charger.draconic.name=Портативное зарядное устройство Дракона
+item.draconicadditions:portable_wired_charger.draconicactive.name=Портативное зарядное устройство Дракона (Включено)
+item.draconicadditions:portable_wired_charger.chaotic.name=Портативное зарядное устройство Хаоса
+item.draconicadditions:portable_wired_charger.chaoticactive.name=Портативное зарядное устройство Хаоса (Включено)
 
 //Baubles
 
-item.draconicadditions:basic_shield_necklace.name=Основное ожерелье экранирования
-item.draconicadditions:wyvern_shield_necklace.name=Виверновое ожерелье экранирования
-item.draconicadditions:draconic_shield_necklace.name=Дракониевое ожерелье экранирования
-item.draconicadditions:overload_belt.name=Пояс драконьей перезагрузки
-item.draconicadditions:vampiric_shirt.name=Майка драконьего самосифонирования
-item.draconicadditions:inertia_cancel_ring.name=Кольцо отмены инерции
+item.draconicadditions:basic_shield_necklace.name=Базовое ожерелье защиты
+item.draconicadditions:wyvern_shield_necklace.name=Ожерелье защиты Виверны
+item.draconicadditions:draconic_shield_necklace.name=Ожерелье защиты Дракона
+item.draconicadditions:overload_belt.name=Дракониевый пояс господства
+item.draconicadditions:vampiric_shirt.name=Дракониевая роба самопожертвования
+item.draconicadditions:inertia_cancel_ring.name=Кольцо погашения инерции
 
 //Crafting Components
 
-item.draconicadditions:chaotic_energy_core.name=Энергетическое ядро хаоса
+item.draconicadditions:chaotic_energy_core.name=Энергетическое ядро Хаоса
 
 //Lore
 
-item.draconicadditions:infused_potato.lore=Заряжен, но еще не включен...
-item.draconicadditions:infused_potato.lore2=Может быть, для этого нужен старт?
-item.draconicadditions:potato.lore=Хотя дикий рост был неожиданным,
-item.draconicadditions:potato.lore2=сейчас он находится под напряжением. Странно, но полезно.
+item.draconicadditions:infused_potato.lore=Наполнено, но пока не заряжено...
+item.draconicadditions:infused_potato.lore2=Может быть, нужен толчок?
+item.draconicadditions:potato.lore=Несмотря на неожиданность,
+item.draconicadditions:potato.lore2=теперь оно заряжено. Странно, но всё же полезно.
+item.draconicadditions:chaosItem.lore=Хаос ещё не был стабилизирован!
 
-msg.da.infusedTransformation.normal=Встряхивая часть брони, она начинает проростать в странно знакомой форме!
-msg.da.infusedTransformation.smack=Хлопая по часть брони на мобе, она начинает проростать в странно знакомой форме!
+msg.da.infusedTransformation.normal=Встряхнув часть этой брони, она начала странно трансформироваться!
+msg.da.infusedTransformation.smack=Броня начала странно трансформироваться, когда вы ударили ей по существу!
 
-msg.da.energizedBreak=Когда в ваше броне кончается сок, она распадается на части!
+msg.da.energizedBreak=Когда щит вашей брони разрядится, она распадётся на составные части!
 
-msg.da.chaosStabilizer.canStabilize=Вы чувствуете, что предмет в вашей руке тянется к стабилизатору...
-msg.da.chaosStabilizer.alreadyStabilized=Стабилизатор остаётся инертным. Вы уже стабилизировали этот предмет.
-msg.da.chaosStabilizer.cannotStabilize=Стабилизатор активно отбрасывает предмет в ваших руках!
-msg.da.chaosStabilizer.emptyHand=ТЫ СУМАСШЕДШИЙ! Не засовывайте руки в чистый хаос!
-msg.da.chaosStabilizer.full=Стабилизатор уже стабилизировал это.
-msg.da.chaosStabilizer.notMultiblock=Стабилизатор не реагирует на это...
+msg.da.chaosStabilizer.canStabilize=Вы чувствуете, что предмет в вашей руке стремится к стабилизатору...
+msg.da.chaosStabilizer.alreadyStabilized=Стабилизатор не реагирует. Вы уже стабилизировали этот предмет.
+msg.da.chaosStabilizer.cannotStabilize=Стабилизатор отвергает предмет в ваших руках!
+msg.da.chaosStabilizer.emptyHand=ВЫ СУМАСШЕДШИЙ?! Не суйте руки в чистый ХАОС!
+msg.da.chaosStabilizer.full=В стабилизаторе уже находится предмет.
+msg.da.chaosStabilizer.notMultiblock=Стабилизатор, похоже, ни на что не реагирует...
 
-msg.da.chaosContainer.explode=Щиты, защищающие ваш контейнер хаоса, терпят неудачу, и он внезапно взрывается!
-msg.da.chaosContainer.cantdrop=Бросить контейнер с жидким хаосом на землю кажется плохой идеей.
+msg.da.chaosContainer.explode=Защита хранилища Хаоса разрушилась, и похоже, что сейчас он взорвётся!
+msg.da.chaosContainer.cantdrop=Бросить хранилище с жидким хаосом на землю кажется плохой идеей.
+
+msg.da.portableWiredCharger.connectEnergySource=Вы должны присоединиться к действующему источнику энергии.
+msg.da.portableWiredCharger.invalidSide=Эта сторона блока не выводит энергию.
 
 //Misc
 
 itemGroup.draconicadditions=Draconic Additions
 
 config.field.shirtSafetyCutoff.entry=Безопасное отключение
-config.field.shirtSafetyCutoff.description=Позволяет установить точку, в которой эта рубашка перестанет функционировать и сохранит оставшуюся жизнь. \n\nПримечание: Это считается в HP, или в полу-сердцах.
+config.field.shirtSafetyCutoff.description=Позволяет установить ограничительную метку, при достижении которой роба перестанет функционировать и сохранит оставшееся здоровье.\n\nПримечание: значение измеряется в 0.5 сердца.
 config.field.shirtEntropyActivate.entry=Активация энтропии
-config.field.shirtEntropyActivate.description=Позволяет вам указать, какой процент энтропии рубашка начнет поглощать вашу жизнь, чтобы питать ваши щиты.
+config.field.shirtEntropyActivate.description=Позволяет установить, на каком проценте энтропии роба начнет поглощать ваше здоровье, чтобы подзаряжать энергетический щит.
 
-info.da.shieldcharge.txt=Заряд щита
-info.da.storedchaos.txt=Хранящийся хаос
-info.da.cooldown.txt=время перезарядки
+info.da.shieldcharge.txt=Зарядка щита
+info.da.storedchaos.txt=Накоплено хаоса
+info.da.cooldown.txt=Перезарядка
 
-key.overload=Активировать перезагрузку
+key.overload=Активировать господство
 
-//Russian translation by Lewui
-//Modified by FoxMcloud5655
+//Created by FoxMcloud5655
+//Translated by Bytegm
+//Compiled for version 1.12.2-1.11.1.32
