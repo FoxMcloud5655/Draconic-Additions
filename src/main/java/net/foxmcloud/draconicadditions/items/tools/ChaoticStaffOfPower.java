@@ -15,14 +15,23 @@ import com.brandon3055.draconicevolution.api.itemupgrade.UpgradeHelper;
 import com.brandon3055.draconicevolution.client.model.tool.ToolOverrideList;
 import com.brandon3055.draconicevolution.items.ToolUpgrade;
 import com.brandon3055.draconicevolution.items.tools.DraconicStaffOfPower;
+import com.brandon3055.draconicevolution.items.tools.IAOEWeapon;
 
+import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.items.IChaosItem;
 import net.foxmcloud.draconicadditions.utils.DATextures;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.fml.relauncher.Side;
@@ -83,6 +92,33 @@ public class ChaoticStaffOfPower extends DraconicStaffOfPower implements IChaosI
 		return 3;
 	}
 
+    @Override
+    public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
+        if (this instanceof IAOEWeapon && player.getCooledAttackStrength(0.5F) >= 0.95F && ((IAOEWeapon) this).getWeaponAOE(stack) > 0) {
+
+            List<EntityLivingBase> entities = player.world.getEntitiesWithinAABB(EntityLivingBase.class, entity.getEntityBoundingBox().grow(((IAOEWeapon) this).getWeaponAOE(stack), 0.25D, ((IAOEWeapon) this).getWeaponAOE(stack)));
+
+            for (EntityLivingBase aoeEntity : entities) {
+                if (aoeEntity != player && !player.isOnSameTeam(entity) && extractAttackEnergy(stack, aoeEntity, player)) {
+                    aoeEntity.knockBack(player, 0.4F, (double) MathHelper.sin(player.rotationYaw * 0.017453292F), (double) (-MathHelper.cos(player.rotationYaw * 0.017453292F)));
+                    
+                    float damage = (float) (aoeEntity.getHealth()*0.3+getAttackDamage(stack));
+					if(aoeEntity.getHealth()<=damage) {
+						aoeEntity.setHealth(1);
+						aoeEntity.attackEntityFrom(DamageSource.causePlayerDamage(player), getAttackDamage(stack));
+					}else {
+						aoeEntity.setHealth(aoeEntity.getHealth()-damage);
+					}
+                }
+            }
+
+            player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
+            player.spawnSweepParticles();
+        }
+        
+        extractAttackEnergy(stack, entity, player);
+        return super.onLeftClickEntity(stack, player, entity);
+    }
 	protected double getMaxAttackAOE(ItemStack stack) {
 		int level = UpgradeHelper.getUpgradeLevel(stack, ToolUpgrade.ATTACK_AOE);
 		if (level == 0) return 3;
@@ -92,6 +128,7 @@ public class ChaoticStaffOfPower extends DraconicStaffOfPower implements IChaosI
 		else if (level == 4) return 15;
 		else return 0;
 	}
+
 
 	@Override
 	public ItemConfigFieldRegistry getFields(ItemStack stack, ItemConfigFieldRegistry registry) {
