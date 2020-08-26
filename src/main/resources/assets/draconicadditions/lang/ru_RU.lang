@@ -19,7 +19,7 @@ item.draconicadditions:chaotic_boots.name=Ботинки Хаоса
 
 //Blocks
 
-tile.draconicadditions:chaos_stabilizer_core.name=Ядро для стабилизации Хаоса
+tile.draconicadditions:chaos_stabilizer_core.name=Ядро Стабилизатора Хаоса
 tile.draconicadditions:armor_generator.name=Переработчик брони
 tile.draconicadditions:chaotic_armor_generator.name=Переработчик брони Хаоса
 tile.draconicadditions:item_drainer.name=Энергетический опустошитель
