@@ -27,7 +27,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 @ModFeatures(modid = DraconicAdditions.MODID)
 public class DAFeatures implements IModFeatures {
 
-	private static CreativeTabs tabDA = new DATab(CreativeTabs.getNextID(), DraconicAdditions.MODID, "draconicadditions", 0);
+	private static CreativeTabs tabDA = new DATab(DraconicAdditions.MODID, "draconicadditions", 0);
 	private CreativeTabs[] tabs = new CreativeTabs[] {tabDA};
 
 	@Nullable

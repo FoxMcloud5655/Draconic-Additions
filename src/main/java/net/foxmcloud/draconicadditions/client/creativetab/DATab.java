@@ -15,8 +15,8 @@ public class DATab extends DETab {
 
 	static ItemStack itemStackChaotic = ItemStack.EMPTY;
 
-	public DATab(int id, String modid, String label, int tab) {
-		super(id, modid, label, tab);
+	public DATab(String modid, String label, int tab) {
+		super(modid, label, tab);
 		this.label = label;
 		this.tab = tab;
 	}
