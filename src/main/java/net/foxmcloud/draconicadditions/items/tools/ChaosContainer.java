@@ -38,10 +38,12 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import scala.Int;
 
 public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, IUpgradableItem, IInvCharge {
 
 	private DamageSource chaosBurst = new DamageSource("chaosBurst").setDamageBypassesArmor();
+	private short gracePeriod = 10;
 
 	public ChaosContainer() {
 		this.setMaxStackSize(1);
@@ -109,6 +111,9 @@ public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, I
 
 	public void upkeep(EntityPlayer player, ItemStack stack, World world) {
 		if (hasEffect(stack) && !player.isCreative()) {
+			if (cheating(stack, world)) {
+				ItemNBTHelper.setInteger(stack, "Energy", 0);
+			}
 			int drainedRF = extractEnergy(stack, getChaos(stack) * ToolStats.CHAOS_CONTAINER_RF_PER_CHAOS, false);
 			if (drainedRF != getChaos(stack) * ToolStats.CHAOS_CONTAINER_RF_PER_CHAOS) {
 				Vec3D pos = new Vec3D(player.posX, player.posY, player.posZ);
@@ -118,6 +123,18 @@ public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, I
 				stack.shrink(1);
 			}
 		}
+		else cheating(stack, world);
+	}
+
+	public boolean cheating(ItemStack stack, World world) {
+		long containerTime = ItemNBTHelper.getLong(stack, "cheatCheck", 0);
+		long serverTime = world.getTotalWorldTime();
+		boolean isCheating = false;
+		if (containerTime < serverTime - gracePeriod && containerTime != 0)  {
+			isCheating = true;
+		}
+		ItemNBTHelper.setLong(stack, "cheatCheck", serverTime);
+		return isCheating;
 	}
 
 	@Override
@@ -126,7 +143,11 @@ public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, I
 			player.sendStatusMessage(new TextComponentTranslation("msg.da.chaosContainer.cantdrop"), true);
 			return false;
 		}
-		else return true;
+		else {
+			ItemNBTHelper.setLong(stack, "cheatCheck", 0);
+			return true;
+		}
+		
 	}
 
 	@Override
@@ -145,7 +166,7 @@ public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, I
 		}
 		return false;
 	}
-	
+
 	@Override
 	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 		if (!world.isRemote) {
