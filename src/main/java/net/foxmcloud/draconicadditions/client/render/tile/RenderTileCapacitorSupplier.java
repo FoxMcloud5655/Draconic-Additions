@@ -3,7 +3,6 @@ package net.foxmcloud.draconicadditions.client.render.tile;
 import com.brandon3055.brandonscore.client.render.TESRBase;
 
 import codechicken.lib.render.state.GlStateTracker;
-import codechicken.lib.vec.Vector3;
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileCapacitorSupplier;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;

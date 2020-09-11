@@ -12,7 +12,6 @@ import com.brandon3055.draconicevolution.api.fusioncrafting.SimpleFusionRecipe;
 import com.brandon3055.draconicevolution.utils.LogHelper;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
-import net.minecraft.item.ItemStack;
 
 @ModConfigContainer(modid = DraconicAdditions.MODID)
 public class FusionCostMultiplier {

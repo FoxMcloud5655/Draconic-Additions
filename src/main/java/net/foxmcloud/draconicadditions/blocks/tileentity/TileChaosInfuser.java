@@ -6,7 +6,6 @@ import com.brandon3055.draconicevolution.lib.DESoundHandler;
 
 import cofh.redstoneflux.api.IEnergyReceiver;
 import net.foxmcloud.draconicadditions.items.IChaosContainer;
-import net.foxmcloud.draconicadditions.items.IChaosItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;

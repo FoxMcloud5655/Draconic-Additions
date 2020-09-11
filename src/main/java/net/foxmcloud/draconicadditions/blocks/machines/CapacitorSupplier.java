@@ -6,7 +6,6 @@ import com.brandon3055.brandonscore.blocks.BlockBCore;
 import com.brandon3055.brandonscore.registry.Feature;
 import com.brandon3055.brandonscore.registry.IRenderOverride;
 
-import codechicken.lib.model.ModelRegistryHelper;
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileCapacitorSupplier;
 import net.foxmcloud.draconicadditions.client.render.tile.RenderTileCapacitorSupplier;
 import net.minecraft.block.BlockHorizontal;
@@ -18,7 +17,6 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;

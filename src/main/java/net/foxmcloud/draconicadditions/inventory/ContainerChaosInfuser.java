@@ -8,7 +8,6 @@ import net.foxmcloud.draconicadditions.items.IChaosContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class ContainerChaosInfuser extends ContainerBCBase<TileChaosInfuser> {

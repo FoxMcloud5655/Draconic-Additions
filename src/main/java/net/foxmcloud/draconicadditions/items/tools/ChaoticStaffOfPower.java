@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 
 import com.brandon3055.brandonscore.lib.PairKV;
 import com.brandon3055.brandonscore.registry.Feature;
-import com.brandon3055.brandonscore.utils.InfoHelper;
 import com.brandon3055.draconicevolution.api.itemconfig.ItemConfigFieldRegistry;
 import com.brandon3055.draconicevolution.api.itemconfig.ToolConfigHelper;
 import com.brandon3055.draconicevolution.api.itemupgrade.UpgradeHelper;

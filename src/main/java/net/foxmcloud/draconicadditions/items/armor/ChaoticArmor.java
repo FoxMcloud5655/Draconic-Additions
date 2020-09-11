@@ -11,7 +11,6 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.brandon3055.brandonscore.lib.DelayedTask;
-import com.brandon3055.brandonscore.utils.InfoHelper;
 import com.brandon3055.brandonscore.utils.InventoryUtils;
 import com.brandon3055.draconicevolution.DEConfig;
 import com.brandon3055.draconicevolution.api.itemconfig.BooleanConfigField;
@@ -21,7 +20,6 @@ import com.brandon3055.draconicevolution.api.itemconfig.ToolConfigHelper;
 import com.brandon3055.draconicevolution.api.itemupgrade.UpgradeHelper;
 import com.brandon3055.draconicevolution.items.ToolUpgrade;
 import com.brandon3055.draconicevolution.items.armor.DraconicArmor;
-import com.brandon3055.draconicevolution.items.tools.ToolBase;
 
 import codechicken.lib.math.MathHelper;
 import net.foxmcloud.draconicadditions.DAFeatures;
@@ -29,7 +27,6 @@ import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.client.model.ModelChaoticArmor;
 import net.foxmcloud.draconicadditions.items.IChaosItem;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
