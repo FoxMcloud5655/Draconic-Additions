@@ -17,6 +17,7 @@ import com.brandon3055.draconicevolution.items.ToolUpgrade;
 import com.brandon3055.draconicevolution.lib.DESoundHandler;
 
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosHolderBase;
+import net.foxmcloud.draconicadditions.items.CommonItemMethods;
 import net.foxmcloud.draconicadditions.items.IChaosContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -38,9 +39,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, IUpgradableItem, IInvCharge {
-
-	private DamageSource chaosBurst = new DamageSource("chaosBurst").setDamageBypassesArmor();
-	private short gracePeriod = 10;
 
 	public ChaosContainer() {
 		this.setMaxStackSize(1);
@@ -108,30 +106,19 @@ public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, I
 
 	public void upkeep(EntityPlayer player, ItemStack stack, World world) {
 		if (hasEffect(stack) && !player.isCreative()) {
-			if (cheating(stack, world)) {
+			if (CommonItemMethods.cheatCheck(stack, world)) {
 				ItemNBTHelper.setInteger(stack, "Energy", 0);
 			}
 			int drainedRF = extractEnergy(stack, getChaos(stack) * ToolStats.CHAOS_CONTAINER_RF_PER_CHAOS, false);
 			if (drainedRF != getChaos(stack) * ToolStats.CHAOS_CONTAINER_RF_PER_CHAOS) {
 				Vec3D pos = new Vec3D(player.posX, player.posY, player.posZ);
 				explodeEntity(pos, world);
-				player.attackEntityFrom(chaosBurst, getChaos(stack));
+				player.attackEntityFrom(CommonItemMethods.chaosBurst, getChaos(stack));
 				player.sendStatusMessage(new TextComponentTranslation("msg.da.chaosContainer.explode"), true);
 				stack.shrink(1);
 			}
 		}
-		else cheating(stack, world);
-	}
-
-	public boolean cheating(ItemStack stack, World world) {
-		long containerTime = ItemNBTHelper.getLong(stack, "cheatCheck", 0);
-		long serverTime = world.getTotalWorldTime();
-		boolean isCheating = false;
-		if (containerTime < serverTime - gracePeriod && containerTime != 0)  {
-			isCheating = true;
-		}
-		ItemNBTHelper.setLong(stack, "cheatCheck", serverTime);
-		return isCheating;
+		else CommonItemMethods.cheatCheck(stack, world);
 	}
 
 	@Override
@@ -151,12 +138,12 @@ public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, I
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
 		if (entity instanceof EntityLiving) {
 			EntityLiving ent = (EntityLiving) entity;
-			if (getChaos(stack) > 0 && !ent.isEntityInvulnerable(chaosBurst)) {
+			if (getChaos(stack) > 0 && !ent.isEntityInvulnerable(CommonItemMethods.chaosBurst)) {
 				Vec3D pos = new Vec3D(ent.posX, ent.posY, ent.posZ);
 				explodeEntity(pos, player.world);
 				if (!player.world.isRemote) {
 					float damage = Math.min(getChaos(stack), ent.getHealth());
-					entity.attackEntityFrom(chaosBurst, damage);
+					entity.attackEntityFrom(CommonItemMethods.chaosBurst, damage);
 					removeChaos(stack, (int) Math.floor(damage));
 				}
 			}

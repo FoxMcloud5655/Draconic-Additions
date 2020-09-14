@@ -1,10 +1,7 @@
 package net.foxmcloud.draconicadditions.items.armor;
 
 import static com.brandon3055.draconicevolution.api.itemconfig.IItemConfigField.EnumControlType.SLIDER;
-import static net.minecraft.inventory.EntityEquipmentSlot.CHEST;
-import static net.minecraft.inventory.EntityEquipmentSlot.FEET;
-import static net.minecraft.inventory.EntityEquipmentSlot.HEAD;
-import static net.minecraft.inventory.EntityEquipmentSlot.LEGS;
+import static net.minecraft.inventory.EntityEquipmentSlot.*;
 
 import java.util.List;
 
