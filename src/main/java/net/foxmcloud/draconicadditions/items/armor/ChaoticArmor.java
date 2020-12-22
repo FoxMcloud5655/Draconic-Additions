@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 
 import com.brandon3055.brandonscore.lib.DelayedTask;
 import com.brandon3055.brandonscore.utils.InventoryUtils;
+import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 import com.brandon3055.draconicevolution.DEConfig;
 import com.brandon3055.draconicevolution.api.itemconfig.BooleanConfigField;
 import com.brandon3055.draconicevolution.api.itemconfig.IntegerConfigField;
@@ -19,8 +20,11 @@ import com.brandon3055.draconicevolution.items.ToolUpgrade;
 import com.brandon3055.draconicevolution.items.armor.DraconicArmor;
 
 import codechicken.lib.math.MathHelper;
+import net.foxmcloud.draconicadditions.CommonMethods;
 import net.foxmcloud.draconicadditions.DAFeatures;
 import net.foxmcloud.draconicadditions.DraconicAdditions;
+import net.foxmcloud.draconicadditions.capabilities.ChaosInBloodProvider;
+import net.foxmcloud.draconicadditions.capabilities.IChaosInBlood;
 import net.foxmcloud.draconicadditions.client.model.ModelChaoticArmor;
 import net.foxmcloud.draconicadditions.items.IChaosItem;
 import net.minecraft.client.model.ModelBiped;
@@ -34,6 +38,7 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -43,6 +48,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import scala.Int;
 
 public class ChaoticArmor extends DraconicArmor implements IChaosItem {
 
@@ -74,6 +80,9 @@ public class ChaoticArmor extends DraconicArmor implements IChaosItem {
 			registry.register(stack, new IntegerConfigField("armorVFSpeedModifier", 0, isChaosStable(stack) ? 0 : speedLimit, speedLimit, "config.field.armorVFSpeedModifier.description", SLIDER).setPrefix("+").setExtension("%"));
 			registry.register(stack, new BooleanConfigField("armorInertiaCancel", false, "config.field.armorInertiaCancel.description"));
 			registry.register(stack, new BooleanConfigField("armorFlightLock", false, "config.field.armorFlightLock.description"));
+			if (UpgradeHelper.getUpgradeLevel(stack, ToolUpgrade.ATTACK_DAMAGE) > 0) {
+				registry.register(stack, new IntegerConfigField("armorChaosInjection", 1, 1, UpgradeHelper.getUpgradeLevel(stack, ToolUpgrade.ATTACK_DAMAGE), "config.field.armorChaosInjection.description", SLIDER));
+			}
 		}
 		if (armorType == LEGS) {
 			int u = UpgradeHelper.getUpgradeLevel(stack, ToolUpgrade.MOVE_SPEED);
@@ -169,6 +178,15 @@ public class ChaoticArmor extends DraconicArmor implements IChaosItem {
 	public float getRecoveryRate(ItemStack stack) {
 		return (float) ArmorStats.CHAOTIC_SHIELD_RECOVERY * (1F + UpgradeHelper.getUpgradeLevel(stack, ToolUpgrade.SHIELD_RECOVERY));
 	}
+	
+    @Override
+    public List<String> getValidUpgrades(ItemStack stack) {
+        List<String> list = super.getValidUpgrades(stack);
+        if (armorType == EntityEquipmentSlot.CHEST) {
+            list.add(ToolUpgrade.ATTACK_DAMAGE);
+        }
+        return list;
+    }
 
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
@@ -238,6 +256,35 @@ public class ChaoticArmor extends DraconicArmor implements IChaosItem {
 			}
 			else if (active != null && ToolConfigHelper.getBooleanField("armorNVLock", stack)) {
 				player.removePotionEffect(nv);
+			}
+		}
+		else if (stack.getItem() == DAFeatures.chaoticChest) {
+			if (player.ticksExisted % (6 - ToolConfigHelper.getIntegerField("armorChaosInjection", stack)) == 0) {
+		    	IChaosInBlood pCap = player.getCapability(ChaosInBloodProvider.PLAYER_CAP, null);
+		    	float chaosInBlood = pCap != null ? pCap.getChaos() : 0;
+				if (ItemNBTHelper.getBoolean(stack, "injecting", false)) {
+					if (chaosInBlood > 0) {
+						pCap.addChaos(0.25F);
+					}
+					else {
+						if (player.getHealth() > 1) {
+							player.setHealth(player.getHealth() - 1);
+							ItemNBTHelper.setInteger(stack, "storedHP", ItemNBTHelper.getInteger(stack, "storedHP", 0) + 1);
+						}
+						else {
+							pCap.addChaos(0.25F);
+						}
+					}
+				}
+				else {
+					if (chaosInBlood > 0) {
+						pCap.removeChaos(0.25F);
+					}
+					else if (ItemNBTHelper.getInteger(stack, "storedHP", 0) > 0) {
+						player.heal(1);
+						ItemNBTHelper.setInteger(stack, "storedHP", ItemNBTHelper.getInteger(stack, "storedHP", 0) - 1);
+					}
+				}
 			}
 		}
 		super.onArmorTick(world, player, stack);

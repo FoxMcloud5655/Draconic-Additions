@@ -4,7 +4,7 @@ import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 import com.brandon3055.draconicevolution.handlers.CustomArmorHandler.ArmorSummery;
 
 import baubles.api.BaubleType;
-import net.foxmcloud.draconicadditions.items.CommonItemMethods;
+import net.foxmcloud.draconicadditions.CommonMethods;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -49,7 +49,7 @@ public class OverloadBelt extends BasicBauble {
 						return;
 					}
 					int pointsToSubtract = Math.max((int) Math.ceil(summary.protectionPoints * (damagePercent / 100)), 2);
-					float totalAbsorbed = CommonItemMethods.subtractShielding(player, (int)damagePercent);
+					float totalAbsorbed = CommonMethods.subtractShielding(player, (int)damagePercent);
 					if (totalAbsorbed > 0) {
 						int strengthCalc = Math.round(totalAbsorbed) / 2;
 						if (strengthCalc > 0) {

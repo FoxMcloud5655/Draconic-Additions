@@ -11,8 +11,10 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 public class KeyBindings {
 
 	public static KeyBinding activateOverload = new KeyBinding("key.overload", KeyConflictContext.IN_GAME, KeyModifier.SHIFT, Keyboard.KEY_F, DraconicAdditions.NAME);
+	public static KeyBinding activateChaosInjection = new KeyBinding("key.chaosInjection", KeyConflictContext.IN_GAME, KeyModifier.SHIFT, Keyboard.KEY_G, DraconicAdditions.NAME);
 
 	public static void init() {
 		ClientRegistry.registerKeyBinding(activateOverload);
+		ClientRegistry.registerKeyBinding(activateChaosInjection);
 	}
 }

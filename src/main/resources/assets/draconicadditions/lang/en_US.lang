@@ -81,6 +81,11 @@ msg.da.chaosContainer.cantdrop=Throwing a container of Liquid Chaos on the groun
 msg.da.portableWiredCharger.connectEnergySource=You must connect to a valid energy source.
 msg.da.portableWiredCharger.invalidSide=That side of the block does not output energy.
 
+msg.da.chaosInjection.start=Injecting chaos into bloodstream...
+msg.da.chaosInjection.stop=Injection stopped.  Filtering chaos from bloodstream...
+msg.da.chaosInjection.noupgrade=Chaos Injector not installed.
+msg.da.chaosInjection.incompatible=Your chestplate does not support chaos injection.
+
 //Misc
 
 itemGroup.draconicadditions=Draconic Additions
@@ -89,12 +94,15 @@ config.field.shirtSafetyCutoff.entry=Safety Cutoff
 config.field.shirtSafetyCutoff.description=Allows you to set the point where this shirt will stop functioning and preserve your remaining life.\n\nNote\: This is counted in HP, or half-hearts.
 config.field.shirtEntropyActivate.entry=Entropy Activation
 config.field.shirtEntropyActivate.description=Allows you to set at what entropy percent the shirt will start stealing your life to fuel your shields.
+config.field.armorChaosInjection.entry=Chaos Injection Rate
+config.field.armorChaosInjection.description=This setting controls the rate at which chaos will be injected into your bloodstream when you activate it.\n\nThe faster the injection, the harder it is for the shielding to keep your body intact.  The more chaos you have in your blood, the more powerful you become, but the longer it takes to remove.
 
 info.da.shieldcharge.txt=Shield Charge
 info.da.storedchaos.txt=Stored Chaos
 info.da.cooldown.txt=Cooldown
 
 key.overload=Toggle Overload Belt
+key.chaosInjection=Toggle Chaos Injector
 
 //Created by FoxMcloud5655
 //Compiled for version 1.12.2-1.11.1.32

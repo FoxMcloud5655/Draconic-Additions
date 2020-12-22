@@ -1,6 +1,7 @@
 package net.foxmcloud.draconicadditions.client.keybinding;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
+import net.foxmcloud.draconicadditions.network.PacketChaosInjection;
 import net.foxmcloud.draconicadditions.network.PacketOverloadBelt;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,6 +24,9 @@ public class KeyInputHandler {
 	private void onInput(EntityPlayer player) {
 		if (KeyBindings.activateOverload.isPressed()) {
 			DraconicAdditions.network.sendToServer(new PacketOverloadBelt());
+		}
+		if (KeyBindings.activateChaosInjection.isPressed()) {
+			DraconicAdditions.network.sendToServer(new PacketChaosInjection());
 		}
 	}
 }

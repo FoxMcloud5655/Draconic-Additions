@@ -16,8 +16,8 @@ import com.brandon3055.draconicevolution.client.DEParticles;
 import com.brandon3055.draconicevolution.items.ToolUpgrade;
 import com.brandon3055.draconicevolution.lib.DESoundHandler;
 
+import net.foxmcloud.draconicadditions.CommonMethods;
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosHolderBase;
-import net.foxmcloud.draconicadditions.items.CommonItemMethods;
 import net.foxmcloud.draconicadditions.items.IChaosContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -106,19 +106,19 @@ public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, I
 
 	public void upkeep(EntityPlayer player, ItemStack stack, World world) {
 		if (hasEffect(stack) && !player.isCreative()) {
-			if (CommonItemMethods.cheatCheck(stack, world)) {
+			if (CommonMethods.cheatCheck(stack, world)) {
 				ItemNBTHelper.setInteger(stack, "Energy", 0);
 			}
 			int drainedRF = extractEnergy(stack, getChaos(stack) * ToolStats.CHAOS_CONTAINER_RF_PER_CHAOS, false);
 			if (drainedRF != getChaos(stack) * ToolStats.CHAOS_CONTAINER_RF_PER_CHAOS) {
 				Vec3D pos = new Vec3D(player.posX, player.posY, player.posZ);
-				explodeEntity(pos, world);
-				player.attackEntityFrom(CommonItemMethods.chaosBurst, getChaos(stack));
+				CommonMethods.explodeEntity(pos, world);
+				player.attackEntityFrom(CommonMethods.chaosBurst, getChaos(stack));
 				player.sendStatusMessage(new TextComponentTranslation("msg.da.chaosContainer.explode"), true);
 				stack.shrink(1);
 			}
 		}
-		else CommonItemMethods.cheatCheck(stack, world);
+		else CommonMethods.cheatCheck(stack, world);
 	}
 
 	@Override
@@ -131,19 +131,18 @@ public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, I
 			ItemNBTHelper.setLong(stack, "cheatCheck", 0);
 			return true;
 		}
-		
 	}
 
 	@Override
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
 		if (entity instanceof EntityLiving) {
 			EntityLiving ent = (EntityLiving) entity;
-			if (getChaos(stack) > 0 && !ent.isEntityInvulnerable(CommonItemMethods.chaosBurst)) {
+			if (getChaos(stack) > 0 && !ent.isEntityInvulnerable(CommonMethods.chaosBurst)) {
 				Vec3D pos = new Vec3D(ent.posX, ent.posY, ent.posZ);
-				explodeEntity(pos, player.world);
+				CommonMethods.explodeEntity(pos, player.world);
 				if (!player.world.isRemote) {
 					float damage = Math.min(getChaos(stack), ent.getHealth());
-					entity.attackEntityFrom(CommonItemMethods.chaosBurst, damage);
+					entity.attackEntityFrom(CommonMethods.chaosBurst, damage);
 					removeChaos(stack, (int) Math.floor(damage));
 				}
 			}
@@ -171,16 +170,6 @@ public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, I
 			}
 		}
 		return EnumActionResult.PASS;
-	}
-
-	public void explodeEntity(Vec3D pos, World world) {
-		world.playSound(pos.x, pos.y, pos.z, DESoundHandler.beam, SoundCategory.MASTER, 0.25F, 0.5F, false);
-		world.playSound(pos.x, pos.y, pos.z, DESoundHandler.fusionComplete, SoundCategory.MASTER, 1.0F, 2.0F, false);
-		if (world.isRemote) {
-			for (int i = 0; i < 5; i++) {
-				BCEffectHandler.spawnFX(DEParticles.ARROW_SHOCKWAVE, world, pos, pos, 128D, 2);
-			}
-		}
 	}
 
 	@SideOnly(Side.CLIENT)
