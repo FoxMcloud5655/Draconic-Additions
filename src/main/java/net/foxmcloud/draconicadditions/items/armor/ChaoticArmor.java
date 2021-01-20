@@ -29,6 +29,7 @@ import net.foxmcloud.draconicadditions.client.model.ModelChaoticArmor;
 import net.foxmcloud.draconicadditions.items.IChaosItem;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,6 +41,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.FoodStats;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -61,6 +63,26 @@ public class ChaoticArmor extends DraconicArmor implements IChaosItem {
 	public ChaoticArmor(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) {
 		super(materialIn, renderIndexIn, equipmentSlotIn);
 	}
+	
+    @Override
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+        if (isInCreativeTab(tab)) {
+            subItems.add(new ItemStack(this));
+            ItemStack stack = new ItemStack(this);
+            modifyEnergy(stack, getCapacity(stack));
+            subItems.add(stack);
+
+            ItemStack uberStack = new ItemStack(this);
+
+            for (String upgrade : getValidUpgrades(uberStack)) {
+                UpgradeHelper.setUpgradeLevel(uberStack, upgrade, getMaxUpgradeLevel(uberStack, upgrade));
+            }
+
+            modifyEnergy(uberStack, getCapacity(uberStack));
+            this.setChaosStable(uberStack, true);
+            subItems.add(uberStack);
+        }
+    }
 
 	@Override
 	public int getMaxUpgradeLevel(ItemStack stack, String upgrade) {

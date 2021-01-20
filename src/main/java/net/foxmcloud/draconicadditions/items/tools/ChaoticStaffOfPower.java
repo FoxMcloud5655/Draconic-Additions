@@ -20,7 +20,9 @@ import net.foxmcloud.draconicadditions.utils.DATextures;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.model.IModelState;
@@ -32,6 +34,16 @@ public class ChaoticStaffOfPower extends DraconicStaffOfPower implements IChaosI
 	public ChaoticStaffOfPower() {
 		super();
 	}
+	
+    @Override
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+        super.getSubItems(tab, subItems);
+        if (isInCreativeTab(tab)) {
+            ItemStack uberStack = subItems.remove(subItems.size() - 1);
+            this.setChaosStable(uberStack, true);
+            subItems.add(uberStack);
+        }
+    }
 
 	@Override
 	public double getBaseMinSpeedConfig() {
