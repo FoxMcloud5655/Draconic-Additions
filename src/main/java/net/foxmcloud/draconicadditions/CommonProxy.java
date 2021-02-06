@@ -27,7 +27,7 @@ public class CommonProxy {
 		ModFeatureParser.registerModFeatures(DraconicAdditions.MODID);
 		DraconicAdditions.network = NetworkRegistry.INSTANCE.newSimpleChannel(DraconicAdditions.networkChannelName);
 		DraconicAdditions.network.registerMessage(PacketOverloadBelt.Handler.class, PacketOverloadBelt.class, 0, Side.SERVER);
-		DraconicAdditions.network.registerMessage(PacketChaosInjection.Handler.class, PacketChaosInjection.class, 0, Side.SERVER);
+		DraconicAdditions.network.registerMessage(PacketChaosInjection.Handler.class, PacketChaosInjection.class, 1, Side.SERVER);
 		MinecraftForge.EVENT_BUS.register(new DAEventHandler());
 		CapabilityManager.INSTANCE.register(IChaosInBlood.class, new ChaosInBloodStorage(), ChaosInBlood::new);
 		EntityRegistry.registerModEntity(new ResourceLocation(DraconicAdditions.MODID, "Plug"), EntityPlug.class, "draconicadditions:plug", 1, DraconicAdditions.instance, 64, 5, false);
