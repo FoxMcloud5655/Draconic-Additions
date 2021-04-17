@@ -130,6 +130,9 @@ public class TileChaosLiquefier extends TileChaosHolderBase implements IEnergyRe
 		if (stack.getItem() == Item.getByNameOrId("draconicevolution:chaos_shard")) {
 			return true;
 		}
+		else if (stack.getItem() == Item.getByNameOrId("draconicadditions:chaos_heart")) {
+			return true;
+		}
 		else return false;
 	}
 

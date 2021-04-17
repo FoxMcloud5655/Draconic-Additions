@@ -1,6 +1,8 @@
 package net.foxmcloud.draconicadditions.handlers;
 
+import com.brandon3055.brandonscore.registry.ModFeatureParser;
 import com.brandon3055.brandonscore.utils.ItemNBTHelper;
+import com.brandon3055.draconicevolution.entity.EntityChaosGuardian;
 import com.brandon3055.draconicevolution.handlers.CustomArmorHandler;
 import com.brandon3055.draconicevolution.helpers.ResourceHelperDE;
 
@@ -9,6 +11,7 @@ import net.foxmcloud.draconicadditions.DAFeatures;
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.capabilities.ChaosInBloodProvider;
 import net.foxmcloud.draconicadditions.capabilities.IChaosInBlood;
+import net.foxmcloud.draconicadditions.entity.EntityChaosHeart;
 import net.foxmcloud.draconicadditions.items.tools.ChaosContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -23,6 +26,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.client.event.GuiScreenEvent.MouseInputEvent;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
@@ -80,6 +84,16 @@ public class DAEventHandler {
 				}
 			}
 		}
+	}
+	
+	@SubscribeEvent
+	public void onDropEvent(LivingDropsEvent event) {
+        if (!event.getEntity().world.isRemote && event.getEntity() instanceof EntityChaosGuardian) {
+            if (ModFeatureParser.isEnabled(DAFeatures.chaosHeart)) {
+                EntityChaosHeart heart = new EntityChaosHeart(event.getEntity().world, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+                event.getEntity().world.spawnEntity(heart);
+            }
+        }
 	}
 	
 	@SubscribeEvent

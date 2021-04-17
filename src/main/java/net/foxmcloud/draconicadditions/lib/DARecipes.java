@@ -65,7 +65,7 @@ public class DARecipes {
 		addShaped(ALL, itemDrainer, " B ", "CAC", 'A', generator, 'B', IRON_PICKAXE, 'C', awakenedCore);
 		addFusion(NORMAL, new ItemStack(chaoticArmorGenerator), new ItemStack(armorGenerator), 50000, 3, chaosContainer);
 		addFusion(HARD, new ItemStack(chaoticArmorGenerator), new ItemStack(armorGenerator), 500000, 3, chaosContainer, infusedObsidian);
-		addFusion(ALL, new ItemStack(chaosLiquefier), new ItemStack(generator), 2500000, 3, reactorCore, chaosContainer);
+		addFusion(ALL, new ItemStack(chaosLiquefier), new ItemStack(generator), 2500000, 3, chaosHeart, chaosContainer);
 		addShaped(ALL, capacitorSupplier, " B ", "BAB", "BBB", 'A', END_ROD, 'B', IRON_INGOT);
 		//addFusion(NORMAL, new ItemStack(chaosInfuser), new ItemStack(chaosLiquefier), 500000, 3, awakenedCore, awakenedCore);
 		//addFusion(HARD, new ItemStack(chaosInfuser), new ItemStack(chaosLiquefier), 250000, 3, awakenedCore, draconicEnergyCore, draconicEnergyCore);

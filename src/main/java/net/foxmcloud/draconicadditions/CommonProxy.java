@@ -1,10 +1,13 @@
 package net.foxmcloud.draconicadditions;
 
 import com.brandon3055.brandonscore.registry.ModFeatureParser;
+import com.brandon3055.draconicevolution.DraconicEvolution;
+import com.brandon3055.draconicevolution.entity.EntityDragonHeart;
 
 import net.foxmcloud.draconicadditions.capabilities.ChaosInBlood;
 import net.foxmcloud.draconicadditions.capabilities.ChaosInBloodStorage;
 import net.foxmcloud.draconicadditions.capabilities.IChaosInBlood;
+import net.foxmcloud.draconicadditions.entity.EntityChaosHeart;
 import net.foxmcloud.draconicadditions.entity.EntityPlug;
 import net.foxmcloud.draconicadditions.handlers.DAEventHandler;
 import net.foxmcloud.draconicadditions.integration.AE2Compat;
@@ -30,7 +33,8 @@ public class CommonProxy {
 		DraconicAdditions.network.registerMessage(PacketChaosInjection.Handler.class, PacketChaosInjection.class, 1, Side.SERVER);
 		MinecraftForge.EVENT_BUS.register(new DAEventHandler());
 		CapabilityManager.INSTANCE.register(IChaosInBlood.class, new ChaosInBloodStorage(), ChaosInBlood::new);
-		EntityRegistry.registerModEntity(new ResourceLocation(DraconicAdditions.MODID, "Plug"), EntityPlug.class, "draconicadditions:plug", 1, DraconicAdditions.instance, 64, 5, false);
+		EntityRegistry.registerModEntity(new ResourceLocation(DraconicAdditions.MODID, "plug"), EntityPlug.class, "draconicadditions:plug", 1, DraconicAdditions.instance, 64, 5, false);
+		EntityRegistry.registerModEntity(new ResourceLocation(DraconicAdditions.MODID, "chaosHeart"), EntityChaosHeart.class, "draconicadditions:chaosheartitem", 2, DraconicAdditions.instance, 64, 5, false);
 	}
 
 	public void init(FMLInitializationEvent event) {

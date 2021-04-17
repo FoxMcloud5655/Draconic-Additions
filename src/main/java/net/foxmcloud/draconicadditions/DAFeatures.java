@@ -7,6 +7,7 @@ import com.brandon3055.brandonscore.registry.Feature;
 import com.brandon3055.brandonscore.registry.IModFeatures;
 import com.brandon3055.brandonscore.registry.ModFeature;
 import com.brandon3055.brandonscore.registry.ModFeatures;
+import com.brandon3055.draconicevolution.items.ItemPersistent;
 
 import net.foxmcloud.draconicadditions.blocks.chaosritual.ChaosStabilizerCore;
 import net.foxmcloud.draconicadditions.blocks.chaosritual.tileentity.TileChaosStabilizerCore;
@@ -49,6 +50,9 @@ public class DAFeatures implements IModFeatures {
 
 	@ModFeature(name = "inert_potato_boots", stateOverride = "crafting#type=inertPotatoBoots")
 	public static Item inertPotatoBoots = new Item();
+	
+    @ModFeature(name = "chaos_heart", stateOverride = "crafting#type=chaosHeart")
+    public static ItemPersistent chaosHeart = new ItemPersistent();
 
 	@ModFeature(name = "chaotic_energy_core", stateOverride = "crafting#type=chaoticECore")
 	public static ChaoticEnergyCore chaoticEnergyCore = new ChaoticEnergyCore();

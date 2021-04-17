@@ -9,11 +9,12 @@
   },
   "variants": {
     "type": {
-      "inertpotatohelm":   { "textures": { "layer0": "draconicadditions:items/crafting/inert_potato_helmet"  } },
+      "inertpotatohelm":   { "textures": { "layer0": "draconicadditions:items/crafting/inert_potato_helmet"     } },
       "inertpotatochest":  { "textures": { "layer0": "draconicadditions:items/crafting/inert_potato_chestplate" } },
-      "inertpotatolegs":   { "textures": { "layer0": "draconicadditions:items/crafting/inert_potato_leggings"  } },
-      "inertpotatoboots":  { "textures": { "layer0": "draconicadditions:items/crafting/inert_potato_boots"   } },
-      "chaoticecore":  { "textures": { "layer0": "draconicadditions:items/crafting/chaotic_energy_core"   } }
+      "inertpotatolegs":   { "textures": { "layer0": "draconicadditions:items/crafting/inert_potato_leggings"   } },
+      "inertpotatoboots":  { "textures": { "layer0": "draconicadditions:items/crafting/inert_potato_boots"      } },
+      "chaosheart":        { "textures": { "layer0": "draconicadditions:items/crafting/chaos_heart"             } },
+      "chaoticecore":      { "textures": { "layer0": "draconicadditions:items/crafting/chaotic_energy_core"     } }
     }
   }
 }
