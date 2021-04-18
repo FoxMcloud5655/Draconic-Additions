@@ -18,6 +18,10 @@ item.draconicadditions\:chaotic_helm.name=Chaotic Helmet
 item.draconicadditions\:chaotic_chest.name=Chaotic Chestplate
 item.draconicadditions\:chaotic_legs.name=Chaotic Leggings
 item.draconicadditions\:chaotic_boots.name=Chaotic Boots
+item.draconicadditions\:hermal_helm.name=Hermal Infused Helmet
+item.draconicadditions\:hermal_chest.name=Hermal Infused Chestplate
+item.draconicadditions\:hermal_legs.name=Hermal Infused Leggings
+item.draconicadditions\:hermal_boots.name=Hermal Infused Boots
 
 //Blocks
 
@@ -55,6 +59,7 @@ item.draconicadditions\:inertia_cancel_ring.name=Ring of Inertia Cancellation
 
 item.draconicadditions\:chaos_heart.name=Corrupted Dragon Heart
 item.draconicadditions\:chaotic_energy_core.name=Chaotic Energy Core
+item.draconicadditions\:hermal.name=Hermal
 
 //Lore
 
@@ -62,6 +67,8 @@ item.draconicadditions\:infused_potato.lore=Infused, but not yet powered...
 item.draconicadditions\:infused_potato.lore2=Maybe it needs a jumpstart?
 item.draconicadditions\:potato.lore=While the wild growth was unexpected,
 item.draconicadditions\:potato.lore2=it's now energized. Strange, but still useful.
+item.draconicadditions\:hermal.lore=With the power of Hermal at your fingertips,
+item.draconicadditions\:hermal.lore2=you feel like you can rule the world!
 item.draconicadditions\:chaosItem.lore=The Chaos hasn't been stabilized yet!
 
 msg.da.infusedTransformation.normal=Shaking the armor piece, it starts sprouting growths in an oddly familiar shape!
@@ -106,4 +113,4 @@ key.overload=Toggle Overload Belt
 key.chaosInjection=Toggle Chaos Injector
 
 //Created by FoxMcloud5655
-//Compiled for version 1.12.2-1.11.1.32
+//Compiled for version 1.12.2-1.16.0.40

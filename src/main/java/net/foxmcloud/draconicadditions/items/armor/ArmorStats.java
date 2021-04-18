@@ -54,4 +54,24 @@ public class ArmorStats {
 	@ModConfigProperty(category = "Armor Tweaks", name = "Chaotic - Upgrade Level", comment = "Specifies how far the Chaotic Armor can be upgraded using Fusion Crafting.\n0 = No Upgrades, 1 = Basic, 2 = Wyvern, 3 = Draconic, 4 = Chaotic", autoSync = true)
 	@ModConfigProperty.MinMax(min = "0", max = "4")
 	public static int CHAOTIC_UPGRADE_LEVEL = 4;
+	
+	//TODO: if hermal is enabled
+	@ModConfigProperty(category = "Armor Tweaks", name = "Hermal - Base Shield Capacity", comment = "Allows you to adjust the total shield capacity of a full set of Hermal Armor.", autoSync = true)
+	@ModConfigProperty.MinMax(min = "0", max = "60000000")
+	public static int HERMAL_BASE_SHIELD_CAPACITY = 512;
+	@ModConfigProperty(category = "Armor Tweaks", name = "Hermal - Shield Recharge Cost", comment = "Allows you to adjust the amount of RF that Hermal Armor requires to recharge 1 shield point.", autoSync = true)
+	@ModConfigProperty.MinMax(min = "0", max = "2147483647")
+	public static int HERMAL_SHIELD_RECHARGE_COST = 2000;
+	@ModConfigProperty(category = "Armor Tweaks", name = "Hermal - Shield Recovery", comment = "Allows you to adjust how fast Hermal Armor is able to recover entropy.  Value is {this number}% every 5 seconds.", autoSync = true)
+	@ModConfigProperty.MinMax(min = "0", max = "100")
+	public static double HERMAL_SHIELD_RECOVERY = 10D;
+	@ModConfigProperty(category = "Armor Tweaks", name = "Hermal - Max Recieve", comment = "Allows you to adjust how fast Hermal Armor is able to recieve RF/tick.", autoSync = true)
+	@ModConfigProperty.MinMax(min = "0", max = "2147483647")
+	public static int HERMAL_MAX_RECIEVE = 0;
+	@ModConfigProperty(category = "Armor Tweaks", name = "Hermal - Base Capacity", comment = "Allows you to adjust how much RF the Hermal Armor can hold.", autoSync = true)
+	@ModConfigProperty.MinMax(min = "0", max = "2147483647")
+	public static int HERMAL_BASE_CAPACITY = 800000000;
+	@ModConfigProperty(category = "Armor Tweaks", name = "Hermal - Upgrade Level", comment = "Specifies how far the Hermal Armor can be upgraded using Fusion Crafting.\n0 = No Upgrades, 1 = Basic, 2 = Wyvern, 3 = Draconic, 4 = Chaotic", autoSync = true)
+	@ModConfigProperty.MinMax(min = "0", max = "4")
+	public static int HERMAL_UPGRADE_LEVEL = 0;
 }

@@ -56,6 +56,9 @@ public class DAFeatures implements IModFeatures {
 
 	@ModFeature(name = "chaotic_energy_core", stateOverride = "crafting#type=chaoticECore")
 	public static ChaoticEnergyCore chaoticEnergyCore = new ChaoticEnergyCore();
+	
+    @ModFeature(name = "hermal", stateOverride = "crafting#type=hermal")
+    public static Hermal hermal = new Hermal();
 
 	// Blocks
 
@@ -122,6 +125,18 @@ public class DAFeatures implements IModFeatures {
 
 	@ModFeature(name = "potato_boots", stateOverride = "armor#type=potatoBoots")
 	public static PotatoArmor potatoBoots = new PotatoArmor(3, EntityEquipmentSlot.FEET);
+	
+	@ModFeature(name = "hermal_helm", stateOverride = "armor#type=potatoHelm")
+	public static HermalArmor hermalHelm = new HermalArmor(0, EntityEquipmentSlot.HEAD);
+
+	@ModFeature(name = "hermal_chest", stateOverride = "armor#type=potatoChest")
+	public static HermalArmor hermalChest = new HermalArmor(1, EntityEquipmentSlot.CHEST);
+
+	@ModFeature(name = "hermal_legs", stateOverride = "armor#type=potatoLegs")
+	public static HermalArmor hermalLegs = new HermalArmor(2, EntityEquipmentSlot.LEGS);
+
+	@ModFeature(name = "hermal_boots", stateOverride = "armor#type=potatoBoots")
+	public static HermalArmor hermalBoots = new HermalArmor(3, EntityEquipmentSlot.FEET);
 
 	// Chaotic Armor
 

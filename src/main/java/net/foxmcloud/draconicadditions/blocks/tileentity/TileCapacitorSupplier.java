@@ -1,6 +1,7 @@
 package net.foxmcloud.draconicadditions.blocks.tileentity;
 
 import com.brandon3055.brandonscore.blocks.TileEnergyInventoryBase;
+import com.brandon3055.brandonscore.lib.EnergyHelper;
 import com.brandon3055.brandonscore.lib.IChangeListener;
 import com.brandon3055.brandonscore.lib.datamanager.ManagedBool;
 import com.brandon3055.brandonscore.lib.datamanager.ManagedInt;
@@ -9,6 +10,8 @@ import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 import cofh.redstoneflux.api.IEnergyContainerItem;
 import cofh.redstoneflux.api.IEnergyProvider;
 import cofh.redstoneflux.api.IEnergyReceiver;
+import net.foxmcloud.draconicadditions.DAFeatures;
+import net.foxmcloud.draconicadditions.items.Hermal;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
@@ -24,7 +27,8 @@ public class TileCapacitorSupplier extends TileEnergyInventoryBase implements IE
 	public final ManagedInt capacityBackup = register("capacityBackup", new ManagedInt(0)).saveToTile().saveToItem().finish();
 	public final ManagedInt energyBackup = register("energyBackup", new ManagedInt(0)).saveToTile().saveToItem().finish();
 	public final ManagedInt rateBackup = register("rateBackup", new ManagedInt(0)).saveToTile().saveToItem().finish();
-
+	public final ManagedBool isHermal = register("isHermal", new ManagedBool(false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
+	
 	public TileCapacitorSupplier() {
 		setInventorySize(1);
 		setEnergySyncMode().syncViaContainer();
@@ -47,7 +51,12 @@ public class TileCapacitorSupplier extends TileEnergyInventoryBase implements IE
 		else if (!getStackInSlot(0).isEmpty() && !active.value) {
 			active.value = true;
 		}
-		energyStorage.modifyEnergyStored(-sendEnergyToAll());
+		if (isHermal.value) {
+			sendEnergyToAll();
+		}
+		else {
+			energyStorage.modifyEnergyStored(-sendEnergyToAll());
+		}
 		backupValues();
 	}
 	
@@ -55,7 +64,8 @@ public class TileCapacitorSupplier extends TileEnergyInventoryBase implements IE
 		if (!stack.isEmpty()) {
 			ItemStack stackInClaws = getStackInSlot(0);
 			if (stackInClaws.isEmpty()) {
-				if (ItemNBTHelper.getInteger(stack, "Energy", -1) >= 0) {
+				if (EnergyHelper.canExtractEnergy(stack) || ItemNBTHelper.getInteger(stack, "Energy", -1) >= 0) {
+					isHermal.value = stack.getItem() instanceof Hermal;
 					IEnergyContainerItem item = (IEnergyContainerItem)stack.getItem();
 					int currentEnergy = item.getEnergyStored(stack);
 					int maxEnergy = item.getMaxEnergyStored(stack);
@@ -78,7 +88,12 @@ public class TileCapacitorSupplier extends TileEnergyInventoryBase implements IE
 		ItemStack stack = ItemStack.EMPTY;
 		ItemStack stackInClaws = getStackInSlot(0);
 		if (!stackInClaws.isEmpty()) {
-			ItemNBTHelper.setInteger(stackInClaws, "Energy", energyStorage.getEnergyStored());
+			if (isHermal.value) {
+				ItemNBTHelper.setInteger(stackInClaws, "Energy", ((Hermal)stackInClaws.getItem()).getCapacity(stackInClaws));
+			}
+			else {
+				ItemNBTHelper.setInteger(stackInClaws, "Energy", energyStorage.getEnergyStored());
+			}
 			energyStorage.setEnergyStored(0);
 			setCapacityAndTransfer(0, 0, 0);
 			stack = removeStackFromSlot(0);

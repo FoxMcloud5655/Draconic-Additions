@@ -7,6 +7,11 @@ import static net.foxmcloud.draconicadditions.DAFeatures.*;
 import static net.minecraft.init.Blocks.*;
 import static net.minecraft.init.Items.*;
 
+import com.brandon3055.brandonscore.registry.Feature;
+import com.brandon3055.brandonscore.registry.ModFeatures;
+import com.brandon3055.draconicevolution.lib.RecipeManager;
+
+import net.foxmcloud.draconicadditions.DAFeatures;
 import net.minecraft.item.ItemStack;
 
 public class DARecipes {
@@ -23,6 +28,8 @@ public class DARecipes {
 		addShapeless(ALL, new ItemStack(chaosShard, 9, 3), new ItemStack(chaosShard, 1, 2));
 		addFusion(NORMAL, new ItemStack(chaosStabilizerCore), new ItemStack(reactorCore), 1250000000, 3, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), infusedObsidian, infusedObsidian);
 		addFusion(HARD, new ItemStack(chaosStabilizerCore), new ItemStack(reactorCore), 2000000000, 3, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), infusedObsidian, infusedObsidian);
+		addFusion(NORMAL, new ItemStack(chaoticEnergyCore), new ItemStack(draconicEnergyCore), 1000000000, 2, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), "blockRedstone", "blockRedstone", "blockRedstone", "blockRedstone");
+		addFusion(HARD, new ItemStack(chaoticEnergyCore), new ItemStack(chaosShard, 1, 0), 2000000000, 2, draconicEnergyCore, draconicEnergyCore, draconicEnergyCore, draconicEnergyCore, "blockDraconium", "blockDraconium", "blockDraconium", "blockDraconium");
 
 		// Tools
 
@@ -59,8 +66,6 @@ public class DARecipes {
 
 		// Blocks
 
-		addFusion(NORMAL, new ItemStack(chaoticEnergyCore), new ItemStack(draconicEnergyCore), 1000000000, 2, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), "blockRedstone", "blockRedstone", "blockRedstone", "blockRedstone");
-		addFusion(HARD, new ItemStack(chaoticEnergyCore), new ItemStack(chaosShard, 1, 0), 2000000000, 2, draconicEnergyCore, draconicEnergyCore, draconicEnergyCore, draconicEnergyCore, "blockDraconium", "blockDraconium", "blockDraconium", "blockDraconium");
 		addShapeless(ALL, armorGenerator, generator, IRON_CHESTPLATE);
 		addShaped(ALL, itemDrainer, " B ", "CAC", 'A', generator, 'B', IRON_PICKAXE, 'C', awakenedCore);
 		addFusion(NORMAL, new ItemStack(chaoticArmorGenerator), new ItemStack(armorGenerator), 50000, 3, chaosContainer);
@@ -69,6 +74,16 @@ public class DARecipes {
 		addShaped(ALL, capacitorSupplier, " B ", "BAB", "BBB", 'A', END_ROD, 'B', IRON_INGOT);
 		//addFusion(NORMAL, new ItemStack(chaosInfuser), new ItemStack(chaosLiquefier), 500000, 3, awakenedCore, awakenedCore);
 		//addFusion(HARD, new ItemStack(chaosInfuser), new ItemStack(chaosLiquefier), 250000, 3, awakenedCore, draconicEnergyCore, draconicEnergyCore);
+		
+		// Hermal
+		
+		if (RecipeManager.isEnabled(DAFeatures.hermal)) {
+			addShaped(HARD, new ItemStack(hermal), "ABA", "BCB", "ABA", 'A', REDSTONE_BLOCK, 'B', new ItemStack(chaosShard, 1, 3), 'C', POISONOUS_POTATO);
+			addFusionTool(HARD, new ItemStack(hermalHelm), new ItemStack(draconicHelm), 128000000, 2, hermal, chaoticEnergyCore);
+			addFusionTool(HARD, new ItemStack(hermalChest), new ItemStack(draconicChest), 128000000, 2, hermal, chaoticEnergyCore);
+			addFusionTool(HARD, new ItemStack(hermalLegs), new ItemStack(draconicLegs), 128000000, 2, hermal, chaoticEnergyCore);
+			addFusionTool(HARD, new ItemStack(hermalBoots), new ItemStack(draconicBoots), 128000000, 2, hermal, chaoticEnergyCore);
+		}
 		
 		// Shield Baubles
 
