@@ -49,7 +49,7 @@ public class OverloadBelt extends BasicBauble {
 						return;
 					}
 					int pointsToSubtract = Math.max((int) Math.ceil(summary.protectionPoints * (damagePercent / 100)), 2);
-					float totalAbsorbed = CommonMethods.subtractShielding(player, (int)damagePercent);
+					float totalAbsorbed = CommonMethods.subtractShielding(player, (int)pointsToSubtract);
 					if (totalAbsorbed > 0) {
 						int strengthCalc = Math.round(totalAbsorbed) / 2;
 						if (strengthCalc > 0) {
