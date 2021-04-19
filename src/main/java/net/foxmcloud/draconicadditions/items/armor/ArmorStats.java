@@ -54,8 +54,6 @@ public class ArmorStats {
 	@ModConfigProperty(category = "Armor Tweaks", name = "Chaotic - Upgrade Level", comment = "Specifies how far the Chaotic Armor can be upgraded using Fusion Crafting.\n0 = No Upgrades, 1 = Basic, 2 = Wyvern, 3 = Draconic, 4 = Chaotic", autoSync = true)
 	@ModConfigProperty.MinMax(min = "0", max = "4")
 	public static int CHAOTIC_UPGRADE_LEVEL = 4;
-	
-	//TODO: if hermal is enabled
 	@ModConfigProperty(category = "Armor Tweaks", name = "Hermal - Base Shield Capacity", comment = "Allows you to adjust the total shield capacity of a full set of Hermal Armor.", autoSync = true)
 	@ModConfigProperty.MinMax(min = "0", max = "60000000")
 	public static int HERMAL_BASE_SHIELD_CAPACITY = 512;
