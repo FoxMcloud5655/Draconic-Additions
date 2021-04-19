@@ -53,6 +53,7 @@ public class TileCapacitorSupplier extends TileEnergyInventoryBase implements IE
 		}
 		if (isHermal.value) {
 			sendEnergyToAll();
+			energyStorage.setEnergyStored(capacityBackup.value);
 		}
 		else {
 			energyStorage.modifyEnergyStored(-sendEnergyToAll());
