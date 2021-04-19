@@ -45,13 +45,12 @@ public class RenderPlug extends Render<EntityPlug> {
 			double d0 = (double) MathHelper.sin(f3);
 			double d1 = (double) MathHelper.cos(f3);
 			double d2 = (double) k * 0.35D;
-			double d3 = 0.8D;
 			double d4, d5, d6, d7;
 
 			if ((this.renderManager.options == null || this.renderManager.options.thirdPersonView <= 0) && entityplayer == Minecraft.getMinecraft().player) {
 				float f4 = this.renderManager.options.fovSetting;
 				f4 = f4 / 100.0F;
-				Vec3d vec3d = new Vec3d((double)k * -0.36D * (double)f4, -0.045D * (double)f4, 0.4D);
+				Vec3d vec3d = new Vec3d((double)k * -0.36D * (double)f4 + (k < 0 ? -0.07D : 0), -0.045D * (double)f4, 0.4D);
 				vec3d = vec3d.rotatePitch(-(entityplayer.prevRotationPitch + (entityplayer.rotationPitch - entityplayer.prevRotationPitch) * partialTicks) * 0.017453292F);
 				vec3d = vec3d.rotateYaw(-(entityplayer.prevRotationYaw + (entityplayer.rotationYaw - entityplayer.prevRotationYaw) * partialTicks) * 0.017453292F);
 				vec3d = vec3d.rotateYaw(f2 * 0.5F);

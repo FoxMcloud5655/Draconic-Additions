@@ -66,9 +66,14 @@ public class EntityPlug extends Entity {
 	public void onEntityUpdate() {
 		this.world.profiler.startSection("entityBaseTick");
 		if (this.player != null) {
-			ItemStack attachedItemStack = this.player.getHeldItemMainhand() != null ? this.player.getHeldItemMainhand() : this.player.getHeldItemOffhand();
-			if (attachedItemStack.isEmpty() || !(attachedItemStack.getItem() instanceof PortableWiredCharger)) this.setDead();
-			else if (!this.firstUpdate && !ItemNBTHelper.getBoolean(attachedItemStack, "pluggedIn", false)) {
+			ItemStack stack = this.player.getHeldItemMainhand();
+			if (stack.isEmpty() || !(stack.getItem() instanceof PortableWiredCharger)) {
+				stack = this.player.getHeldItemOffhand();
+			}
+			if (stack.isEmpty() || !(stack.getItem() instanceof PortableWiredCharger)) {
+				this.setDead();
+			}
+			else if (!this.firstUpdate && !ItemNBTHelper.getBoolean(stack, "pluggedIn", false)) {
 				this.setDead();
 			}
 		}

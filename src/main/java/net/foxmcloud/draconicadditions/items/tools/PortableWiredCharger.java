@@ -281,8 +281,8 @@ public class PortableWiredCharger extends ItemEnergyBase {
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
 		boolean isPWC = oldStack.getItem() instanceof PortableWiredCharger && newStack.getItem() instanceof PortableWiredCharger;
-		boolean isSameDamage = oldStack.getItem().getDamage(oldStack) % 4 != newStack.getItem().getDamage(newStack) % 4;
-		return isPWC && isSameDamage;
+		boolean isSameDamage = oldStack.getItem().getDamage(oldStack) % 4 == newStack.getItem().getDamage(newStack) % 4;
+		return !isPWC || !isSameDamage;
 	}
 
 	@SideOnly(Side.CLIENT)
