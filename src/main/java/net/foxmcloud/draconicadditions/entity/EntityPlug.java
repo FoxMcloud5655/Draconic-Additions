@@ -24,20 +24,28 @@ public class EntityPlug extends Entity {
 	public EntityPlug(World worldIn, EntityPlayer player, double x, double y, double z, EnumFacing facing) {
 		super(worldIn);
 		this.init(player);
-		this.setPosition(x, y - 0.5, z);
-		float yaw;
+		float yaw = 0;
 		switch(facing) {
 		case EAST:
+			this.setPosition(x + 0.5, y - 0.5, z);
 			yaw = 90;
 			break;
 		case WEST:
+			this.setPosition(x - 0.5, y - 0.5, z);
 			yaw = 270;
 			break;
 		case SOUTH:
+			this.setPosition(x, y - 0.5, z + 0.5);
+			break;
+		case NORTH:
+			this.setPosition(x, y - 0.5, z - 0.5);
 			yaw = 180;
 			break;
-		default:
-			yaw = 0;
+		case UP:
+			this.setPosition(x, y, z);
+			break;
+		case DOWN:
+			this.setPosition(x, y - 1, z);
 			break;
 		}
 		float pitch = facing == EnumFacing.UP ? 90 : facing == EnumFacing.DOWN ? -90 : 0;

@@ -87,6 +87,21 @@ public class RenderPlug extends Render<EntityPlug> {
 			tessellator.draw();
 			GlStateManager.enableLighting();
 			GlStateManager.enableTexture2D();
+
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(x, y, z);
+			GlStateManager.rotate(entity.getPitchYaw().y, 0, 1, 0);
+			GlStateManager.rotate(-entity.getPitchYaw().x, 1, 0, 0);
+			GlStateManager.translate(-0.5, entity.getPitchYaw().x == 0 ? 0 : -0.5, entity.getPitchYaw().x / 180.0F);
+			GlStateManager.scale(0.125, 0.125, 0.125);
+			GlStateManager.translate(3.5, 3.5, 0);
+			bufferbuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+			bufferbuilder.pos(0, 1, 0).tex(0, 0).endVertex();
+			bufferbuilder.pos(0, 0, 0).tex(0, 1).endVertex();
+			bufferbuilder.pos(1, 0, 0).tex(1, 1).endVertex();
+			bufferbuilder.pos(1, 1, 0).tex(1, 0).endVertex();
+			tessellator.draw();
+			GlStateManager.popMatrix();
 		}
 	}
 
