@@ -74,7 +74,7 @@ public class ChaoticStaffOfPower extends DraconicStaffOfPower implements IChaosI
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
-        if (getChaosInfo(stack) != null) tooltip.add(getChaosInfo(stack));
+        if (getChaosInfoStable(stack) != null) tooltip.add(getChaosInfoStable(stack));
         super.addInformation(stack, player, tooltip, advanced);
     }
 

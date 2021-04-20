@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 public class CommonMethods {
 	
 	public static final DamageSource chaosBurst = new DamageSource("chaosBurst").setDamageBypassesArmor();
-	private static final short gracePeriod = 10;
+	private static final short gracePeriod = 100;
 	
 	public static float subtractShielding(EntityPlayer player, float damageAmount, float entropyDamageStatic, float entropyDamageFactor) {
 		ArmorSummery summary = new ArmorSummery().getSummery(player);
@@ -52,7 +52,7 @@ public class CommonMethods {
 		long containerTime = ItemNBTHelper.getLong(stack, "cheatCheck", 0);
 		long serverTime = world.getTotalWorldTime();
 		boolean isCheating = false;
-		if (containerTime < serverTime - gracePeriod && containerTime != 0)  {
+		if (containerTime < serverTime - gracePeriod && containerTime > gracePeriod)  {
 			isCheating = true;
 		}
 		ItemNBTHelper.setLong(stack, "cheatCheck", serverTime);

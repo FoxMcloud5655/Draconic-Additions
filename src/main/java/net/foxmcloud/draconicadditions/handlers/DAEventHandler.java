@@ -29,7 +29,6 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -114,7 +113,7 @@ public class DAEventHandler {
 				}
 				player.addPotionEffect(new PotionEffect(resistance, 2, 3, false, false));
 				player.addPotionEffect(new PotionEffect(strength, 2, (int)chaos, false, false));
-				if (damageAbsorbed < chaos && !player.isCreative()) {
+				if (damageAbsorbed < chaos - 0.1 && !player.isCreative()) {
 					player.attackEntityFrom(CommonMethods.chaosBurst, 1000);
 				}
 				if (player.getHealth() > 0) {
@@ -135,8 +134,13 @@ public class DAEventHandler {
 		}
 	}
 	
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onPlayerRightClickEntity(PlayerInteractEvent.EntityInteract event) {
+		if (event.getItemStack().getItem() instanceof ChaosContainer) {
+			if (((ChaosContainer)event.getItemStack().getItem()).onLeftClickEntity(event.getItemStack(), event.getEntityPlayer(), event.getTarget())) {
+				return;
+			}
+		}
 		float chaosDamageRatio = 10.0F;
 		EntityPlayer player = event.getEntityPlayer();
 		IChaosInBlood pCap = player.getCapability(ChaosInBloodProvider.PLAYER_CAP, null);
@@ -169,11 +173,4 @@ public class DAEventHandler {
     		e.addCapability(ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "chaos_in_blood"), new ChaosInBloodProvider());
     	}
     }
-
-	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public void onRightClickEntity(EntityInteract event) {
-		if (event.getItemStack().getItem() instanceof ChaosContainer) {
-			event.getItemStack().getItem().onLeftClickEntity(event.getItemStack(), event.getEntityPlayer(), event.getTarget());
-		}
-	}
 }

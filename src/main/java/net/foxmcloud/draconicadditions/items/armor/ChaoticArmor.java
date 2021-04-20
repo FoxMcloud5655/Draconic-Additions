@@ -20,7 +20,6 @@ import com.brandon3055.draconicevolution.items.ToolUpgrade;
 import com.brandon3055.draconicevolution.items.armor.DraconicArmor;
 
 import codechicken.lib.math.MathHelper;
-import net.foxmcloud.draconicadditions.CommonMethods;
 import net.foxmcloud.draconicadditions.DAFeatures;
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.capabilities.ChaosInBloodProvider;
@@ -39,7 +38,6 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
@@ -50,7 +48,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import scala.Int;
 
 public class ChaoticArmor extends DraconicArmor implements IChaosItem {
 
@@ -132,7 +129,7 @@ public class ChaoticArmor extends DraconicArmor implements IChaosItem {
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World playerIn, List<String> tooltip, ITooltipFlag advanced) {
-    	if (getChaosInfo(stack) != null) tooltip.add(getChaosInfo(stack));
+    	if (getChaosInfoStable(stack) != null) tooltip.add(getChaosInfoStable(stack));
         super.addInformation(stack, playerIn, tooltip, advanced);
     }
 

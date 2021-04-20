@@ -5,16 +5,13 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.brandon3055.brandonscore.client.particle.BCEffectHandler;
 import com.brandon3055.brandonscore.items.ItemEnergyBase;
 import com.brandon3055.brandonscore.lib.Vec3D;
 import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 import com.brandon3055.draconicevolution.api.IInvCharge;
 import com.brandon3055.draconicevolution.api.itemupgrade.IUpgradableItem;
 import com.brandon3055.draconicevolution.api.itemupgrade.UpgradeHelper;
-import com.brandon3055.draconicevolution.client.DEParticles;
 import com.brandon3055.draconicevolution.items.ToolUpgrade;
-import com.brandon3055.draconicevolution.lib.DESoundHandler;
 
 import net.foxmcloud.draconicadditions.CommonMethods;
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosHolderBase;
@@ -26,12 +23,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
@@ -145,6 +140,7 @@ public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, I
 					entity.attackEntityFrom(CommonMethods.chaosBurst, damage);
 					removeChaos(stack, (int) Math.floor(damage));
 				}
+				return true;
 			}
 		}
 		return false;
