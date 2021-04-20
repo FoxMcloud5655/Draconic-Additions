@@ -14,7 +14,10 @@ import com.brandon3055.draconicevolution.api.itemupgrade.UpgradeHelper;
 import com.brandon3055.draconicevolution.items.ToolUpgrade;
 
 import net.foxmcloud.draconicadditions.CommonMethods;
+import net.foxmcloud.draconicadditions.DAFeatures;
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosHolderBase;
+import net.foxmcloud.draconicadditions.capabilities.ChaosInBloodProvider;
+import net.foxmcloud.draconicadditions.capabilities.IChaosInBlood;
 import net.foxmcloud.draconicadditions.items.IChaosContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -23,6 +26,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -148,24 +152,53 @@ public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, I
 
 	@Override
 	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-		if (!world.isRemote) {
-			ItemStack stack = player.getHeldItem(hand);
-			if (world.getTileEntity(pos) instanceof TileChaosHolderBase) {
-				TileChaosHolderBase tileEntity = (TileChaosHolderBase) world.getTileEntity(pos);
-				if (((ChaosContainer) stack.getItem()).getChaos(stack) > 0 && tileEntity.chaos.value != tileEntity.getMaxChaos()) {
-					int chaosToRemove = Math.min(getMaxChaos(stack) - tileEntity.chaos.value, getChaos(stack));
-					removeChaos(stack, chaosToRemove);
-					tileEntity.chaos.value += chaosToRemove;
-				}
-				else {
-					int chaosToAdd = Math.min(getMaxChaos(stack) - getChaos(stack), tileEntity.chaos.value);
-					addChaos(stack, chaosToAdd);
-					tileEntity.chaos.value -= chaosToAdd;
-				}
-				return EnumActionResult.SUCCESS;
+		ItemStack stack = player.getHeldItem(hand);
+		if (world.getTileEntity(pos) instanceof TileChaosHolderBase) {
+			TileChaosHolderBase tileEntity = (TileChaosHolderBase) world.getTileEntity(pos);
+			if (((ChaosContainer) stack.getItem()).getChaos(stack) > 0 && tileEntity.chaos.value != tileEntity.getMaxChaos()) {
+				int chaosToRemove = Math.min(getMaxChaos(stack) - tileEntity.chaos.value, getChaos(stack));
+				removeChaos(stack, chaosToRemove);
+				tileEntity.chaos.value += chaosToRemove;
+			}
+			else {
+				int chaosToAdd = Math.min(getMaxChaos(stack) - getChaos(stack), tileEntity.chaos.value);
+				addChaos(stack, chaosToAdd);
+				tileEntity.chaos.value -= chaosToAdd;
+			}
+			return EnumActionResult.SUCCESS;
+		}
+		else {
+			IChaosInBlood pCap = player.getCapability(ChaosInBloodProvider.PLAYER_CAP, null);
+			if (pCap != null && player.isEntityAlive() && pCap.getChaos() > 0) {
+				ActionResult<ItemStack> result = onItemRightClick(world, player, hand);
+				stack = result.getResult();
+				return result.getType();
 			}
 		}
 		return EnumActionResult.PASS;
+	}
+	
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+		IChaosInBlood pCap = player.getCapability(ChaosInBloodProvider.PLAYER_CAP, null);
+		if (pCap != null && player.isEntityAlive() && pCap.getChaos() > 0) {
+			int chaosToAdd = (int)(Math.min(pCap.getChaos(), 2) * 4);
+			addChaos(stack, chaosToAdd);
+			pCap.removeChaos(chaosToAdd / 4.0F);
+			if (pCap.getChaos() <= 0.25) {
+				ItemStack chest = player.inventory.armorItemInSlot(2);
+				if (chest.getItem() == DAFeatures.chaoticChest && ItemNBTHelper.getBoolean(chest, "injecting", false)) {
+					ItemNBTHelper.setBoolean(chest, "injecting", false);
+					player.sendStatusMessage(new TextComponentTranslation("msg.da.chaosInjection.failsafe"), true);
+				}
+			}
+			else {
+				player.sendStatusMessage(new TextComponentTranslation("msg.da.chaosContainer.charge"), true);
+			}
+			return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
+		}
+		return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
 	}
 
 	@SideOnly(Side.CLIENT)

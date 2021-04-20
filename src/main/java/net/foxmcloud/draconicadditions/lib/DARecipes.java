@@ -35,7 +35,7 @@ public class DARecipes {
 
 		addFusionTool(NORMAL, new ItemStack(chaoticStaffOfPower), new ItemStack(draconicStaffOfPower), 16000000, 3, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), chaoticCore, chaoticEnergyCore);
 		addFusionTool(HARD, new ItemStack(chaoticStaffOfPower), new ItemStack(draconicStaffOfPower), 64000000, 3, new ItemStack(chaosShard, 1, 1), new ItemStack(chaosShard, 1, 1), chaoticCore, chaoticEnergyCore);
-		addFusion(ALL, new ItemStack(chaosContainer), new ItemStack(BUCKET), 250000, 2, infusedObsidian, infusedObsidian, infusedObsidian, infusedObsidian);
+		addFusion(ALL, new ItemStack(chaosContainer), new ItemStack(BUCKET), 250000, 2, infusedObsidian, infusedObsidian, wyvernEnergyCore, dislocator);
 		addShaped(NORMAL, pwcBasic, "AAB", " AC", " AD", 'A', IRON_INGOT, 'B', new ItemStack(DYE, 1, 0), 'C', REDSTONE, 'D', draconicCore);
 		addShaped(HARD, pwcBasic, " C ", "BAB", " D ", 'A', IRON_BLOCK, 'B', new ItemStack(DYE, 1, 0), 'C', REDSTONE, 'D', draconicCore);
 		addShapeless(ALL, pwcWyvern, pwcBasic, wyvernCore);

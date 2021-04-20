@@ -85,12 +85,14 @@ msg.da.chaosStabilizer.notMultiblock=The stabilizer doesn't seem to be respondin
 
 msg.da.chaosContainer.explode=Your Chaos Container's shielding fails and it suddenly explodes!
 msg.da.chaosContainer.cantdrop=Throwing a container of Liquid Chaos on the ground seems like a bad idea.
+msg.da.chaosContainer.charge=You focus some of your chaos into the container.
 
 msg.da.portableWiredCharger.connectEnergySource=You must connect to a valid energy source.
 msg.da.portableWiredCharger.invalidSide=That side of the block does not output energy.
 
 msg.da.chaosInjection.start=Injecting chaos into bloodstream...
 msg.da.chaosInjection.stop=Injection stopped.  Filtering chaos from bloodstream...
+msg.da.chaosInjection.failsafe=WARNING: Too much chaos used.  Re-injecting blood...
 msg.da.chaosInjection.noupgrade=Chaos Injector not installed.
 msg.da.chaosInjection.incompatible=Your chestplate does not support chaos injection.
 
