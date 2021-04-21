@@ -36,7 +36,7 @@ tile.draconicadditions:chaos_infuser.name=Наполнитель жидкого 
 //Tools
 
 item.draconicadditions:chaotic_staff_of_power.name=Хаотический посох силы
-item.draconicadditions\:chaotic_bow.name=Хаотический лук
+item.draconicadditions:chaotic_bow.name=Хаотический лук
 item.draconicadditions:chaos_container.name=Контейнер хаоса
 item.draconicadditions:portable_wired_charger.basic.name=Базовое портативное зарядное устройство
 item.draconicadditions:portable_wired_charger.basicactive.name=Базовое портативное зарядное устройство (Включено)
