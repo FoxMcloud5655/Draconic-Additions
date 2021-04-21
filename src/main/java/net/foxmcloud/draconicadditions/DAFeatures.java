@@ -7,8 +7,10 @@ import com.brandon3055.brandonscore.registry.Feature;
 import com.brandon3055.brandonscore.registry.IModFeatures;
 import com.brandon3055.brandonscore.registry.ModFeature;
 import com.brandon3055.brandonscore.registry.ModFeatures;
+import com.brandon3055.draconicevolution.blocks.tileentity.TileChaosCrystal;
 import com.brandon3055.draconicevolution.items.ItemPersistent;
 
+import net.foxmcloud.draconicadditions.blocks.ChaosCrystalStable;
 import net.foxmcloud.draconicadditions.blocks.chaosritual.ChaosStabilizerCore;
 import net.foxmcloud.draconicadditions.blocks.chaosritual.tileentity.TileChaosStabilizerCore;
 import net.foxmcloud.draconicadditions.blocks.machines.*;
@@ -176,4 +178,9 @@ public class DAFeatures implements IModFeatures {
 
 	@ModFeature(name = "inertia_cancel_ring", stateOverride = "baubles#type=inertiacancelring")
 	public static InertiaCancelRing inertiaCancelRing = new InertiaCancelRing();
+	
+	// Misc / Decor
+	
+	@ModFeature(name = "chaos_crystal_stable")
+	public static ChaosCrystalStable chaosCrystalStable = new ChaosCrystalStable();
 }

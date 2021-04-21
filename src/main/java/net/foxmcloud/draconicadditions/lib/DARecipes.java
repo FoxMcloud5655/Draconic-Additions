@@ -100,5 +100,9 @@ public class DARecipes {
 		addShaped(ALL, vampiricShirt, "A A", "BCB", "ACA", 'A', "ingotDraconiumAwakened", 'B', awakenedCore, 'C', WOOL);
 		addShaped(NORMAL, inertiaCancelRing, "ABA", "B B", "ABA", 'A', GOLD_INGOT, 'B', wyvernEnergyCore);
 		addShaped(HARD, inertiaCancelRing, "ABA", "B B", "ABA", 'A', GOLD_INGOT, 'B', wyvernCore);
+		
+		// Misc / Decor
+		
+		addFusion(ALL, new ItemStack(chaosCrystalStable), new ItemStack(chaosShard, 1, 0), 2000000000, 3, new ItemStack(chaosShard, 1, 0), new ItemStack(chaosShard, 1, 0), new ItemStack(chaosShard, 1, 0), new ItemStack(chaosShard, 1, 0));
 	}
 }
