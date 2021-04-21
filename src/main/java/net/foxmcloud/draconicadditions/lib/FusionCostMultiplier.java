@@ -50,15 +50,13 @@ public class FusionCostMultiplier {
 				else LogHelper.dev(newRecipe.getRecipeOutput(newRecipe.getRecipeCatalyst()).getItem().getUnlocalizedName() + " now " + newRecipe.getIngredientEnergyCost());
 			}
 			else {
-				if (oldRecipe.getRecipeOutput(oldRecipe.getRecipeCatalyst()).getItem().getUnlocalizedName().contains("air"))
-					LogHelper.dev("Recipe is an upgrade and cannot be changed.  Skipping... ");
-				else
+				if (!oldRecipe.getRecipeOutput(oldRecipe.getRecipeCatalyst()).getItem().getUnlocalizedName().contains("air"))
 					LogHelper.dev("Recipe with catalyst " + oldRecipe.getRecipeOutput(oldRecipe.getRecipeCatalyst()).getItem().getUnlocalizedName() + " is not compatible.  Skipping... ");
 			}
 		}
 		LogHelper.info("Recipe rebalancing complete. Returning control of Draconic Evolution to it's owner.");
 		LogHelper.info("OK, that was just rude");
 		DraconicAdditions.logger.log(Level.INFO, "Hey, I've got a job to do, okay? It's not like either of us will remember this next time it happens.");
-		LogHelper.info("Fair enough...");
+		LogHelper.info("Fair enough i guess...");
 	}
 }

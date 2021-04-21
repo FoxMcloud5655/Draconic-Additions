@@ -25,7 +25,7 @@ public class DAConfig implements IModConfigHelper {
 		comments.put("Armor Tweaks", "These allow you to tweak the stats of the armor found in this mod.");
 		comments.put("Tool Tweaks", "These allow you to tweak the stats of the tools found in this mod.");
 		comments.put("Bauble Tweaks", "These allow you to tweak the stats of the baubles found in this mod.");
-		comments.put("Misc Tweaks", "Allows you to tweak various things about Draconic Evolution, such as fusion crafting power costs.");
+		comments.put("Misc Tweaks", "Allows you to tweak various things about Draconic Evolution as a whole, such as fusion crafting power costs.");
 	}
 
 	@Override
