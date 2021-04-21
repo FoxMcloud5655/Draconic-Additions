@@ -36,6 +36,7 @@ tile.draconicadditions\:chaos_infuser.name=Liquid Chaos Infuser
 //Tools
 
 item.draconicadditions\:chaotic_staff_of_power.name=Chaotic Staff of Power
+item.draconicadditions\:chaotic_bow.name=Chaotic Bow
 item.draconicadditions\:chaos_container.name=Chaos Container
 item.draconicadditions\:portable_wired_charger.basic.name=Portable Wired Basic Charger
 item.draconicadditions\:portable_wired_charger.basicactive.name=Portable Wired Basic Charger (Active)
@@ -106,6 +107,7 @@ config.field.shirtEntropyActivate.entry=Entropy Activation
 config.field.shirtEntropyActivate.description=Allows you to set at what entropy percent the shirt will start stealing your life to fuel your shields.
 config.field.armorChaosInjection.entry=Chaos Injection Rate
 config.field.armorChaosInjection.description=This setting controls the rate at which chaos will be injected into your bloodstream when you activate it.\n\nThe faster the injection, the harder it is for the shielding to keep your body intact.  The more chaos you have in your blood, the more powerful you become, but the longer it takes to remove.
+config.field.bowFireArrow.description.disabled=You cannot turn off the Arrow of Draconic Fire.  Regular arrows disintegrate when used with this bow!
 
 info.da.shieldcharge.txt=Shield Charge
 info.da.storedchaos.txt=Stored Chaos

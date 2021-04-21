@@ -24,7 +24,21 @@ public class DATextures implements IIconRegister, ISelectiveResourceReloadListen
 	public void registerIcons(TextureMap textureMap) {
 		map = textureMap;
 		CHAOTIC_STAFF_OF_POWER = register(TOOLS_ + "chaotic_staff_of_power");
+		CHAOTIC_BOW00          = register(TOOLS_ + "chaotic_bow00");
+		CHAOTIC_BOW01          = register(TOOLS_ + "chaotic_bow01");
+		CHAOTIC_BOW02          = register(TOOLS_ + "chaotic_bow02");
+		CHAOTIC_BOW03          = register(TOOLS_ + "chaotic_bow03");
 		register(TOOLS_OBJ_ + "chaotic_staff_of_power");
+		register(TOOLS_OBJ_ + "chaotic_bow00");
+		register(TOOLS_OBJ_ + "chaotic_bow01");
+		register(TOOLS_OBJ_ + "chaotic_bow02");
+		register(TOOLS_OBJ_ + "chaotic_bow03");
+		CHAOTIC_BOW = new TextureAtlasSprite[] {
+				CHAOTIC_BOW00,
+				CHAOTIC_BOW01,
+				CHAOTIC_BOW02,
+				CHAOTIC_BOW03
+		};
 	}
 
 	private static TextureAtlasSprite register(String sprite) {
@@ -32,6 +46,12 @@ public class DATextures implements IIconRegister, ISelectiveResourceReloadListen
 	}
 
 	public static TextureAtlasSprite CHAOTIC_STAFF_OF_POWER;
+	
+    public static TextureAtlasSprite CHAOTIC_BOW00;
+    public static TextureAtlasSprite CHAOTIC_BOW01;
+    public static TextureAtlasSprite CHAOTIC_BOW02;
+    public static TextureAtlasSprite CHAOTIC_BOW03;
+	public static TextureAtlasSprite[] CHAOTIC_BOW;
 
 	public static final ResourceLocation GUI_ARMOR_GENERATOR = ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "textures/gui/armor_generator.png");
 	public static final ResourceLocation GUI_ITEM_DRAINER = ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "textures/gui/item_drainer.png");

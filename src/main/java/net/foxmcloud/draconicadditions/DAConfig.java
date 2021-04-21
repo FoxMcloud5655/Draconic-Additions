@@ -50,6 +50,7 @@ public class DAConfig implements IModConfigHelper {
 
 	private void loadToolStats() {
 		DAFeatures.chaoticStaffOfPower.loadStatConfig();
+		DAFeatures.chaoticBow.loadStatConfig();
 	}
 
 	@Mod.EventBusSubscriber

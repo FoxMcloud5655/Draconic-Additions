@@ -87,6 +87,9 @@ public class DAFeatures implements IModFeatures {
 
 	@ModFeature(name = "chaotic_staff_of_power")
 	public static ChaoticStaffOfPower chaoticStaffOfPower = new ChaoticStaffOfPower();
+	
+	@ModFeature(name = "chaotic_bow")
+	public static ChaoticBow chaoticBow = new ChaoticBow();
 
 	@ModFeature(name = "chaos_container", stateOverride = "tools#type=chaoscontainer")
 	public static ChaosContainer chaosContainer = new ChaosContainer();
