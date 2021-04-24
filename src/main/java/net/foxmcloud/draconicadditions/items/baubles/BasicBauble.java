@@ -32,9 +32,8 @@ public class BasicBauble extends ItemBCore implements IBauble {
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
 		IBaublesItemHandler baubles = BaublesApi.getBaublesHandler(player);
 		for (int i = 0; i < baubles.getSlots(); i++) if ((baubles.getStackInSlot(i) == null || baubles.getStackInSlot(i).isEmpty()) && baubles.isItemValidForSlot(i, player.getHeldItem(hand), player)) {
-			ItemStack bauble = player.getHeldItem(hand).copy();
+			ItemStack bauble = player.getHeldItem(hand).splitStack(1).copy();
 			player.playSound(SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, .75F, 1.75f);
-			player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
 			baubles.setStackInSlot(i, bauble);
 			break;
 		}
