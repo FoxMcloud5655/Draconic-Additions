@@ -1,49 +1,49 @@
 buildscript {
-    repositories {
-        jcenter()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-    }
-    dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-    }
+	repositories {
+		jcenter()
+		maven {
+			name = 'forge'
+			url = "http://files.minecraftforge.net/maven"
+		}
+	}
+	dependencies {
+		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+	}
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven'
 
 repositories {
-    maven {
-        name = "CoFH Maven"
-        url = "http://maven.covers1624.net"
-    }
-    maven {
-        name 'CB Maven'
-        url "http://chickenbones.net/maven/"
-    }
-    maven {
-        name 'OC Maven'
-        url "http://maven.cil.li/"
-    }
-    maven {
-        name "JEI Maven"
-        url "http://dvs1.progwml6.com/files/maven"
-    }
-    maven {
-        name "GitHub Maven"
-        url 'https://jitpack.io'
-    }
+	maven {
+		name = 'CoFH Maven'
+		url = "http://maven.covers1624.net"
+	}
+	maven {
+		name = 'CB Maven'
+		url = "http://chickenbones.net/maven/"
+	}
+	maven {
+		name = 'OC Maven'
+		url = "http://maven.cil.li/"
+	}
+	maven {
+		name = 'JEI Maven'
+		url = "http://dvs1.progwml6.com/files/maven"
+	}
+	maven {
+		name = 'GitHub Maven'
+		url = "https://jitpack.io"
+	}
 }
 
 // Define properties file
 ext.configFile = file "build.properties"
 
 configFile.withReader {
-    // Load config.  It shall from now be referenced as simply config or project.config
-    def prop = new Properties()
-    prop.load(it)
-    project.ext.config = new ConfigSlurper().parse prop
+	// Load config.  It shall from now be referenced as simply config or project.config
+	def prop = new Properties()
+	prop.load(it)
+	project.ext.config = new ConfigSlurper().parse prop
 }
 
 version = "${config.mc_version}-${config.mod_version}"
@@ -54,53 +54,53 @@ sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
 minecraft {
-    version = "${config.mc_version}-${config.forge_version}"
-    runDir = "run"
-    mappings = "${config.mappings}"
-    replace '${mod_version}', project.config.mod_version
-    replaceIn "DraconicAdditions.java"
-    makeObfSourceJar = false
+	version = "${config.mc_version}-${config.forge_version}"
+	runDir = "run"
+	mappings = "${config.mappings}"
+	replace '${mod_version}', project.config.mod_version
+	replaceIn "DraconicAdditions.java"
+	makeObfSourceJar = false
 }
 
 String buildNo = config.buildNo
 if (System.getenv("BUILD_NUMBER") != null) {
-    buildNo = System.getenv("BUILD_NUMBER")
+	buildNo = System.getenv("BUILD_NUMBER")
 }
 version = version + ".${buildNo}"
 
 dependencies {
-    compile "com.brandon3055.brandonscore:BrandonsCore:${config.mc_version}-${config.bcore_version}:deobf"
-    compile "com.brandon3055.projectintelligence:ProjectIntelligence:${config.mc_version}-${config.pi_version}:deobf"
-    compile "com.brandon3055.draconicevolution:Draconic-Evolution:${config.mc_version}-${config.de_version}:deobf"
-    deobfCompile "com.github.azanor:Baubles:${config.baubles_version}"
+	compile "com.brandon3055.brandonscore:BrandonsCore:${config.mc_version}-${config.bcore_version}:deobf"
+	compile "com.brandon3055.projectintelligence:ProjectIntelligence:${config.mc_version}-${config.pi_version}:deobf"
+	compile "com.brandon3055.draconicevolution:Draconic-Evolution:${config.mc_version}-${config.de_version}:deobf"
+	deobfCompile "com.github.azanor:Baubles:${config.baubles_version}"
 }
 
 processResources
-        {
-            // this will ensure that this task is redone when the versions change.
-            inputs.property "version", project.version
-            inputs.property "mc_version", project.minecraft.version
+		{
+			// this will ensure that this task is redone when the versions change.
+			inputs.property "version", project.version
+			inputs.property "mc_version", project.minecraft.version
 
-            // replace stuff in mcmod.info, nothing else
-            from(sourceSets.main.resources.srcDirs) {
-                include 'mcmod.info'
+			// replace stuff in mcmod.info, nothing else
+			from(sourceSets.main.resources.srcDirs) {
+				include 'mcmod.info'
 
-                // replace version and mc_version
-                expand 'version': project.version, 'mc_version': project.minecraft.version
-            }
+				// replace version and mc_version
+				expand 'version': project.version, 'mc_version': project.minecraft.version
+			}
 
-            // copy everything else, thats not the mcmod.info
-            from(sourceSets.main.resources.srcDirs) {
-                exclude 'mcmod.info'
-            }
-            rename '(.+_at.cfg)', 'META-INF/$1'
-        }
+			// copy everything else, thats not the mcmod.info
+			from(sourceSets.main.resources.srcDirs) {
+				exclude 'mcmod.info'
+			}
+			rename '(.+_at.cfg)', 'META-INF/$1'
+		}
 
 def commonManifest = {
-    attributes 'FMLAT': 'DraconicAdditions_at.cfg'
+	attributes 'FMLAT': 'DraconicAdditions_at.cfg'
 }
 
 jar {
-    classifier = 'universal'
-    manifest commonManifest
+	classifier = 'universal'
+	manifest commonManifest
 }
