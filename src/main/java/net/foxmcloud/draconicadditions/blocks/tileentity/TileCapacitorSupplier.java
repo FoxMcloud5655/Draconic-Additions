@@ -52,14 +52,22 @@ public class TileCapacitorSupplier extends TileEnergyInventoryBase implements IE
 			active.value = true;
 		}
 		if (isHermal.value) {
-			sendEnergyToAll();
 			energyStorage.setEnergyStored(capacityBackup.value);
 		}
-		else {
-			energyStorage.modifyEnergyStored(-sendEnergyToAll());
-		}
+		sendEnergyToAll();
 		backupValues();
 	}
+	
+	@Override
+    public int sendEnergyToAll() {
+        if (getEnergyStored() <= 0) {
+            return 0;
+        }
+        for (EnumFacing direction : EnumFacing.VALUES) {
+            energyStorage.modifyEnergyStored(-sendEnergyTo(direction));
+        }
+        return 0;
+    }
 	
 	public ItemStack insertItem(ItemStack stack) {
 		if (!stack.isEmpty()) {
