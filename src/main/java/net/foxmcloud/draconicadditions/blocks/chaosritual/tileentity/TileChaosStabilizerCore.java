@@ -298,16 +298,7 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 				}
 			}
 			else {
-				if (!getStackInSlot(0).isEmpty()) {
-					ItemStack invStack = removeStackFromSlot(0);
-					diameter.value = 1;
-					intensity.value = 0.25F;
-					if (!world.isRemote) {
-						player.addItemStackToInventory(invStack);
-						markDirty();
-					}
-				}
-				else if (!world.isRemote && !player.isCreative()) {
+				if (!world.isRemote && !player.isCreative()) {
 					ArmorSummery armor = new ArmorSummery().getSummery(player);
 					if (armor.maxProtectionPoints > chaosDamage) {
 						if (armor.protectionPoints >= armor.maxProtectionPoints / 2) {
