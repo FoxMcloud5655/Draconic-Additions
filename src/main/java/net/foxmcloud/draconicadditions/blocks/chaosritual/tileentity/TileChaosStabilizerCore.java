@@ -25,6 +25,8 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
@@ -42,7 +44,7 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 	public final ManagedDouble diameter = register("diameter", new ManagedDouble(1)).syncViaTile().finish();
 	public final ManagedDouble intensity = register("intensity", new ManagedDouble(0)).syncViaTile().finish();
 	private static final float chaosDamage = 10;
-	private static final double suckRadius = 5;
+	private static final double suckRadius = 6;
 	private static final int delayInMultiblockCheck = 20;
 	private double actualDiameter = diameter.value;
 	private double actualIntensity = intensity.value;
@@ -70,9 +72,9 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 				List<Entity> suckEntities = this.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos).grow(suckRadius));
 				for (Entity e : suckEntities) {
 					if (e instanceof EntityItem) {
-						EntityItem eItem = (EntityItem) e;
-						if (eItem.getItem().getItem() instanceof IChaosItem) {
-							if (((IChaosItem) eItem.getItem().getItem()).isChaosStable(eItem.getItem())) {
+						IChaosItem item = getChaosItem(((EntityItem)e).getItem().getItem());
+						if (item != null) {
+							if (item.isChaosStable(((EntityItem)e).getItem())) {
 								continue;
 							}
 						}
@@ -82,9 +84,9 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 					double dz = (pos.getZ() + 0.5D - e.posZ);
 					double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
 					if (distance < 1.1 && e instanceof EntityItem) {
-						EntityItem eItem = (EntityItem) e;
-						if (eItem.getItem().getItem() instanceof IChaosItem && getStackInSlot(0).isEmpty()) {
-							ItemStack stack = eItem.getItem();
+						IChaosItem item = getChaosItem(((EntityItem)e).getItem().getItem());
+						if (item != null && getStackInSlot(0).isEmpty()) {
+							ItemStack stack = ((EntityItem)e).getItem();
 							setInventorySlotContents(0, stack);
 							world.removeEntity(e);
 							startRitual();
@@ -121,8 +123,8 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 					double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
 					if (distance < 3.1) {
 						if (e instanceof EntityItem) {
-							EntityItem eItem = (EntityItem) e;
-							if (!(eItem.getItem().getItem() instanceof IChaosItem)) {
+							IChaosItem item = getChaosItem(((EntityItem)e).getItem().getItem());
+							if (item != null) {
 								world.removeEntity(e);
 							}
 							continue;
@@ -137,7 +139,7 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 							((EntityLiving) e).attackEntityFrom(chaosBurst, 20);
 						}
 					}
-					double limit = 1.0 - (distance / (suckRadius * 2));
+					double limit = 1.0 - (distance / (suckRadius * diameter.value));
 					if (limit > 0.0D) {
 						limit *= limit;
 						e.motionX += dx / distance * limit * 0.8D;
@@ -148,8 +150,8 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 				if (ritualTicks.value < 260 && DEEventHandler.serverTicks % 10 == 0) {
 					playSound(DESoundHandler.sunDialEffect, 1.0F, 0.5F);
 				}
-				if (ritualTicks.value >= 140 && ritualTicks.value < 300) {
-					if (DEEventHandler.serverTicks % 2 == 0 && rand.nextBoolean()) {
+				if (ritualTicks.value >= 120 && ritualTicks.value < 260) {
+					if (DEEventHandler.serverTicks % 4 == 0 && rand.nextBoolean()) {
 						int i = rand.nextInt(4);
 						switch (i) {
 						case 0: // West Pillar
@@ -166,19 +168,34 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 							break;
 						}
 					}
-					if (ritualTicks.value == 240) {
-						intensity.value = 1F;
-					}
 				}
-				if (ritualTicks.value >= 300) {
-					if (checkMultiblock()) endRitual(true);
-					else endRitual(false);
+				if (ritualTicks.value == 200) {
+					diameter.value = 3;
+					intensity.value = 0.8D;
+				}
+				else if (ritualTicks.value == 260) {
+					diameter.value = 5.1D;
+					intensity.value = 1;
+				}
+				if (ritualTicks.value >= 340) {
+					endRitual(checkMultiblock());
 				}
 			}
 			else {
 				endRitual(false);
 			}
 		}
+	}
+	
+	private IChaosItem getChaosItem(Item item) {
+		IChaosItem cItem = null;
+		if (item instanceof IChaosItem) {
+			cItem = (IChaosItem)item;
+		}
+		else if (item instanceof ItemBlock && ((ItemBlock)item).getBlock() instanceof IChaosItem) {
+			cItem = (IChaosItem)((ItemBlock)item).getBlock();
+		}
+		return cItem;
 	}
 
 	private boolean checkMultiblock() {
@@ -243,15 +260,15 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 	}
 
 	private void playSound(SoundEvent sound, float volume, float pitch) {
-		if (!world.isRemote) DESoundHandler.playSoundFromServer(world, new Vec3D(pos), sound, SoundCategory.BLOCKS, volume, pitch, false, 64);
+		if (!world.isRemote) DESoundHandler.playSoundFromServer(world, new Vec3D(pos), sound, SoundCategory.BLOCKS, volume, pitch, false, 128);
 	}
 
 	public double getCoreDiameter() {
 		if (diameter.value > actualDiameter) {
-			actualDiameter += 0.005F;
+			actualDiameter += 0.002F;
 		}
 		else if (diameter.value < actualDiameter) {
-			actualDiameter -= 0.005F;
+			actualDiameter -= 0.002F;
 		}
 
 		return actualDiameter;
@@ -259,10 +276,10 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 
 	public double getCoreIntensity() {
 		if (intensity.value > actualIntensity) {
-			actualIntensity += 0.001F;
+			actualIntensity += 0.0005F;
 		}
 		else if (intensity.value < actualIntensity) {
-			actualIntensity -= 0.001F;
+			actualIntensity -= 0.0005F;
 		}
 		else if (isMultiblock.value && rand.nextInt(10) == 0) {
 			intensity.value += rand.nextDouble() / 10;
@@ -272,19 +289,25 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 
 	@Override
 	public boolean onBlockActivated(IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		if (world.isRemote) {
+			return true;
+		}
 		if (isMultiblock.value || player.isCreative()) {
 			ItemStack stack = player.getHeldItem(hand);
 			if (!stack.isEmpty() && stack.getCount() > 0) {
 				if (getStackInSlot(0).isEmpty()) {
-					if (stack.getItem() instanceof IChaosItem) {
-						IChaosItem item = (IChaosItem) stack.getItem();
+					IChaosItem item = getChaosItem(stack.getItem());
+					if (item != null) {
 						if (item.isChaosStable(stack)) {
 							sendMessage(player, "msg.da.chaosStabilizer.alreadyStabilized");
 						}
 						else {
 							if (player.isCreative()) {
+								ItemStack newStack = stack.splitStack(1);
 								playSound(SoundEvents.ENTITY_ENDERDRAGON_GROWL, 1.0F, 0.2F);
-								item.setChaosStable(stack, true);
+								item.setChaosStable(newStack, true);
+								EntityItem chaosItem = new EntityItem(world, pos.getX(), pos.getY() + 1.01D, pos.getZ(), newStack);
+								world.spawnEntity(chaosItem);
 							}
 							else sendMessage(player, "msg.da.chaosStabilizer.canStabilize");
 						}
@@ -323,8 +346,8 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 		if (!isRitualOngoing.value) {
 			playSound(SoundEvents.ENTITY_ENDERDRAGON_GROWL, 1.0F, 0.2F);
 			isRitualOngoing.value = true;
-			diameter.value = 3;
-			intensity.value = 0.8F;
+			diameter.value = 2.5D;
+			intensity.value = 0.6D;
 			markDirty();
 			updateBlock();
 		}
@@ -335,7 +358,7 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 			isRitualOngoing.value = false;
 			ritualTicks.value = 0;
 			diameter.value = 1;
-			intensity.value = 0.25F;
+			intensity.value = 0.25D;
 			ItemStack invStack = removeStackFromSlot(0);
 			if (!world.isRemote) {
 				if (complete) {
@@ -347,9 +370,9 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 					check.add(new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 2));
 					for (BlockPos checkPos : check) {
 						world.setBlockToAir(checkPos);
-						world.spawnEntity(new EntityLightningBolt(world, checkPos.getX(), checkPos.getY() + 1, checkPos.getZ(), false));
+						world.spawnEntity(new EntityLightningBolt(world, checkPos.getX(), checkPos.getY() + 1, checkPos.getZ(), true));
 					}
-					((IChaosItem) invStack.getItem()).setChaosStable(invStack, true);
+					getChaosItem(invStack.getItem()).setChaosStable(invStack, true);
 				}
 				EntityItem chaosItem = new EntityItem(world, pos.getX(), pos.getY() + 1.01D, pos.getZ(), invStack);
 				world.spawnEntity(chaosItem);
