@@ -2,8 +2,12 @@ buildscript {
 	repositories {
 		jcenter()
 		maven {
+			name = 'forge-fork'
+			url = "https://sizableshrimp.me/maven"
+		}
+		maven {
 			name = 'forge'
-			url = "http://files.minecraftforge.net/maven"
+			url = "http://maven.minecraftforge.net/"
 		}
 	}
 	dependencies {
