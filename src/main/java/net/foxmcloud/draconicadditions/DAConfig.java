@@ -7,6 +7,7 @@ import java.util.Map;
 import com.brandon3055.brandonscore.handlers.FileHandler;
 import com.brandon3055.brandonscore.registry.IModConfigHelper;
 import com.brandon3055.brandonscore.registry.ModConfigContainer;
+import com.brandon3055.brandonscore.registry.ModConfigProperty;
 
 import net.minecraftforge.common.config.Config.Type;
 import net.minecraftforge.common.config.ConfigManager;
@@ -25,7 +26,7 @@ public class DAConfig implements IModConfigHelper {
 		comments.put("Armor Tweaks", "These allow you to tweak the stats of the armor found in this mod.");
 		comments.put("Tool Tweaks", "These allow you to tweak the stats of the tools found in this mod.");
 		comments.put("Bauble Tweaks", "These allow you to tweak the stats of the baubles found in this mod.");
-		comments.put("Misc Tweaks", "Allows you to tweak various things about Draconic Evolution as a whole, such as fusion crafting power costs.");
+		comments.put("Misc Tweaks", "Allows you to tweak various things about Draconic Evolution and Draconic Additions as a whole, such as fusion crafting power costs.");
 	}
 
 	@Override
@@ -52,6 +53,10 @@ public class DAConfig implements IModConfigHelper {
 		DAFeatures.chaoticStaffOfPower.loadStatConfig();
 		DAFeatures.chaoticBow.loadStatConfig();
 	}
+	
+	@ModConfigProperty(category = "Misc Tweaks", name = "Hermal - RF Generation", comment = "Modifies how much RF/t Hermal provides.", autoSync = true)
+	@ModConfigProperty.MinMax(min = "0", max = "4")
+	public static int HERMAL_RF = 1000;
 
 	@Mod.EventBusSubscriber
 	private static class EventHandler {

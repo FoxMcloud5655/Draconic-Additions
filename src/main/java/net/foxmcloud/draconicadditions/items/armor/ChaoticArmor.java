@@ -1,7 +1,10 @@
 package net.foxmcloud.draconicadditions.items.armor;
 
 import static com.brandon3055.draconicevolution.api.itemconfig.IItemConfigField.EnumControlType.SLIDER;
-import static net.minecraft.inventory.EntityEquipmentSlot.*;
+import static net.minecraft.inventory.EntityEquipmentSlot.CHEST;
+import static net.minecraft.inventory.EntityEquipmentSlot.FEET;
+import static net.minecraft.inventory.EntityEquipmentSlot.HEAD;
+import static net.minecraft.inventory.EntityEquipmentSlot.LEGS;
 
 import java.util.List;
 
@@ -60,26 +63,26 @@ public class ChaoticArmor extends DraconicArmor implements IChaosItem {
 	public ChaoticArmor(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) {
 		super(materialIn, renderIndexIn, equipmentSlotIn);
 	}
-	
-    @Override
-    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-        if (isInCreativeTab(tab)) {
-            subItems.add(new ItemStack(this));
-            ItemStack stack = new ItemStack(this);
-            modifyEnergy(stack, getCapacity(stack));
-            subItems.add(stack);
 
-            ItemStack uberStack = new ItemStack(this);
+	@Override
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+		if (isInCreativeTab(tab)) {
+			subItems.add(new ItemStack(this));
+			ItemStack stack = new ItemStack(this);
+			modifyEnergy(stack, getCapacity(stack));
+			subItems.add(stack);
 
-            for (String upgrade : getValidUpgrades(uberStack)) {
-                UpgradeHelper.setUpgradeLevel(uberStack, upgrade, getMaxUpgradeLevel(uberStack, upgrade));
-            }
+			ItemStack uberStack = new ItemStack(this);
 
-            modifyEnergy(uberStack, getCapacity(uberStack));
-            this.setChaosStable(uberStack, true);
-            subItems.add(uberStack);
-        }
-    }
+			for (String upgrade : getValidUpgrades(uberStack)) {
+				UpgradeHelper.setUpgradeLevel(uberStack, upgrade, getMaxUpgradeLevel(uberStack, upgrade));
+			}
+
+			modifyEnergy(uberStack, getCapacity(uberStack));
+			this.setChaosStable(uberStack, true);
+			subItems.add(uberStack);
+		}
+	}
 
 	@Override
 	public int getMaxUpgradeLevel(ItemStack stack, String upgrade) {
@@ -125,13 +128,15 @@ public class ChaoticArmor extends DraconicArmor implements IChaosItem {
 
 		return registry;
 	}
-	
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void addInformation(ItemStack stack, @Nullable World playerIn, List<String> tooltip, ITooltipFlag advanced) {
-    	if (getChaosInfoStable(stack) != null) tooltip.add(getChaosInfoStable(stack));
-        super.addInformation(stack, playerIn, tooltip, advanced);
-    }
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void addInformation(ItemStack stack, @Nullable World playerIn, List<String> tooltip, ITooltipFlag advanced) {
+		if (stack.getItem() instanceof ChaoticArmor) {
+			if (getChaosInfoStable(stack) != null) tooltip.add(getChaosInfoStable(stack));
+		}
+		super.addInformation(stack, playerIn, tooltip, advanced);
+	}
 
 	@SideOnly(Side.CLIENT)
 	public ModelBiped model;
@@ -197,22 +202,22 @@ public class ChaoticArmor extends DraconicArmor implements IChaosItem {
 	public float getRecoveryRate(ItemStack stack) {
 		return (float) ArmorStats.CHAOTIC_SHIELD_RECOVERY * (1F + UpgradeHelper.getUpgradeLevel(stack, ToolUpgrade.SHIELD_RECOVERY));
 	}
-	
-    @Override
-    public List<String> getValidUpgrades(ItemStack stack) {
-        List<String> list = super.getValidUpgrades(stack);
-        if (armorType == EntityEquipmentSlot.CHEST) {
-            list.add(ToolUpgrade.ATTACK_DAMAGE);
-        }
-        return list;
-    }
+
+	@Override
+	public List<String> getValidUpgrades(ItemStack stack) {
+		List<String> list = super.getValidUpgrades(stack);
+		if (armorType == EntityEquipmentSlot.CHEST) {
+			list.add(ToolUpgrade.ATTACK_DAMAGE);
+		}
+		return list;
+	}
 
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
 		if (stack.isEmpty()) {
 			return;
 		}
-		if (stack.getItem() == DAFeatures.chaoticHelm) {
+		if (stack.getItem() == DAFeatures.chaoticHelm || stack.getItem() == DAFeatures.hermalHelm) {
 
 			if (world.isRemote) {
 				return;
@@ -279,8 +284,8 @@ public class ChaoticArmor extends DraconicArmor implements IChaosItem {
 		}
 		else if (stack.getItem() == DAFeatures.chaoticChest) {
 			if (player.ticksExisted % (6 - ToolConfigHelper.getIntegerField("armorChaosInjection", stack)) == 0) {
-		    	IChaosInBlood pCap = player.getCapability(ChaosInBloodProvider.PLAYER_CAP, null);
-		    	float chaosInBlood = pCap != null ? pCap.getChaos() : 0;
+				IChaosInBlood pCap = player.getCapability(ChaosInBloodProvider.PLAYER_CAP, null);
+				float chaosInBlood = pCap != null ? pCap.getChaos() : 0;
 				if (ItemNBTHelper.getBoolean(stack, "injecting", false)) {
 					if (chaosInBlood > 0) {
 						pCap.addChaos(0.25F);

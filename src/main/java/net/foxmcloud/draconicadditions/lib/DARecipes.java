@@ -80,7 +80,7 @@ public class DARecipes {
 		// Hermal
 		
 		if (RecipeManager.isEnabled(DAFeatures.hermal)) {
-			addShaped(HARD, new ItemStack(hermal), "ABA", "BCB", "ABA", 'A', REDSTONE_BLOCK, 'B', new ItemStack(chaosShard, 1, 3), 'C', POISONOUS_POTATO);
+			addShaped(HARD, new ItemStack(hermal), "ABA", "BCB", "ABA", 'A', REDSTONE_BLOCK, 'B', new ItemStack(chaosShard, 1, 2), 'C', POISONOUS_POTATO);
 			addFusionTool(HARD, new ItemStack(hermalHelm), new ItemStack(draconicHelm), 128000000, 2, hermal, chaoticEnergyCore);
 			addFusionTool(HARD, new ItemStack(hermalChest), new ItemStack(draconicChest), 128000000, 2, hermal, chaoticEnergyCore);
 			addFusionTool(HARD, new ItemStack(hermalLegs), new ItemStack(draconicLegs), 128000000, 2, hermal, chaoticEnergyCore);

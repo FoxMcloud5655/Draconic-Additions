@@ -4,33 +4,32 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 import com.brandon3055.draconicevolution.DEConfig;
-import com.brandon3055.draconicevolution.DEFeatures;
-import com.brandon3055.draconicevolution.api.itemconfig.ItemConfigFieldRegistry;
+import com.brandon3055.draconicevolution.api.itemconfig.ToolConfigHelper;
 import com.brandon3055.draconicevolution.api.itemupgrade.UpgradeHelper;
-import com.brandon3055.draconicevolution.items.armor.DraconicArmor;
+import com.brandon3055.draconicevolution.lib.RecipeManager;
 
+import net.foxmcloud.draconicadditions.DAConfig;
+import net.foxmcloud.draconicadditions.DAFeatures;
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.client.model.ModelPotatoArmor;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class HermalArmor extends DraconicArmor {
+public class HermalArmor extends ChaoticArmor {
 
 	private static ArmorMaterial hermalMaterial = EnumHelper.addArmorMaterial("hermalArmor", DraconicAdditions.MODID_PREFIX + "hermal_armor", -1, new int[] {8, 14, 20, 8}, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
 
@@ -41,26 +40,27 @@ public class HermalArmor extends DraconicArmor {
 	public HermalArmor(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn) {
 		super(materialIn, renderIndexIn, equipmentSlotIn);
 	}
-	
-    @Override
-    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-        if (isInCreativeTab(tab)) {
-            ItemStack stack = new ItemStack(this);
-            modifyEnergy(stack, getCapacity(stack));
-            subItems.add(stack);
 
-            if (getMaxUpgradeLevel(stack, "") > 0) {
-	            ItemStack uberStack = new ItemStack(this);
-	
-	            for (String upgrade : getValidUpgrades(uberStack)) {
-	                UpgradeHelper.setUpgradeLevel(uberStack, upgrade, getMaxUpgradeLevel(uberStack, upgrade));
-	            }
-	
-	            modifyEnergy(uberStack, getCapacity(uberStack));
-	            subItems.add(uberStack);
-            }
-        }
-    }
+	@Override
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+		if (RecipeManager.isEnabled(DAFeatures.hermal)) {
+			if (isInCreativeTab(tab)) {
+				ItemStack stack = new ItemStack(this);
+				setChaosStable(stack, true);
+				modifyEnergy(stack, getCapacity(stack));
+				subItems.add(stack);
+				if (getMaxUpgradeLevel(stack, "") > 0) {
+					ItemStack uberStack = new ItemStack(this);
+					setChaosStable(uberStack, true);
+					for (String upgrade : getValidUpgrades(uberStack)) {
+						UpgradeHelper.setUpgradeLevel(uberStack, upgrade, getMaxUpgradeLevel(uberStack, upgrade));
+					}
+					modifyEnergy(uberStack, getCapacity(uberStack));
+					subItems.add(uberStack);
+				}
+			}
+		}
+	}
 
 	@Override
 	public int getMaxUpgradeLevel(ItemStack stack, String upgrade) {
@@ -73,6 +73,17 @@ public class HermalArmor extends DraconicArmor {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
+		if (ToolConfigHelper.getBooleanField("hideArmor", itemStack)) {
+			if (model_invisible == null) {
+				model_invisible = new ModelBiped() {
+					@Override
+					public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {}
+				};
+			}
+
+			return model_invisible;
+		}
+
 		if (DEConfig.disable3DModels) {
 			return super.getArmorModel(entityLiving, itemStack, armorSlot, _default);
 		}
@@ -118,8 +129,9 @@ public class HermalArmor extends DraconicArmor {
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
 		if (!stack.isEmpty()) {
+			if (!isChaosStable(stack)) setChaosStable(stack, true);
 			HermalArmor armor = (HermalArmor)stack.getItem();
-			armor.modifyEnergy(stack, 100);
+			armor.modifyEnergy(stack, DAConfig.HERMAL_RF);
 		}
 	}
 
