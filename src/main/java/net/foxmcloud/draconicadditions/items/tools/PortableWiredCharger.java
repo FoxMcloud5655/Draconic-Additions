@@ -105,7 +105,7 @@ public class PortableWiredCharger extends ItemEnergyBase {
 	}
 
 	@Override
-	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
+	public int extractEnergy(ItemStack stack, int maxExtract, boolean simulate) {
 		return 0;
 	}
 
@@ -205,10 +205,10 @@ public class PortableWiredCharger extends ItemEnergyBase {
 			EnumFacing insertSide = EnumFacing.byName(ItemNBTHelper.getString(stack, "blockSide", "NONE"));
 			if (te != null && EnergyHelper.canReceiveEnergy(te, insertSide)) {
 				int storedEnergy = ItemNBTHelper.getInteger(stack, "Energy", 0);
-				int energyToSend = getCapacity(stack) - storedEnergy;
-				if (energyToSend == 0) return;
-				storedEnergy -= EnergyHelper.insertEnergy(te, energyToSend, insertSide, false);
-				ItemNBTHelper.setInteger(stack, "Energy", storedEnergy);
+				if (storedEnergy > 0) {
+					storedEnergy -= EnergyHelper.insertEnergy(te, storedEnergy, insertSide, false);
+					ItemNBTHelper.setInteger(stack, "Energy", storedEnergy);
+				}
 			}
 		}
 	}

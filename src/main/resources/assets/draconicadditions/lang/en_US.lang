@@ -47,6 +47,14 @@ item.draconicadditions\:portable_wired_charger.draconic.name=Portable Wired Drac
 item.draconicadditions\:portable_wired_charger.draconicactive.name=Portable Wired Draconic Charger (Active)
 item.draconicadditions\:portable_wired_charger.chaotic.name=Portable Wired Chaotic Charger
 item.draconicadditions\:portable_wired_charger.chaoticactive.name=Portable Wired Chaotic Charger (Active)
+item.draconicadditions\:portable_wired_discharger.basic.name=Portable Wired Basic Discharger
+item.draconicadditions\:portable_wired_discharger.basicactive.name=Portable Wired Basic Discharger (Active)
+item.draconicadditions\:portable_wired_discharger.wyvern.name=Portable Wired Wyvern Discharger
+item.draconicadditions\:portable_wired_discharger.wyvernactive.name=Portable Wired Wyvern Discharger (Active)
+item.draconicadditions\:portable_wired_discharger.draconic.name=Portable Wired Draconic Discharger
+item.draconicadditions\:portable_wired_discharger.draconicactive.name=Portable Wired Draconic Discharger (Active)
+item.draconicadditions\:portable_wired_discharger.chaotic.name=Portable Wired Chaotic Discharger
+item.draconicadditions\:portable_wired_discharger.chaoticactive.name=Portable Wired Chaotic Discharger (Active)
 
 //Baubles
 

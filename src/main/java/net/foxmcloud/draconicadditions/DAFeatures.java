@@ -104,6 +104,15 @@ public class DAFeatures implements IModFeatures {
 	public static ItemStack pwcWyvern = new ItemStack(pwc, 1, 1);
 	public static ItemStack pwcDraconic = new ItemStack(pwc, 1, 2);
 	public static ItemStack pwcChaotic = new ItemStack(pwc, 1, 3);
+	
+	@ModFeature(name = "portable_wired_discharger", variantMap = {
+			"0:type=basic", "1:type=wyvern", "2:type=draconic", "3:type=chaotic",
+			"4:type=basicactive", "5:type=wyvernactive", "6:type=draconicactive", "7:type=chaoticactive"})
+	public static PortableWiredDischarger pwd = new PortableWiredDischarger();
+	public static ItemStack pwdBasic = new ItemStack(pwd, 1, 0);
+	public static ItemStack pwdWyvern = new ItemStack(pwd, 1, 1);
+	public static ItemStack pwdDraconic = new ItemStack(pwd, 1, 2);
+	public static ItemStack pwdChaotic = new ItemStack(pwd, 1, 3);
 
 	// Potato Armor
 
