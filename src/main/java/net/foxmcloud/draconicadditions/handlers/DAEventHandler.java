@@ -14,11 +14,11 @@ import net.foxmcloud.draconicadditions.capabilities.IChaosInBlood;
 import net.foxmcloud.draconicadditions.entity.EntityChaosHeart;
 import net.foxmcloud.draconicadditions.items.tools.ChaosContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.entity.PlayerEntitySP;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -39,20 +39,20 @@ public class DAEventHandler {
 
 	@SubscribeEvent(priority = EventPriority.LOW)
 	public void getBreakSpeed(PlayerEvent.BreakSpeed event) {
-		if (event.getEntityPlayer() != null) {
+		if (event.getPlayerEntity() != null) {
 			float newDigSpeed = event.getOriginalSpeed();
-			CustomArmorHandler.ArmorSummery summery = new CustomArmorHandler.ArmorSummery().getSummery(event.getEntityPlayer());
+			CustomArmorHandler.ArmorSummery summery = new CustomArmorHandler.ArmorSummery().getSummery(event.getPlayerEntity());
 			if (summery == null) {
 				return;
 			}
 
-			if (event.getEntityPlayer().isInsideOfMaterial(Material.WATER)) {
+			if (event.getPlayerEntity().isInsideOfMaterial(Material.WATER)) {
 				if (summery.armorStacks.get(3).getItem() == DAFeatures.chaoticHelm) {
 					newDigSpeed *= 5f;
 				}
 			}
 
-			if (!event.getEntityPlayer().onGround) {
+			if (!event.getPlayerEntity().onGround) {
 				if (summery.armorStacks.get(2).getItem() == DAFeatures.chaoticChest) {
 					newDigSpeed *= 5f;
 				}
@@ -73,7 +73,7 @@ public class DAEventHandler {
 			if (slot != null) {
 				ItemStack stack = slot.getStack();
 				if (stack != null) {
-					EntityPlayerSP player = event.getGui().mc.player;
+					PlayerEntitySP player = event.getGui().mc.player;
 					if (stack.getItem() instanceof ChaosContainer && !player.isCreative()) {
 						event.setCanceled(((ChaosContainer) stack.getItem()).getChaos(stack) > 0);
 					}
@@ -87,7 +87,7 @@ public class DAEventHandler {
 	
 	@SubscribeEvent
 	public void onDropEvent(LivingDropsEvent event) {
-        if (!event.getEntity().world.isRemote && event.getEntity() instanceof EntityChaosGuardian) {
+        if (!event.getEntity().world.isClientSide && event.getEntity() instanceof EntityChaosGuardian) {
             if (ModFeatureParser.isEnabled(DAFeatures.chaosHeart)) {
                 EntityChaosHeart heart = new EntityChaosHeart(event.getEntity().world, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
                 event.getEntity().world.spawnEntity(heart);
@@ -97,7 +97,7 @@ public class DAEventHandler {
 	
 	@SubscribeEvent
 	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-		EntityPlayer player = event.player;
+		PlayerEntity player = event.player;
     	IChaosInBlood pCap = player.getCapability(ChaosInBloodProvider.PLAYER_CAP, null);
 		if (pCap != null && player.isEntityAlive()) {
 			Potion wither = Potion.getPotionFromResourceLocation("wither");
@@ -137,12 +137,12 @@ public class DAEventHandler {
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onPlayerRightClickEntity(PlayerInteractEvent.EntityInteract event) {
 		if (event.getItemStack().getItem() instanceof ChaosContainer) {
-			if (((ChaosContainer)event.getItemStack().getItem()).onLeftClickEntity(event.getItemStack(), event.getEntityPlayer(), event.getTarget())) {
+			if (((ChaosContainer)event.getItemStack().getItem()).onLeftClickEntity(event.getItemStack(), event.getPlayerEntity(), event.getTarget())) {
 				return;
 			}
 		}
 		float chaosDamageRatio = 10.0F;
-		EntityPlayer player = event.getEntityPlayer();
+		PlayerEntity player = event.getPlayerEntity();
 		IChaosInBlood pCap = player.getCapability(ChaosInBloodProvider.PLAYER_CAP, null);
 		if (pCap != null && player.isEntityAlive() && pCap.getChaos() > 0 && event.getTarget() instanceof EntityLiving) {
 			EntityLiving target = (EntityLiving)event.getTarget();
@@ -158,7 +158,7 @@ public class DAEventHandler {
     @SubscribeEvent
     public void onPlayerClone(PlayerEvent.Clone event) {
     	if (!event.isWasDeath()) {
-	    	EntityPlayer player = event.getEntityPlayer();
+	    	PlayerEntity player = event.getPlayerEntity();
 	    	IChaosInBlood newCap = player.getCapability(ChaosInBloodProvider.PLAYER_CAP, null);
 	    	IChaosInBlood oldCap = event.getOriginal().getCapability(ChaosInBloodProvider.PLAYER_CAP, null);
 	    	newCap.setChaos(oldCap.getChaos());
@@ -168,8 +168,8 @@ public class DAEventHandler {
     @SubscribeEvent
     public void onEntityConstructing(AttachCapabilitiesEvent<Entity> e) {
     	Entity obj = e.getObject();
-    	if (obj instanceof EntityPlayer && !(obj instanceof FakePlayer)) {
-    		EntityPlayer player = (EntityPlayer) obj;
+    	if (obj instanceof PlayerEntity && !(obj instanceof FakePlayer)) {
+    		PlayerEntity player = (PlayerEntity) obj;
     		e.addCapability(ResourceHelperDE.getResourceRAW(DraconicAdditions.MODID_PREFIX + "chaos_in_blood"), new ChaosInBloodProvider());
     	}
     }

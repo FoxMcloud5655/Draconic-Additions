@@ -18,7 +18,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -116,7 +116,7 @@ public class HermalArmor extends DraconicArmor {
 	}
 
 	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+	public void onArmorTick(World world, PlayerEntity player, ItemStack stack) {
 		if (!stack.isEmpty()) {
 			HermalArmor armor = (HermalArmor)stack.getItem();
 			armor.modifyEnergy(stack, 100);

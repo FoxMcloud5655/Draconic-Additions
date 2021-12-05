@@ -10,7 +10,7 @@ import com.brandon3055.draconicevolution.handlers.CustomArmorHandler.ArmorSummer
 
 import baubles.api.BaubleType;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 
@@ -35,7 +35,7 @@ public class VampiricShirt extends BasicBauble implements IConfigurableItem {
 
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase entity) {
-		EntityPlayer player = (EntityPlayer) entity;
+		PlayerEntity player = (PlayerEntity) entity;
 		ArmorSummery summary = new ArmorSummery().getSummery(player);
 		if (summary == null || summary.protectionPoints <= 0 || summary.entropy < ToolConfigHelper.getIntegerField("shirtEntropyActivate", stack) || player.getHealth() <= ToolConfigHelper.getIntegerField("shirtSafetyCutoff", stack) || player.ticksExisted % 10 != 0) {
 			return;

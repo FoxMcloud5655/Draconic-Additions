@@ -1,9 +1,13 @@
 package net.foxmcloud.draconicadditions.blocks.chaosritual.tileentity;
 
+import static com.brandon3055.brandonscore.lib.datamanager.DataFlags.SAVE_NBT_SYNC_TILE;
+import static com.brandon3055.brandonscore.lib.datamanager.DataFlags.TRIGGER_UPDATE;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.brandon3055.brandonscore.blocks.TileBCore;
 import com.brandon3055.brandonscore.blocks.TileInventoryBase;
 import com.brandon3055.brandonscore.lib.IActivatableTile;
 import com.brandon3055.brandonscore.lib.Vec3D;
@@ -23,11 +27,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -39,36 +44,36 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.util.FakePlayer;
 
-public class TileChaosStabilizerCore extends TileInventoryBase implements ITickable, IActivatableTile {
+public class TileChaosStabilizerCore extends TileBCore implements net.minecraft.client.renderer.texture.ITickable, IActivatableTile {
 
-	public final ManagedDouble diameter = register("diameter", new ManagedDouble(1)).syncViaTile().finish();
-	public final ManagedDouble intensity = register("intensity", new ManagedDouble(0)).syncViaTile().finish();
+	public final ManagedDouble diameter = register(new ManagedDouble("diameter", 1, SAVE_NBT_SYNC_TILE));
+	public final ManagedDouble intensity = register(new ManagedDouble("intensity", 0, SAVE_NBT_SYNC_TILE));
 	private static final float chaosDamage = 10;
 	private static final double suckRadius = 6;
 	private static final int delayInMultiblockCheck = 20;
-	private double actualDiameter = diameter.value;
-	private double actualIntensity = intensity.value;
-	private final ManagedInt ritualTicks = register("ritualTicks", new ManagedInt(0)).syncViaTile().finish();
-	public final ManagedBool isRitualOngoing = register("isRitualOngoing", new ManagedBool(false)).syncViaTile().finish();
-	public final ManagedBool isMultiblock = register("isMultiblock", new ManagedBool(false)).syncViaTile().finish();
+	private double actualDiameter = diameter.get();
+	private double actualIntensity = intensity.get();
+	private final ManagedInt ritualTicks = register(new ManagedInt("ritualTicks", 0, SAVE_NBT_SYNC_TILE));
+	public final ManagedBool isRitualOngoing = register(new ManagedBool("isRitualOngoing", false, SAVE_NBT_SYNC_TILE));
+	public final ManagedBool isMultiblock = register(new ManagedBool("isMultiblock", false, SAVE_NBT_SYNC_TILE));
 	private Random rand = new Random();
-	private DamageSource chaosBurst = new DamageSource("chaosBurst").setDamageBypassesArmor();
+	private DamageSource chaosBurst = new DamageSource("chaosBurst").bypassArmor();
 
-	public TileChaosStabilizerCore() {
-		super();
+	public TileChaosStabilizerCore(TileEntityType<?> type) {
+		super(type);
 		this.setInventorySize(1);
 		setShouldRefreshOnBlockChange();
 	}
 
 	@Override
 	public void update() {
-		if (DEEventHandler.serverTicks % 10 == 0 && !world.isRemote) {
+		if (DEEventHandler.serverTicks % 10 == 0 && !world.isClientSide) {
 			checkMultiblock();
 			updateBlock();
 		}
-		if (!isRitualOngoing.value) {
-			if (isMultiblock.value) {
-				intensity.value = 0.25F;
+		if (!isRitualOngoing.get()) {
+			if (isMultiblock.get()) {
+				intensity.set(0.25);
 				List<Entity> suckEntities = this.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos).grow(suckRadius));
 				for (Entity e : suckEntities) {
 					if (e instanceof EntityItem) {
@@ -129,8 +134,8 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 							}
 							continue;
 						}
-						else if (e instanceof EntityPlayer) {
-							EntityPlayer ePlayer = (EntityPlayer) e;
+						else if (e instanceof PlayerEntity) {
+							PlayerEntity ePlayer = (PlayerEntity) e;
 							if (!(ePlayer instanceof FakePlayer)) {
 								ePlayer.attackEntityFrom(chaosBurst, 5);
 							}
@@ -255,12 +260,12 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 		return 40960.0D;
 	}
 
-	private void sendMessage(EntityPlayer player, String message) {
-		if (!world.isRemote) player.sendStatusMessage(new TextComponentTranslation(message), true);
+	private void sendMessage(PlayerEntity player, String message) {
+		if (!world.isClientSide) player.sendStatusMessage(new TextComponentTranslation(message), true);
 	}
 
 	private void playSound(SoundEvent sound, float volume, float pitch) {
-		if (!world.isRemote) DESoundHandler.playSoundFromServer(world, new Vec3D(pos), sound, SoundCategory.BLOCKS, volume, pitch, false, 128);
+		if (!world.isClientSide) DESoundHandler.playSoundFromServer(world, new Vec3D(pos), sound, SoundCategory.BLOCKS, volume, pitch, false, 128);
 	}
 
 	public double getCoreDiameter() {
@@ -288,8 +293,8 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 	}
 
 	@Override
-	public boolean onBlockActivated(IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (world.isRemote) {
+	public boolean onBlockActivated(BlockState state, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+		if (world.isClientSide) {
 			return true;
 		}
 		if (isMultiblock.value || player.isCreative()) {
@@ -321,7 +326,7 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 				}
 			}
 			else {
-				if (!world.isRemote && !player.isCreative()) {
+				if (!world.isClientSide && !player.isCreative()) {
 					ArmorSummery armor = new ArmorSummery().getSummery(player);
 					if (armor.maxProtectionPoints > chaosDamage) {
 						if (armor.protectionPoints >= armor.maxProtectionPoints / 2) {
@@ -360,7 +365,7 @@ public class TileChaosStabilizerCore extends TileInventoryBase implements ITicka
 			diameter.value = 1;
 			intensity.value = 0.25D;
 			ItemStack invStack = removeStackFromSlot(0);
-			if (!world.isRemote) {
+			if (!world.isClientSide) {
 				if (complete) {
 					isMultiblock.value = false;
 					List<BlockPos> check = new ArrayList<BlockPos>();

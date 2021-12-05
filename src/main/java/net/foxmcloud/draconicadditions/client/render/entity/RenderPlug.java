@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
@@ -27,44 +27,44 @@ public class RenderPlug extends Render<EntityPlug> {
 
 	@Override
 	public void doRender(EntityPlug entity, double x, double y, double z, float entityYaw, float partialTicks) {
-		EntityPlayer entityplayer = entity.getPlayer();
+		PlayerEntity PlayerEntity = entity.getPlayer();
 
-		if (entityplayer != null) {
+		if (PlayerEntity != null) {
 			this.bindEntityTexture(entity);
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferbuilder = tessellator.getBuffer();
-			int k = entityplayer.getPrimaryHand() == EnumHandSide.RIGHT ? 1 : -1;
-			ItemStack itemstack = entityplayer.getHeldItemMainhand();
+			int k = PlayerEntity.getPrimaryHand() == EnumHandSide.RIGHT ? 1 : -1;
+			ItemStack itemstack = PlayerEntity.getHeldItemMainhand();
 			if (!(itemstack.getItem() instanceof PortableWiredCharger)) {
 				k = -k;
 			}
 
-			float f1 = entityplayer.getSwingProgress(partialTicks);
+			float f1 = PlayerEntity.getSwingProgress(partialTicks);
 			float f2 = MathHelper.sin(MathHelper.sqrt(f1) * (float) Math.PI);
-			float f3 = (entityplayer.prevRenderYawOffset + (entityplayer.renderYawOffset - entityplayer.prevRenderYawOffset) * partialTicks) * 0.017453292F;
+			float f3 = (PlayerEntity.prevRenderYawOffset + (PlayerEntity.renderYawOffset - PlayerEntity.prevRenderYawOffset) * partialTicks) * 0.017453292F;
 			double d0 = (double) MathHelper.sin(f3);
 			double d1 = (double) MathHelper.cos(f3);
 			double d2 = (double) k * 0.35D;
 			double d4, d5, d6, d7;
 
-			if ((this.renderManager.options == null || this.renderManager.options.thirdPersonView <= 0) && entityplayer == Minecraft.getMinecraft().player) {
+			if ((this.renderManager.options == null || this.renderManager.options.thirdPersonView <= 0) && PlayerEntity == Minecraft.getMinecraft().player) {
 				float f4 = this.renderManager.options.fovSetting;
 				f4 = f4 / 100.0F;
 				Vec3d vec3d = new Vec3d((double)k * -0.36D * (double)f4 + (k < 0 ? -0.07D : 0), -0.045D * (double)f4, 0.4D);
-				vec3d = vec3d.rotatePitch(-(entityplayer.prevRotationPitch + (entityplayer.rotationPitch - entityplayer.prevRotationPitch) * partialTicks) * 0.017453292F);
-				vec3d = vec3d.rotateYaw(-(entityplayer.prevRotationYaw + (entityplayer.rotationYaw - entityplayer.prevRotationYaw) * partialTicks) * 0.017453292F);
+				vec3d = vec3d.rotatePitch(-(PlayerEntity.prevRotationPitch + (PlayerEntity.rotationPitch - PlayerEntity.prevRotationPitch) * partialTicks) * 0.017453292F);
+				vec3d = vec3d.rotateYaw(-(PlayerEntity.prevRotationYaw + (PlayerEntity.rotationYaw - PlayerEntity.prevRotationYaw) * partialTicks) * 0.017453292F);
 				vec3d = vec3d.rotateYaw(f2 * 0.5F);
 				vec3d = vec3d.rotatePitch(-f2 * 0.7F);
-				d4 = entityplayer.prevPosX + (entityplayer.posX - entityplayer.prevPosX) * (double) partialTicks + vec3d.x;
-				d5 = -0.3D + entityplayer.prevPosY + (entityplayer.posY - entityplayer.prevPosY) * (double) partialTicks + vec3d.y;
-				d6 = entityplayer.prevPosZ + (entityplayer.posZ - entityplayer.prevPosZ) * (double) partialTicks + vec3d.z;
-				d7 = (double) entityplayer.getEyeHeight();
+				d4 = PlayerEntity.prevPosX + (PlayerEntity.posX - PlayerEntity.prevPosX) * (double) partialTicks + vec3d.x;
+				d5 = -0.3D + PlayerEntity.prevPosY + (PlayerEntity.posY - PlayerEntity.prevPosY) * (double) partialTicks + vec3d.y;
+				d6 = PlayerEntity.prevPosZ + (PlayerEntity.posZ - PlayerEntity.prevPosZ) * (double) partialTicks + vec3d.z;
+				d7 = (double) PlayerEntity.getEyeHeight();
 			}
 			else {
-				d4 = entityplayer.prevPosX + (entityplayer.posX - entityplayer.prevPosX) * (double) partialTicks - d1 * d2 - d0 * 0.8D;
-				d5 = entityplayer.prevPosY + (double) entityplayer.getEyeHeight() + (entityplayer.posY - entityplayer.prevPosY) * (double) partialTicks - 0.45D;
-				d6 = entityplayer.prevPosZ + (entityplayer.posZ - entityplayer.prevPosZ) * (double) partialTicks - d0 * d2 + d1 * 0.8D;
-				d7 = entityplayer.isSneaking() ? -0.1875D : 0.0D;
+				d4 = PlayerEntity.prevPosX + (PlayerEntity.posX - PlayerEntity.prevPosX) * (double) partialTicks - d1 * d2 - d0 * 0.8D;
+				d5 = PlayerEntity.prevPosY + (double) PlayerEntity.getEyeHeight() + (PlayerEntity.posY - PlayerEntity.prevPosY) * (double) partialTicks - 0.45D;
+				d6 = PlayerEntity.prevPosZ + (PlayerEntity.posZ - PlayerEntity.prevPosZ) * (double) partialTicks - d0 * d2 + d1 * 0.8D;
+				d7 = PlayerEntity.isSneaking() ? -0.1875D : 0.0D;
 			}
 
 			double d13 = entity.prevPosX + (entity.posX - entity.prevPosX);

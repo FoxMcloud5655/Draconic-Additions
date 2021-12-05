@@ -59,7 +59,7 @@ public class ChaosCrystalStable extends ChaosCrystal implements IChaosItem {
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
 		TileEntity tile = world.getTileEntity(pos);
-		if (!world.isRemote && tile instanceof TileChaosCrystal) {
+		if (!world.isClientSide && tile instanceof TileChaosCrystal) {
 			TileChaosCrystal tileCrystal = (TileChaosCrystal)tile;
 			if (!isChaosStable(stack)) {
 				tileCrystal.detonate();

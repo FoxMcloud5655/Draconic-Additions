@@ -16,7 +16,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -105,8 +105,8 @@ public class CapacitorSupplier extends BlockBCore implements ITileEntityProvider
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (!world.isRemote) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, PlayerEntity player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		if (!world.isClientSide) {
 			TileCapacitorSupplier tileCapacitorDischarger = world.getTileEntity(pos) instanceof TileCapacitorSupplier ? (TileCapacitorSupplier) world.getTileEntity(pos) : null;
 			if (tileCapacitorDischarger != null) {
 				ItemStack stack = player.getHeldItem(hand);

@@ -20,11 +20,11 @@ public class TileArmorGenerator extends TileChaosHolderBase implements IEnergyPr
 	private int burnSpeed = 50;
 	private int baseRFMult = 40;
 
-	public final ManagedInt burnTime = register("burnTime", new ManagedInt(1)).saveToTile().saveToItem().syncViaContainer().finish();
-	public final ManagedInt burnTimeRemaining = register("burnTimeRemaining", new ManagedInt(0)).saveToTile().saveToItem().syncViaContainer().finish();
-	public final ManagedDouble burnSpeedMultiplier = register("burnSpeedMultiplier", new ManagedDouble(1.0D)).saveToTile().saveToItem().syncViaContainer().finish();
-	public final ManagedBool active = register("active", new ManagedBool(false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
-	public final ManagedBool powered = register("powered", new ManagedBool(false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
+	public final ManagedInt burnTime = register(new ManagedInt("burnTime", 1)).saveToTile().saveToItem().syncViaContainer().finish();
+	public final ManagedInt burnTimeRemaining = register(new ManagedInt("burnTimeRemaining", 0)).saveToTile().saveToItem().syncViaContainer().finish();
+	public final ManagedDouble burnSpeedMultiplier = register(new ManagedDouble("burnSpeedMultiplier", 1.0D)).saveToTile().saveToItem().syncViaContainer().finish();
+	public final ManagedBool active = register(new ManagedBool("active", false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
+	public final ManagedBool powered = register(new ManagedBool("powered", false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
 
 	public TileArmorGenerator() {
 		setInventorySize(1);
@@ -37,7 +37,7 @@ public class TileArmorGenerator extends TileChaosHolderBase implements IEnergyPr
 	@Override
 	public void update() {
 		super.update();
-		if (world.isRemote) {
+		if (world.isClientSide) {
 			return;
 		}
 

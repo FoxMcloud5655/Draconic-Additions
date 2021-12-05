@@ -12,16 +12,16 @@ import net.foxmcloud.draconicadditions.inventory.ContainerChaosInfuser;
 import net.foxmcloud.draconicadditions.utils.DATextures;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.TextFormatting;
 
 public class GUIChaosInfuser extends GuiContainer {
-	public EntityPlayer player;
+	public PlayerEntity player;
 	private TileChaosInfuser tile;
 	private int guiUpdateTick;
 
-	public GUIChaosInfuser(EntityPlayer player, TileChaosInfuser tile) {
+	public GUIChaosInfuser(PlayerEntity player, TileChaosInfuser tile) {
 		super(new ContainerChaosInfuser(player, tile));
 
 		xSize = 176;

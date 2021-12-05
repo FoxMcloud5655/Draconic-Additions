@@ -5,14 +5,14 @@ import com.brandon3055.brandonscore.inventory.SlotCheckValid;
 
 import cofh.redstoneflux.api.IEnergyContainerItem;
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileItemDrainer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerItemDrainer extends ContainerBCBase<TileItemDrainer> {
 
-	public ContainerItemDrainer(EntityPlayer player, TileItemDrainer tile) {
+	public ContainerItemDrainer(PlayerEntity player, TileItemDrainer tile) {
 		super(player, tile);
 		IInventory invPlayer = player.inventory;
 		for (int x = 0; x < 9; x++) {
@@ -27,12 +27,12 @@ public class ContainerItemDrainer extends ContainerBCBase<TileItemDrainer> {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) {
+	public boolean canInteractWith(PlayerEntity playerIn) {
 		return tile.isUsableByPlayer(playerIn);
 	}
 
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer player, int i) {
+	public ItemStack transferStackInSlot(PlayerEntity player, int i) {
 		Slot slot = getSlot(i);
 		if (slot != null && slot.getHasStack()) {
 			ItemStack stack = slot.getStack();

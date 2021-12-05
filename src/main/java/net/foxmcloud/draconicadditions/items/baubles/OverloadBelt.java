@@ -6,7 +6,7 @@ import com.brandon3055.draconicevolution.handlers.CustomArmorHandler.ArmorSummer
 import baubles.api.BaubleType;
 import net.foxmcloud.draconicadditions.CommonMethods;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -43,7 +43,7 @@ public class OverloadBelt extends BasicBauble {
 		if (stack.getTagCompound() != null) {
 			if (stack.getTagCompound().getBoolean("Active")) {
 				if (entity.ticksExisted % 2 == 0) {
-					EntityPlayer player = (EntityPlayer) entity;
+					PlayerEntity player = (PlayerEntity) entity;
 					ArmorSummery summary = new ArmorSummery().getSummery(player);
 					if (summary == null || summary.protectionPoints <= 1) {
 						return;

@@ -5,7 +5,7 @@ import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 
 import net.foxmcloud.draconicadditions.items.tools.PortableWiredCharger;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -14,14 +14,14 @@ import net.minecraft.world.World;
 
 public class EntityPlug extends Entity {
 
-	private EntityPlayer player;
+	private PlayerEntity player;
 
 	public EntityPlug(World worldIn) {
 		super(worldIn);
 		this.init(null);
 	}
 
-	public EntityPlug(World worldIn, EntityPlayer player, double x, double y, double z, EnumFacing facing) {
+	public EntityPlug(World worldIn, PlayerEntity player, double x, double y, double z, EnumFacing facing) {
 		super(worldIn);
 		this.init(player);
 		float yaw = 0;
@@ -52,11 +52,11 @@ public class EntityPlug extends Entity {
 		this.setRotation(yaw, pitch);
 	}
 
-	public EntityPlug(World worldIn, EntityPlayer player, BlockPos pos, EnumFacing facing) {
+	public EntityPlug(World worldIn, PlayerEntity player, BlockPos pos, EnumFacing facing) {
 		this(worldIn, player, (double) pos.getX(), (double) pos.getY(), (double) pos.getZ(), facing);
 	}
 
-	public EntityPlug(World worldIn, EntityPlayer player, Vec3D vec, EnumFacing facing) {
+	public EntityPlug(World worldIn, PlayerEntity player, Vec3D vec, EnumFacing facing) {
 		this(worldIn, player, vec.x, vec.y, vec.z, facing);
 	}
 
@@ -82,7 +82,7 @@ public class EntityPlug extends Entity {
 		this.world.profiler.endSection();
 	}
 
-	protected void init(EntityPlayer player) {
+	protected void init(PlayerEntity player) {
 		this.setSize(1F, 1F);
 		this.ignoreFrustumCheck = true;
 		this.player = player;
@@ -94,7 +94,7 @@ public class EntityPlug extends Entity {
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound compound) {}
 
-	public EntityPlayer getPlayer() {
+	public PlayerEntity getPlayer() {
 		return player;
 	}
 

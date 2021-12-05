@@ -12,16 +12,16 @@ import net.foxmcloud.draconicadditions.inventory.ContainerChaosLiquefier;
 import net.foxmcloud.draconicadditions.utils.DATextures;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.TextFormatting;
 
 public class GUIChaosLiquefier extends GuiContainer {
-	public EntityPlayer player;
+	public PlayerEntity player;
 	private TileChaosLiquefier tile;
 	private int guiUpdateTick;
 
-	public GUIChaosLiquefier(EntityPlayer player, TileChaosLiquefier tile) {
+	public GUIChaosLiquefier(PlayerEntity player, TileChaosLiquefier tile) {
 		super(new ContainerChaosLiquefier(player, tile));
 
 		xSize = 176;

@@ -12,15 +12,15 @@ import net.foxmcloud.draconicadditions.inventory.ContainerItemDrainer;
 import net.foxmcloud.draconicadditions.utils.DATextures;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TextFormatting;
 
 public class GUIItemDrainer extends GuiContainer {
-	public EntityPlayer player;
+	public PlayerEntity player;
 	private TileItemDrainer tile;
 	private int guiUpdateTick;
 
-	public GUIItemDrainer(EntityPlayer player, TileItemDrainer tile) {
+	public GUIItemDrainer(PlayerEntity player, TileItemDrainer tile) {
 		super(new ContainerItemDrainer(player, tile));
 
 		xSize = 176;

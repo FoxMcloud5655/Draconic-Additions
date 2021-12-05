@@ -18,10 +18,10 @@ public class TileChaosLiquefier extends TileChaosHolderBase implements IEnergyRe
 	private int chargeRate = 10000000;
 	public int maxCharge = 200;
 
-	public final ManagedInt charge = register("charge", new ManagedInt(0)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
-	public final ManagedInt chargeTo = register("chargeTo", new ManagedInt(maxCharge)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
-	public final ManagedBool active = register("active", new ManagedBool(false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
-	public final ManagedBool powered = register("powered", new ManagedBool(false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
+	public final ManagedInt charge = register(new ManagedInt("charge", 0)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
+	public final ManagedInt chargeTo = register(new ManagedInt("chargeTo", maxCharge)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
+	public final ManagedBool active = register(new ManagedBool("active", false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
+	public final ManagedBool powered = register(new ManagedBool("powered", false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
 
 	public TileChaosLiquefier() {
 		setInventorySize(1);
@@ -33,7 +33,7 @@ public class TileChaosLiquefier extends TileChaosHolderBase implements IEnergyRe
 	@Override
 	public void update() {
 		super.update();
-		if (world.isRemote) {
+		if (world.isClientSide) {
 			if (active.value) {
 				if (charge.value >= 0 && charge.value < chargeTo.value - 1) {
 					float beamPitch = (1.5F * charge.value / maxCharge) + 0.5F;

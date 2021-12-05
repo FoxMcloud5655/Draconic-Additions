@@ -4,7 +4,7 @@ import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import io.netty.buffer.ByteBuf;
 import net.foxmcloud.draconicadditions.items.baubles.OverloadBelt;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntityMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -27,7 +27,7 @@ public class PacketOverloadBelt implements IMessage {
 
 		@Override
 		public IMessage onMessage(PacketOverloadBelt message, MessageContext ctx) {
-			EntityPlayerMP player = ctx.getServerHandler().player;
+			PlayerEntityMP player = ctx.getServerHandler().player;
 			player.getServerWorld().addScheduledTask(() -> {
 				ItemStack belt = BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.BELT.getValidSlots()[0]).copy();
 				if (belt.getItem() instanceof OverloadBelt) {

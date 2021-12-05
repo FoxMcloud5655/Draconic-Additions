@@ -5,14 +5,14 @@ import com.brandon3055.brandonscore.inventory.SlotCheckValid;
 
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosInfuser;
 import net.foxmcloud.draconicadditions.items.IChaosContainer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerChaosInfuser extends ContainerBCBase<TileChaosInfuser> {
 
-	public ContainerChaosInfuser(EntityPlayer player, TileChaosInfuser tile) {
+	public ContainerChaosInfuser(PlayerEntity player, TileChaosInfuser tile) {
 		super(player, tile);
 
 		IInventory invPlayer = player.inventory;
@@ -31,12 +31,12 @@ public class ContainerChaosInfuser extends ContainerBCBase<TileChaosInfuser> {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) {
+	public boolean canInteractWith(PlayerEntity playerIn) {
 		return tile.isUsableByPlayer(playerIn);
 	}
 
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer player, int i) {
+	public ItemStack transferStackInSlot(PlayerEntity player, int i) {
 		Slot slot = getSlot(i);
 
 		if (slot != null && slot.getHasStack()) {

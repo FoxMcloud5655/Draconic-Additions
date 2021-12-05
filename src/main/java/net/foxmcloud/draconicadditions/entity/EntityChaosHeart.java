@@ -10,7 +10,7 @@ import com.brandon3055.draconicevolution.client.DEParticles;
 import com.brandon3055.draconicevolution.entity.EntityDragonHeart;
 
 import net.foxmcloud.draconicadditions.DAFeatures;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
@@ -29,7 +29,7 @@ public class EntityChaosHeart extends EntityDragonHeart {
     
     @Override
     public void onUpdate() {
-    	if (!world.isRemote) {
+    	if (!world.isClientSide) {
     		int age = getAge();
     		if (age == 801) {
         		List<EntityDragonHeart> dragonHearts = world.getEntitiesWithinAABB(EntityDragonHeart.class, new AxisAlignedBB(this.posX - 1, this.posY - 1, this.posZ - 1, this.posX + 1, this.posY + 1, this.posZ + 1));
@@ -49,7 +49,7 @@ public class EntityChaosHeart extends EntityDragonHeart {
     }
     
     private void drop() {
-        EntityPlayer player = world.getClosestPlayerToEntity(this, 512);
+        PlayerEntity player = world.getClosestPlayerToEntity(this, 512);
 
         if (player != null) {
             BCEffectHandler.spawnFX(DEParticles.DRAGON_HEART, world, new Vec3D(this), new Vec3D(player), 128D, 0, 0, 0, 1);

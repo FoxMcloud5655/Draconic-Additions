@@ -22,12 +22,12 @@ public class TileCapacitorSupplier extends TileEnergyInventoryBase implements IE
 
 	private int energyToExtract = 0;
 
-	public final ManagedBool active = register("active", new ManagedBool(false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
-	public final ManagedBool powered = register("powered", new ManagedBool(false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
-	public final ManagedInt capacityBackup = register("capacityBackup", new ManagedInt(0)).saveToTile().saveToItem().finish();
-	public final ManagedInt energyBackup = register("energyBackup", new ManagedInt(0)).saveToTile().saveToItem().finish();
-	public final ManagedInt rateBackup = register("rateBackup", new ManagedInt(0)).saveToTile().saveToItem().finish();
-	public final ManagedBool isHermal = register("isHermal", new ManagedBool(false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
+	public final ManagedBool active = register(new ManagedBool("active", false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
+	public final ManagedBool powered = register(new ManagedBool("powered", false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
+	public final ManagedInt capacityBackup = register(new ManagedInt("capacityBackup", 0)).saveToTile().saveToItem().finish();
+	public final ManagedInt energyBackup = register(new ManagedInt("energyBackup", 0)).saveToTile().saveToItem().finish();
+	public final ManagedInt rateBackup = register(new ManagedInt("rateBackup", 0)).saveToTile().saveToItem().finish();
+	public final ManagedBool isHermal = register(new ManagedBool("isHermal", false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
 	
 	public TileCapacitorSupplier() {
 		setInventorySize(1);
@@ -38,7 +38,7 @@ public class TileCapacitorSupplier extends TileEnergyInventoryBase implements IE
 	@Override
 	public void update() {
 		super.update();
-		if (world.isRemote) {
+		if (world.isClientSide) {
 			return;
 		}
 		if (getMaxEnergyStored() == 0 && capacityBackup.value > 0) {

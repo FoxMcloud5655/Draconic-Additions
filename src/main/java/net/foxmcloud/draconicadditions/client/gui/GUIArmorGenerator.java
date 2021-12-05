@@ -13,16 +13,16 @@ import net.foxmcloud.draconicadditions.inventory.ContainerArmorGenerator;
 import net.foxmcloud.draconicadditions.utils.DATextures;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.TextFormatting;
 
 public class GUIArmorGenerator extends GuiContainer {
-	public EntityPlayer player;
+	public PlayerEntity player;
 	private TileArmorGenerator tile;
 	private int guiUpdateTick;
 
-	public GUIArmorGenerator(EntityPlayer player, TileArmorGenerator tile) {
+	public GUIArmorGenerator(PlayerEntity player, TileArmorGenerator tile) {
 		super(new ContainerArmorGenerator(player, tile));
 
 		xSize = 176;

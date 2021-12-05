@@ -17,8 +17,8 @@ public class TileChaosInfuser extends TileChaosHolderBase implements IEnergyRece
 	private int chargeRate = 1000000;
 	public int maxCharge = 200;
 
-	public final ManagedBool active = register("active", new ManagedBool(false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
-	public final ManagedBool powered = register("powered", new ManagedBool(false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
+	public final ManagedBool active = register(new ManagedBool("active", false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
+	public final ManagedBool powered = register(new ManagedBool("powered", false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
 
 	public TileChaosInfuser() {
 		setInventorySize(1);
@@ -30,7 +30,7 @@ public class TileChaosInfuser extends TileChaosHolderBase implements IEnergyRece
 	@Override
 	public void update() {
 		super.update();
-		if (world.isRemote) {
+		if (world.isClientSide) {
 			if (active.value) {
 				float beamPitch = (float)(0.5F + (Math.random() * 0.1F));
 				world.playSound(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, DESoundHandler.beam, SoundCategory.BLOCKS, 0.2F, beamPitch, false);

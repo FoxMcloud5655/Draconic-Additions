@@ -5,7 +5,7 @@ import com.brandon3055.draconicevolution.items.ToolUpgrade;
 
 import io.netty.buffer.ByteBuf;
 import net.foxmcloud.draconicadditions.DAFeatures;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntityMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
@@ -30,7 +30,7 @@ public class PacketChaosInjection implements IMessage {
 
 		@Override
 		public IMessage onMessage(PacketChaosInjection message, MessageContext ctx) {
-			EntityPlayerMP player = ctx.getServerHandler().player;
+			PlayerEntityMP player = ctx.getServerHandler().player;
 			player.getServerWorld().addScheduledTask(() -> {
 				ItemStack chest = player.inventory.armorInventory.get(2);
 				if (chest.getItem() == DAFeatures.chaoticChest) {

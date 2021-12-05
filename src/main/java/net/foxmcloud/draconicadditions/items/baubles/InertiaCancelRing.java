@@ -2,7 +2,7 @@ package net.foxmcloud.draconicadditions.items.baubles;
 
 import baubles.api.BaubleType;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 public class InertiaCancelRing extends EnergyBauble {
@@ -26,7 +26,7 @@ public class InertiaCancelRing extends EnergyBauble {
 
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase entity) {
-		EntityPlayer player = (EntityPlayer) entity;
+		PlayerEntity player = (PlayerEntity) entity;
 		InertiaCancelRing ring = (InertiaCancelRing) stack.getItem();
 		if (player.capabilities.isFlying && ring.getEnergyStored(stack) >= BaubleStats.INERTIA_RING_RF_USAGE) {
 			ring.modifyEnergy(stack, -BaubleStats.INERTIA_RING_RF_USAGE);

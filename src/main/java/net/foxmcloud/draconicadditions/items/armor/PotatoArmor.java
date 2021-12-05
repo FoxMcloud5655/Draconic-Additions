@@ -16,7 +16,7 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -98,7 +98,7 @@ public class PotatoArmor extends WyvernArmor {
 	}
 
 	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+	public void onArmorTick(World world, PlayerEntity player, ItemStack stack) {
 		if (!stack.isEmpty() && ArmorStats.POTATO_BREAK_ON_EXHAUST) {
 			PotatoArmor armor = (PotatoArmor) stack.getItem();
 			if (armor.getEnergyStored(stack) < 1000 && ItemNBTHelper.getFloat(stack, "ProtectionPoints", 0) == 0) {
@@ -135,7 +135,7 @@ public class PotatoArmor extends WyvernArmor {
 	}
 
 	@Override
-	public boolean hasHillStep(ItemStack stack, EntityPlayer player) {
+	public boolean hasHillStep(ItemStack stack, PlayerEntity player) {
 		return false;
 	}
 
@@ -150,12 +150,12 @@ public class PotatoArmor extends WyvernArmor {
 	}
 
 	@Override
-	public float getFlightSpeedModifier(ItemStack stack, EntityPlayer player) {
+	public float getFlightSpeedModifier(ItemStack stack, PlayerEntity player) {
 		return 0;
 	}
 
 	@Override
-	public float getFlightVModifier(ItemStack stack, EntityPlayer player) {
+	public float getFlightVModifier(ItemStack stack, PlayerEntity player) {
 		return 0;
 	}
 

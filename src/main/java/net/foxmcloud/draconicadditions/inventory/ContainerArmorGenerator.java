@@ -4,7 +4,7 @@ import com.brandon3055.brandonscore.inventory.ContainerBCBase;
 import com.brandon3055.brandonscore.inventory.SlotCheckValid;
 
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileArmorGenerator;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemArmor;
@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerArmorGenerator extends ContainerBCBase<TileArmorGenerator> {
 
-	public ContainerArmorGenerator(EntityPlayer player, TileArmorGenerator tile) {
+	public ContainerArmorGenerator(PlayerEntity player, TileArmorGenerator tile) {
 		super(player, tile);
 
 		IInventory invPlayer = player.inventory;
@@ -31,12 +31,12 @@ public class ContainerArmorGenerator extends ContainerBCBase<TileArmorGenerator>
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) {
+	public boolean canInteractWith(PlayerEntity playerIn) {
 		return tile.isUsableByPlayer(playerIn);
 	}
 
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer player, int i) {
+	public ItemStack transferStackInSlot(PlayerEntity player, int i) {
 		Slot slot = getSlot(i);
 
 		if (slot != null && slot.getHasStack()) {

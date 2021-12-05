@@ -20,11 +20,11 @@ public class TileItemDrainer extends TileChaosHolderBase implements IEnergyProvi
 	private int cooldownRatio = 100000;
 	private boolean clientPlayedSound = true;
 
-	public final ManagedInt cooldownTime = register("cooldownTime", new ManagedInt(1)).saveToTile().saveToItem().syncViaContainer().finish();
-	public final ManagedInt cooldownTimeRemaining = register("cooldownTimeRemaining", new ManagedInt(0)).saveToTile().saveToItem().syncViaContainer().finish();
-	public final ManagedInt fakeCapacity = register("fakeCapacity", new ManagedInt(0)).saveToTile().saveToItem().syncViaContainer().finish();
-	public final ManagedBool active = register("active", new ManagedBool(false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
-	public final ManagedBool powered = register("powered", new ManagedBool(false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
+	public final ManagedInt cooldownTime = register(new ManagedInt("cooldownTime", 1)).saveToTile().saveToItem().syncViaContainer().finish();
+	public final ManagedInt cooldownTimeRemaining = register(new ManagedInt("cooldownTimeRemaining", 0)).saveToTile().saveToItem().syncViaContainer().finish();
+	public final ManagedInt fakeCapacity = register(new ManagedInt("fakeCapacity", 0)).saveToTile().saveToItem().syncViaContainer().finish();
+	public final ManagedBool active = register(new ManagedBool("active", false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
+	public final ManagedBool powered = register(new ManagedBool("powered", false)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
 
 	public TileItemDrainer() {
 		setInventorySize(1);
@@ -37,7 +37,7 @@ public class TileItemDrainer extends TileChaosHolderBase implements IEnergyProvi
 	@Override
 	public void update() {
 		super.update();
-		if (world.isRemote) {
+		if (world.isClientSide) {
 			if (active.value && !clientPlayedSound) {
 				world.playSound(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, DESoundHandler.boom, SoundCategory.BLOCKS, 1.0F, 2.0F, false);
 				clientPlayedSound = true;

@@ -5,7 +5,7 @@ import com.brandon3055.draconicevolution.items.armor.ICustomArmor;
 
 import baubles.api.BaubleType;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 public class ShieldBauble extends EnergyBauble implements ICustomArmor {
@@ -65,7 +65,7 @@ public class ShieldBauble extends EnergyBauble implements ICustomArmor {
 	 * one.
 	 */
 	@Override
-	public float getFlightSpeedModifier(ItemStack arg0, EntityPlayer arg1) {
+	public float getFlightSpeedModifier(ItemStack arg0, PlayerEntity arg1) {
 		return 0;
 	}
 
@@ -76,7 +76,7 @@ public class ShieldBauble extends EnergyBauble implements ICustomArmor {
 	 * one.
 	 */
 	@Override
-	public float getFlightVModifier(ItemStack arg0, EntityPlayer arg1) {
+	public float getFlightVModifier(ItemStack arg0, PlayerEntity arg1) {
 		return 0;
 	}
 
@@ -86,7 +86,7 @@ public class ShieldBauble extends EnergyBauble implements ICustomArmor {
 	 * power modifiers; Draconic Evolution only sets it based on the highest one.
 	 */
 	@Override
-	public float getJumpModifier(ItemStack arg0, EntityPlayer arg1) {
+	public float getJumpModifier(ItemStack arg0, PlayerEntity arg1) {
 		return 0;
 	}
 
@@ -96,7 +96,7 @@ public class ShieldBauble extends EnergyBauble implements ICustomArmor {
 	 * modifiers; Draconic Evolution only sets it based on the highest one.
 	 */
 	@Override
-	public float getSpeedModifier(ItemStack arg0, EntityPlayer arg1) {
+	public float getSpeedModifier(ItemStack arg0, PlayerEntity arg1) {
 		return 0;
 	}
 
@@ -118,7 +118,7 @@ public class ShieldBauble extends EnergyBauble implements ICustomArmor {
 	 *
 	 */
 	@Override
-	public boolean hasHillStep(ItemStack arg0, EntityPlayer arg1) {
+	public boolean hasHillStep(ItemStack arg0, PlayerEntity arg1) {
 		return false;
 	}
 
@@ -131,7 +131,7 @@ public class ShieldBauble extends EnergyBauble implements ICustomArmor {
 	 */
 	@Override
 	public void onEquipped(ItemStack stack, EntityLivingBase player) {
-		ArmorSummery armorSummary = new ArmorSummery().getSummery((EntityPlayer) player);
+		ArmorSummery armorSummary = new ArmorSummery().getSummery((PlayerEntity) player);
 		canFly = armorSummary.flight;
 		super.onEquipped(stack, player);
 	}

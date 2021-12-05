@@ -31,7 +31,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemFood;
@@ -208,13 +208,13 @@ public class ChaoticArmor extends DraconicArmor implements IChaosItem {
     }
 
 	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+	public void onArmorTick(World world, PlayerEntity player, ItemStack stack) {
 		if (stack.isEmpty()) {
 			return;
 		}
 		if (stack.getItem() == DAFeatures.chaoticHelm) {
 
-			if (world.isRemote) {
+			if (world.isClientSide) {
 				return;
 			}
 

@@ -1,43 +1,25 @@
 buildscript {
 	repositories {
+		mavenLocal()
 		jcenter()
-		maven {
-			name = 'forge-fork'
-			url = "https://sizableshrimp.me/maven"
-		}
 		maven {
 			name = 'forge'
 			url = "http://maven.minecraftforge.net/"
 		}
 	}
 	dependencies {
-		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+		classpath 'net.minecraftforge.gradle:ForgeGradle:4.1.+'
 	}
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven'
 
 repositories {
-	maven {
-		name = 'CoFH Maven'
-		url = "http://maven.covers1624.net"
-	}
-	maven {
-		name = 'CB Maven'
-		url = "http://chickenbones.net/maven/"
-	}
-	maven {
-		name = 'OC Maven'
-		url = "http://maven.cil.li/"
-	}
-	maven {
-		name = 'JEI Maven'
-		url = "http://dvs1.progwml6.com/files/maven"
-	}
-	maven {
-		name = 'GitHub Maven'
-		url = "https://jitpack.io"
-	}
+    mavenLocal()
+    maven { url = "http://chickenbones.net/maven" }
+    maven { url = "https://dvs1.progwml6.com/files/maven" }
+    maven { url = "http://maven.cil.li/" }
+    maven { url = "https://maven.theillusivec4.top/" }
 }
 
 // Define properties file
@@ -58,12 +40,23 @@ sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
 minecraft {
-	version = "${config.mc_version}-${config.forge_version}"
-	runDir = "run"
-	mappings = "${config.mappings}"
-	replace '${mod_version}', project.config.mod_version
-	replaceIn "DraconicAdditions.java"
-	makeObfSourceJar = false
+    mappings channel: 'official', version: config.mc_version
+    accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
+    runs {
+        client {
+            workingDirectory file('run')
+            mods { draconicadditions { source sourceSets.main } }
+        }
+        server {
+            workingDirectory file('run')
+            mods { draconicadditions { source sourceSets.main } }
+        }
+        data {
+            workingDirectory file('run')
+            args '--mod', 'draconicadditions', '--all', '--output', file("src/generated/resources")
+            mods { draconicadditions { source sourceSets.main } }
+        }
+    }
 }
 
 String buildNo = config.buildNo
@@ -73,38 +66,63 @@ if (System.getenv("BUILD_NUMBER") != null) {
 version = version + ".${buildNo}"
 
 dependencies {
+	minecraft "net.minecraftforge:forge:${config.mc_version}-${config.forge_version}"
 	compile "com.brandon3055.brandonscore:BrandonsCore:${config.mc_version}-${config.bcore_version}:deobf"
-	compile "com.brandon3055.projectintelligence:ProjectIntelligence:${config.mc_version}-${config.pi_version}:deobf"
+	//compile "com.brandon3055.projectintelligence:ProjectIntelligence:${config.mc_version}-${config.pi_version}:deobf"
 	compile "com.brandon3055.draconicevolution:Draconic-Evolution:${config.mc_version}-${config.de_version}:deobf"
-	deobfCompile "com.github.azanor:Baubles:${config.baubles_version}"
+	compile fg.deobf("top.theillusivec4.curios:curios-forge:${config.mc_version}-${config.curios_version}")
 }
 
-processResources
-		{
-			// this will ensure that this task is redone when the versions change.
-			inputs.property "version", project.version
-			inputs.property "mc_version", project.minecraft.version
+processResources { task ->
+    inputs.property 'mod_version', config.mod_version
+    inputs.property 'mc_version', config.mc_version
 
-			// replace stuff in mcmod.info, nothing else
-			from(sourceSets.main.resources.srcDirs) {
-				include 'mcmod.info'
-
-				// replace version and mc_version
-				expand 'version': project.version, 'mc_version': project.minecraft.version
-			}
-
-			// copy everything else, thats not the mcmod.info
-			from(sourceSets.main.resources.srcDirs) {
-				exclude 'mcmod.info'
-			}
-			rename '(.+_at.cfg)', 'META-INF/$1'
-		}
-
-def commonManifest = {
-	attributes 'FMLAT': 'DraconicAdditions_at.cfg'
+    from(sourceSets.main.resources.srcDirs) { spec ->
+        spec.include 'META-INF/mods.toml'
+        task.doFirst {
+            spec.expand 'version': config.mod_version, 'mc_version': config.mc_version
+        }
+    }
 }
 
 jar {
-	classifier = 'universal'
-	manifest commonManifest
+    finalizedBy 'reobfJar'
+    classifier = 'universal'
+    from file("LICENSE")
+    manifest {
+        attributes 'Specification-Title': archivesBaseName
+        attributes 'Specification-Vendor': 'FoxMcloud5655'
+        attributes 'Specification-Version': "1"
+        attributes 'Implementation-Title': archivesBaseName
+        attributes 'Implementation-Vendor': 'FoxMcloud5655'
+        attributes 'Implementation-Version': version
+        attributes 'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+    }
+}
+
+task srcJar(type: Jar) {
+    build.dependsOn it
+    from sourceSets.main.allSource
+    classifier = 'sources'
+    from file("LICENSE")
+}
+
+def resolve(module, chop = true, configuration = 'compile', errorMissing = true) {
+    //Copy and lenient resolve the configuration, Forge cant be resolved at this time so lenient is required.
+    def filtered = configurations.getByName(configuration).copy().incoming.artifactView({ it.lenient = true }).artifacts
+            .findAll { it.id.componentIdentifier.module == module }
+            .collect { it.id.componentIdentifier.version }
+    if (filtered.size() > 1) {
+        println "WARNING: Found ${filtered.size()} Dependencies with ModuleName '${module}' in configuration '${configuration.name}'"
+    }
+    if (errorMissing && filtered.isEmpty()) {
+        throw new RuntimeException("Failed resolve dependency version for '${module}'")
+    }
+    if (filtered.isEmpty()) return "0"
+    def version = filtered.first() as String
+    if (chop) {
+        def idx = version.lastIndexOf('-')
+        return version.substring(idx + 1)
+    }
+    return version
 }

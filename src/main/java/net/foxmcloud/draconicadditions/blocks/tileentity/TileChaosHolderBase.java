@@ -7,7 +7,7 @@ public class TileChaosHolderBase extends TileEnergyInventoryBase {
 
 	private int maxChaos = 2000;
 
-	public final ManagedInt chaos = register("chaos", new ManagedInt(0)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
+	public final ManagedInt chaos = register(new ManagedInt("chaos", 0)).saveToTile().saveToItem().syncViaTile().trigerUpdate().finish();
 
 	public int getMaxChaos() {
 		return maxChaos;

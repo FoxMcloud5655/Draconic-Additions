@@ -9,7 +9,7 @@ import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
@@ -40,13 +40,13 @@ public class InfusedPotatoArmor extends ItemArmor {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, EnumHand hand) {
 		if (ArmorStats.INFUSED_POTATO_RIGHT_CLICK) return new ActionResult<ItemStack>(EnumActionResult.FAIL, transformItem(player, hand, false));
 		else return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(hand));
 	}
 
 	@Override
-	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+	public EnumActionResult onItemUseFirst(PlayerEntity player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 		if (ArmorStats.INFUSED_POTATO_RIGHT_CLICK) {
 			transformItem(player, hand, true);
 			return EnumActionResult.FAIL;
@@ -55,7 +55,7 @@ public class InfusedPotatoArmor extends ItemArmor {
 	}
 
 	@Override
-	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
+	public boolean onLeftClickEntity(ItemStack stack, PlayerEntity player, Entity entity) {
 		if (ArmorStats.INFUSED_POTATO_SMACK) {
 			transformItem(player, stack, true);
 		}
@@ -63,7 +63,7 @@ public class InfusedPotatoArmor extends ItemArmor {
 	}
 
 	@Override
-	public boolean onDroppedByPlayer(ItemStack stack, EntityPlayer player) {
+	public boolean onDroppedByPlayer(ItemStack stack, PlayerEntity player) {
 		if (ArmorStats.INFUSED_POTATO_DROP) {
 			transformItem(player, stack, true);
 			return false;
@@ -71,12 +71,12 @@ public class InfusedPotatoArmor extends ItemArmor {
 		else return true;
 	}
 
-	private ItemStack transformItem(EntityPlayer player, EnumHand hand, boolean replace) {
+	private ItemStack transformItem(PlayerEntity player, EnumHand hand, boolean replace) {
 		ItemStack itemStack = player.getHeldItem(hand);
 		return transformItem(player, itemStack, replace);
 	}
 
-	private ItemStack transformItem(EntityPlayer player, ItemStack stack, boolean replace) {
+	private ItemStack transformItem(PlayerEntity player, ItemStack stack, boolean replace) {
 		ItemArmor item = (ItemArmor)stack.getItem();
 		EntityEquipmentSlot slot = item.armorType;
 		PotatoArmor armor;

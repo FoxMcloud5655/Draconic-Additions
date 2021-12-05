@@ -13,7 +13,7 @@ import com.brandon3055.draconicevolution.entity.EntityPersistentItem;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -52,7 +52,7 @@ public class Hermal extends ItemEnergyBase {
 	
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-		if (!(entity instanceof EntityPlayer) || world.isRemote) {
+		if (!(entity instanceof PlayerEntity) || world.isClientSide) {
 			return;
 		}
 		stack.setTagCompound(null);
@@ -97,7 +97,7 @@ public class Hermal extends ItemEnergyBase {
     }
 	
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, EnumHand hand) {
 		player.sendStatusMessage(new TextComponentString("No."), true);
 		return ActionResult.newResult(EnumActionResult.PASS, ItemStack.EMPTY);
 	}

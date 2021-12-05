@@ -24,7 +24,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -98,12 +98,12 @@ public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, I
 
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-		if (!(entity instanceof EntityPlayer) || world.isRemote) return;
-		EntityPlayer player = (EntityPlayer) entity;
+		if (!(entity instanceof PlayerEntity) || world.isClientSide) return;
+		PlayerEntity player = (PlayerEntity) entity;
 		upkeep(player, stack, world);
 	}
 
-	public void upkeep(EntityPlayer player, ItemStack stack, World world) {
+	public void upkeep(PlayerEntity player, ItemStack stack, World world) {
 		if (hasEffect(stack) && !player.isCreative()) {
 			if (CommonMethods.cheatCheck(stack, world)) {
 				ItemNBTHelper.setInteger(stack, "Energy", 0);
@@ -121,7 +121,7 @@ public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, I
 	}
 
 	@Override
-	public boolean onDroppedByPlayer(ItemStack stack, EntityPlayer player) {
+	public boolean onDroppedByPlayer(ItemStack stack, PlayerEntity player) {
 		if (getChaos(stack) > 0 && !player.isCreative()) {
 			player.sendStatusMessage(new TextComponentTranslation("msg.da.chaosContainer.cantdrop"), true);
 			return false;
@@ -133,13 +133,13 @@ public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, I
 	}
 
 	@Override
-	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
+	public boolean onLeftClickEntity(ItemStack stack, PlayerEntity player, Entity entity) {
 		if (entity instanceof EntityLiving) {
 			EntityLiving ent = (EntityLiving) entity;
 			if (getChaos(stack) > 0 && !ent.isEntityInvulnerable(CommonMethods.chaosBurst)) {
 				Vec3D pos = new Vec3D(ent.posX, ent.posY, ent.posZ);
 				CommonMethods.explodeEntity(pos, player.world);
-				if (!player.world.isRemote) {
+				if (!player.world.isClientSide) {
 					float damage = Math.min(getChaos(stack), ent.getHealth());
 					entity.attackEntityFrom(CommonMethods.chaosBurst, damage);
 					removeChaos(stack, (int) Math.floor(damage));
@@ -151,7 +151,7 @@ public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, I
 	}
 
 	@Override
-	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+	public EnumActionResult onItemUseFirst(PlayerEntity player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (world.getTileEntity(pos) instanceof TileChaosHolderBase) {
 			TileChaosHolderBase tileEntity = (TileChaosHolderBase) world.getTileEntity(pos);
@@ -179,7 +179,7 @@ public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, I
 	}
 	
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		IChaosInBlood pCap = player.getCapability(ChaosInBloodProvider.PLAYER_CAP, null);
 		if (pCap != null && player.isEntityAlive() && pCap.getChaos() > 0) {
@@ -210,7 +210,7 @@ public class ChaosContainer extends ItemEnergyBase implements IChaosContainer, I
 	}
 
 	@Override
-	public boolean canCharge(ItemStack stack, EntityPlayer player) {
+	public boolean canCharge(ItemStack stack, PlayerEntity player) {
 		return true;
 	}
 }

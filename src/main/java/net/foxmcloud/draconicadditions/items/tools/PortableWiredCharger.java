@@ -18,7 +18,7 @@ import net.foxmcloud.draconicadditions.lib.DASoundHandler;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
@@ -110,7 +110,7 @@ public class PortableWiredCharger extends ItemEnergyBase {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (ItemNBTHelper.getBoolean(stack, "pluggedIn", false)) {
 			unplug(stack, player);
@@ -124,7 +124,7 @@ public class PortableWiredCharger extends ItemEnergyBase {
 				if (EnergyHelper.isEnergyTile(te, null)) {
 					if (EnergyHelper.isEnergyTile(te, trace.sideHit)) {
 						Vec3D vec = Vec3D.getCenter(trace.getBlockPos());
-						if (!world.isRemote) {
+						if (!world.isClientSide) {
 							DASoundHandler.playSoundFromServer(world, vec, DASoundHandler.unplug, SoundCategory.BLOCKS, 0.8F, 1.5F, false, 64.0F);
 						}
 						ItemNBTHelper.setBoolean(stack, "pluggedIn", true);
@@ -134,23 +134,23 @@ public class PortableWiredCharger extends ItemEnergyBase {
 						ItemNBTHelper.setString(stack, "blockSide", trace.sideHit.getName());
 						world.spawnEntity(new EntityPlug(world, player, vec, trace.sideHit));
 					}
-					else if (!world.isRemote) player.sendStatusMessage(new TextComponentTranslation("msg.da.portableWiredCharger.invalidSide"), true);
+					else if (!world.isClientSide) player.sendStatusMessage(new TextComponentTranslation("msg.da.portableWiredCharger.invalidSide"), true);
 				}
-				else if (!world.isRemote) player.sendStatusMessage(new TextComponentTranslation("msg.da.portableWiredCharger.connectEnergySource"), true);
+				else if (!world.isClientSide) player.sendStatusMessage(new TextComponentTranslation("msg.da.portableWiredCharger.connectEnergySource"), true);
 			}
-			else if (!world.isRemote) player.sendStatusMessage(new TextComponentTranslation("msg.da.portableWiredCharger.connectEnergySource"), true);
+			else if (!world.isClientSide) player.sendStatusMessage(new TextComponentTranslation("msg.da.portableWiredCharger.connectEnergySource"), true);
 		}
-		else if (!world.isRemote) player.sendStatusMessage(new TextComponentTranslation("msg.da.portableWiredCharger.connectEnergySource"), true);
+		else if (!world.isClientSide) player.sendStatusMessage(new TextComponentTranslation("msg.da.portableWiredCharger.connectEnergySource"), true);
 		return new ActionResult<>(EnumActionResult.PASS, stack);
 	}
 
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-		if (!(entity instanceof EntityPlayer) || world.isRemote) {
+		if (!(entity instanceof PlayerEntity) || world.isClientSide) {
 			return;
 		}
 		updateActive(stack);
-		EntityPlayer player = (EntityPlayer) entity;
+		PlayerEntity player = (PlayerEntity) entity;
 		if (active) {
 			if (player.getHeldItemMainhand() != stack && player.getHeldItemOffhand() != stack) {
 				unplug(stack, player);
@@ -170,7 +170,7 @@ public class PortableWiredCharger extends ItemEnergyBase {
 		}
 	}
 
-	public void chargeItems(ItemStack charger, EntityPlayer player, List<ItemStack> stacks) {
+	public void chargeItems(ItemStack charger, PlayerEntity player, List<ItemStack> stacks) {
 		stacks.addAll(player.inventory.armorInventory);
 		stacks.addAll(player.inventory.mainInventory);
 		stacks.addAll(player.inventory.offHandInventory);
@@ -213,7 +213,7 @@ public class PortableWiredCharger extends ItemEnergyBase {
 		}
 	}
 
-	public void checkDistance(ItemStack stack, World world, EntityPlayer player) {
+	public void checkDistance(ItemStack stack, World world, PlayerEntity player) {
 		TileEntity te = getTileEntity(stack, world);
 		if (te != null) {
 			EnumFacing side = EnumFacing.byName(ItemNBTHelper.getString(stack, "blockSide", "NONE"));
@@ -223,7 +223,7 @@ public class PortableWiredCharger extends ItemEnergyBase {
 		}
 	}
 
-	public boolean isDistanceValid(BlockPos pos, EnumFacing side, EntityPlayer player) {
+	public boolean isDistanceValid(BlockPos pos, EnumFacing side, PlayerEntity player) {
 		BlockPos offset = pos.offset(side).subtract(player.getPosition());
 		if (Math.abs(offset.getX()) > maxDistance ||
 			Math.abs(offset.getY()) > maxDistance ||
@@ -233,8 +233,8 @@ public class PortableWiredCharger extends ItemEnergyBase {
 		else return true;
 	}
 
-	public void unplug(ItemStack stack, EntityPlayer player) {
-		if (!player.getEntityWorld().isRemote) DASoundHandler.playSoundFromServer(player.getEntityWorld(), Vec3D.getCenter(player.getPosition()), DASoundHandler.unplug, SoundCategory.BLOCKS, 0.8F, 1.0F, false, 64.0F);
+	public void unplug(ItemStack stack, PlayerEntity player) {
+		if (!player.getEntityWorld().isClientSide) DASoundHandler.playSoundFromServer(player.getEntityWorld(), Vec3D.getCenter(player.getPosition()), DASoundHandler.unplug, SoundCategory.BLOCKS, 0.8F, 1.0F, false, 64.0F);
 		ItemNBTHelper.setBoolean(stack, "pluggedIn", false);
 		ItemNBTHelper.setInteger(stack, "blockX", 0);
 		ItemNBTHelper.setInteger(stack, "blockY", 0);
@@ -271,7 +271,7 @@ public class PortableWiredCharger extends ItemEnergyBase {
 	}
 
 	@Override
-	public boolean onDroppedByPlayer(ItemStack stack, EntityPlayer player) {
+	public boolean onDroppedByPlayer(ItemStack stack, PlayerEntity player) {
 		if (active) {
 			unplug(stack, player);
 		}
@@ -301,7 +301,7 @@ public class PortableWiredCharger extends ItemEnergyBase {
 		InfoHelper.addEnergyInfo(stack, tooltip);
 	}
 
-	private static List<ItemStack> getBaubles(EntityPlayer entity) {
+	private static List<ItemStack> getBaubles(PlayerEntity entity) {
 		return BaublesHelper.getBaubles(entity);
 	}
 }
