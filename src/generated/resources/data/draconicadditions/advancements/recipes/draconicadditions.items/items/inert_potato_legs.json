@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "draconicadditions:items/inert_potato_legs"
+    ]
+  },
+  "criteria": {
+    "has_core_draconium": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "draconicevolution:draconium_core"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "draconicadditions:items/inert_potato_legs"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_core_draconium",
+      "has_the_recipe"
+    ]
+  ]
+}

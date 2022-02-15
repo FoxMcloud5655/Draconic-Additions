@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "draconicadditions:items/crafting/inert_potato_legs"
+  }
+}

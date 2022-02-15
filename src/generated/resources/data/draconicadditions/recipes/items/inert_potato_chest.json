@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "P P",
+    "PBP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:potato"
+    },
+    "B": {
+      "item": "minecraft:poisonous_potato"
+    }
+  },
+  "result": {
+    "item": "draconicadditions:inert_potato_chest"
+  }
+}

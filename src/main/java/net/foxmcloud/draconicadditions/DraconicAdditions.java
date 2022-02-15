@@ -4,70 +4,49 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.brandon3055.brandonscore.utils.LogHelperBC;
 import com.brandon3055.draconicevolution.utils.LogHelper;
 
-import net.minecraftforge.fml.common.Loader;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.network.event.EventNetworkChannel;
 
-@Mod(modid = DraconicAdditions.MODID, name = DraconicAdditions.NAME, version = DraconicAdditions.VERSION, guiFactory = DraconicAdditions.GUI_FACTORY, dependencies = DraconicAdditions.dependencies)
+@SuppressWarnings("deprecation")
+@Mod(DraconicAdditions.MODID)
 public class DraconicAdditions {
 	public static final String MODID = "draconicadditions";
 	public static final String NAME = "Draconic Additions";
-	public static final String PROXY_COMMON = "net.foxmcloud.draconicadditions.CommonProxy";
-	public static final String PROXY_CLIENT = "net.foxmcloud.draconicadditions.client.ClientProxy";
 	public static final String VERSION = "${mod_version}";
-	public static final String GUI_FACTORY = "net.foxmcloud.draconicadditions.DAGuiFactory";
 	public static final String MODID_PREFIX = MODID + ":";
-	public static final String networkChannelName = "DAdditionsNC";
-	public static final String dependencies = "required-after:draconicevolution;required-after:baubles";
-	public static SimpleNetworkWrapper network;
 
 	public static Logger logger = LogManager.getLogger(DraconicAdditions.MODID);
-
-	@Mod.Instance(DraconicAdditions.MODID)
-	public static DraconicAdditions instance;
-
-	@SidedProxy(clientSide = DraconicAdditions.PROXY_CLIENT, serverSide = DraconicAdditions.PROXY_COMMON)
 	public static CommonProxy proxy;
 
 	public DraconicAdditions() {
-		if (Loader.isModLoaded("draconicevolution")) {
-			logger.log(Level.INFO, "I see you, Draconic Evolution...  Ready for a boost?");
-			LogHelper.info("Upping the potential for my draconic arsonal?  You bet!!!");
-			if (Loader.isModLoaded("baubles")) {
-				logger.log(Level.INFO, "Then let's do this!");
-				logger.log(Level.INFO, "Hello Minecraft!!!");
-			}
-			else {
-				logger.log(Level.INFO, "Then let's d- Wait a second, I don't see Baubles...  ABORT ABORT ABORT!");
-				throw new Error("Baubles is not loaded.  It is required for Draconic Additions to work.");
-			}
-
-		}
-		else {
-			logger.log(Level.INFO, "Wait a second, I don't see Draconic Evolution...  ABORT ABORT ABORT!");
-			throw new Error("Draconic Evolution is not loaded.  It is required for Draconic Additions to work.");
-		}
+		proxy = DistExecutor.safeRunForDist(() -> CommonProxy::new, () -> CommonProxy::new);
+		proxy.construct();
+		FMLJavaModLoadingContext.get().getModEventBus().register(this);
 	}
 
-	@Mod.EventHandler
-	public void preInit(FMLPreInitializationEvent event) {
-		proxy.preInit(event);
+	@SubscribeEvent
+	public void onCommonSetup(FMLCommonSetupEvent event) {
+		proxy.commonSetup(event);
 	}
 
-	@Mod.EventHandler
-	public void init(FMLInitializationEvent event) {
-		GUIHandler.initialize();
-		proxy.init(event);
+	@SubscribeEvent
+	public void onClientSetup(FMLClientSetupEvent event) {
+		proxy.clientSetup(event);
 	}
-	
-	@Mod.EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
-		proxy.postInit(event);
+
+	@SubscribeEvent
+	public void onServerSetup(FMLDedicatedServerSetupEvent event) {
+		proxy.serverSetup(event);
 	}
 }

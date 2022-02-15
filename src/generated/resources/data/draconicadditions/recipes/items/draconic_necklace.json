@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "draconicadditions:wyvern_necklace"
+    },
+    {
+      "item": "draconicevolution:awakened_core"
+    }
+  ],
+  "result": {
+    "item": "draconicadditions:draconic_necklace"
+  }
+}

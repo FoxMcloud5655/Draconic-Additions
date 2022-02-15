@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "draconicadditions:items/chaotic_necklace"
+    ]
+  },
+  "criteria": {
+    "has_core_chaotic": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "draconicevolution:chaotic_core"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "draconicadditions:items/chaotic_necklace"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_core_chaotic",
+      "has_the_recipe"
+    ]
+  ]
+}

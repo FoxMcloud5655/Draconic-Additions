@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "draconicadditions:draconic_necklace"
+    },
+    {
+      "item": "draconicevolution:chaotic_core"
+    }
+  ],
+  "result": {
+    "item": "draconicadditions:chaotic_necklace"
+  }
+}

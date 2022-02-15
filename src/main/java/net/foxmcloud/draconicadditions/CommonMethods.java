@@ -15,7 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class CommonMethods {
-	
+
 	public static final DamageSource chaosBurst = new DamageSource("chaosBurst").bypassArmor();
 	private static final short gracePeriod = 100;
 
@@ -30,7 +30,7 @@ public class CommonMethods {
 		ItemNBTHelper.setLong(stack, "cheatCheck", serverTime);
 		return isCheating;
 	}
-	
+
 	public static void explodeEntity(Vec3D pos, World world) {
 		world.playSound(null, new BlockPos(pos.x, pos.y, pos.z), DESounds.beam, SoundCategory.MASTER, 0.25F, 0.5F);
 		world.playSound(null, new BlockPos(pos.x, pos.y, pos.z), DESounds.fusionComplete, SoundCategory.MASTER, 1.0F, 2.0F);

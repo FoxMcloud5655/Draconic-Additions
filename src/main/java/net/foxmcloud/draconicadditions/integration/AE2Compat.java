@@ -1,13 +1,13 @@
 package net.foxmcloud.draconicadditions.integration;
 
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.ModList;
 
 public class AE2Compat {
 	public static void init() {
-		if (Loader.isModLoaded("appliedenergistics2")) {
-			FMLInterModComms.sendMessage("appliedenergistics2", "whitelist-spatial", "net.foxmcloud.draconicadditions.blocks.tileentity.TileArmorGenerator");
-			FMLInterModComms.sendMessage("appliedenergistics2", "whitelist-spatial", "net.foxmcloud.draconicadditions.blocks.chaosritual.tileentity.TileChaosStabilizerCore");
+		if (ModList.get().isLoaded("appliedenergistics2")) {
+			InterModComms.sendTo("appliedenergistics2", "whitelist-spatial", () -> "net.foxmcloud.draconicadditions.blocks.tileentity.TileArmorGenerator");
+			InterModComms.sendTo("appliedenergistics2", "whitelist-spatial", () -> "net.foxmcloud.draconicadditions.blocks.chaosritual.tileentity.TileChaosStabilizerCore");
 		}
 	}
 }

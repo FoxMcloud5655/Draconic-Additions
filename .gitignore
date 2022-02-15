@@ -18,9 +18,7 @@
 # Other Important Files
 !LICENSE
 !README.md
-!Change Log.txt
-!VERSION.txt
-!curse_upload.json
 
 # Other Important Folders
 !src/
+src/generated/resources/.cache

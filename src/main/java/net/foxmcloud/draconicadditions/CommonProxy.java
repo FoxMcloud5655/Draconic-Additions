@@ -1,48 +1,49 @@
 package net.foxmcloud.draconicadditions;
 
-import com.brandon3055.brandonscore.registry.ModFeatureParser;
-import com.brandon3055.draconicevolution.DraconicEvolution;
-import com.brandon3055.draconicevolution.entity.EntityDragonHeart;
+import org.apache.logging.log4j.Level;
 
-import net.foxmcloud.draconicadditions.capabilities.ChaosInBlood;
-import net.foxmcloud.draconicadditions.capabilities.ChaosInBloodStorage;
-import net.foxmcloud.draconicadditions.capabilities.IChaosInBlood;
-import net.foxmcloud.draconicadditions.entity.EntityChaosHeart;
-import net.foxmcloud.draconicadditions.entity.EntityPlug;
-import net.foxmcloud.draconicadditions.handlers.DAEventHandler;
+import com.brandon3055.brandonscore.utils.LogHelperBC;
+import com.brandon3055.draconicevolution.utils.LogHelper;
+
 import net.foxmcloud.draconicadditions.integration.AE2Compat;
-import net.foxmcloud.draconicadditions.lib.DARecipes;
-import net.foxmcloud.draconicadditions.lib.FusionCostMultiplier;
-import net.foxmcloud.draconicadditions.network.PacketChaosInjection;
-import net.foxmcloud.draconicadditions.network.PacketOverloadBelt;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 
 public class CommonProxy {
-	public void preInit(FMLPreInitializationEvent event) {
-		ModFeatureParser.registerModFeatures(DraconicAdditions.MODID);
-		DraconicAdditions.network = NetworkRegistry.INSTANCE.newSimpleChannel(DraconicAdditions.networkChannelName);
-		DraconicAdditions.network.registerMessage(PacketOverloadBelt.Handler.class, PacketOverloadBelt.class, 0, Side.SERVER);
-		DraconicAdditions.network.registerMessage(PacketChaosInjection.Handler.class, PacketChaosInjection.class, 1, Side.SERVER);
-		MinecraftForge.EVENT_BUS.register(new DAEventHandler());
-		CapabilityManager.INSTANCE.register(IChaosInBlood.class, new ChaosInBloodStorage(), ChaosInBlood::new);
-		EntityRegistry.registerModEntity(new ResourceLocation(DraconicAdditions.MODID, "plug"), EntityPlug.class, "draconicadditions:plug", 1, DraconicAdditions.instance, 64, 5, false);
-		EntityRegistry.registerModEntity(new ResourceLocation(DraconicAdditions.MODID, "chaosHeart"), EntityChaosHeart.class, "draconicadditions:chaosheartitem", 2, DraconicAdditions.instance, 64, 5, false);
+	public void construct() {
+		DAConfig.load();
+		AE2Compat.init();
+		//FusionCostMultiplier.postInit();
 	}
 
-	public void init(FMLInitializationEvent event) {
-		DARecipes.addRecipes();
-		AE2Compat.init();
+	public void commonSetup(FMLCommonSetupEvent event) {
+		if (ModList.get().isLoaded("draconicevolution")) {
+			DraconicAdditions.logger.log(Level.INFO, "Hey, Brandon's Core!  How's it going?");
+			LogHelperBC.info("Cant you see im busy over he-");
+			LogHelper.info("*KABOOOOOOM!!!*");
+			DraconicAdditions.logger.log(Level.INFO, "...  I see I came at a bad time.  I'll just...  Exit over here.");
+			if (ModList.get().isLoaded("curios")) {
+				DraconicAdditions.logger.log(Level.INFO, "At least I got the curios I came for here.  I'll just pick those up on the way out...");
+				DraconicAdditions.logger.log(Level.INFO, "Sorry about this, Brandon's Core.  It's for your own good.");
+			}
+			else {
+				DraconicAdditions.logger.log(Level.INFO, "Uh...  Draconic Evolution, I don't see the curios you're supposed to have.  MISSION ABORT");
+				throw new Error("Curios is not loaded.  It is required for Draconic Additions to work.");
+			}
+		}
+		else {
+			DraconicAdditions.logger.log(Level.INFO, "Hey, Brandon's Core!  How's it going?  Just looking for Draconic Evolution.  Seen 'em around?");
+			LogHelperBC.info("No but at least we wont literally die here from his explosions");
+			DraconicAdditions.logger.log(Level.INFO, "Wait, really?  He's not here?  I can't do my job if he isn't here...  MISSION ABORT");
+			throw new Error("Draconic Evolution is not loaded.  It is required for Draconic Additions to work.");
+		}
 	}
-	
-	public void postInit(FMLPostInitializationEvent event) {
-		FusionCostMultiplier.postInit();
+
+	public void clientSetup(FMLClientSetupEvent event) {
+	}
+
+	public void serverSetup(FMLDedicatedServerSetupEvent event) {
 	}
 }
