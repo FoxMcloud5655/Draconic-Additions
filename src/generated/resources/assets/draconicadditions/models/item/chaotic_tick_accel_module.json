@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "draconicadditions:items/modules/chaotic_tick_accel"
+  }
+}

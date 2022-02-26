@@ -5,7 +5,10 @@ import org.apache.logging.log4j.Level;
 import com.brandon3055.brandonscore.utils.LogHelperBC;
 import com.brandon3055.draconicevolution.utils.LogHelper;
 
+import net.foxmcloud.draconicadditions.handlers.DAEventHandler;
 import net.foxmcloud.draconicadditions.integration.AE2Compat;
+import net.foxmcloud.draconicadditions.world.DADimension;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -16,8 +19,11 @@ public class CommonProxy {
 		DAConfig.load();
 		AE2Compat.init();
 		//FusionCostMultiplier.postInit();
+		MinecraftForge.EVENT_BUS.register(new DAEventHandler());
+		DADimension.init();
 	}
 
+	@SuppressWarnings("deprecation")
 	public void commonSetup(FMLCommonSetupEvent event) {
 		if (ModList.get().isLoaded("draconicevolution")) {
 			DraconicAdditions.logger.log(Level.INFO, "Hey, Brandon's Core!  How's it going?");

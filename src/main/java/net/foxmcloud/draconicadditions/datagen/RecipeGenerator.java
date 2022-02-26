@@ -3,7 +3,7 @@ package net.foxmcloud.draconicadditions.datagen;
 import static com.brandon3055.draconicevolution.init.DEContent.*;
 import static com.brandon3055.draconicevolution.init.DEModules.*;
 import static com.brandon3055.draconicevolution.init.DETags.Items.*;
-import static net.foxmcloud.draconicadditions.DAContent.*;
+import static net.foxmcloud.draconicadditions.items.DAContent.*;
 import static net.foxmcloud.draconicadditions.items.DAModules.*;
 import static net.minecraftforge.common.Tags.Items.*;
 import static net.minecraft.item.Items.*;
@@ -86,17 +86,67 @@ public class RecipeGenerator extends RecipeProvider {
 		.requires(core_chaotic)
 		.unlockedBy("has_core_chaotic", has(core_chaotic))
 		.save(consumer, folder("items", necklaceChaotic));
+		
+		ShapedRecipeBuilder.shaped(harnessWyvern)
+		.pattern("DDD")
+		.pattern("DLD")
+		.pattern("DSD")
+		.define('D', INGOTS_DRACONIUM)
+		.define('L', dislocator)
+		.define('S', wyvernShieldControl.getItem())
+		.unlockedBy("has_core_wyvern", has(core_wyvern))
+		.save(consumer, folder("items", harnessWyvern));
+		
+		ShapedRecipeBuilder.shaped(harnessDraconic)
+		.pattern("AAA")
+		.pattern("AHA")
+		.pattern("ASA")
+		.define('A', INGOTS_DRACONIUM_AWAKENED)
+		.define('H', harnessWyvern)
+		.define('S', draconicShieldControl.getItem())
+		.unlockedBy("has_core_awakened", has(core_awakened))
+		.save(consumer, folder("items", harnessDraconic));
+		
+		ShapedRecipeBuilder.shaped(harnessChaotic)
+		.pattern("CCC")
+		.pattern("CHC")
+		.pattern("CSC")
+		.define('C', chaos_frag_medium)
+		.define('H', harnessDraconic)
+		.define('S', chaoticShieldControl.getItem())
+		.unlockedBy("has_core_chaotic", has(core_chaotic))
+		.save(consumer, folder("items", harnessChaotic));
 
 		ShapedRecipeBuilder.shaped(chaoticAutoFeed.getItem())
-		.pattern("#C#")
-		.pattern("ABA")
-		.pattern("#C#")
-		.define('#', chaos_frag_medium)
-		.define('A', core_draconium)
-		.define('B', draconicAutoFeed.getItem())
+		.pattern("FCF")
+		.pattern("DAD")
+		.pattern("FCF")
+		.define('F', chaos_frag_medium)
+		.define('D', core_draconium)
+		.define('A', draconicAutoFeed.getItem())
 		.define('C', COOKIE)
 		.unlockedBy("has_module_core", has(module_core))
 		.save(consumer, folder("modules", chaoticAutoFeed));
+		
+		ShapedRecipeBuilder.shaped(draconicTickAccel.getItem())
+		.pattern("A A")
+		.pattern("SCS")
+		.pattern("A A")
+		.define('A', INGOTS_DRACONIUM_AWAKENED)
+		.define('S', wyvernSpeed.getItem())
+		.define('C', module_core)
+		.unlockedBy("has_module_core", has(module_core))
+		.save(consumer, folder("modules", draconicTickAccel));
+		
+		ShapedRecipeBuilder.shaped(chaoticTickAccel.getItem())
+		.pattern("C C")
+		.pattern("SDS")
+		.pattern("C C")
+		.define('C', chaos_frag_medium)
+		.define('S', draconicSpeed.getItem())
+		.define('D', draconicTickAccel.getItem())
+		.unlockedBy("has_module_core", has(module_core))
+		.save(consumer, folder("modules", chaoticTickAccel));
 	}
 
 	public static String folder(String folder, IForgeRegistryEntry<?> key) {

@@ -3,15 +3,14 @@ package net.foxmcloud.draconicadditions.datagen;
 import com.brandon3055.draconicevolution.api.modules.Module;
 import com.brandon3055.draconicevolution.api.modules.data.NoData;
 
-import net.foxmcloud.draconicadditions.DAContent;
 import net.foxmcloud.draconicadditions.DraconicAdditions;
+import net.foxmcloud.draconicadditions.items.DAContent;
 import net.foxmcloud.draconicadditions.items.DAModules;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 /**
@@ -30,15 +29,23 @@ public class ItemModelGenerator extends ItemModelProvider {
 		simpleItem(DAContent.inertPotatoChest);
 		simpleItem(DAContent.inertPotatoLegs);
 		simpleItem(DAContent.inertPotatoBoots);
-		simpleItem(DAContent.necklaceWyvern, "items/curios");
-		simpleItem(DAContent.necklaceDraconic, "items/curios");
-		simpleItem(DAContent.necklaceChaotic, "items/curios");
-
+		simpleCurios(DAContent.necklaceWyvern);
+		simpleCurios(DAContent.necklaceDraconic);
+		simpleCurios(DAContent.necklaceChaotic);
+		simpleCurios(DAContent.harnessWyvern);
+		simpleCurios(DAContent.harnessDraconic);
+		simpleCurios(DAContent.harnessChaotic);
 		simpleModule(DAModules.chaoticAutoFeed);
+		simpleModule(DAModules.draconicTickAccel);
+		simpleModule(DAModules.chaoticTickAccel);
 	}
 
 	private void simpleItem(Item item) {
 		simpleItem(item, "items/crafting");
+	}
+	
+	private void simpleCurios(Item item) {
+		simpleItem(item, "items/curios");
 	}
 
 	private void simpleItem(Item item, String textureFolder) {
@@ -53,11 +60,11 @@ public class ItemModelGenerator extends ItemModelProvider {
 		.texture("layer0", texture);
 	}
 
-	private void simpleModule(Module<NoData> module) {
+	private void simpleModule(Module<?> module) {
 		simpleModule(module, "items/modules");
 	}
 
-	private void simpleModule(Module<NoData> module, String textureFolder) {
+	private void simpleModule(Module<?> module, String textureFolder) {
 		ResourceLocation reg = module.getItem().getRegistryName();
 		simpleItem(module.getItem(), new ResourceLocation(reg.getNamespace(), textureFolder + "/" + reg.getPath().replace("_module", "")));
 	}

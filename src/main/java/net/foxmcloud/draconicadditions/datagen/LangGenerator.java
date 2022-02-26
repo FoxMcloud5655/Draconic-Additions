@@ -1,7 +1,15 @@
 package net.foxmcloud.draconicadditions.datagen;
 
-import net.foxmcloud.draconicadditions.DAContent;
+import javax.annotation.Nonnull;
+
+import com.brandon3055.draconicevolution.DraconicEvolution;
+import com.brandon3055.draconicevolution.api.modules.Module;
+import com.brandon3055.draconicevolution.api.modules.ModuleType;
+
 import net.foxmcloud.draconicadditions.DraconicAdditions;
+import net.foxmcloud.draconicadditions.items.DAContent;
+import net.foxmcloud.draconicadditions.items.DAModules;
+import net.foxmcloud.draconicadditions.modules.ModuleTypes;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Item;
@@ -21,17 +29,42 @@ public class LangGenerator extends LanguageProvider {
 		helper.add(DAContent.necklaceWyvern,   "Wyvern Necklace");
 		helper.add(DAContent.necklaceDraconic, "Draconic Necklace");
 		helper.add(DAContent.necklaceChaotic,  "Chaotic Necklace");
+		helper.add(DAContent.harnessWyvern,    "Wyvern Harness");
+		helper.add(DAContent.harnessDraconic,  "Draconic Harness");
+		helper.add(DAContent.harnessChaotic,   "Chaotic Harness");
 	}
 
 	private void itemGroups(PrefixHelper helper) {
-		add("itemGroup." + DraconicAdditions.MODID + ".items",   "Draconic Additions");
-		add("itemGroup." + DraconicAdditions.MODID + ".modules", "Draconic Additions Modules");
+		helper.setPrefix("itemGroup." + DraconicAdditions.MODID);
+		helper.add("items",   "Draconic Additions");
+		helper.add("modules", "Draconic Additions Modules");
 	}
 
 	private void modules(PrefixHelper helper) {
-		helper.setPrefix("item.draconicadditions");
-		helper.setSuffix("module");
-		;    	helper.add("chaotic_auto_feed", "Chaotic Auto Feed Module");
+		helper.setPrefix("module." + DraconicAdditions.MODID);
+		helper.add(DAModules.chaoticAutoFeed,   "Chaotic Auto Feed Module");
+		helper.add(DAModules.draconicTickAccel, "Draconic Tick Accelerator");
+		helper.add(DAModules.chaoticTickAccel,  "Chaotic Tick Accelerator");
+        helper.add(ModuleTypes.TICK_ACCEL,      "Tick Accelerator");
+        helper.add("tick_accel.name",           "Additional Ticks");
+        helper.add("tick_accel.value",          "%s Ticks");
+	}
+
+	private void info(PrefixHelper helper) {
+		helper.setPrefix("info.da");
+		helper.add("harnessdim.stopTravel", "Something prevents you from teleporting into this dimension...");
+		helper.add("modular_harness.cantmove", "This block doesn't seem to budge...");
+		helper.add("modular_harness.storeSuccess", "You place the machine into your harness.");
+		helper.add("modular_harness.placeSuccess", "You take the machine off of your harness and set it back down.");
+		helper.add("modular_harness.stored_block", "Currently Stored: ");
+		helper.add("modular_harness.op_cost", "OP Cost: ");
+		helper.add("modular_harness.op_cost.value", "%s OP/t");
+	}
+	
+	private void itemProps(PrefixHelper helper) {
+		helper.setPrefix("item_prop." + DraconicEvolution.MODID);
+		helper.add("receive_energy_from_machine", "Receive RF From Machine");
+		helper.add("tick_accel_speed", "Additional Ticks");
 	}
 
 	@Override
@@ -40,6 +73,8 @@ public class LangGenerator extends LanguageProvider {
 		items(helper);
 		itemGroups(helper);
 		modules(helper);
+		info(helper);
+		itemProps(helper);
 	}
 
 	@Override
@@ -55,22 +90,17 @@ public class LangGenerator extends LanguageProvider {
 	public static class PrefixHelper {
 		private LangGenerator generator;
 		private String prefix;
-		private String suffix;
 
 		public PrefixHelper(LangGenerator generator) {
 			this.generator = generator;
 		}
 
-		public void setPrefix(String prefix) {
-			this.prefix = prefix + ".";
-		}
-
-		public void setSuffix(String suffix) {
-			this.suffix = "_" + suffix;
+		public void setPrefix(@Nonnull String prefix) {
+			this.prefix = prefix + (prefix == "" ? "" : ".");
 		}
 
 		public void add(String translationKey, String translation) {
-			generator.add(prefix + translationKey + suffix, translation);
+			generator.add(prefix + translationKey, translation);
 		}
 
 		public void add(Block key, String name) {
@@ -80,5 +110,13 @@ public class LangGenerator extends LanguageProvider {
 		public void add(Item key, String name) {
 			if (key != null) generator.add(key, name);
 		}
+		
+		public void add(ModuleType<?> key, String name) {
+            generator.add("module_type." + DraconicEvolution.MODID + "." + key.getName() + ".name", name);
+        }
+
+        public void add(Module<?> key, String name) {
+            generator.add(key.getItem(), name);
+        }
 	}
 }

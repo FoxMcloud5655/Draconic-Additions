@@ -1,18 +1,17 @@
-package net.foxmcloud.draconicadditions;
+package net.foxmcloud.draconicadditions.items;
 
-import static com.brandon3055.brandonscore.api.TechLevel.CHAOTIC;
-import static com.brandon3055.brandonscore.api.TechLevel.DRACONIC;
-import static com.brandon3055.brandonscore.api.TechLevel.WYVERN;
+import static com.brandon3055.brandonscore.api.TechLevel.*;
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;
 
+import com.brandon3055.brandonscore.api.TechLevel;
 import com.brandon3055.brandonscore.client.utils.CyclingItemGroup;
 import com.brandon3055.brandonscore.lib.TechPropBuilder;
-import com.brandon3055.draconicevolution.init.DEContent;
 
-import net.foxmcloud.draconicadditions.items.curios.ModularNecklace;
+import net.foxmcloud.draconicadditions.DraconicAdditions;
+import net.foxmcloud.draconicadditions.items.curios.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
@@ -35,11 +34,14 @@ public class DAContent {
 	@ObjectHolder("chaos_heart")        public static Item chaosHeart;
 	//@ObjectHolder("hermal")             public static Hermal hermal;
 
-	// Shield Baubles
+	// Curios
 
 	@ObjectHolder("wyvern_necklace")   public static ModularNecklace necklaceWyvern;
 	@ObjectHolder("draconic_necklace") public static ModularNecklace necklaceDraconic;
 	@ObjectHolder("chaotic_necklace")  public static ModularNecklace necklaceChaotic;
+	@ObjectHolder("wyvern_harness")    public static ModularHarness  harnessWyvern;
+	@ObjectHolder("draconic_harness")  public static ModularHarness  harnessDraconic;
+	@ObjectHolder("chaotic_harness")   public static ModularHarness  harnessChaotic;
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
@@ -59,6 +61,9 @@ public class DAContent {
 		registerItem(event, new ModularNecklace(wyvernTier).setRegistryName("wyvern_necklace"));
 		registerItem(event, new ModularNecklace(draconicTier).setRegistryName("draconic_necklace"));
 		registerItem(event, new ModularNecklace(chaoticTier).setRegistryName("chaotic_necklace"));
+		registerItem(event, new ModularHarness(wyvernTier).setRegistryName("wyvern_harness"));
+		registerItem(event, new ModularHarness(draconicTier).setRegistryName("draconic_harness"));
+		registerItem(event, new ModularHarness(chaoticTier).setRegistryName("chaotic_harness"));
 
 		//registerItem(event, new Hermal(new Item.Properties().stacksTo(1).tab(DAGroup)).setRegistryName("hermal"));
 	}

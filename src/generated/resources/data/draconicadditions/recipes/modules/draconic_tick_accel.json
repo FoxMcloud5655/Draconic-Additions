@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "A A",
+    "SCS",
+    "A A"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:ingots/draconium_awakened"
+    },
+    "S": {
+      "item": "draconicevolution:wyvern_speed_module"
+    },
+    "C": {
+      "item": "draconicevolution:module_core"
+    }
+  },
+  "result": {
+    "item": "draconicadditions:draconic_tick_accel_module"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "C C",
+    "SDS",
+    "C C"
+  ],
+  "key": {
+    "C": {
+      "item": "draconicevolution:medium_chaos_frag"
+    },
+    "S": {
+      "item": "draconicevolution:draconic_speed_module"
+    },
+    "D": {
+      "item": "draconicadditions:draconic_tick_accel_module"
+    }
+  },
+  "result": {
+    "item": "draconicadditions:chaotic_tick_accel_module"
+  }
+}
