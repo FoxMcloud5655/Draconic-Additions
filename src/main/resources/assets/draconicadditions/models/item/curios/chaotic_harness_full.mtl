@@ -1,0 +1,8 @@
+# Made in Blockbench 4.1.5
+newmtl m_2
+map_Kd chaos_crystal.png 
+newmtl m_3
+map_Kd crystal_base.png 
+newmtl m_4
+map_Kd brown_shulker_box.png 
+newmtl none

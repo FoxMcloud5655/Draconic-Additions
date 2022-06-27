@@ -11,6 +11,8 @@ import static net.minecraft.item.Items.*;
 import java.io.IOException;
 import java.util.function.Consumer;
 
+import com.brandon3055.draconicevolution.init.DEContent;
+
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
@@ -38,7 +40,7 @@ public class RecipeGenerator extends RecipeProvider {
 		.pattern("P P")
 		.define('P', POTATO)
 		.define('B', POISONOUS_POTATO)
-		.unlockedBy("has_core_draconium", has(core_draconium))
+		.unlockedBy("has_draconium", has(DEContent.ingot_draconium))
 		.save(consumer, folder("items", inertPotatoHelm));
 
 		ShapedRecipeBuilder.shaped(inertPotatoChest)
@@ -47,7 +49,7 @@ public class RecipeGenerator extends RecipeProvider {
 		.pattern("PPP")
 		.define('P', POTATO)
 		.define('B', POISONOUS_POTATO)
-		.unlockedBy("has_core_draconium", has(core_draconium))
+		.unlockedBy("has_draconium", has(DEContent.ingot_draconium))
 		.save(consumer, folder("items", inertPotatoChest));
 
 		ShapedRecipeBuilder.shaped(inertPotatoLegs)
@@ -56,15 +58,55 @@ public class RecipeGenerator extends RecipeProvider {
 		.pattern("P P")
 		.define('P', POTATO)
 		.define('B', POISONOUS_POTATO)
-		.unlockedBy("has_core_draconium", has(core_draconium))
+		.unlockedBy("has_draconium", has(DEContent.ingot_draconium))
 		.save(consumer, folder("items", inertPotatoLegs));
 
 		ShapedRecipeBuilder.shaped(inertPotatoBoots)
 		.pattern("P P")
 		.pattern("P P")
 		.define('P', POTATO)
-		.unlockedBy("has_core_draconium", has(core_draconium))
+		.unlockedBy("has_draconium", has(DEContent.ingot_draconium))
 		.save(consumer, folder("items", inertPotatoBoots));
+		
+		ShapedRecipeBuilder.shaped(infusedPotatoHelm)
+		.pattern("DRD")
+		.pattern("RIR")
+		.pattern("DRD")
+		.define('D', INGOTS_DRACONIUM)
+		.define('R', REDSTONE_BLOCK)
+		.define('I', inertPotatoHelm)
+		.unlockedBy("has_draconium", has(DEContent.ingot_draconium))
+		.save(consumer, folder("items", infusedPotatoHelm));
+		
+		ShapedRecipeBuilder.shaped(infusedPotatoChest)
+		.pattern("DRD")
+		.pattern("RIR")
+		.pattern("DRD")
+		.define('D', INGOTS_DRACONIUM)
+		.define('R', REDSTONE_BLOCK)
+		.define('I', inertPotatoChest)
+		.unlockedBy("has_draconium", has(DEContent.ingot_draconium))
+		.save(consumer, folder("items", infusedPotatoChest));
+		
+		ShapedRecipeBuilder.shaped(infusedPotatoLegs)
+		.pattern("DRD")
+		.pattern("RIR")
+		.pattern("DRD")
+		.define('D', INGOTS_DRACONIUM)
+		.define('R', REDSTONE_BLOCK)
+		.define('I', inertPotatoLegs)
+		.unlockedBy("has_draconium", has(DEContent.ingot_draconium))
+		.save(consumer, folder("items", infusedPotatoLegs));
+		
+		ShapedRecipeBuilder.shaped(infusedPotatoBoots)
+		.pattern("DRD")
+		.pattern("RIR")
+		.pattern("DRD")
+		.define('D', INGOTS_DRACONIUM)
+		.define('R', REDSTONE_BLOCK)
+		.define('I', inertPotatoBoots)
+		.unlockedBy("has_draconium", has(DEContent.ingot_draconium))
+		.save(consumer, folder("items", infusedPotatoBoots));
 
 		ShapedRecipeBuilder.shaped(necklaceWyvern)
 		.pattern("GGG")

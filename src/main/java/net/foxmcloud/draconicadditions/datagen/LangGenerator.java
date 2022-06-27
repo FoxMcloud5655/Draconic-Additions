@@ -21,17 +21,21 @@ public class LangGenerator extends LanguageProvider {
 	}
 
 	private void items(PrefixHelper helper) {
-		helper.add(DAContent.chaosHeart,       "Chaos Heart");
-		helper.add(DAContent.inertPotatoHelm,  "Inert Potato Helmet");
-		helper.add(DAContent.inertPotatoChest, "Inert Potato Chestplate");
-		helper.add(DAContent.inertPotatoLegs,  "Inert Potato Leggings");
-		helper.add(DAContent.inertPotatoBoots, "Inert Potato Boots");
-		helper.add(DAContent.necklaceWyvern,   "Wyvern Necklace");
-		helper.add(DAContent.necklaceDraconic, "Draconic Necklace");
-		helper.add(DAContent.necklaceChaotic,  "Chaotic Necklace");
-		helper.add(DAContent.harnessWyvern,    "Wyvern Harness");
-		helper.add(DAContent.harnessDraconic,  "Draconic Harness");
-		helper.add(DAContent.harnessChaotic,   "Chaotic Harness");
+		helper.add(DAContent.chaosHeart,         "Chaos Heart");
+		helper.add(DAContent.inertPotatoHelm,    "Inert Potato Helmet");
+		helper.add(DAContent.inertPotatoChest,   "Inert Potato Chestplate");
+		helper.add(DAContent.inertPotatoLegs,    "Inert Potato Leggings");
+		helper.add(DAContent.inertPotatoBoots,   "Inert Potato Boots");
+		helper.add(DAContent.infusedPotatoHelm,  "Infused Potato Helmet");
+		helper.add(DAContent.infusedPotatoChest, "Infused Potato Chestplate");
+		helper.add(DAContent.infusedPotatoLegs,  "Infused Potato Leggings");
+		helper.add(DAContent.infusedPotatoBoots, "Infused Potato Boots");
+		helper.add(DAContent.necklaceWyvern,     "Wyvern Necklace");
+		helper.add(DAContent.necklaceDraconic,   "Draconic Necklace");
+		helper.add(DAContent.necklaceChaotic,    "Chaotic Necklace");
+		helper.add(DAContent.harnessWyvern,      "Wyvern Harness");
+		helper.add(DAContent.harnessDraconic,    "Draconic Harness");
+		helper.add(DAContent.harnessChaotic,     "Chaotic Harness");
 	}
 
 	private void itemGroups(PrefixHelper helper) {

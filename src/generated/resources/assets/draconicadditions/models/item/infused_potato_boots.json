@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "draconicadditions:items/armor/infused_potato_boots"
+  }
+}

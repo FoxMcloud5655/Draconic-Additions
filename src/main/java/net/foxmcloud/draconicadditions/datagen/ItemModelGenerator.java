@@ -29,6 +29,10 @@ public class ItemModelGenerator extends ItemModelProvider {
 		simpleItem(DAContent.inertPotatoChest);
 		simpleItem(DAContent.inertPotatoLegs);
 		simpleItem(DAContent.inertPotatoBoots);
+		simpleArmor(DAContent.infusedPotatoHelm);
+		simpleArmor(DAContent.infusedPotatoChest);
+		simpleArmor(DAContent.infusedPotatoLegs);
+		simpleArmor(DAContent.infusedPotatoBoots);
 		simpleCurios(DAContent.necklaceWyvern);
 		simpleCurios(DAContent.necklaceDraconic);
 		simpleCurios(DAContent.necklaceChaotic);
@@ -46,6 +50,10 @@ public class ItemModelGenerator extends ItemModelProvider {
 	
 	private void simpleCurios(Item item) {
 		simpleItem(item, "items/curios");
+	}
+	
+	private void simpleArmor(Item item) {
+		simpleItem(item, "items/armor");
 	}
 
 	private void simpleItem(Item item, String textureFolder) {

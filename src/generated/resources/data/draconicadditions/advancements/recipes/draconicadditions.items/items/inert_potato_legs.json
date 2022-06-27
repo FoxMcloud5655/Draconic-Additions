@@ -6,12 +6,12 @@
     ]
   },
   "criteria": {
-    "has_core_draconium": {
+    "has_draconium": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "draconicevolution:draconium_core"
+            "item": "draconicevolution:draconium_ingot"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_core_draconium",
+      "has_draconium",
       "has_the_recipe"
     ]
   ]

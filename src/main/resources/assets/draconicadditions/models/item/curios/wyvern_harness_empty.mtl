@@ -1,0 +1,8 @@
+# Made in Blockbench 4.1.5
+newmtl m_2
+map_Kd draconium_block.png 
+newmtl m_4
+map_Kd brown_shulker_box.png 
+newmtl m_5
+map_Kd generator.png 
+newmtl none

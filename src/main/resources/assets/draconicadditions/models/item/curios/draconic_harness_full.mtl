@@ -1,0 +1,10 @@
+# Made in Blockbench 4.1.5
+newmtl m_1
+map_Kd awakened_draconium_block.png 
+newmtl m_2
+map_Kd awakened_draconium_block_side.png 
+newmtl m_3
+map_Kd crystal_base.png 
+newmtl m_4
+map_Kd brown_shulker_box.png 
+newmtl none

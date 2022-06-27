@@ -11,7 +11,9 @@ import com.brandon3055.brandonscore.client.utils.CyclingItemGroup;
 import com.brandon3055.brandonscore.lib.TechPropBuilder;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
+import net.foxmcloud.draconicadditions.items.armor.InfusedPotatoArmor;
 import net.foxmcloud.draconicadditions.items.curios.*;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
@@ -33,6 +35,13 @@ public class DAContent {
 	@ObjectHolder("inert_potato_boots") public static Item inertPotatoBoots;
 	@ObjectHolder("chaos_heart")        public static Item chaosHeart;
 	//@ObjectHolder("hermal")             public static Hermal hermal;
+	
+	// Armor
+	
+	@ObjectHolder("infused_potato_helm")  public static InfusedPotatoArmor infusedPotatoHelm;
+	@ObjectHolder("infused_potato_chest") public static InfusedPotatoArmor infusedPotatoChest;
+	@ObjectHolder("infused_potato_legs")  public static InfusedPotatoArmor infusedPotatoLegs;
+	@ObjectHolder("infused_potato_boots") public static InfusedPotatoArmor infusedPotatoBoots;
 
 	// Curios
 
@@ -58,6 +67,10 @@ public class DAContent {
 		registerItem(event, new Item(new Item.Properties().tab(DAGroup)).setRegistryName("inert_potato_legs"));
 		registerItem(event, new Item(new Item.Properties().tab(DAGroup)).setRegistryName("inert_potato_boots"));
 		registerItem(event, new Item(new Item.Properties().tab(DAGroup)).setRegistryName("chaos_heart"));
+		registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlotType.HEAD).setRegistryName("infused_potato_helm"));
+		registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlotType.CHEST).setRegistryName("infused_potato_chest"));
+		registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlotType.LEGS).setRegistryName("infused_potato_legs"));
+		registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlotType.FEET).setRegistryName("infused_potato_boots"));
 		registerItem(event, new ModularNecklace(wyvernTier).setRegistryName("wyvern_necklace"));
 		registerItem(event, new ModularNecklace(draconicTier).setRegistryName("draconic_necklace"));
 		registerItem(event, new ModularNecklace(chaoticTier).setRegistryName("chaotic_necklace"));
@@ -111,32 +124,6 @@ public class DAContent {
 	public static ItemStack pwcWyvern = new ItemStack(pwc, 1, 1);
 	public static ItemStack pwcDraconic = new ItemStack(pwc, 1, 2);
 	public static ItemStack pwcChaotic = new ItemStack(pwc, 1, 3);
-
-	// Potato Armor
-
-	@ModFeature(name = "infused_potato_helm", stateOverride = "armor#type=infusedPotatoHelm")
-	public static InfusedPotatoArmor infusedPotatoHelm = new InfusedPotatoArmor(0, EntityEquipmentSlot.HEAD);
-
-	@ModFeature(name = "infused_potato_chest", stateOverride = "armor#type=infusedPotatoChest")
-	public static InfusedPotatoArmor infusedPotatoChest = new InfusedPotatoArmor(1, EntityEquipmentSlot.CHEST);
-
-	@ModFeature(name = "infused_potato_legs", stateOverride = "armor#type=infusedPotatoLegs")
-	public static InfusedPotatoArmor infusedPotatoLegs = new InfusedPotatoArmor(2, EntityEquipmentSlot.LEGS);
-
-	@ModFeature(name = "infused_potato_boots", stateOverride = "armor#type=infusedPotatoBoots")
-	public static InfusedPotatoArmor infusedPotatoBoots = new InfusedPotatoArmor(3, EntityEquipmentSlot.FEET);
-
-	@ModFeature(name = "potato_helm", stateOverride = "armor#type=potatoHelm")
-	public static PotatoArmor potatoHelm = new PotatoArmor(0, EntityEquipmentSlot.HEAD);
-
-	@ModFeature(name = "potato_chest", stateOverride = "armor#type=potatoChest")
-	public static PotatoArmor potatoChest = new PotatoArmor(1, EntityEquipmentSlot.CHEST);
-
-	@ModFeature(name = "potato_legs", stateOverride = "armor#type=potatoLegs")
-	public static PotatoArmor potatoLegs = new PotatoArmor(2, EntityEquipmentSlot.LEGS);
-
-	@ModFeature(name = "potato_boots", stateOverride = "armor#type=potatoBoots")
-	public static PotatoArmor potatoBoots = new PotatoArmor(3, EntityEquipmentSlot.FEET);
 
 	@ModFeature(name = "hermal_helm", stateOverride = "armor#type=potatoHelm", isActive = false)
 	public static HermalArmor hermalHelm = new HermalArmor(0, EntityEquipmentSlot.HEAD);

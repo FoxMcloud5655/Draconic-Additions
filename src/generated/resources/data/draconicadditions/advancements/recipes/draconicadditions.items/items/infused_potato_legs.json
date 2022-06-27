@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "draconicadditions:items/inert_potato_boots"
+      "draconicadditions:items/infused_potato_legs"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "draconicadditions:items/inert_potato_boots"
+        "recipe": "draconicadditions:items/infused_potato_legs"
       }
     }
   },
