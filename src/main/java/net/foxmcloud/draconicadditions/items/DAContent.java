@@ -67,10 +67,10 @@ public class DAContent {
 		registerItem(event, new Item(new Item.Properties().tab(DAGroup)).setRegistryName("inert_potato_legs"));
 		registerItem(event, new Item(new Item.Properties().tab(DAGroup)).setRegistryName("inert_potato_boots"));
 		registerItem(event, new Item(new Item.Properties().tab(DAGroup)).setRegistryName("chaos_heart"));
-		registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlotType.HEAD).setRegistryName("infused_potato_helm"));
-		registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlotType.CHEST).setRegistryName("infused_potato_chest"));
-		registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlotType.LEGS).setRegistryName("infused_potato_legs"));
-		registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlotType.FEET).setRegistryName("infused_potato_boots"));
+		//registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlotType.HEAD).setRegistryName("infused_potato_helm"));
+		//registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlotType.CHEST).setRegistryName("infused_potato_chest"));
+		//registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlotType.LEGS).setRegistryName("infused_potato_legs"));
+		//registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlotType.FEET).setRegistryName("infused_potato_boots"));
 		registerItem(event, new ModularNecklace(wyvernTier).setRegistryName("wyvern_necklace"));
 		registerItem(event, new ModularNecklace(draconicTier).setRegistryName("draconic_necklace"));
 		registerItem(event, new ModularNecklace(chaoticTier).setRegistryName("chaotic_necklace"));

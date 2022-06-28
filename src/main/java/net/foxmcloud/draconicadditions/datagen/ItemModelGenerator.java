@@ -57,11 +57,13 @@ public class ItemModelGenerator extends ItemModelProvider {
 	}
 
 	private void simpleItem(Item item, String textureFolder) {
+		if (item == null) return;
 		ResourceLocation reg = item.getRegistryName();
 		simpleItem(item, new ResourceLocation(reg.getNamespace(), textureFolder + "/" + reg.getPath()));
 	}
 
 	private void simpleItem(Item item, ResourceLocation texture) {
+		if (item == null) return;
 		ResourceLocation reg = item.getRegistryName();
 		getBuilder(reg.getPath())
 		.parent(new ModelFile.UncheckedModelFile("item/generated"))
@@ -73,6 +75,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 	}
 
 	private void simpleModule(Module<?> module, String textureFolder) {
+		if (module == null || module.getItem() == null) return;
 		ResourceLocation reg = module.getItem().getRegistryName();
 		simpleItem(module.getItem(), new ResourceLocation(reg.getNamespace(), textureFolder + "/" + reg.getPath().replace("_module", "")));
 	}
@@ -95,7 +98,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 	}
 
 	private void dummyModel(Item item) {
-		getBuilder(item.getRegistryName().getPath())//
+		getBuilder(item.getRegistryName().getPath())
 		.parent(new ModelFile.UncheckedModelFile("builtin/generated"));
 	}
 
