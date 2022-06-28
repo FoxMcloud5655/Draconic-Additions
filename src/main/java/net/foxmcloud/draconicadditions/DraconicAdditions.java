@@ -22,7 +22,7 @@ public class DraconicAdditions {
 	public static CommonProxy proxy;
 
 	public DraconicAdditions() {
-		proxy = DistExecutor.safeRunForDist(() -> CommonProxy::new, () -> CommonProxy::new);
+		proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 		proxy.construct();
 		FMLJavaModLoadingContext.get().getModEventBus().register(this);
 	}
