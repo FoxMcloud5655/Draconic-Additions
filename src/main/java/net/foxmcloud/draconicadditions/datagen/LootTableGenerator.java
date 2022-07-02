@@ -12,6 +12,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
+import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.LootTableProvider;
@@ -42,7 +43,9 @@ public class LootTableGenerator extends LootTableProvider {
 
     public static class BlockLootTables extends net.minecraft.data.loot.BlockLootTables {
 
-        protected void addTables() {}
+        protected void addTables() {
+        	dropSelf(DAContent.chaosLiquefier);
+        }
         
         @Override
         protected Iterable<Block> getKnownBlocks() {

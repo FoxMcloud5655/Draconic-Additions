@@ -4,9 +4,11 @@ import static com.brandon3055.brandonscore.api.TechLevel.*;
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import com.brandon3055.brandonscore.api.TechLevel;
+import com.brandon3055.brandonscore.blocks.ItemBlockBCore;
 import com.brandon3055.brandonscore.client.utils.CyclingItemGroup;
 import com.brandon3055.brandonscore.inventory.ContainerBCTile;
 import com.brandon3055.brandonscore.lib.TechPropBuilder;
@@ -17,6 +19,7 @@ import net.foxmcloud.draconicadditions.blocks.tileentity.*;
 import net.foxmcloud.draconicadditions.inventory.GUILayoutFactories;
 import net.foxmcloud.draconicadditions.items.armor.*;
 import net.foxmcloud.draconicadditions.items.curios.*;
+import net.foxmcloud.draconicadditions.items.tools.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.material.Material;
@@ -45,10 +48,11 @@ public class DAContent {
 
     @SubscribeEvent
     public static void registerTileEntity(RegistryEvent.Register<TileEntityType<?>> event) {
-        event.getRegistry().register(TileEntityType.Builder.of(TileChaosLiquefier::new).build(null).setRegistryName("chaos_liquefier"));
+        event.getRegistry().register(TileEntityType.Builder.of(TileChaosLiquefier::new, chaosLiquefier).build(null).setRegistryName("chaos_liquefier"));
     }
     
-    @ObjectHolder("chaos_liquefier") public static ContainerType<ContainerBCTile<TileChaosLiquefier>> containerChaosLiquefier;
+    @ObjectHolder("chaos_liquefier")
+    public static ContainerType<ContainerBCTile<TileChaosLiquefier>> containerChaosLiquefier;
 
     @SubscribeEvent
     public static void registerContainers(RegistryEvent.Register<ContainerType<?>> event) {
@@ -81,7 +85,7 @@ public class DAContent {
 	
 	// Tools
 	
-	@ObjectHolder("chaos_container") public static Item chaosContainer;
+	@ObjectHolder("chaos_container") public static ChaosContainer chaosContainer;
 
 	// Curios
 
@@ -102,6 +106,12 @@ public class DAContent {
 		TechPropBuilder chaoticTier = new TechPropBuilder(CHAOTIC).maxStackSize(1).group(DAGroup).rarity(Rarity.EPIC).maxDamage(-1);
 		TechPropBuilder hermalTier = new TechPropBuilder(CHAOTIC).maxStackSize(1).group(DAGroup).rarity(Rarity.EPIC).maxDamage(-1);
 
+		// Blocks
+		
+        registerItem(event, new ItemBlockBCore(chaosLiquefier, new Item.Properties().tab(DAGroup)).setRegistryName(Objects.requireNonNull(chaosLiquefier.getRegistryName())));
+		
+		// Items
+		
 		registerItem(event, new Item(new Item.Properties().tab(DAGroup)).setRegistryName("inert_potato_helm"));
 		registerItem(event, new Item(new Item.Properties().tab(DAGroup)).setRegistryName("inert_potato_chest"));
 		registerItem(event, new Item(new Item.Properties().tab(DAGroup)).setRegistryName("inert_potato_legs"));
@@ -111,6 +121,7 @@ public class DAContent {
 		//registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlotType.CHEST).setRegistryName("infused_potato_chest"));
 		//registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlotType.LEGS).setRegistryName("infused_potato_legs"));
 		//registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlotType.FEET).setRegistryName("infused_potato_boots"));
+		registerItem(event, new ChaosContainer(chaoticTier).setRegistryName("chaos_container"));
 		registerItem(event, new ModularNecklace(wyvernTier).setRegistryName("wyvern_necklace"));
 		registerItem(event, new ModularNecklace(draconicTier).setRegistryName("draconic_necklace"));
 		registerItem(event, new ModularNecklace(chaoticTier).setRegistryName("chaotic_necklace"));

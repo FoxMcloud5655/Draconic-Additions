@@ -2,12 +2,16 @@ package net.foxmcloud.draconicadditions.datagen;
 
 import java.util.function.Function;
 
+import com.brandon3055.draconicevolution.DraconicEvolution;
+
 import net.foxmcloud.draconicadditions.DraconicAdditions;
+import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -24,6 +28,8 @@ public class BlockStateGenerator extends BlockStateProvider {
 
 	@Override
 	protected void registerStatesAndModels() {
+		ResourceLocation machineTop = new ResourceLocation(DraconicEvolution.MODID, "block/parts/machine_top");
+		simpleBlock(DAContent.chaosLiquefier, models().cubeBottomTop("chaos_liquefier", modLoc("blocks/chaos_liquefier_front"), machineTop, machineTop));
 	}
 
 	private void dummyBlock(Block block) {

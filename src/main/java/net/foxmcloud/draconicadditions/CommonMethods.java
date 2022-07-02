@@ -7,6 +7,7 @@ import com.brandon3055.draconicevolution.client.DEParticles;
 import com.brandon3055.draconicevolution.handlers.DESounds;
 import com.brandon3055.draconicevolution.items.equipment.ModularChestpiece;
 
+import codechicken.lib.vec.Vector3;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -31,7 +32,7 @@ public class CommonMethods {
 		return isCheating;
 	}
 
-	public static void explodeEntity(Vec3D pos, World world) {
+	public static void explodeEntity(Vector3 pos, World world) {
 		world.playSound(null, new BlockPos(pos.x, pos.y, pos.z), DESounds.beam, SoundCategory.MASTER, 0.25F, 0.5F);
 		world.playSound(null, new BlockPos(pos.x, pos.y, pos.z), DESounds.fusionComplete, SoundCategory.MASTER, 1.0F, 2.0F);
 		if (world.isClientSide) {

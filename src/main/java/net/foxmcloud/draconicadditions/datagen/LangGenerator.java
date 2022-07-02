@@ -19,6 +19,10 @@ public class LangGenerator extends LanguageProvider {
 	public LangGenerator(DataGenerator gen) {
 		super(gen, DraconicAdditions.MODID, "en_us");
 	}
+	
+	private void blocks(PrefixHelper helper) {
+		helper.add(DAContent.chaosLiquefier, "Chaos Liquefier");
+	}
 
 	private void items(PrefixHelper helper) {
 		helper.add(DAContent.chaosHeart,         "Chaos Heart");
@@ -30,6 +34,7 @@ public class LangGenerator extends LanguageProvider {
 		helper.add(DAContent.infusedPotatoChest, "Infused Potato Chestplate");
 		helper.add(DAContent.infusedPotatoLegs,  "Infused Potato Leggings");
 		helper.add(DAContent.infusedPotatoBoots, "Infused Potato Boots");
+		helper.add(DAContent.chaosContainer,     "Chaos Container");
 		helper.add(DAContent.necklaceWyvern,     "Wyvern Necklace");
 		helper.add(DAContent.necklaceDraconic,   "Draconic Necklace");
 		helper.add(DAContent.necklaceChaotic,    "Chaotic Necklace");
@@ -54,9 +59,15 @@ public class LangGenerator extends LanguageProvider {
         helper.add("tick_accel.value",          "%s Ticks");
 	}
 
+	private void gui(PrefixHelper helper) {
+		helper.setPrefix("gui." + DraconicAdditions.MODID);
+		helper.add("chaos_liquefier", "Chaos Liquefier");
+	}
+	
 	private void info(PrefixHelper helper) {
 		helper.setPrefix("info.da");
 		helper.add("harnessdim.stopTravel", "Something prevents you from teleporting into this dimension...");
+		helper.add("storedchaos", "Stored Chaos");
 		helper.add("modular_harness.cantmove", "This block doesn't seem to budge...");
 		helper.add("modular_harness.storeSuccess", "You place the machine into your harness.");
 		helper.add("modular_harness.placeSuccess", "You take the machine off of your harness and set it back down.");
@@ -74,9 +85,11 @@ public class LangGenerator extends LanguageProvider {
 	@Override
 	protected void addTranslations() {
 		PrefixHelper helper = new PrefixHelper(this);
+		blocks(helper);
 		items(helper);
 		itemGroups(helper);
 		modules(helper);
+		gui(helper);
 		info(helper);
 		itemProps(helper);
 	}

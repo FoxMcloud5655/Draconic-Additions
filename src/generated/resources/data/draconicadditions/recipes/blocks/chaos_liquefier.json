@@ -1,0 +1,19 @@
+{
+  "type": "draconicevolution:fusion_crafting",
+  "result": {
+    "item": "draconicadditions:chaos_liquefier"
+  },
+  "catalyst": {
+    "item": "draconicevolution:generator"
+  },
+  "total_energy": 2500000,
+  "tier": "CHAOTIC",
+  "ingredients": [
+    {
+      "item": "draconicadditions:chaos_heart"
+    },
+    {
+      "item": "draconicadditions:chaos_container"
+    }
+  ]
+}

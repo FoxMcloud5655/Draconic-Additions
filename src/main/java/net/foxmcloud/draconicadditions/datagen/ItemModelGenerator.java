@@ -24,6 +24,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 
 	@Override
 	protected void registerModels() {
+		blockItem(DAContent.chaosLiquefier);
 		simpleItem(DAContent.chaosHeart);
 		simpleItem(DAContent.inertPotatoHelm);
 		simpleItem(DAContent.inertPotatoChest);
@@ -33,6 +34,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		simpleArmor(DAContent.infusedPotatoChest);
 		simpleArmor(DAContent.infusedPotatoLegs);
 		simpleArmor(DAContent.infusedPotatoBoots);
+		simpleItem(DAContent.chaosContainer, "items/tools/animated");
 		simpleCurios(DAContent.necklaceWyvern);
 		simpleCurios(DAContent.necklaceDraconic);
 		simpleCurios(DAContent.necklaceChaotic);

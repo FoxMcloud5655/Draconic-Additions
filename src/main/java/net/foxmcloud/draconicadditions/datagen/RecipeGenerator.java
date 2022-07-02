@@ -11,6 +11,8 @@ import static net.minecraftforge.common.Tags.Items.*;
 import java.io.IOException;
 import java.util.function.Consumer;
 
+import com.brandon3055.brandonscore.api.TechLevel;
+import com.brandon3055.draconicevolution.datagen.FusionRecipeBuilder;
 import com.brandon3055.draconicevolution.init.DEContent;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
@@ -31,7 +33,20 @@ public class RecipeGenerator extends RecipeProvider {
 
 	@Override
 	protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer) {
+		blocks(consumer);
 		items(consumer);
+	}
+	
+	private static void blocks(Consumer<IFinishedRecipe> consumer) {
+		if (chaosLiquefier != null) {
+			FusionRecipeBuilder.fusionRecipe(chaosLiquefier)
+			.catalyst(DEContent.generator)
+			.energy(2500000)
+			.techLevel(TechLevel.CHAOTIC)
+			.ingredient(chaosHeart)
+			.ingredient(chaosContainer)
+			.build(consumer, folder("blocks", chaosLiquefier));
+		}
 	}
 
 	private static void items(Consumer<IFinishedRecipe> consumer) {
@@ -122,6 +137,18 @@ public class RecipeGenerator extends RecipeProvider {
 			.define('I', inertPotatoBoots)
 			.unlockedBy("has_draconium", has(DEContent.ingot_draconium))
 			.save(consumer, folder("items", infusedPotatoBoots));
+		}
+		
+		if (chaosContainer != null) {
+			FusionRecipeBuilder.fusionRecipe(chaosContainer)
+			.catalyst(BUCKET)
+			.energy(250000)
+			.techLevel(TechLevel.DRACONIC)
+			.ingredient(infused_obsidian)
+			.ingredient(infused_obsidian)
+			.ingredient(energy_core_wyvern)
+			.ingredient(dislocator)
+			.build(consumer, folder("items", chaosContainer));
 		}
 
 		if (necklaceWyvern != null) {

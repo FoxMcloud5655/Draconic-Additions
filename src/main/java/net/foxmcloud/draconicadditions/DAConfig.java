@@ -23,9 +23,19 @@ public class DAConfig extends DEConfig {
 	}
 
 	public static String serverID;
+	
+	// Curios
+	
 	public static double necklaceCapacityMultiplier = 1;
 	public static double harnessCapacityMultiplier = 1;
 	public static boolean harnessTickOutOfCuriosSlot = true;
+	
+	// Tools
+	
+	public static int chaosContainerRFPerChaos = 10;
+	
+	// Modules
+	
 	public static double chaoticFeedAmount = 1000;
 	public static int draconicAccelTicks = 1;
 	public static int chaoticAccelTicks = 2;
@@ -37,19 +47,7 @@ public class DAConfig extends DEConfig {
 				.setComment("This is a randomly generated ID that clients will use to map config settings from this server.")
 				.setDefaultString(UUID.randomUUID().toString());
 		serverIDTag.setSyncCallback((tag, type) -> serverID = tag.getString());
-
-		// Tools
 		
-		ConfigTag toolTweaks = serverTag.getTag("Tool Tweaks");
-		toolTweaks.setComment("These allow you to tweak the stats of the tools found in this mod.");
-
-		/*
-		toolTweaks.getTag("armorSpeedLimit").setSyncToClient().setDefaultDouble(16)
-		.setComment("")
-		.setSyncCallback((tag, type) -> potatoShieldRecovery = tag.getDouble()
-				);
-		*/
-
 		// Curios
 		
 		ConfigTag curiosTweaks = serverTag.getTag("Curios Tweaks");
@@ -67,7 +65,15 @@ public class DAConfig extends DEConfig {
 		.setComment("Whether to allow the Modular Harness to tick it's stored machine when it's not equipped.")
 		.setSyncCallback((tag, type) -> harnessTickOutOfCuriosSlot = tag.getBoolean());
 		
+		// Tools
+		
+		ConfigTag toolTweaks = serverTag.getTag("Tool Tweaks");
+		toolTweaks.setComment("These allow you to tweak the stats of the tools found in this mod.");
 
+		toolTweaks.getTag("chaosContainerRFPerChaos").setSyncToClient().setDefaultInt(10)
+		.setComment("Sets how much RF the chaos container should consume per tick for every bucket of chaos.")
+		.setSyncCallback((tag, type) -> chaosContainerRFPerChaos = tag.getInt());
+		
 		// Modules
 		
 		ConfigTag moduleTweaks = serverTag.getTag("Module Tweaks");
@@ -89,11 +95,5 @@ public class DAConfig extends DEConfig {
 		
 		ConfigTag miscTweaks = serverTag.getTag("Misc Tweaks");
 		miscTweaks.setComment("Allows you to tweak various things about Draconic Evolution as a whole, such as fusion crafting power costs.");
-
-		/*
-		miscTweaks.getTag("armorSpeedLimit").setSyncToClient().setDefaultDouble(16)
-		.setComment("")
-		.setSyncCallback((tag, type) -> potatoShieldRecovery = tag.getDouble());
-		*/
 	}
 }
