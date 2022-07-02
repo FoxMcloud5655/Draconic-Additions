@@ -1,4 +1,4 @@
-package net.foxmcloud.draconicadditions.items;
+package net.foxmcloud.draconicadditions.lib;
 
 import static com.brandon3055.brandonscore.api.TechLevel.*;
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
@@ -8,15 +8,27 @@ import java.util.function.Supplier;
 
 import com.brandon3055.brandonscore.api.TechLevel;
 import com.brandon3055.brandonscore.client.utils.CyclingItemGroup;
+import com.brandon3055.brandonscore.inventory.ContainerBCTile;
 import com.brandon3055.brandonscore.lib.TechPropBuilder;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
-import net.foxmcloud.draconicadditions.items.armor.InfusedPotatoArmor;
+import net.foxmcloud.draconicadditions.blocks.machines.ChaosLiquefier;
+import net.foxmcloud.draconicadditions.blocks.tileentity.*;
+import net.foxmcloud.draconicadditions.inventory.GUILayoutFactories;
+import net.foxmcloud.draconicadditions.items.armor.*;
 import net.foxmcloud.draconicadditions.items.curios.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.AbstractBlock.Properties;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.item.Rarity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ToolType;
+import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -26,7 +38,31 @@ import net.minecraftforge.registries.ObjectHolder;
 @ObjectHolder(DraconicAdditions.MODID)
 public class DAContent {
 	public static transient ArrayList<ResourceLocation> ITEM_REGISTRY_ORDER = new ArrayList<>();
+	
+	// Tile Entities
+    @ObjectHolder("chaos_liquefier")
+    public static TileEntityType<TileChaosLiquefier> tileChaosLiquefier;
 
+    @SubscribeEvent
+    public static void registerTileEntity(RegistryEvent.Register<TileEntityType<?>> event) {
+        event.getRegistry().register(TileEntityType.Builder.of(TileChaosLiquefier::new).build(null).setRegistryName("chaos_liquefier"));
+    }
+    
+    @ObjectHolder("chaos_liquefier") public static ContainerType<ContainerBCTile<TileChaosLiquefier>> containerChaosLiquefier;
+
+    @SubscribeEvent
+    public static void registerContainers(RegistryEvent.Register<ContainerType<?>> event) {
+	    event.getRegistry().register(IForgeContainerType.create((id, playerInv, extraData) -> new ContainerBCTile<>(containerChaosLiquefier, id, playerInv, extraData, GUILayoutFactories.CHAOS_LIQUEFIER_LAYOUT)).setRegistryName("chaos_liquefier"));
+    }
+    
+    @ObjectHolder("chaos_liquefier") public static ChaosLiquefier chaosLiquefier;
+
+    @SubscribeEvent
+    public static void registerBlocks(RegistryEvent.Register<Block> event) {
+    	Properties machine = Properties.of(Material.METAL, MaterialColor.COLOR_GRAY).strength(3.0F, 8F).noOcclusion().harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().harvestLevel(1);
+    	event.getRegistry().register(new ChaosLiquefier(machine).setRegistryName("chaos_liquefier"));
+    }
+    
 	// Crafting Components
 
 	@ObjectHolder("inert_potato_helm")  public static Item inertPotatoHelm;
@@ -42,6 +78,10 @@ public class DAContent {
 	@ObjectHolder("infused_potato_chest") public static InfusedPotatoArmor infusedPotatoChest;
 	@ObjectHolder("infused_potato_legs")  public static InfusedPotatoArmor infusedPotatoLegs;
 	@ObjectHolder("infused_potato_boots") public static InfusedPotatoArmor infusedPotatoBoots;
+	
+	// Tools
+	
+	@ObjectHolder("chaos_container") public static Item chaosContainer;
 
 	// Curios
 

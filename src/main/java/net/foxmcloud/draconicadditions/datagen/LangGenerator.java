@@ -7,8 +7,8 @@ import com.brandon3055.draconicevolution.api.modules.Module;
 import com.brandon3055.draconicevolution.api.modules.ModuleType;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
-import net.foxmcloud.draconicadditions.items.DAContent;
-import net.foxmcloud.draconicadditions.items.DAModules;
+import net.foxmcloud.draconicadditions.lib.DAContent;
+import net.foxmcloud.draconicadditions.lib.DAModules;
 import net.foxmcloud.draconicadditions.modules.ModuleTypes;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;

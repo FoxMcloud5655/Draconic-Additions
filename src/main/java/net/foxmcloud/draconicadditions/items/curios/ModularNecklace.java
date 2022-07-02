@@ -11,9 +11,10 @@ import com.brandon3055.draconicevolution.api.modules.lib.ModuleHostImpl;
 import com.brandon3055.draconicevolution.init.EquipCfg;
 
 import net.foxmcloud.draconicadditions.DAConfig;
+import net.foxmcloud.draconicadditions.items.ModularEnergyItem;
 import net.minecraft.item.ItemStack;
 
-public class ModularNecklace extends ModularCurios {
+public class ModularNecklace extends ModularEnergyItem {
 
 	public ModularNecklace(TechPropBuilder props) {
 		super(props);

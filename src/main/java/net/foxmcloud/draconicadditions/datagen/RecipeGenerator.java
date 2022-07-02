@@ -3,8 +3,8 @@ package net.foxmcloud.draconicadditions.datagen;
 import static com.brandon3055.draconicevolution.init.DEContent.*;
 import static com.brandon3055.draconicevolution.init.DEModules.*;
 import static com.brandon3055.draconicevolution.init.DETags.Items.*;
-import static net.foxmcloud.draconicadditions.items.DAContent.*;
-import static net.foxmcloud.draconicadditions.items.DAModules.*;
+import static net.foxmcloud.draconicadditions.lib.DAContent.*;
+import static net.foxmcloud.draconicadditions.lib.DAModules.*;
 import static net.minecraft.item.Items.*;
 import static net.minecraftforge.common.Tags.Items.*;
 

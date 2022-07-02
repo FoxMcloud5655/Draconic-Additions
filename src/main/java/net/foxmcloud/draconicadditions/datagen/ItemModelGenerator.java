@@ -4,8 +4,8 @@ import com.brandon3055.draconicevolution.api.modules.Module;
 import com.brandon3055.draconicevolution.api.modules.data.NoData;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
-import net.foxmcloud.draconicadditions.items.DAContent;
-import net.foxmcloud.draconicadditions.items.DAModules;
+import net.foxmcloud.draconicadditions.lib.DAContent;
+import net.foxmcloud.draconicadditions.lib.DAModules;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Item;
@@ -48,12 +48,12 @@ public class ItemModelGenerator extends ItemModelProvider {
 		simpleItem(item, "items/crafting");
 	}
 	
-	private void simpleCurios(Item item) {
-		simpleItem(item, "items/curios");
-	}
-	
 	private void simpleArmor(Item item) {
 		simpleItem(item, "items/armor");
+	}
+
+	private void simpleCurios(Item item) {
+		simpleItem(item, "items/curios");
 	}
 
 	private void simpleItem(Item item, String textureFolder) {

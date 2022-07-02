@@ -31,6 +31,7 @@ import com.brandon3055.draconicevolution.items.tools.DraconiumCapacitor;
 
 import net.foxmcloud.draconicadditions.DAConfig;
 import net.foxmcloud.draconicadditions.DraconicAdditions;
+import net.foxmcloud.draconicadditions.items.ModularEnergyItem;
 import net.foxmcloud.draconicadditions.modules.ModuleTypes;
 import net.foxmcloud.draconicadditions.modules.TickAccelData;
 import net.foxmcloud.draconicadditions.world.DADimension;
@@ -57,7 +58,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
-public class ModularHarness extends ModularCurios implements IInvCharge {
+public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 	public static final ModuleCategory HARNESS = new ModuleCategory();
 	private static final String receive = "receive_energy_from_machine";
 	private static final String tickAccelSpeed = "tick_accel_speed";

@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 
-import net.foxmcloud.draconicadditions.items.DAContent;
 import net.foxmcloud.draconicadditions.items.curios.ModularHarness;
+import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.foxmcloud.draconicadditions.world.DADimension;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;

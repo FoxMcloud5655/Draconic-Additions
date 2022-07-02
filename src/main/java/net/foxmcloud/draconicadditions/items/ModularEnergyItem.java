@@ -1,4 +1,4 @@
-package net.foxmcloud.draconicadditions.items.curios;
+package net.foxmcloud.draconicadditions.items;
 
 import static com.brandon3055.draconicevolution.init.ModuleCfg.removeInvalidModules;
 
@@ -28,11 +28,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
-public class ModularCurios extends Item implements IModularItem, IDEEquipment {
+public class ModularEnergyItem extends Item implements IModularItem, IDEEquipment {
 
 	protected final TechLevel techLevel;
 
-	public ModularCurios(TechPropBuilder props) {
+	public ModularEnergyItem(TechPropBuilder props) {
 		super(props.build());
 		this.techLevel = props.techLevel;
 	}

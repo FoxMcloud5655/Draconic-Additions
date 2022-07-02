@@ -4,7 +4,7 @@ import java.util.function.Function;
 
 import com.brandon3055.draconicevolution.integration.equipment.CuriosIntegration;
 
-import net.foxmcloud.draconicadditions.items.DAContent;
+import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.minecraft.data.TagsProvider;
 import net.minecraft.item.Item;
 import net.minecraft.tags.ItemTags;
