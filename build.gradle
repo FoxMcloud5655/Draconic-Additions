@@ -74,7 +74,7 @@ dependencies {
 	compile "codechicken:CodeChickenLib:${config.mc_version}-${config.ccl_version}:deobf"
 	compile fg.deobf("mezz.jei:jei-${config.mc_version}:${config.jei_version}")
 	compile fg.deobf("top.theillusivec4.curios:curios-forge:${config.mc_version}-${config.curios_version}")
-	compile fg.deobf("com.brandon3055.draconicevolution:Draconic-Evolution:${config.mc_version}-${config.de_version}:sources")
+	compile fg.deobf("com.brandon3055.draconicevolution:Draconic-Evolution:${config.mc_version}-${config.de_version}:universal")
 }
 
 processResources { task ->
