@@ -1,16 +1,16 @@
 [
-{
-  "modid": "draconicadditions",
-  "name": "Draconic Additions",
-  "description": "Adds various Draconic Evolution items to help with your mid-game without being OP.  Fully configurable.",
-  "version": "${version}",
-  "mcversion": "${mc_version}",
-  "url": "",
-  "updateUrl": "",
-  "authorList": ["FoxMcloud5655"],
-  "credits": "brandon3055 - Draconic Evolution",
-  "logoFile": "banner.png",
-  "screenshots": [],
-  "dependencies": []
-}
+	{
+		"modid": "draconicadditions",
+		"name": "Draconic Additions",
+		"description": "Adds various Draconic Evolution items to help with your mid-game without being OP.  Fully configurable.",
+		"version": "${version}",
+		"mcversion": "${mc_version}",
+		"url": "",
+		"updateUrl": "",
+		"authorList": ["FoxMcloud5655"],
+		"credits": "brandon3055 - Draconic Evolution",
+		"logoFile": "banner.png",
+		"screenshots": [],
+		"dependencies": []
+	}
 ]
