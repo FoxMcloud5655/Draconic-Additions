@@ -146,21 +146,19 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 	@OnlyIn(Dist.CLIENT)
 	public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
 		if (getAttachedName(stack) != null && getAttachedName(stack) != "") {
-			tooltip.add(new TranslationTextComponent("info.da.modular_harness.stored_block").withStyle(TextFormatting.GOLD).append(new StringTextComponent(getAttachedName(stack)).withStyle(TextFormatting.GRAY)));
-            String rf = Utils.formatNumber(getRFCostForTicks(getCurrentTickSpeed(stack)));
-			tooltip.add(new TranslationTextComponent("info.da.modular_harness.op_cost")
-            	.append(new TranslationTextComponent("info.da.modular_harness.op_cost.value", rf))
-            	.withStyle(GRAY));
+			tooltip.add(new TranslationTextComponent("info.da.modular_harness.storedBlock").withStyle(TextFormatting.GOLD).append(new StringTextComponent(getAttachedName(stack)).withStyle(TextFormatting.GRAY)));
+			String rf = Utils.formatNumber(getRFCostForTicks(getCurrentTickSpeed(stack)));
+			tooltip.add(new TranslationTextComponent("info.da.opCost", rf).withStyle(GRAY));
 		}
 		EnergyUtils.addEnergyInfo(stack, tooltip);
 	}
-	
+
 	public static int getCurrentTickSpeed(ItemStack stack) {
 		PropertyProvider props = stack.getCapability(DECapabilities.PROPERTY_PROVIDER_CAPABILITY).orElse(null);
 		int ticks = 1 + (props != null && props.getInt(tickAccelSpeed) != null ? props.getInt(tickAccelSpeed).getValue() : 0);
 		return ticks;
 	}
-	
+
 	public static int getRFCostForTicks(int ticks) {
 		return ticks > 1 ? (int)Math.pow(400, ticks * 0.25 + 0.25) : 0;
 	}
@@ -258,6 +256,6 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 		});
 		return isReceiving.getValue();
 	}
-	
-	
+
+
 }

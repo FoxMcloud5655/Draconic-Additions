@@ -4,6 +4,9 @@ import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public interface IChaosContainer {
 
@@ -33,7 +36,7 @@ public interface IChaosContainer {
 		return 1000;
 	}
 	
-	public default String getChaosInfo(ItemStack stack) {
-		return I18n.get("info.da.storedchaos") + ": " + getChaos(stack) + " / " + getMaxChaos(stack) + " B";
+	public default ITextComponent getChaosInfo(ItemStack stack) {
+		return new TranslationTextComponent("info.da.storedchaos", getChaos(stack), getMaxChaos(stack)).withStyle(TextFormatting.GRAY);
 	}
 }

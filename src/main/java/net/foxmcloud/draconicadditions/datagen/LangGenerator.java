@@ -62,18 +62,24 @@ public class LangGenerator extends LanguageProvider {
 	private void gui(PrefixHelper helper) {
 		helper.setPrefix("gui." + DraconicAdditions.MODID);
 		helper.add("chaos_liquefier", "Chaos Liquefier");
+		helper.add("chaos_liquefier.chaosSlot.hover", "Accepts Chaos Shards and Chaos Hearts.");
+		helper.add("chaos_liquefier.chaosText", "Chaos: %sB / %sB");
 	}
 	
 	private void info(PrefixHelper helper) {
 		helper.setPrefix("info.da");
 		helper.add("harnessdim.stopTravel", "Something prevents you from teleporting into this dimension...");
-		helper.add("storedchaos", "Stored Chaos");
+		helper.add("storedchaos", "Stored Chaos: %s / %s B");
+		helper.add("chaos.noShield", "The Chaos Container requires shield boosting modules to operate.");
+		helper.add("chaos.xfer.to", "Transferred %s B to %s");
+		helper.add("chaos.xfer.from", "Transferred %s B from %s");
+		helper.add("chaos.warning", "WARNING: Inadaquate shielding!");
+		helper.add("chaos.explode", "The Chaos Container explodes in your hand!");
 		helper.add("modular_harness.cantmove", "This block doesn't seem to budge...");
 		helper.add("modular_harness.storeSuccess", "You place the machine into your harness.");
 		helper.add("modular_harness.placeSuccess", "You take the machine off of your harness and set it back down.");
-		helper.add("modular_harness.stored_block", "Currently Stored: ");
-		helper.add("modular_harness.op_cost", "OP Cost: ");
-		helper.add("modular_harness.op_cost.value", "%s OP/t");
+		helper.add("modular_harness.storedBlock", "Currently Stored: ");
+		helper.add("opCost", "OP Cost: %s OP/t");
 	}
 	
 	private void itemProps(PrefixHelper helper) {

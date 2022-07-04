@@ -32,7 +32,7 @@ public class DAConfig extends DEConfig {
 	
 	// Tools
 	
-	public static int chaosContainerRFPerChaos = 10;
+	public static double chaosContainerRFMultiplier = 1;
 	
 	// Modules
 	
@@ -70,9 +70,9 @@ public class DAConfig extends DEConfig {
 		ConfigTag toolTweaks = serverTag.getTag("Tool Tweaks");
 		toolTweaks.setComment("These allow you to tweak the stats of the tools found in this mod.");
 
-		toolTweaks.getTag("chaosContainerRFPerChaos").setSyncToClient().setDefaultInt(10)
+		toolTweaks.getTag("chaosContainerRFMultiplier").setSyncToClient().setDefaultDouble(1)
 		.setComment("Sets how much RF the chaos container should consume per tick for every bucket of chaos.")
-		.setSyncCallback((tag, type) -> chaosContainerRFPerChaos = tag.getInt());
+		.setSyncCallback((tag, type) -> chaosContainerRFMultiplier = tag.getDouble());
 		
 		// Modules
 		
