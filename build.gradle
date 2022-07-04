@@ -6,7 +6,7 @@ buildscript {
 		maven { url = "https://repo.spongepowered.org/maven" }
 	}
 	dependencies {
-		classpath 'net.minecraftforge.gradle:ForgeGradle:4.1.+'
+		classpath 'net.minecraftforge.gradle:ForgeGradle:5.1.+'
 	}
 }
 
@@ -63,32 +63,36 @@ repositories {
 	mavenLocal()
 	maven { url = "https://maven.covers1624.net/" }
 	maven { url = "https://dvs1.progwml6.com/files/maven" }
-	maven { url = "http://maven.cil.li/" }
+	maven { url = "https://maven.cil.li/" }
 	maven { url = "https://maven.theillusivec4.top/" }
 	maven { url = "https://squiddev.cc/maven/" }
 }
 
 dependencies {
 	minecraft "net.minecraftforge:forge:${config.mc_version}-${config.forge_version}"
-	compile "com.brandon3055.brandonscore:BrandonsCore:${config.mc_version}-${config.bcore_version}:deobf"
-	compile "codechicken:CodeChickenLib:${config.mc_version}-${config.ccl_version}:deobf"
-	compile fg.deobf("mezz.jei:jei-${config.mc_version}:${config.jei_version}")
-	compile fg.deobf("top.theillusivec4.curios:curios-forge:${config.mc_version}-${config.curios_version}")
-	compile fg.deobf("com.brandon3055.draconicevolution:Draconic-Evolution:${config.mc_version}-${config.de_version}:universal")
+	implementation fg.deobf("com.brandon3055.brandonscore:BrandonsCore:${config.mc_version}-${config.bcore_version}:universal")
+	implementation fg.deobf("codechicken:CodeChickenLib:${config.mc_version}-${config.ccl_version}:universal")
+	implementation fg.deobf("mezz.jei:jei-${config.mc_version}:${config.jei_version}")
+	implementation fg.deobf("top.theillusivec4.curios:curios-forge:${config.mc_version}-${config.curios_version}")
+	implementation fg.deobf("com.brandon3055.draconicevolution:Draconic-Evolution:${config.mc_version}-${config.de_version}:universal")
 }
 
-processResources { task ->
-	from(sourceSets.main.resources.srcDirs) { spec ->
-		spec.include 'META-INF/mods.toml'
-		task.doFirst {
-			spec.expand 'version': config.mod_version,
+processResources {
+	inputs.property 'mc_version', config.mc_version
+	inputs.property 'mod_version', config.mod_version
+	inputs.property 'bcore_version', config.bcore_version
+	inputs.property 'de_version', config.de_version
+
+	filesMatching('META-INF/mods.toml') {
+		expand 'file': ['jarVersion': config.mod_version],
 			'mc_version': config.mc_version,
+			'forge_version': config.forge_version,
+			'lang_version': config.forge_version.split('\\.')[0],
 			'ccl_version': "[${config.ccl_version.replace('.+', '')},${config.ccl_version_max})",
-			'bcore_version': resolve("BrandonsCore"),
+			'bcore_version': config.bcore_version,
 			'cct_version': config.cct_version,
 			'curios_version': config.mc_version + "-" + config.curios_version,
-			'de_version': resolve("Draconic-Evolution")
-		}
+			'de_version': config.de_version
 	}
 }
 
@@ -111,13 +115,6 @@ task srcJar(type: Jar) {
 	build.dependsOn it
 	from sourceSets.main.allSource
 	classifier = 'sources'
-	from file("LICENSE")
-}
-
-task deobfJar(type: Jar) {
-	build.dependsOn it
-	from sourceSets.main.output
-	classifier = 'deobf'
 	from file("LICENSE")
 }
 

@@ -1,17 +1,17 @@
 modLoader="javafml"
-loaderVersion="[32,)"
+loaderVersion="[${lang_version},)"
 license="CoFH \"Don't Be a Jerk\" License"
 
 [[mods]]
 	modId="draconicadditions"
 	displayName="Draconic Additions"
-	version="${version}"
+	version="${file.jarVersion}"
 	authors="FoxMcloud5655"
 	description=''''''
 [[dependencies.draconicadditions]]
 	modId="forge"
 	mandatory=true
-	versionRange="[35.2,)"
+	versionRange="[${forge_version},)"
 	ordering="NONE"
 	side="BOTH"
 [[dependencies.draconicadditions]]
