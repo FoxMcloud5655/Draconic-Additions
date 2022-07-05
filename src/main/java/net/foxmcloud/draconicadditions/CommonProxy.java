@@ -1,25 +1,17 @@
 package net.foxmcloud.draconicadditions;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-
 import org.apache.logging.log4j.Level;
 
 import com.brandon3055.brandonscore.utils.LogHelperBC;
-import com.brandon3055.draconicevolution.api.modules.ModuleCategory;
-import com.brandon3055.draconicevolution.api.modules.ModuleTypes;
-import com.brandon3055.draconicevolution.api.modules.types.ModuleTypeImpl;
 import com.brandon3055.draconicevolution.utils.LogHelper;
 
 import net.foxmcloud.draconicadditions.handlers.DAEventHandler;
 import net.foxmcloud.draconicadditions.integration.AE2Compat;
-import net.foxmcloud.draconicadditions.items.tools.ChaosContainer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 
 public class CommonProxy {
 	public void construct() {

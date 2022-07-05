@@ -36,7 +36,7 @@ public class RecipeGenerator extends RecipeProvider {
 		blocks(consumer);
 		items(consumer);
 	}
-	
+
 	private static void blocks(Consumer<IFinishedRecipe> consumer) {
 		if (chaosLiquefier != null) {
 			FusionRecipeBuilder.fusionRecipe(chaosLiquefier)
@@ -138,7 +138,7 @@ public class RecipeGenerator extends RecipeProvider {
 			.unlockedBy("has_draconium", has(DEContent.ingot_draconium))
 			.save(consumer, folder("items", infusedPotatoBoots));
 		}
-		
+
 		if (chaosContainer != null) {
 			FusionRecipeBuilder.fusionRecipe(chaosContainer)
 			.catalyst(BUCKET)

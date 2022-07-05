@@ -26,31 +26,31 @@ import net.minecraft.util.registry.Registry;
 
 public class LootTableGenerator extends LootTableProvider {
 
-    private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> lootTables = ImmutableList.of(Pair.of(BlockLootTables::new, LootParameterSets.BLOCK));
+	private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> lootTables = ImmutableList.of(Pair.of(BlockLootTables::new, LootParameterSets.BLOCK));
 
-    public LootTableGenerator(DataGenerator dataGeneratorIn) {
-        super(dataGeneratorIn);
-    }
-    @Override
-    protected void validate(Map<ResourceLocation, LootTable> map, ValidationTracker validationtracker) {
-        map.forEach((p_218436_2_, p_218436_3_) -> LootTableManager.validate(validationtracker, p_218436_2_, p_218436_3_));
-    }
+	public LootTableGenerator(DataGenerator dataGeneratorIn) {
+		super(dataGeneratorIn);
+	}
+	@Override
+	protected void validate(Map<ResourceLocation, LootTable> map, ValidationTracker validationtracker) {
+		map.forEach((p_218436_2_, p_218436_3_) -> LootTableManager.validate(validationtracker, p_218436_2_, p_218436_3_));
+	}
 
-    @Override
-    protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> getTables() {
-        return lootTables;
-    }
+	@Override
+	protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> getTables() {
+		return lootTables;
+	}
 
-    public static class BlockLootTables extends net.minecraft.data.loot.BlockLootTables {
+	public static class BlockLootTables extends net.minecraft.data.loot.BlockLootTables {
 
-        protected void addTables() {
-        	dropSelf(DAContent.chaosLiquefier);
-        }
-        
-        @Override
-        protected Iterable<Block> getKnownBlocks() {
-            return Registry.BLOCK.stream().filter(block -> Objects.requireNonNull(block.getRegistryName()).getNamespace().equals(DraconicAdditions.MODID)).collect(Collectors.toList());
-        }
+		protected void addTables() {
+			dropSelf(DAContent.chaosLiquefier);
+		}
 
-    }
+		@Override
+		protected Iterable<Block> getKnownBlocks() {
+			return Registry.BLOCK.stream().filter(block -> Objects.requireNonNull(block.getRegistryName()).getNamespace().equals(DraconicAdditions.MODID)).collect(Collectors.toList());
+		}
+
+	}
 }

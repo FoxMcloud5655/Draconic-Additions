@@ -10,10 +10,8 @@ import com.mojang.blaze3d.platform.GlStateManager;
 
 import codechicken.lib.render.CCModel;
 import codechicken.lib.render.OBJParser;
-import codechicken.lib.render.buffer.VBORenderType;
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
@@ -25,15 +23,15 @@ public class InfusedPotatoArmorModel extends VBOBipedModel<LivingEntity> {
 
 	public InfusedPotatoArmorModel(float size, EquipmentSlotType slot) {
 		super(size);
-        Map<String, CCModel> headModel      = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_helmet.obj"), GL11.GL_TRIANGLES, null);
-        Map<String, CCModel> bodyModel      = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_body.obj"), GL11.GL_TRIANGLES, null);
-        Map<String, CCModel> rightArmModel  = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_right_arm.obj"), GL11.GL_TRIANGLES, null);
-        Map<String, CCModel> leftArmModel   = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_left_arm.obj"), GL11.GL_TRIANGLES, null);
-        Map<String, CCModel> beltModel      = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_belt.obj"), GL11.GL_TRIANGLES, null);
-        Map<String, CCModel> rightLegModel  = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_right_leg.obj"), GL11.GL_TRIANGLES, null);
-        Map<String, CCModel> leftLegModel   = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_left_leg.obj"), GL11.GL_TRIANGLES, null);
-        Map<String, CCModel> rightBootModel = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_right_boot.obj"), GL11.GL_TRIANGLES, null);
-        Map<String, CCModel> leftBootModel  = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_left_boot.obj"), GL11.GL_TRIANGLES, null);
+		Map<String, CCModel> headModel      = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_helmet.obj"), GL11.GL_TRIANGLES, null);
+		Map<String, CCModel> bodyModel      = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_body.obj"), GL11.GL_TRIANGLES, null);
+		Map<String, CCModel> rightArmModel  = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_right_arm.obj"), GL11.GL_TRIANGLES, null);
+		Map<String, CCModel> leftArmModel   = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_left_arm.obj"), GL11.GL_TRIANGLES, null);
+		Map<String, CCModel> beltModel      = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_belt.obj"), GL11.GL_TRIANGLES, null);
+		Map<String, CCModel> rightLegModel  = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_right_leg.obj"), GL11.GL_TRIANGLES, null);
+		Map<String, CCModel> leftLegModel   = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_left_leg.obj"), GL11.GL_TRIANGLES, null);
+		Map<String, CCModel> rightBootModel = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_right_boot.obj"), GL11.GL_TRIANGLES, null);
+		Map<String, CCModel> leftBootModel  = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_left_boot.obj"), GL11.GL_TRIANGLES, null);
 
 		body.y = 0.755F;
 		rightArm.y = 0.755F;
@@ -64,7 +62,7 @@ public class InfusedPotatoArmorModel extends VBOBipedModel<LivingEntity> {
 
 		//leftArm.scale = 1F / 13.7F;
 		//rightArm.scale = 1F / 13.7F;
-		
+
 		if (slot == EquipmentSlotType.HEAD) {
 			this.bipedHead.addChild(head);
 		}
@@ -83,7 +81,7 @@ public class InfusedPotatoArmorModel extends VBOBipedModel<LivingEntity> {
 			//this.bipedRightLeg.addChild(rightBoot);
 		}
 	}
-	
+
 	@Override
 	public void render(MatrixStack mStack, IRenderTypeBuffer getter, LivingEntity entity, ItemStack itemstack, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		if (entity == null || entity instanceof ArmorStandEntity) {
@@ -131,7 +129,7 @@ public class InfusedPotatoArmorModel extends VBOBipedModel<LivingEntity> {
 		this.bipedLeftLeg.render(mStack, getter, packedLight, packedOverlay, red, green, blue, alpha);
 		GlStateManager._popMatrix();
 	}
-	
+
 	public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float scale, Entity p_78087_7_) {
 		this.bipedRightArm.zRot = 0.0F;
 		this.bipedLeftArm.zRot = 0.0F;

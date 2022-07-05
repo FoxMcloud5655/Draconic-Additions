@@ -8,9 +8,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class ClientProxy extends CommonProxy {
-	
+
 	public static ModelRegistryHelper modelHelper = new ModelRegistryHelper();
-	
+
 	public void construct() {
 		super.construct();
 	}

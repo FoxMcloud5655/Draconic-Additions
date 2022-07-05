@@ -1,21 +1,11 @@
 package net.foxmcloud.draconicadditions.handlers;
 
-import java.util.Optional;
-
-import org.apache.commons.lang3.tuple.ImmutableTriple;
-
 import net.foxmcloud.draconicadditions.items.curios.ModularHarness;
-import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.NBTTextComponent.Block;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;

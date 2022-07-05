@@ -2,7 +2,6 @@ package net.foxmcloud.draconicadditions.items;
 
 import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -35,7 +34,7 @@ public interface IChaosContainer {
 	public default int getMaxChaos(ItemStack stack) {
 		return 1000;
 	}
-	
+
 	public default ITextComponent getChaosInfo(ItemStack stack) {
 		return new TranslationTextComponent("info.da.storedchaos", getChaos(stack), getMaxChaos(stack)).withStyle(TextFormatting.GRAY);
 	}

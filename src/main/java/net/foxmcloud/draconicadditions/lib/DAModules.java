@@ -1,8 +1,8 @@
 package net.foxmcloud.draconicadditions.lib;
 
 import static com.brandon3055.brandonscore.api.TechLevel.*;
-import static com.brandon3055.draconicevolution.api.modules.ModuleTypes.*;
-import static net.foxmcloud.draconicadditions.modules.ModuleTypes.*;
+import static com.brandon3055.draconicevolution.api.modules.ModuleTypes.AUTO_FEED;
+import static net.foxmcloud.draconicadditions.modules.ModuleTypes.TICK_ACCEL;
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
 import java.util.ArrayList;
@@ -12,8 +12,11 @@ import java.util.function.Function;
 
 import com.brandon3055.brandonscore.client.utils.CyclingItemGroup;
 import com.brandon3055.draconicevolution.api.modules.Module;
-import com.brandon3055.draconicevolution.api.modules.data.*;
-import com.brandon3055.draconicevolution.api.modules.lib.*;
+import com.brandon3055.draconicevolution.api.modules.data.AutoFeedData;
+import com.brandon3055.draconicevolution.api.modules.data.NoData;
+import com.brandon3055.draconicevolution.api.modules.lib.BaseModule;
+import com.brandon3055.draconicevolution.api.modules.lib.ModuleImpl;
+import com.brandon3055.draconicevolution.api.modules.lib.ModuleItem;
 import com.brandon3055.draconicevolution.init.ModuleCfg;
 
 import net.foxmcloud.draconicadditions.DAConfig;

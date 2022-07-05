@@ -1,14 +1,9 @@
 package net.foxmcloud.draconicadditions;
 
-import com.brandon3055.brandonscore.client.particle.BCParticle;
-import com.brandon3055.brandonscore.lib.Vec3D;
 import com.brandon3055.brandonscore.utils.ItemNBTHelper;
-import com.brandon3055.draconicevolution.client.DEParticles;
 import com.brandon3055.draconicevolution.handlers.DESounds;
-import com.brandon3055.draconicevolution.items.equipment.ModularChestpiece;
 
 import codechicken.lib.vec.Vector3;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

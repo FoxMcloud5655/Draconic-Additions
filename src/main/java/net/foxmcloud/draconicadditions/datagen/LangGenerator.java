@@ -19,7 +19,7 @@ public class LangGenerator extends LanguageProvider {
 	public LangGenerator(DataGenerator gen) {
 		super(gen, DraconicAdditions.MODID, "en_us");
 	}
-	
+
 	private void blocks(PrefixHelper helper) {
 		helper.add(DAContent.chaosLiquefier, "Chaos Liquefier");
 	}
@@ -54,9 +54,9 @@ public class LangGenerator extends LanguageProvider {
 		helper.add(DAModules.chaoticAutoFeed,   "Chaotic Auto Feed Module");
 		helper.add(DAModules.draconicTickAccel, "Draconic Tick Accelerator");
 		helper.add(DAModules.chaoticTickAccel,  "Chaotic Tick Accelerator");
-        helper.add(ModuleTypes.TICK_ACCEL,      "Tick Accelerator");
-        helper.add("tick_accel.name",           "Additional Ticks");
-        helper.add("tick_accel.value",          "%s Ticks");
+		helper.add(ModuleTypes.TICK_ACCEL,      "Tick Accelerator");
+		helper.add("tick_accel.name",           "Additional Ticks");
+		helper.add("tick_accel.value",          "%s Ticks");
 	}
 
 	private void gui(PrefixHelper helper) {
@@ -65,7 +65,7 @@ public class LangGenerator extends LanguageProvider {
 		helper.add("chaos_liquefier.chaosSlot.hover", "Accepts Chaos Shards and Chaos Hearts.");
 		helper.add("chaos_liquefier.chaosText", "Chaos: %sB / %sB");
 	}
-	
+
 	private void info(PrefixHelper helper) {
 		helper.setPrefix("info.da");
 		helper.add("storedchaos", "Stored Chaos: %s / %s B");
@@ -80,7 +80,7 @@ public class LangGenerator extends LanguageProvider {
 		helper.add("modular_harness.storedBlock", "Currently Stored: ");
 		helper.add("opCost", "OP Cost: %s OP/t");
 	}
-	
+
 	private void itemProps(PrefixHelper helper) {
 		helper.setPrefix("item_prop." + DraconicEvolution.MODID);
 		helper.add("receive_energy_from_machine", "Receive RF From Machine");
@@ -132,13 +132,13 @@ public class LangGenerator extends LanguageProvider {
 		public void add(Item key, String name) {
 			if (key != null) generator.add(key, name);
 		}
-		
-		public void add(ModuleType<?> key, String name) {
-            generator.add("module_type." + DraconicEvolution.MODID + "." + key.getName() + ".name", name);
-        }
 
-        public void add(Module<?> key, String name) {
-            generator.add(key.getItem(), name);
-        }
+		public void add(ModuleType<?> key, String name) {
+			generator.add("module_type." + DraconicEvolution.MODID + "." + key.getName() + ".name", name);
+		}
+
+		public void add(Module<?> key, String name) {
+			generator.add(key.getItem(), name);
+		}
 	}
 }
