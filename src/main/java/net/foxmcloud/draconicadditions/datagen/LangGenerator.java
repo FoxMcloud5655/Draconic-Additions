@@ -68,7 +68,6 @@ public class LangGenerator extends LanguageProvider {
 	
 	private void info(PrefixHelper helper) {
 		helper.setPrefix("info.da");
-		helper.add("harnessdim.stopTravel", "Something prevents you from teleporting into this dimension...");
 		helper.add("storedchaos", "Stored Chaos: %s / %s B");
 		helper.add("chaos.noShield", "The Chaos Container requires shield boosting modules to operate.");
 		helper.add("chaos.xfer.to", "Transferred %s B to %s");

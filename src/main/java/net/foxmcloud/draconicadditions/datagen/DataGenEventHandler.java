@@ -4,7 +4,6 @@ import javax.annotation.Nullable;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.integration.DACuriosIntegration;
-import net.foxmcloud.draconicadditions.world.DADimension;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
@@ -31,7 +30,6 @@ public class DataGenEventHandler {
 			BlockTagGenerator blockGenerator = new BlockTagGenerator(gen, DraconicAdditions.MODID, event.getExistingFileHelper());
 			gen.addProvider(blockGenerator);
 			gen.addProvider(new ItemTagGenerator(gen, blockGenerator, DraconicAdditions.MODID, event.getExistingFileHelper()));
-			gen.addProvider(new DimensionCopyProvider(gen, DADimension.HARNESS_DIM.location(), DADimension.HARNESS_DIM_TYPE.location()));
 		}
 	}
 

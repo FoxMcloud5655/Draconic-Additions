@@ -6,7 +6,6 @@ import org.apache.commons.lang3.tuple.ImmutableTriple;
 
 import net.foxmcloud.draconicadditions.items.curios.ModularHarness;
 import net.foxmcloud.draconicadditions.lib.DAContent;
-import net.foxmcloud.draconicadditions.world.DADimension;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,7 +18,6 @@ import net.minecraft.util.text.NBTTextComponent.Block;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -54,35 +52,20 @@ public class DAEventHandler {
 				BlockPos abovePos = event.getPos().above();
 				BlockState aboveState = world.getBlockState(abovePos);
 				if (ModularHarness.hasAttachedTileEntity(harness, world) && event.getFace() == Direction.UP && aboveState.getBlock().isAir(aboveState, world, abovePos)) {
-					if (ModularHarness.placeTileEntity(world, abovePos, harness)) {
+					if (ModularHarness.placeAndGetTileEntity(world, abovePos, harness) != null) {
 						player.displayClientMessage(new TranslationTextComponent("info.da.modular_harness.placeSuccess"), true);
 						event.setCanceled(true);
 					}
 				}
 				else {
 					if (world.getBlockState(event.getPos()).hasTileEntity() && event.getPos().closerThan(player.position(), 2)) {
-						if (ModularHarness.storeTileEntity(harness, player, world, event.getPos())) {
+						if (ModularHarness.storeTileEntity(world, event.getPos(), harness, player)) {
 							player.displayClientMessage(new TranslationTextComponent("info.da.modular_harness.storeSuccess"), true);
 						}
 						event.setCanceled(true);
 					}
 				}
 			}
-		}
-	}
-
-	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public void enterHarnessDim(EntityTravelToDimensionEvent event) {
-		if (event.getDimension() == DADimension.HARNESS_DIM) {
-			if (event.getEntity() instanceof LivingEntity) {
-				LivingEntity entity = (LivingEntity)event.getEntity();
-				if (entity.getName().getString().equals("Dev")) {
-					entity.sendMessage(new StringTextComponent("You may pass through...  But only because you are a developer."), Util.NIL_UUID);
-					return;
-				}
-				entity.sendMessage(new TranslationTextComponent("info.da.harnessdim.stopTravel"), Util.NIL_UUID);
-			}
-			event.setCanceled(true);
 		}
 	}
 }

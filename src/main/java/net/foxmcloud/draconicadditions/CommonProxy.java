@@ -14,7 +14,6 @@ import com.brandon3055.draconicevolution.utils.LogHelper;
 import net.foxmcloud.draconicadditions.handlers.DAEventHandler;
 import net.foxmcloud.draconicadditions.integration.AE2Compat;
 import net.foxmcloud.draconicadditions.items.tools.ChaosContainer;
-import net.foxmcloud.draconicadditions.world.DADimension;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -28,7 +27,6 @@ public class CommonProxy {
 		AE2Compat.init();
 		//FusionCostMultiplier.postInit();
 		MinecraftForge.EVENT_BUS.register(new DAEventHandler());
-		DADimension.init();
 	}
 
 	@SuppressWarnings("deprecation")
