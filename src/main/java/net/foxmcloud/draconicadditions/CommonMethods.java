@@ -1,5 +1,7 @@
 package net.foxmcloud.draconicadditions;
 
+import javax.annotation.Nullable;
+
 import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 import com.brandon3055.draconicevolution.handlers.DESounds;
 
@@ -9,10 +11,14 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.state.DirectionProperty;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.BlockFlags;
 
@@ -43,6 +49,34 @@ public class CommonMethods {
 		}
 	}
 
+	public static Direction getHorizontalDirectionFromLookAngle(Vector2f lookAngle) {
+		float r = lookAngle.y;
+		while (r < 0) {
+			r += 360;
+		}
+		r = r % 360;
+		if (r > 315 || r <= 45) {
+			return Direction.SOUTH;
+		}
+		else if (r > 45 && r <= 135) {
+			return Direction.WEST;
+		}
+		else if (r > 135 && r <= 225) {
+			return Direction.NORTH;
+		}
+		else return Direction.EAST;
+	}
+
+	public static Direction getDirectionFromLookAngle(Vector2f lookAngle) {
+		if (lookAngle.x > 45) {
+			return Direction.UP;
+		}
+		else if (lookAngle.x < -45) {
+			return Direction.DOWN;
+		}
+		else return getHorizontalDirectionFromLookAngle(lookAngle);
+	}
+
 	public static CompoundNBT createFakeNBT(BlockPos pos) {
 		CompoundNBT fakeNBT = new CompoundNBT();
 		fakeNBT.putInt("x", pos.getX());
@@ -65,6 +99,13 @@ public class CommonMethods {
 			storeBlockAt(world, pos, removeBlock);
 		}
 
+		public BlockStorage(World world, BlockPos pos, BlockState blockState, CompoundNBT tileNBT) {
+			oldWorld = world;
+			oldPos = pos;
+			this.blockState = blockState;
+			this.tileNBT = tileNBT;
+		}
+
 		public void storeBlockAt(World world, BlockPos pos) {
 			storeBlockAt(world, pos, false);
 		}
@@ -83,20 +124,43 @@ public class CommonMethods {
 			}
 		}
 
-		public void restoreBlockAt(World world, BlockPos pos) {
+		public boolean restoreBlockAt(World world, BlockPos pos, @Nullable Vector2f rotation) {
 			if (blockState != null) {
+				BlockStorage oldBlock = new BlockStorage(world, pos, false);
+				if (rotation != null) {
+					blockState.getValues().forEach((prop, comp) -> {
+						if (prop instanceof DirectionProperty) {
+							DirectionProperty dirProp = (DirectionProperty)prop;
+							if (dirProp == BlockStateProperties.FACING) {
+								blockState = blockState.setValue(dirProp, getDirectionFromLookAngle(rotation));
+							}
+							else if (dirProp == BlockStateProperties.HORIZONTAL_FACING) {
+								Direction dir = getHorizontalDirectionFromLookAngle(rotation);
+								if (dir != null) {
+									blockState = blockState.setValue(dirProp, dir);
+								}
+							}
+						}
+					});
+				}
 				world.setBlock(pos, blockState, BlockFlags.DEFAULT_AND_RERENDER);
+				if (world.getBlockState(pos) != blockState) {
+					oldBlock.restoreBlock(null);
+					return false;
+				}
 				TileEntity tileEntity = world.getBlockEntity(pos);
 				if (tileEntity != null) {
 					tileEntity.deserializeNBT(tileNBT);
 					tileEntity.setLevelAndPosition(world, pos);
 					tileEntity.requestModelDataUpdate();
 				}
+				return true;
 			}
+			return false;
 		}
 
-		public void restoreBlock() {
-			restoreBlockAt(oldWorld, oldPos);
+		public void restoreBlock(@Nullable Vector2f rotation) {
+			restoreBlockAt(oldWorld, oldPos, rotation);
 		}
 
 		public CompoundNBT storeBlockInTag(CompoundNBT nbt) {
@@ -116,7 +180,7 @@ public class CommonMethods {
 			return nbt;
 		}
 
-		public static boolean restoreBlockFromTag(World world, BlockPos pos, CompoundNBT nbt, boolean clearNBT) {
+		public static boolean restoreBlockFromTag(World world, BlockPos pos, @Nullable Vector2f rotation, CompoundNBT nbt, boolean clearNBT) {
 			if (nbt == null || !nbt.contains("storedBlockState")) {
 				return false;
 			}
@@ -128,17 +192,9 @@ public class CommonMethods {
 			if (blockState == null) {
 				return false;
 			}
-			BlockStorage oldBlock = new BlockStorage(world, pos, true);
-			world.setBlock(pos, blockState, BlockFlags.DEFAULT_AND_RERENDER);
-			if (world.getBlockState(pos) != blockState) {
-				oldBlock.restoreBlock();
+			BlockStorage newBlock = new BlockStorage(world, pos, blockState, tileNBT);
+			if (!newBlock.restoreBlockAt(world, pos, rotation)) {
 				return false;
-			}
-			TileEntity tileEntity = world.getBlockEntity(pos);
-			if (tileEntity != null) {
-				tileEntity.deserializeNBT(tileNBT);
-				tileEntity.setLevelAndPosition(world, pos);
-				tileEntity.requestModelDataUpdate();
 			}
 			if (clearNBT) {
 				nbt.remove("storedBlockState");

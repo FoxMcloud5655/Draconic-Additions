@@ -6,6 +6,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -42,7 +43,9 @@ public class DAEventHandler {
 				BlockPos abovePos = event.getPos().above();
 				BlockState aboveState = world.getBlockState(abovePos);
 				if (ModularHarness.hasAttachedTileEntity(harness, world) && event.getFace() == Direction.UP && aboveState.getBlock().isAir(aboveState, world, abovePos)) {
-					if (ModularHarness.placeAndGetTileEntity(world, abovePos, harness) != null) {
+					Vector2f pRot = player.getRotationVector();
+					Vector2f rotation = new Vector2f(-pRot.x, pRot.y + 180);
+					if (ModularHarness.placeAndGetTileEntity(world, abovePos, rotation, harness, true) != null) {
 						player.displayClientMessage(new TranslationTextComponent("info.da.modular_harness.placeSuccess"), true);
 						event.setCanceled(true);
 					}

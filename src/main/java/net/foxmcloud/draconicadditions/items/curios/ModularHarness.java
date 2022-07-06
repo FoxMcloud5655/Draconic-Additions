@@ -28,11 +28,9 @@ import com.brandon3055.draconicevolution.integration.equipment.EquipmentManager;
 
 import net.foxmcloud.draconicadditions.CommonMethods.BlockStorage;
 import net.foxmcloud.draconicadditions.DAConfig;
-import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.items.ModularEnergyItem;
 import net.foxmcloud.draconicadditions.modules.ModuleTypes;
 import net.foxmcloud.draconicadditions.modules.TickAccelData;
-import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -42,6 +40,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -74,9 +73,12 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 			return;
 		}
 		World world = entity.level;
-		BlockPos pos = entity.blockPosition();
+		BlockPos pos = entity.blockPosition().above();
 		BlockStorage oldBlock = new BlockStorage(world, pos, false);
-		TileEntity tile = placeAndGetTileEntity(world, pos, stack);
+		TileEntity tile = placeAndGetTileEntity(world, pos, entity.getRotationVector(), stack, false);
+		if (tile == null) {
+			return;
+		}
 		stack.getCapability(DECapabilities.OP_STORAGE).ifPresent(e -> {
 			IOPStorageModifiable storage = (IOPStorageModifiable)e;
 			IOPStorage teStorage = EnergyUtils.getStorage(tile, null);
@@ -105,7 +107,7 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 			((ITickableTileEntity)tile).tick();
 		}
 		storeTileEntity(world, pos, stack, entity);
-		oldBlock.restoreBlock();
+		oldBlock.restoreBlock(null);
 	}
 
 	@Override
@@ -176,14 +178,6 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 	}
 
 	public static boolean storeTileEntity(World world, BlockPos pos, ItemStack stack, LivingEntity entity) {
-		if (hasAttachedTileEntity(stack, world)) {
-			DraconicAdditions.logger.warn("Entity " + entity.getName() + 
-					" attempted to store a TileEntity at pos " + pos.toShortString() + 
-					" when their " + stack.getItem().getRegistryName() + 
-					" already has a " + Block.stateById(stack.getTag().getInt("storedBlockState")).getBlock().getRegistryName() + 
-					" stored!");
-			return false;
-		}
 		if (world instanceof ServerWorld) {
 			if (world.getBlockEntity(pos) != null) {
 				BlockStorage block = new BlockStorage(world, pos, true);
@@ -198,9 +192,11 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 		return true;
 	}
 
-	public static TileEntity placeAndGetTileEntity(World world, BlockPos pos, ItemStack stack) {
-		if (BlockStorage.restoreBlockFromTag(world, pos, stack.getTag(), false)) {
-			clearData(stack);
+	public static TileEntity placeAndGetTileEntity(World world, BlockPos pos, @Nullable Vector2f rotation, ItemStack stack, boolean clearData) {
+		if (BlockStorage.restoreBlockFromTag(world, pos, rotation, stack.getTag(), false)) {
+			if (clearData) {
+				clearData(stack);
+			}
 			return world.getBlockEntity(pos);
 		}
 		return null;
