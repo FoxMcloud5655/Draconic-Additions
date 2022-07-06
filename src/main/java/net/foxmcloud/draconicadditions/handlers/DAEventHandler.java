@@ -26,7 +26,7 @@ public class DAEventHandler {
 		}
 		PlayerEntity player = event.getPlayer();
 		boolean handsAreEmpty = player.getMainHandItem().isEmpty() && player.getOffhandItem().isEmpty();
-		if (handsAreEmpty && player.isShiftKeyDown()) {
+		if (handsAreEmpty && player.isShiftKeyDown() && event.getPos().closerThan(player.position(), 2)) {
 			ISlotType backSlot = CuriosApi.getSlotHelper().getSlotType(SlotTypePreset.BACK.getIdentifier()).get();
 			IDynamicStackHandler stackHandler = CuriosApi.getCuriosHelper().getCuriosHandler(player).orElse(null).getStacksHandler(backSlot.getIdentifier()).get().getStacks();
 			if (stackHandler.getSlots() == 0) {
@@ -51,7 +51,7 @@ public class DAEventHandler {
 					}
 				}
 				else {
-					if (world.getBlockState(event.getPos()).hasTileEntity() && event.getPos().closerThan(player.position(), 2)) {
+					if (world.getBlockState(event.getPos()).hasTileEntity()) {
 						if (ModularHarness.storeTileEntity(world, event.getPos(), harness, player)) {
 							player.displayClientMessage(new TranslationTextComponent("info.da.modular_harness.storeSuccess"), true);
 						}
