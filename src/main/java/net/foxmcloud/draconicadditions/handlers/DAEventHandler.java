@@ -43,21 +43,21 @@ public class DAEventHandler {
 			if (!harness.equals(ItemStack.EMPTY)) {
 				BlockPos abovePos = event.getPos().above();
 				BlockState aboveState = world.getBlockState(abovePos);
-				if (ModularHarness.hasAttachedTileEntity(harness, world) && event.getFace() == Direction.UP && aboveState.getBlock().isAir(aboveState, world, abovePos)) {
-					Vector2f pRot = player.getRotationVector();
-					Vector2f rotation = new Vector2f(-pRot.x, pRot.y + 180);
-					if (BlockStorage.restoreBlockFromTag(world, abovePos, rotation, harness.getTag(), true, true)) {
-						player.displayClientMessage(new TranslationTextComponent("info.da.modular_harness.placeSuccess"), true);
-						event.setCanceled(true);
+				if (ModularHarness.hasAttachedTileEntity(harness, world)) {
+					if (event.getFace() == Direction.UP && aboveState.getBlock().isAir(aboveState, world, abovePos)) {
+						Vector2f pRot = player.getRotationVector();
+						Vector2f rotation = new Vector2f(-pRot.x, pRot.y + 180);
+						if (BlockStorage.restoreBlockFromTag(world, abovePos, rotation, harness.getTag(), true, true)) {
+							player.displayClientMessage(new TranslationTextComponent("info.da.modular_harness.placeSuccess"), true);
+							event.setCanceled(true);
+						}
 					}
 				}
-				else {
-					if (world.getBlockState(event.getPos()).hasTileEntity()) {
-						if (ModularHarness.storeTileEntity(world, event.getPos(), harness, player, true)) {
-							player.displayClientMessage(new TranslationTextComponent("info.da.modular_harness.storeSuccess"), true);
-						}
-						event.setCanceled(true);
+				else if (world.getBlockState(event.getPos()).hasTileEntity()) {
+					if (ModularHarness.storeTileEntity(world, event.getPos(), harness, player, true)) {
+						player.displayClientMessage(new TranslationTextComponent("info.da.modular_harness.storeSuccess"), true);
 					}
+					event.setCanceled(true);
 				}
 			}
 		}
