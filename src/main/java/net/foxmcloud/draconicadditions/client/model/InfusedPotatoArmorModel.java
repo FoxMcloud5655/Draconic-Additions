@@ -6,7 +6,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.brandon3055.draconicevolution.client.model.VBOBipedModel;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import codechicken.lib.render.CCModel;
 import codechicken.lib.render.OBJParser;
@@ -82,6 +82,7 @@ public class InfusedPotatoArmorModel extends VBOBipedModel<LivingEntity> {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void render(MatrixStack mStack, IRenderTypeBuffer getter, LivingEntity entity, ItemStack itemstack, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		if (entity == null || entity instanceof ArmorStandEntity) {
@@ -115,10 +116,10 @@ public class InfusedPotatoArmorModel extends VBOBipedModel<LivingEntity> {
 			setRotationAngles(0, 0, 0, 0, 0, 0, null);
 		}
 
-		GlStateManager._pushMatrix();
+		RenderSystem.pushMatrix();
 
 		if (entity.isCrouching()) {
-			GlStateManager._translatef(0.0F, 0.2F, 0.0F);
+			RenderSystem.translatef(0.0F, 0.2F, 0.0F);
 		}
 
 		this.bipedHead.render(mStack, getter, packedLight, packedOverlay, red, green, blue, alpha);
@@ -127,7 +128,7 @@ public class InfusedPotatoArmorModel extends VBOBipedModel<LivingEntity> {
 		this.bipedBody.render(mStack, getter, packedLight, packedOverlay, red, green, blue, alpha);
 		this.bipedRightLeg.render(mStack, getter, packedLight, packedOverlay, red, green, blue, alpha);
 		this.bipedLeftLeg.render(mStack, getter, packedLight, packedOverlay, red, green, blue, alpha);
-		GlStateManager._popMatrix();
+		RenderSystem.popMatrix();
 	}
 
 	public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float scale, Entity p_78087_7_) {

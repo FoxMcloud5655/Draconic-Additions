@@ -23,6 +23,7 @@ import net.minecraft.loot.LootTableManager;
 import net.minecraft.loot.ValidationTracker;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class LootTableGenerator extends LootTableProvider {
 
@@ -49,7 +50,7 @@ public class LootTableGenerator extends LootTableProvider {
 
 		@Override
 		protected Iterable<Block> getKnownBlocks() {
-			return Registry.BLOCK.stream().filter(block -> Objects.requireNonNull(block.getRegistryName()).getNamespace().equals(DraconicAdditions.MODID)).collect(Collectors.toList());
+			return ForgeRegistries.BLOCKS.getValues().stream().filter(block -> Objects.requireNonNull(block.getRegistryName()).getNamespace().equals(DraconicAdditions.MODID)).collect(Collectors.toList());
 		}
 
 	}

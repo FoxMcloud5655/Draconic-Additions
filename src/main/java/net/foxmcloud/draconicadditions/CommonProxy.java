@@ -13,6 +13,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 
+@SuppressWarnings("deprecation")
 public class CommonProxy {
 	public void construct() {
 		DAConfig.load();
@@ -21,7 +22,6 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new DAEventHandler());
 	}
 
-	@SuppressWarnings("deprecation")
 	public void commonSetup(FMLCommonSetupEvent event) {
 		if (ModList.get().isLoaded("draconicevolution")) {
 			DraconicAdditions.logger.log(Level.INFO, "Hey, Brandon's Core!  How's it going?");

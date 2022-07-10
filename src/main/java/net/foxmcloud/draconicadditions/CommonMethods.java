@@ -34,7 +34,14 @@ public class CommonMethods {
 	public static final DamageSource chaosBurst = new DamageSource("chaosBurst").bypassArmor();
 	private static final short gracePeriod = 100;
 
-	//Must be called every tick, else check will fail.
+	/**
+	 * Used to check if an item was moved out of a ticking inventory, like from a player's inventory
+	 * into a chest or ME system.  Must be called every tick, else check will fail.
+	 * 
+	 * @param stack The stack to check if it has been removed from a ticking inventory.
+	 * @param world The current world the stack is ticking in.
+	 * @return True if the item was removed for longer than the grace period, false otherwise.
+	 */
 	public static boolean cheatCheck(ItemStack stack, World world) {
 		long containerTime = ItemNBTHelper.getLong(stack, "cheatCheck", 0);
 		long serverTime = world.getGameTime();

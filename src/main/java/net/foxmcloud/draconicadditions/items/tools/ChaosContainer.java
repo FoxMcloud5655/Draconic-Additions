@@ -177,7 +177,7 @@ public class ChaosContainer extends ModularEnergyItem implements IChaosContainer
 			pCap.removeChaos(chaosToAdd / 4.0F);
 			if (pCap.getChaos() <= 0.25) {
 				ItemStack chest = player.inventory.armorItemInSlot(2);
-				if (chest.getItem() == DAFeatures.chaoticChest && ItemNBTHelper.getBoolean(chest, "injecting", false)) {
+				if (chest.getItem() == DAContent.chaoticChest && ItemNBTHelper.getBoolean(chest, "injecting", false)) {
 					ItemNBTHelper.setBoolean(chest, "injecting", false);
 					player.displayClientMessage(new TranslationTextComponent("msg.da.chaosInjection.failsafe"), true);
 				}
