@@ -41,6 +41,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		simpleCurios(DAContent.harnessWyvern);
 		simpleCurios(DAContent.harnessDraconic);
 		simpleCurios(DAContent.harnessChaotic);
+		simpleItem(DAContent.hermal, new ResourceLocation("minecraft", "item/poisonous_potato"));
 		simpleModule(DAModules.chaoticAutoFeed);
 		simpleModule(DAModules.draconicTickAccel);
 		simpleModule(DAModules.chaoticTickAccel);

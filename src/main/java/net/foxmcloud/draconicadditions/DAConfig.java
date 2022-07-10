@@ -32,6 +32,7 @@ public class DAConfig extends DEConfig {
 
 	// Tools
 
+	public static long hermalRFAmount = 1000;
 	public static double chaosContainerRFMultiplier = 1;
 
 	// Modules
@@ -39,6 +40,10 @@ public class DAConfig extends DEConfig {
 	public static double chaoticFeedAmount = 1000;
 	public static int draconicAccelTicks = 1;
 	public static int chaoticAccelTicks = 2;
+	
+	// Misc
+	
+	public static boolean enableMemes = false;
 
 	private static void loadServer() {
 		serverTag = config.getTag("Server");
@@ -69,7 +74,11 @@ public class DAConfig extends DEConfig {
 
 		ConfigTag toolTweaks = serverTag.getTag("Tool Tweaks");
 		toolTweaks.setComment("These allow you to tweak the stats of the tools found in this mod.");
-
+		
+		toolTweaks.getTag("hermalRFAmount").setSyncToClient().setDefaultLong(1000)
+		.setComment("Sets how much RF Hermal provides when powered.")
+		.setSyncCallback((tag, type) -> hermalRFAmount = tag.getLong());
+		
 		toolTweaks.getTag("chaosContainerRFMultiplier").setSyncToClient().setDefaultDouble(1)
 		.setComment("Sets how much RF the chaos container should consume per tick for every bucket of chaos.")
 		.setSyncCallback((tag, type) -> chaosContainerRFMultiplier = tag.getDouble());
@@ -94,6 +103,10 @@ public class DAConfig extends DEConfig {
 		// Misc
 
 		ConfigTag miscTweaks = serverTag.getTag("Misc Tweaks");
-		miscTweaks.setComment("Allows you to tweak various things about Draconic Evolution as a whole, such as fusion crafting power costs.");
+		miscTweaks.setComment("Allows you to tweak various things about Draconic Evolution and Draconic Additions as a whole, such as fusion crafting power costs.");
+		
+		miscTweaks.getTag("enableMemes").setSyncToClient().setDefaultBoolean(false)
+		.setComment("Enables non-canon content.  Not suited for general play, but content isn't unbalanced.")
+		.setSyncCallback((tag, type) -> enableMemes = tag.getBoolean());
 	}
 }

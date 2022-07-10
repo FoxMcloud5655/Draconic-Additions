@@ -41,6 +41,7 @@ public class LangGenerator extends LanguageProvider {
 		helper.add(DAContent.harnessWyvern,      "Wyvern Harness");
 		helper.add(DAContent.harnessDraconic,    "Draconic Harness");
 		helper.add(DAContent.harnessChaotic,     "Chaotic Harness");
+		helper.add(DAContent.hermal,             "Hermal");
 	}
 
 	private void itemGroups(PrefixHelper helper) {
@@ -74,6 +75,8 @@ public class LangGenerator extends LanguageProvider {
 		helper.add("chaos.xfer.from", "Transferred %s B from %s");
 		helper.add("chaos.warning", "WARNING: Inadaquate shielding!");
 		helper.add("chaos.explode", "The Chaos Container explodes in your hand!");
+		helper.add("hermal.eat.attempt", "This seems like a bad idea...");
+		helper.add("hermal.eat.success", "No one contests the power of hermal.");
 		helper.add("modular_harness.cantmove", "This block doesn't seem to budge...");
 		helper.add("modular_harness.storeSuccess", "You place the machine into your harness.");
 		helper.add("modular_harness.placeSuccess", "You take the machine off of your harness and set it back down.");

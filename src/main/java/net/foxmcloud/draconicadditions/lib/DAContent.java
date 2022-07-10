@@ -16,6 +16,7 @@ import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.blocks.machines.ChaosLiquefier;
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosLiquefier;
 import net.foxmcloud.draconicadditions.inventory.GUILayoutFactories;
+import net.foxmcloud.draconicadditions.items.Hermal;
 import net.foxmcloud.draconicadditions.items.armor.InfusedPotatoArmor;
 import net.foxmcloud.draconicadditions.items.curios.ModularHarness;
 import net.foxmcloud.draconicadditions.items.curios.ModularNecklace;
@@ -73,7 +74,7 @@ public class DAContent {
 	@ObjectHolder("inert_potato_legs")  public static Item inertPotatoLegs;
 	@ObjectHolder("inert_potato_boots") public static Item inertPotatoBoots;
 	@ObjectHolder("chaos_heart")        public static Item chaosHeart;
-	//@ObjectHolder("hermal")             public static Hermal hermal;
+	@ObjectHolder("hermal")             public static Hermal hermal;
 
 	// Armor
 
@@ -127,8 +128,7 @@ public class DAContent {
 		registerItem(event, new ModularHarness(wyvernTier).setRegistryName("wyvern_harness"));
 		registerItem(event, new ModularHarness(draconicTier).setRegistryName("draconic_harness"));
 		registerItem(event, new ModularHarness(chaoticTier).setRegistryName("chaotic_harness"));
-
-		//registerItem(event, new Hermal(new Item.Properties().stacksTo(1).tab(DAGroup)).setRegistryName("hermal"));
+		registerItem(event, new Hermal(chaoticTier).setRegistryName("hermal"));
 	}
 
 	// Blocks
