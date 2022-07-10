@@ -31,11 +31,12 @@ import net.foxmcloud.draconicadditions.DAConfig;
 import net.foxmcloud.draconicadditions.items.ModularEnergyItem;
 import net.foxmcloud.draconicadditions.modules.ModuleTypes;
 import net.foxmcloud.draconicadditions.modules.TickAccelData;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Util;
@@ -56,7 +57,6 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 	public static final ModuleCategory HARNESS = new ModuleCategory();
 	private static final String receive = "receive_energy_from_machine";
 	private static final String tickAccelSpeed = "tick_accel_speed";
-	private static final int blockFlags = BlockFlags.DEFAULT_AND_RERENDER;
 	public ModularHarness(TechPropBuilder props) {
 		super(props);
 	}
@@ -75,7 +75,7 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 		World world = entity.level;
 		BlockPos pos = entity.blockPosition().above();
 		BlockStorage oldBlock = new BlockStorage(world, pos, false);
-		TileEntity tile = placeAndGetTileEntity(world, pos, entity.getRotationVector(), stack, false);
+		TileEntity tile = placeAndGetTileEntity(world, pos, entity.getRotationVector(), stack);
 		if (tile == null) {
 			return;
 		}
@@ -106,8 +106,8 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 		if (tile instanceof ITickableTileEntity) {
 			((ITickableTileEntity)tile).tick();
 		}
-		storeTileEntity(world, pos, stack, entity);
-		oldBlock.restoreBlock(null);
+		storeTileEntity(world, pos, stack, entity, false);
+		oldBlock.restoreBlock(null, false);
 	}
 
 	@Override
@@ -150,7 +150,8 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-		if (getAttachedName(stack) != null && getAttachedName(stack) != "") {
+		String name = getAttachedName(stack);
+		if (name != null && name != "") {
 			tooltip.add(new TranslationTextComponent("info.da.modular_harness.storedBlock").withStyle(TextFormatting.GOLD).append(new StringTextComponent(getAttachedName(stack)).withStyle(TextFormatting.GRAY)));
 			String rf = Utils.formatNumber(getRFCostForTicks(getCurrentTickSpeed(stack)));
 			tooltip.add(new TranslationTextComponent("info.da.opCost", rf).withStyle(GRAY));
@@ -168,21 +169,11 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 		return ticks > 1 ? (int)Math.pow(400, ticks * 0.25 + 0.25) : 0;
 	}
 
-	public static void clearData(ItemStack stack) {
-		if (stack.getTag() != null) {
-			CompoundNBT tag = stack.getTag();
-			tag.remove("storedTileEntity");
-			tag.remove("storedBlockState");
-			tag.remove("storedBlockName");
-		}
-	}
-
-	public static boolean storeTileEntity(World world, BlockPos pos, ItemStack stack, LivingEntity entity) {
-		if (world instanceof ServerWorld) {
+	public static boolean storeTileEntity(World world, BlockPos pos, ItemStack stack, LivingEntity entity, boolean removeBlock) {
+		if (world instanceof ServerWorld) { //TODO: Review if this is needed.
 			if (world.getBlockEntity(pos) != null) {
-				BlockStorage block = new BlockStorage(world, pos, true);
+				BlockStorage block = new BlockStorage(world, pos, removeBlock);
 				block.storeBlockInTag(stack.getOrCreateTag());
-				stack.getTag().putString("storedBlockName", block.blockState.getBlock().getName().getString());
 			}
 			else {
 				entity.sendMessage(new TranslationTextComponent("info.da.modular_harness.cantmove"), Util.NIL_UUID);
@@ -192,11 +183,8 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 		return true;
 	}
 
-	public static TileEntity placeAndGetTileEntity(World world, BlockPos pos, @Nullable Vector2f rotation, ItemStack stack, boolean clearData) {
-		if (BlockStorage.restoreBlockFromTag(world, pos, rotation, stack.getTag(), false)) {
-			if (clearData) {
-				clearData(stack);
-			}
+	public static TileEntity placeAndGetTileEntity(World world, BlockPos pos, @Nullable Vector2f rotation, ItemStack stack) {
+		if (BlockStorage.restoreBlockFromTag(world, pos, rotation, stack.getTag(), false, false)) {
 			return world.getBlockEntity(pos);
 		}
 		return null;
@@ -204,7 +192,11 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 
 
 	public static String getAttachedName(ItemStack stack) {
-		return stack.getTag() != null ? stack.getTag().getString("storedBlockName") : null;
+		if (stack.getTag() != null) {
+			Block block = BlockStorage.getBlockFromTag(stack.getTag());
+			return block == null || block == Blocks.AIR ? null : block.getName().getString();
+		}
+		return null;
 	}
 
 	public static boolean hasAttachedTileEntity(ItemStack stack, World world) {

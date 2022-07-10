@@ -1,5 +1,6 @@
 package net.foxmcloud.draconicadditions.handlers;
 
+import net.foxmcloud.draconicadditions.CommonMethods.BlockStorage;
 import net.foxmcloud.draconicadditions.items.curios.ModularHarness;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -45,14 +46,14 @@ public class DAEventHandler {
 				if (ModularHarness.hasAttachedTileEntity(harness, world) && event.getFace() == Direction.UP && aboveState.getBlock().isAir(aboveState, world, abovePos)) {
 					Vector2f pRot = player.getRotationVector();
 					Vector2f rotation = new Vector2f(-pRot.x, pRot.y + 180);
-					if (ModularHarness.placeAndGetTileEntity(world, abovePos, rotation, harness, true) != null) {
+					if (BlockStorage.restoreBlockFromTag(world, abovePos, rotation, harness.getTag(), true, true)) {
 						player.displayClientMessage(new TranslationTextComponent("info.da.modular_harness.placeSuccess"), true);
 						event.setCanceled(true);
 					}
 				}
 				else {
 					if (world.getBlockState(event.getPos()).hasTileEntity()) {
-						if (ModularHarness.storeTileEntity(world, event.getPos(), harness, player)) {
+						if (ModularHarness.storeTileEntity(world, event.getPos(), harness, player, true)) {
 							player.displayClientMessage(new TranslationTextComponent("info.da.modular_harness.storeSuccess"), true);
 						}
 						event.setCanceled(true);
