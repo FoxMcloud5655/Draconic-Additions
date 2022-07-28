@@ -106,8 +106,10 @@ public class CommonMethods {
 		int y = pos.getY();
 		int z = pos.getZ() & 15;
 		Chunk chunk = world.getChunkAt(pos);
-		chunk.setBlockState(pos, blockState, false);
-		/*
+		if (world.isClientSide) {
+			chunk.setBlockState(pos, blockState, false);
+			return;
+		}
 		ChunkSection chunksection = chunk.getSections()[y >> 4];
 		if (chunksection == Chunk.EMPTY_SECTION) {
 			chunksection = new ChunkSection(y >> 4 << 4);
@@ -123,7 +125,6 @@ public class CommonMethods {
 				world.setBlockEntity(pos, blockState.createTileEntity(world));
 			}
 		}
-		*/
 	}
 
 	public static CompoundNBT createFakeNBT(BlockPos pos) {
