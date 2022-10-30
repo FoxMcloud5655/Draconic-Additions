@@ -48,7 +48,7 @@ public class Hermal extends ModularEnergyItem {
 		}
 		stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).ifPresent(host -> {
 			EnergyData data = host.getModuleData(ModuleTypes.ENERGY_STORAGE);
-			if (data.getCapacity() == DEModules.chaoticEnergy.getData().getCapacity()) {
+			if (data != null && data.getCapacity() == DEModules.chaoticEnergy.getData().getCapacity()) {
 				PlayerEntity player = (PlayerEntity)entity;
 				if (EnergyUtils.canReceiveEnergy(player.getMainHandItem())) {
 					EnergyUtils.insertEnergy(player.getMainHandItem(), DAConfig.hermalRFAmount, false);
