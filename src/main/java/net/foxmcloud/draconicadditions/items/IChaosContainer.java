@@ -2,10 +2,10 @@ package net.foxmcloud.draconicadditions.items;
 
 import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.ItemStack;
 
 public interface IChaosContainer {
 
@@ -35,7 +35,7 @@ public interface IChaosContainer {
 		return 1000;
 	}
 
-	public default ITextComponent getChaosInfo(ItemStack stack) {
-		return new TranslationTextComponent("info.da.storedchaos", getChaos(stack), getMaxChaos(stack)).withStyle(TextFormatting.GRAY);
+	public default Component getChaosInfo(ItemStack stack) {
+		return new TranslatableComponent("info.da.storedchaos", getChaos(stack), getMaxChaos(stack)).withStyle(ChatFormatting.GRAY);
 	}
 }

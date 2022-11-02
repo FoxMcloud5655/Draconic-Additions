@@ -2,36 +2,34 @@ package net.foxmcloud.draconicadditions.client.model;
 
 import java.util.Map;
 
-import org.lwjgl.opengl.GL11;
-
 import com.brandon3055.draconicevolution.client.model.VBOBipedModel;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import codechicken.lib.render.CCModel;
-import codechicken.lib.render.OBJParser;
+import codechicken.lib.render.model.OBJParser;
 import net.foxmcloud.draconicadditions.DraconicAdditions;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ArmorStandEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.item.ItemStack;
 
 public class InfusedPotatoArmorModel extends VBOBipedModel<LivingEntity> {
 
-	public InfusedPotatoArmorModel(float size, EquipmentSlotType slot) {
-		super(size);
-		Map<String, CCModel> headModel      = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_helmet.obj"), GL11.GL_TRIANGLES, null);
-		Map<String, CCModel> bodyModel      = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_body.obj"), GL11.GL_TRIANGLES, null);
-		Map<String, CCModel> rightArmModel  = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_right_arm.obj"), GL11.GL_TRIANGLES, null);
-		Map<String, CCModel> leftArmModel   = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_left_arm.obj"), GL11.GL_TRIANGLES, null);
-		Map<String, CCModel> beltModel      = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_belt.obj"), GL11.GL_TRIANGLES, null);
-		Map<String, CCModel> rightLegModel  = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_right_leg.obj"), GL11.GL_TRIANGLES, null);
-		Map<String, CCModel> leftLegModel   = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_left_leg.obj"), GL11.GL_TRIANGLES, null);
-		Map<String, CCModel> rightBootModel = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_right_boot.obj"), GL11.GL_TRIANGLES, null);
-		Map<String, CCModel> leftBootModel  = OBJParser.parseModels(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_left_boot.obj"), GL11.GL_TRIANGLES, null);
+	public InfusedPotatoArmorModel(float size, EquipmentSlot slot) {
+		super(new ModelPart(null, null));
+		Map<String, CCModel> headModel      = new OBJParser(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_helmet.obj")).parse();
+		Map<String, CCModel> bodyModel      = new OBJParser(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_body.obj")).parse();
+		Map<String, CCModel> rightArmModel  = new OBJParser(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_right_arm.obj")).parse();
+		Map<String, CCModel> leftArmModel   = new OBJParser(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_left_arm.obj")).parse();
+		Map<String, CCModel> beltModel      = new OBJParser(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_belt.obj")).parse();
+		Map<String, CCModel> rightLegModel  = new OBJParser(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_right_leg.obj")).parse();
+		Map<String, CCModel> leftLegModel   = new OBJParser(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_left_leg.obj")).parse();
+		Map<String, CCModel> rightBootModel = new OBJParser(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_right_boot.obj")).parse();
+		Map<String, CCModel> leftBootModel  = new OBJParser(new ResourceLocation(DraconicAdditions.MODID, "models/armor/potato_left_boot.obj")).parse();
 
 		body.y = 0.755F;
 		rightArm.y = 0.755F;
@@ -63,33 +61,36 @@ public class InfusedPotatoArmorModel extends VBOBipedModel<LivingEntity> {
 		//leftArm.scale = 1F / 13.7F;
 		//rightArm.scale = 1F / 13.7F;
 
-		if (slot == EquipmentSlotType.HEAD) {
+		/* TODO: Implement once DE finishes this.
+		if (slot == EquipmentSlot.HEAD) {
 			this.bipedHead.addChild(head);
 		}
-		if (slot == EquipmentSlotType.CHEST) {
+		if (slot == EquipmentSlot.CHEST) {
 			this.bipedBody.addChild(body);
 			this.bipedLeftArm.addChild(leftArm);
 			this.bipedRightArm.addChild(rightArm);
 		}
-		if (slot == EquipmentSlotType.LEGS) {
+		if (slot == EquipmentSlot.LEGS) {
 			this.bipedLeftLeg.addChild(leftLeg);
 			this.bipedRightLeg.addChild(rightLeg);
 			//this.bipedBody.addChild(belt);
 		}
-		if (slot == EquipmentSlotType.FEET) {
+		if (slot == EquipmentSlot.FEET) {
 			//this.bipedLeftLeg.addChild(leftBoot);
 			//this.bipedRightLeg.addChild(rightBoot);
 		}
+		*/
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void render(MatrixStack mStack, IRenderTypeBuffer getter, LivingEntity entity, ItemStack itemstack, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		if (entity == null || entity instanceof ArmorStandEntity) {
+	public void render(PoseStack pose, MultiBufferSource source, LivingEntity entity, ItemStack itemstack, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		if (entity == null || entity instanceof ArmorStand) {
 			crouching = false;
 			riding = false;
 			young = false;
 
+			/*
 			this.bipedRightArm.xRot = 0F;
 			this.bipedRightArm.yRot = 0F;
 			this.bipedRightArm.zRot = 0F;
@@ -114,8 +115,9 @@ public class InfusedPotatoArmorModel extends VBOBipedModel<LivingEntity> {
 			bipedRightLeg.zRot = 0F;
 
 			setRotationAngles(0, 0, 0, 0, 0, 0, null);
+			*/
 		}
-
+		/*
 		RenderSystem.pushMatrix();
 
 		if (entity.isCrouching()) {
@@ -129,9 +131,11 @@ public class InfusedPotatoArmorModel extends VBOBipedModel<LivingEntity> {
 		this.bipedRightLeg.render(mStack, getter, packedLight, packedOverlay, red, green, blue, alpha);
 		this.bipedLeftLeg.render(mStack, getter, packedLight, packedOverlay, red, green, blue, alpha);
 		RenderSystem.popMatrix();
+		*/
 	}
 
-	public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float scale, Entity p_78087_7_) {
+	public void setRotationAngles(float a, float b, float c, float d, float e, float f, Entity entity) {
+		/*
 		this.bipedRightArm.zRot = 0.0F;
 		this.bipedLeftArm.zRot = 0.0F;
 		this.bipedRightArm.zRot = 0.0F;
@@ -151,5 +155,6 @@ public class InfusedPotatoArmorModel extends VBOBipedModel<LivingEntity> {
 		this.rightLeg.zRot = 0F;
 		this.bipedRightArm.zRot = 0.0F;
 		this.bipedLeftArm.zRot = 0.0F;
+		*/
 	}
 }

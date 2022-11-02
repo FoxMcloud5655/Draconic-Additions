@@ -1,34 +1,36 @@
 package net.foxmcloud.draconicadditions.capabilities;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class ChaosInBloodProvider implements ICapabilitySerializable<CompoundNBT> {
+public class ChaosInBloodProvider<T extends INBTSerializable<CompoundTag>> implements ICapabilitySerializable<CompoundTag> {
 
-	@CapabilityInject(IChaosInBlood.class)
-	public static final Capability<IChaosInBlood> PLAYER_CAP = null;
+	public static final Capability<IChaosInBlood> PLAYER_CAP = CapabilityManager.get(new CapabilityToken<>() {});
+	private T capability;
 	
-	private IChaosInBlood instance = PLAYER_CAP.getDefaultInstance();
-	private final LazyOptional<IChaosInBlood> lazyInstance = LazyOptional.of(PLAYER_CAP::getDefaultInstance);
-
-	@Override
-	public <T> LazyOptional<T> getCapability(Capability<T> capability, Direction side) {
-		
-		return capability == PLAYER_CAP ? lazyInstance.cast() : lazyInstance.empty();
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+		return capability == PLAYER_CAP ? LazyOptional.of(() -> capability).cast() : LazyOptional.empty();
 	}
 
-	@Override
-	public CompoundNBT serializeNBT() {
-		return (CompoundNBT)PLAYER_CAP.getStorage().writeNBT(PLAYER_CAP, this.instance, null);
-	}
+    @Override
+    public CompoundTag serializeNBT() {
+        return capability.serializeNBT();
+    }
 
-	@Override
-	public void deserializeNBT(CompoundNBT nbt) {
-		PLAYER_CAP.getStorage().readNBT(PLAYER_CAP, this.instance, null, nbt);
-	}
+    @Override
+    public void deserializeNBT(CompoundTag nbt) {
+        capability.deserializeNBT(nbt);
+    }
 }
 

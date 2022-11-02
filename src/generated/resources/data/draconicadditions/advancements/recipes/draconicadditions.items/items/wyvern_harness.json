@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "draconicevolution:wyvern_core"
+            "items": [
+              "draconicevolution:wyvern_core"
+            ]
           }
         ]
       }

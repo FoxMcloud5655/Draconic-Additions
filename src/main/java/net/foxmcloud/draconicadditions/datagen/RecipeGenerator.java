@@ -5,10 +5,7 @@ import static com.brandon3055.draconicevolution.init.DEModules.*;
 import static com.brandon3055.draconicevolution.init.DETags.Items.*;
 import static net.foxmcloud.draconicadditions.lib.DAContent.*;
 import static net.foxmcloud.draconicadditions.lib.DAModules.*;
-import static net.minecraft.item.Items.*;
-import static net.minecraftforge.common.Tags.Items.*;
 
-import java.io.IOException;
 import java.util.function.Consumer;
 
 import com.brandon3055.brandonscore.api.TechLevel;
@@ -17,12 +14,14 @@ import com.brandon3055.draconicevolution.init.DEContent;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.RecipeProvider;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.item.ItemStack;
+import net.minecraft.data.HashCache;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class RecipeGenerator extends RecipeProvider {
@@ -32,12 +31,12 @@ public class RecipeGenerator extends RecipeProvider {
 	}
 
 	@Override
-	protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer) {
+	protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
 		blocks(consumer);
 		items(consumer);
 	}
 
-	private static void blocks(Consumer<IFinishedRecipe> consumer) {
+	private static void blocks(Consumer<FinishedRecipe> consumer) {
 		if (chaosLiquefier != null) {
 			FusionRecipeBuilder.fusionRecipe(chaosLiquefier)
 			.catalyst(DEContent.generator)
@@ -49,13 +48,13 @@ public class RecipeGenerator extends RecipeProvider {
 		}
 	}
 
-	private static void items(Consumer<IFinishedRecipe> consumer) {
+	private static void items(Consumer<FinishedRecipe> consumer) {
 		if (inertPotatoHelm != null) {
 			ShapedRecipeBuilder.shaped(inertPotatoHelm)
 			.pattern("PBP")
 			.pattern("P P")
-			.define('P', POTATO)
-			.define('B', POISONOUS_POTATO)
+			.define('P', Items.POTATO)
+			.define('B', Items.POISONOUS_POTATO)
 			.unlockedBy("has_draconium", has(DEContent.ingot_draconium))
 			.save(consumer, folder("items", inertPotatoHelm));
 		}
@@ -65,8 +64,8 @@ public class RecipeGenerator extends RecipeProvider {
 			.pattern("P P")
 			.pattern("PBP")
 			.pattern("PPP")
-			.define('P', POTATO)
-			.define('B', POISONOUS_POTATO)
+			.define('P', Items.POTATO)
+			.define('B', Items.POISONOUS_POTATO)
 			.unlockedBy("has_draconium", has(DEContent.ingot_draconium))
 			.save(consumer, folder("items", inertPotatoChest));
 		}
@@ -76,8 +75,8 @@ public class RecipeGenerator extends RecipeProvider {
 			.pattern("PBP")
 			.pattern("P P")
 			.pattern("P P")
-			.define('P', POTATO)
-			.define('B', POISONOUS_POTATO)
+			.define('P', Items.POTATO)
+			.define('B', Items.POISONOUS_POTATO)
 			.unlockedBy("has_draconium", has(DEContent.ingot_draconium))
 			.save(consumer, folder("items", inertPotatoLegs));
 		}
@@ -86,7 +85,7 @@ public class RecipeGenerator extends RecipeProvider {
 			ShapedRecipeBuilder.shaped(inertPotatoBoots)
 			.pattern("P P")
 			.pattern("P P")
-			.define('P', POTATO)
+			.define('P', Items.POTATO)
 			.unlockedBy("has_draconium", has(DEContent.ingot_draconium))
 			.save(consumer, folder("items", inertPotatoBoots));
 		}
@@ -97,7 +96,7 @@ public class RecipeGenerator extends RecipeProvider {
 			.pattern("RIR")
 			.pattern("DRD")
 			.define('D', INGOTS_DRACONIUM)
-			.define('R', REDSTONE_BLOCK)
+			.define('R', Tags.Items.STORAGE_BLOCKS_REDSTONE)
 			.define('I', inertPotatoHelm)
 			.unlockedBy("has_draconium", has(DEContent.ingot_draconium))
 			.save(consumer, folder("items", infusedPotatoHelm));
@@ -109,7 +108,7 @@ public class RecipeGenerator extends RecipeProvider {
 			.pattern("RIR")
 			.pattern("DRD")
 			.define('D', INGOTS_DRACONIUM)
-			.define('R', REDSTONE_BLOCK)
+			.define('R', Tags.Items.STORAGE_BLOCKS_REDSTONE)
 			.define('I', inertPotatoChest)
 			.unlockedBy("has_draconium", has(DEContent.ingot_draconium))
 			.save(consumer, folder("items", infusedPotatoChest));
@@ -121,7 +120,7 @@ public class RecipeGenerator extends RecipeProvider {
 			.pattern("RIR")
 			.pattern("DRD")
 			.define('D', INGOTS_DRACONIUM)
-			.define('R', REDSTONE_BLOCK)
+			.define('R', Tags.Items.STORAGE_BLOCKS_REDSTONE)
 			.define('I', inertPotatoLegs)
 			.unlockedBy("has_draconium", has(DEContent.ingot_draconium))
 			.save(consumer, folder("items", infusedPotatoLegs));
@@ -133,7 +132,7 @@ public class RecipeGenerator extends RecipeProvider {
 			.pattern("RIR")
 			.pattern("DRD")
 			.define('D', INGOTS_DRACONIUM)
-			.define('R', REDSTONE_BLOCK)
+			.define('R', Tags.Items.STORAGE_BLOCKS_REDSTONE)
 			.define('I', inertPotatoBoots)
 			.unlockedBy("has_draconium", has(DEContent.ingot_draconium))
 			.save(consumer, folder("items", infusedPotatoBoots));
@@ -141,7 +140,7 @@ public class RecipeGenerator extends RecipeProvider {
 
 		if (chaosContainer != null) {
 			FusionRecipeBuilder.fusionRecipe(chaosContainer)
-			.catalyst(BUCKET)
+			.catalyst(Items.BUCKET)
 			.energy(250000)
 			.techLevel(TechLevel.DRACONIC)
 			.ingredient(infused_obsidian)
@@ -156,7 +155,7 @@ public class RecipeGenerator extends RecipeProvider {
 			.pattern("GGG")
 			.pattern("G G")
 			.pattern(" C ")
-			.define('G', INGOTS_GOLD)
+			.define('G', Tags.Items.INGOTS_GOLD)
 			.define('C', core_wyvern)
 			.unlockedBy("has_core_wyvern", has(core_wyvern))
 			.save(consumer, folder("items", necklaceWyvern));
@@ -222,7 +221,7 @@ public class RecipeGenerator extends RecipeProvider {
 			.define('F', chaos_frag_medium)
 			.define('D', core_draconium)
 			.define('A', draconicAutoFeed.getItem())
-			.define('C', COOKIE)
+			.define('C', Items.COOKIE)
 			.unlockedBy("has_module_core", has(module_core))
 			.save(consumer, folder("modules", chaoticAutoFeed));
 		}
@@ -261,7 +260,7 @@ public class RecipeGenerator extends RecipeProvider {
 	}
 
 	@Override
-	public void run(DirectoryCache cache) throws IOException {
+	public void run(HashCache cache) {
 		super.run(cache);
 	}
 

@@ -17,11 +17,12 @@ plugins {
 }
 
 apply plugin: 'net.minecraftforge.gradle'
+apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
 
 group = "net.foxmcloud.draconicadditions"
 archivesBaseName = "Draconic-Additions"
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 //Add generated resources to main resources.
 sourceSets.main.resources.srcDirs += "src/generated/resources"
@@ -46,15 +47,21 @@ minecraft {
 		client {
 			workingDirectory file('run')
 			mods { draconicadditions { source sourceSets.main } }
+			property 'mixin.env.remapRefMap', 'true'
+			property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 		}
 		server {
 			workingDirectory file('run')
 			mods { draconicadditions { source sourceSets.main } }
+			property 'mixin.env.remapRefMap', 'true'
+			property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 		}
 		data {
 			workingDirectory file('run')
 			args '--mod', 'draconicadditions', '--all', '--output', file("src/generated/resources"), '--existing', file("src/main/resources"), '--existing', file("../Draconic-Evolution/src/main/resources")
 			mods { draconicadditions { source sourceSets.main } }
+			property 'mixin.env.remapRefMap', 'true'
+			property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 		}
 	}
 }

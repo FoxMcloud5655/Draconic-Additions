@@ -6,7 +6,8 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.brandon3055.brandonscore.lib.TechPropBuilder;
+import org.jetbrains.annotations.NotNull;
+
 import com.brandon3055.brandonscore.utils.EnergyUtils;
 import com.brandon3055.draconicevolution.api.capability.DECapabilities;
 import com.brandon3055.draconicevolution.api.modules.ModuleCategory;
@@ -15,41 +16,41 @@ import com.brandon3055.draconicevolution.api.modules.data.EnergyData;
 import com.brandon3055.draconicevolution.api.modules.lib.ModularOPStorage;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleHostImpl;
 import com.brandon3055.draconicevolution.init.DEModules;
+import com.brandon3055.draconicevolution.init.TechProperties;
 
 import net.foxmcloud.draconicadditions.DAConfig;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Food;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.foxmcloud.draconicadditions.DraconicAdditions;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 public class Hermal extends ModularEnergyItem {
 
-	public Hermal(TechPropBuilder props) {
-		super(props.food(new Food.Builder().alwaysEat().nutrition(0).saturationMod(0).build()));
+	public Hermal(TechProperties props) {
+		super(props);
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int unknownint, boolean unknownbool) {
-		if (!(entity instanceof PlayerEntity) || entity.level.isClientSide) {
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int unknownint, boolean unknownbool) {
+		if (!(entity instanceof Player) || entity.level.isClientSide) {
 			return;
 		}
 		stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).ifPresent(host -> {
 			EnergyData data = host.getModuleData(ModuleTypes.ENERGY_STORAGE);
 			if (data != null && data.getCapacity() == DEModules.chaoticEnergy.getData().getCapacity()) {
-				PlayerEntity player = (PlayerEntity)entity;
+				Player player = (Player)entity;
 				if (EnergyUtils.canReceiveEnergy(player.getMainHandItem())) {
 					EnergyUtils.insertEnergy(player.getMainHandItem(), DAConfig.hermalRFAmount, false);
 				}
@@ -75,29 +76,35 @@ public class Hermal extends ModularEnergyItem {
 	}
 
 	@Override
-	public ItemStack finishUsingItem(ItemStack stack, World world, LivingEntity entityLiving)
-	{
-		if (!world.isClientSide && entityLiving instanceof PlayerEntity)
-		{
-			PlayerEntity player = (PlayerEntity)entityLiving;
-			EntityType.LIGHTNING_BOLT.spawn((ServerWorld)world, stack, player, player.blockPosition(), SpawnReason.COMMAND, true, true);
-			player.hurt(new DamageSource("administrative.kill").bypassInvul().bypassArmor().bypassMagic(), Float.MAX_VALUE);
+	public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entityLiving) {
+		if (!world.isClientSide) {
+			EntityType.LIGHTNING_BOLT.spawn((ServerLevel)world, stack, null, entityLiving.blockPosition(), MobSpawnType.COMMAND, true, true);
+			entityLiving.hurt(new DamageSource("administrative.kill").bypassInvul().bypassArmor().bypassMagic(), Float.MAX_VALUE);
 		}
 		else {
-			PlayerEntity player = (PlayerEntity)entityLiving;
-			player.sendMessage(new TranslationTextComponent("info.da.hermal.eat.success"), null);
+			entityLiving.sendMessage(new TranslatableComponent("info.da.hermal.eat.success"), null);
 		}
 		stack.shrink(1);
 		return stack;
 	}
 
 	@Override
-	public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-		player.displayClientMessage(new TranslationTextComponent("info.da.hermal.eat.attempt"), true);
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @NotNull InteractionHand hand) {
+		player.displayClientMessage(new TranslatableComponent("info.da.hermal.eat.attempt"), true);
 		return super.use(world, player, hand);
 	}
-	
+
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {}
+	public void onCraftedBy(ItemStack stack, Level world, Player player) {
+		player.displayClientMessage(new TranslatableComponent("info.da.hermal.craft"), true);
+	}
+
+	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> components, TooltipFlag flag) {
+		components.add(new TranslatableComponent("info.da.hermal.lore").withStyle(ChatFormatting.DARK_PURPLE).withStyle(ChatFormatting.ITALIC));
+	}
+
+	@Override
+	public boolean isEnchantable(ItemStack p_41456_) {
+		return false;
+	}
 }

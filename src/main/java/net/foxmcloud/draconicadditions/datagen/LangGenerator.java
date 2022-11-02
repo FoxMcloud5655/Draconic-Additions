@@ -10,9 +10,9 @@ import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.foxmcloud.draconicadditions.lib.DAModules;
 import net.foxmcloud.draconicadditions.modules.ModuleTypes;
-import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class LangGenerator extends LanguageProvider {
@@ -41,7 +41,7 @@ public class LangGenerator extends LanguageProvider {
 		helper.add(DAContent.harnessWyvern,      "Wyvern Harness");
 		helper.add(DAContent.harnessDraconic,    "Draconic Harness");
 		helper.add(DAContent.harnessChaotic,     "Chaotic Harness");
-		helper.add(DAContent.hermal,             "Hermal");
+		helper.add(DAContent.hermal,             "hermal");
 	}
 
 	private void itemGroups(PrefixHelper helper) {
@@ -75,6 +75,8 @@ public class LangGenerator extends LanguageProvider {
 		helper.add("chaos.xfer.from", "Transferred %s B from %s");
 		helper.add("chaos.warning", "WARNING: Inadaquate shielding!");
 		helper.add("chaos.explode", "The Chaos Container explodes in your hand!");
+		helper.add("hermal.lore", "pls no eat");
+		helper.add("hermal.craft", "Ultimate power in something so seemingly mundane.");
 		helper.add("hermal.eat.attempt", "This seems like a bad idea...");
 		helper.add("hermal.eat.success", "No one contests the power of hermal.");
 		helper.add("modular_harness.cantmove", "This block doesn't seem to budge...");

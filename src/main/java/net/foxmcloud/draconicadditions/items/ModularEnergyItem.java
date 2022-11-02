@@ -8,19 +8,19 @@ import javax.annotation.Nullable;
 
 import com.brandon3055.brandonscore.api.TechLevel;
 import com.brandon3055.brandonscore.capability.MultiCapabilityProvider;
-import com.brandon3055.brandonscore.lib.TechPropBuilder;
 import com.brandon3055.draconicevolution.api.modules.lib.ModularOPStorage;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleHostImpl;
 import com.brandon3055.draconicevolution.init.EquipCfg;
+import com.brandon3055.draconicevolution.init.TechProperties;
 import com.brandon3055.draconicevolution.integration.equipment.EquipmentManager;
 import com.brandon3055.draconicevolution.integration.equipment.IDEEquipment;
 import com.brandon3055.draconicevolution.items.equipment.IModularItem;
 
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -28,9 +28,9 @@ public class ModularEnergyItem extends Item implements IModularItem, IDEEquipmen
 
 	protected final TechLevel techLevel;
 
-	public ModularEnergyItem(TechPropBuilder props) {
-		super(props.build());
-		this.techLevel = props.techLevel;
+	public ModularEnergyItem(TechProperties props) {
+		super(props);
+		this.techLevel = props.getTechLevel();
 	}
 
 	@Override
@@ -57,8 +57,7 @@ public class ModularEnergyItem extends Item implements IModularItem, IDEEquipmen
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		addModularItemInformation(stack, worldIn, tooltip, flagIn);
+	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flags) {
+		addModularItemInformation(stack, world, tooltip, flags);
 	}
 }

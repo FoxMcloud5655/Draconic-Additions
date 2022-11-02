@@ -5,8 +5,8 @@ import java.util.Map;
 import com.brandon3055.draconicevolution.api.modules.data.ModuleData;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleContext;
 
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public class TickAccelData implements ModuleData<TickAccelData> {
 	private final int ticks;
@@ -25,7 +25,7 @@ public class TickAccelData implements ModuleData<TickAccelData> {
 	}
 
 	@Override
-	public void addInformation(Map<ITextComponent, ITextComponent> map, ModuleContext context, boolean stack) {
-		map.put(new TranslationTextComponent("module.draconicadditions.tick_accel.name"), new TranslationTextComponent("module.draconicadditions.tick_accel.value", ticks));
+	public void addInformation(Map<Component, Component> map, ModuleContext context, boolean stack) {
+		map.put(new TranslatableComponent("module.draconicadditions.tick_accel.name"), new TranslatableComponent("module.draconicadditions.tick_accel.value", ticks));
 	}
 }

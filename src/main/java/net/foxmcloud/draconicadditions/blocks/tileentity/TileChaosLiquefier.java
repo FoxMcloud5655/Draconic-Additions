@@ -16,22 +16,22 @@ import com.brandon3055.draconicevolution.init.DEContent;
 
 import net.foxmcloud.draconicadditions.inventory.GUILayoutFactories;
 import net.foxmcloud.draconicadditions.lib.DAContent;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.network.NetworkHooks;
 
-public class TileChaosLiquefier extends TileChaosHolderBase implements ITickableTileEntity, IChangeListener, IRSSwitchable, INamedContainerProvider, IInteractTile {
+public class TileChaosLiquefier extends TileChaosHolderBase implements IChangeListener, IRSSwitchable, IInteractTile, MenuProvider {
 
 	private int chargeRate = 10000000;
 	public int maxCharge = 200;
@@ -44,8 +44,8 @@ public class TileChaosLiquefier extends TileChaosHolderBase implements ITickable
 
 	public OPStorage opStorage = new OPStorage(2000000000, 20000000, 20000000);
 
-	public TileChaosLiquefier() {
-		super(DAContent.tileChaosLiquefier);
+	public TileChaosLiquefier(BlockPos pos, BlockState state) {
+		super(DAContent.tileChaosLiquefier, pos, state);
 		capManager.setManaged("energy", CapabilityOP.OP, opStorage).saveBoth().syncContainer();
 		capManager.setManaged("inventory", CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, itemHandler).saveBoth().syncTile();
 		itemHandler.setStackValidator(this::isItemValidForSlot);
@@ -60,11 +60,11 @@ public class TileChaosLiquefier extends TileChaosHolderBase implements ITickable
 			if (active.get()) {
 				if (charge.get() >= 0 && charge.get() < chargeTo.get() - 1) {
 					float beamPitch = (1.5F * charge.get() / maxCharge) + 0.5F;
-					level.playLocalSound(worldPosition.getX() + 0.5D, worldPosition.getY(), worldPosition.getZ() + 0.5D, DESounds.beam, SoundCategory.BLOCKS, 0.2F, beamPitch, false);
+					level.playLocalSound(worldPosition.getX() + 0.5D, worldPosition.getY(), worldPosition.getZ() + 0.5D, DESounds.beam, SoundSource.BLOCKS, 0.2F, beamPitch, false);
 					// charge.get() += 1;
 				}
 				else {
-					level.playLocalSound(worldPosition.getX() + 0.5D, worldPosition.getY(), worldPosition.getZ() + 0.5D, DESounds.boom, SoundCategory.BLOCKS, 1.0F, 2.0F, false);
+					level.playLocalSound(worldPosition.getX() + 0.5D, worldPosition.getY(), worldPosition.getZ() + 0.5D, DESounds.boom, SoundSource.BLOCKS, 1.0F, 2.0F, false);
 					// charge.get() = 0;
 				}
 			}
@@ -172,14 +172,14 @@ public class TileChaosLiquefier extends TileChaosHolderBase implements ITickable
 	}
 
 	@Override
-	public Container createMenu(int currentWindowIndex, PlayerInventory playerInventory, PlayerEntity player) {
-		return new ContainerBCTile<>(DAContent.containerChaosLiquefier, currentWindowIndex, player.inventory, this, GUILayoutFactories.CHAOS_LIQUEFIER_LAYOUT);
+	public AbstractContainerMenu createMenu(int currentWindowIndex, Inventory playerInventory, Player player) {
+		return new ContainerBCTile<>(DAContent.containerChaosLiquefier, currentWindowIndex, player.getInventory(), this, GUILayoutFactories.CHAOS_LIQUEFIER_LAYOUT);
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-		if (player instanceof ServerPlayerEntity) {
-			NetworkHooks.openGui((ServerPlayerEntity) player, this, worldPosition);
+	public boolean onBlockActivated(BlockState state, Player player, InteractionHand handIn, BlockHitResult hit) {
+		if (player instanceof ServerPlayer) {
+			NetworkHooks.openGui((ServerPlayer) player, this, worldPosition);
 		}
 		return true;
 	}

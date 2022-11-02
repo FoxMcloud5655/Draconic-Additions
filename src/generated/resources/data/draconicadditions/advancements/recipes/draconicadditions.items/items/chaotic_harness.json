@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "draconicevolution:chaotic_core"
+            "items": [
+              "draconicevolution:chaotic_core"
+            ]
           }
         ]
       }

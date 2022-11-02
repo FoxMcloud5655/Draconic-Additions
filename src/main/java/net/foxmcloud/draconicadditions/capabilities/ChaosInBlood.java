@@ -1,7 +1,5 @@
 package net.foxmcloud.draconicadditions.capabilities;
 
-import com.brandon3055.brandonscore.utils.ItemNBTHelper;
-
 public class ChaosInBlood implements IChaosInBlood {
 	
 	private float chaosInBlood = 0.0F;

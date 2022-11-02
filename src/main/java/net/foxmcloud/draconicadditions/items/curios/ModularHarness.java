@@ -1,7 +1,6 @@
 package net.foxmcloud.draconicadditions.items.curios;
 
 import static com.brandon3055.draconicevolution.init.ModuleCfg.removeInvalidModules;
-import static net.minecraft.util.text.TextFormatting.GRAY;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -10,7 +9,6 @@ import javax.annotation.Nullable;
 
 import com.brandon3055.brandonscore.api.power.IOPStorage;
 import com.brandon3055.brandonscore.api.power.IOPStorageModifiable;
-import com.brandon3055.brandonscore.lib.TechPropBuilder;
 import com.brandon3055.brandonscore.utils.EnergyUtils;
 import com.brandon3055.brandonscore.utils.Utils;
 import com.brandon3055.draconicevolution.api.IInvCharge;
@@ -24,6 +22,7 @@ import com.brandon3055.draconicevolution.api.modules.lib.ModularOPStorage;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleHostImpl;
 import com.brandon3055.draconicevolution.init.DEContent;
 import com.brandon3055.draconicevolution.init.EquipCfg;
+import com.brandon3055.draconicevolution.init.TechProperties;
 import com.brandon3055.draconicevolution.integration.equipment.EquipmentManager;
 
 import net.foxmcloud.draconicadditions.CommonMethods.BlockStorage;
@@ -31,33 +30,32 @@ import net.foxmcloud.draconicadditions.DAConfig;
 import net.foxmcloud.draconicadditions.items.ModularEnergyItem;
 import net.foxmcloud.draconicadditions.modules.ModuleTypes;
 import net.foxmcloud.draconicadditions.modules.TickAccelData;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.TickingBlockEntity;
+import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.util.Constants.BlockFlags;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
 public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 	public static final ModuleCategory HARNESS = new ModuleCategory();
 	private static final String receive = "receive_energy_from_machine";
 	private static final String tickAccelSpeed = "tick_accel_speed";
-	public ModularHarness(TechPropBuilder props) {
+	public ModularHarness(TechProperties props) {
 		super(props);
 	}
 
@@ -67,15 +65,15 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 	}
 
 	@Override
-	public void handleTick(ItemStack stack, LivingEntity entity, @Nullable EquipmentSlotType slot, boolean inEquipModSlot) {
+	public void handleTick(ItemStack stack, LivingEntity entity, @Nullable EquipmentSlot slot, boolean inEquipModSlot) {
 		boolean validEquipSlot = slot != null ? false : inEquipModSlot;
-		if ((!validEquipSlot && !DAConfig.harnessTickOutOfCuriosSlot) || !hasAttachedTileEntity(stack, entity.level)) {
+		if ((!validEquipSlot && !DAConfig.harnessTickOutOfCuriosSlot) || !hasAttachedBlockEntity(stack, entity.level)) {
 			return;
 		}
-		World world = entity.level;
+		Level world = entity.level;
 		BlockPos pos = entity.blockPosition().above();
 		BlockStorage oldBlock = new BlockStorage(world, pos, false);
-		TileEntity tile = placeAndGetTileEntity(world, pos, entity.getRotationVector(), stack);
+		BlockEntity tile = placeAndGetBlockEntity(world, pos, entity.getRotationVector(), stack);
 		if (tile == null) {
 			return;
 		}
@@ -91,8 +89,8 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 					storage.extractOP(EnergyUtils.insertEnergy(tile, storage.extractOP(storage.maxExtract(), true), null, false), false);
 				}
 			}
-			if (tile instanceof ITickableTileEntity) {
-				ITickableTileEntity tickingTile = (ITickableTileEntity)tile;
+			if (tile instanceof TickingBlockEntity) {
+				TickingBlockEntity tickingTile = (TickingBlockEntity)tile;
 				int ticksToProcess = getCurrentTickSpeed(stack) - 1;
 				int rfCost = getRFCostForTicks(ticksToProcess);
 				if (storage.extractOP(rfCost, true) >= rfCost) {
@@ -103,10 +101,10 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 				}
 			}
 		});
-		if (tile instanceof ITickableTileEntity) {
-			((ITickableTileEntity)tile).tick();
+		if (tile instanceof TickingBlockEntity) {
+			((TickingBlockEntity)tile).tick();
 		}
-		storeTileEntity(world, pos, stack, entity, false);
+		storeBlockEntity(world, pos, stack, entity, false);
 		oldBlock.restoreBlock(null, false);
 	}
 
@@ -149,12 +147,12 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
 		String name = getAttachedName(stack);
 		if (name != null && name != "") {
-			tooltip.add(new TranslationTextComponent("info.da.modular_harness.storedBlock").withStyle(TextFormatting.GOLD).append(new StringTextComponent(getAttachedName(stack)).withStyle(TextFormatting.GRAY)));
+			tooltip.add(new TranslatableComponent("info.da.modular_harness.storedBlock").withStyle(ChatFormatting.GOLD).append(new TextComponent(getAttachedName(stack)).withStyle(ChatFormatting.GRAY)));
 			String rf = Utils.formatNumber(getRFCostForTicks(getCurrentTickSpeed(stack)));
-			tooltip.add(new TranslationTextComponent("info.da.opCost", rf).withStyle(GRAY));
+			tooltip.add(new TranslatableComponent("info.da.opCost", rf).withStyle(ChatFormatting.GRAY));
 		}
 		EnergyUtils.addEnergyInfo(stack, tooltip);
 	}
@@ -169,21 +167,21 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 		return ticks > 1 ? (int)Math.pow(400, ticks * 0.25 + 0.25) : 0;
 	}
 
-	public static boolean storeTileEntity(World world, BlockPos pos, ItemStack stack, LivingEntity entity, boolean removeBlock) {
-		if (world instanceof ServerWorld) { //TODO: Review if this is needed.
+	public static boolean storeBlockEntity(Level world, BlockPos pos, ItemStack stack, LivingEntity entity, boolean removeBlock) {
+		if (world instanceof ServerLevel) { //TODO: Review if this is needed.
 			if (world.getBlockEntity(pos) != null) {
 				BlockStorage block = new BlockStorage(world, pos, removeBlock);
 				block.storeBlockInTag(stack.getOrCreateTag());
 			}
 			else {
-				entity.sendMessage(new TranslationTextComponent("info.da.modular_harness.cantmove"), Util.NIL_UUID);
+				entity.sendMessage(new TranslatableComponent("info.da.modular_harness.cantmove"), Util.NIL_UUID);
 				return false;
 			}
 		}
 		return true;
 	}
 
-	public static TileEntity placeAndGetTileEntity(World world, BlockPos pos, @Nullable Vector2f rotation, ItemStack stack) {
+	public static BlockEntity placeAndGetBlockEntity(Level world, BlockPos pos, @Nullable Vec2 rotation, ItemStack stack) {
 		if (BlockStorage.restoreBlockFromTag(world, pos, rotation, stack.getTag(), false, false)) {
 			return world.getBlockEntity(pos);
 		}
@@ -199,7 +197,7 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 		return null;
 	}
 
-	public static boolean hasAttachedTileEntity(ItemStack stack, World world) {
+	public static boolean hasAttachedBlockEntity(ItemStack stack, Level world) {
 		return stack.getOrCreateTag().contains("storedBlockState");
 	}
 

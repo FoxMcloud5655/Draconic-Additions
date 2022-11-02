@@ -3,7 +3,7 @@ package net.foxmcloud.draconicadditions;
 import codechicken.lib.model.ModelRegistryHelper;
 import net.foxmcloud.draconicadditions.client.gui.GUIChaosLiquefier;
 import net.foxmcloud.draconicadditions.lib.DAContent;
-import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
@@ -21,6 +21,6 @@ public class ClientProxy extends CommonProxy {
 
 	public void clientSetup(FMLClientSetupEvent event) {
 		super.clientSetup(event);
-		ScreenManager.register(DAContent.containerChaosLiquefier, GUIChaosLiquefier::new);
+		MenuScreens.register(DAContent.containerChaosLiquefier, GUIChaosLiquefier::new);
 	}
 }

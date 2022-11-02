@@ -4,7 +4,9 @@ import com.brandon3055.brandonscore.blocks.TileBCore;
 import com.brandon3055.brandonscore.lib.datamanager.DataFlags;
 import com.brandon3055.brandonscore.lib.datamanager.ManagedInt;
 
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class TileChaosHolderBase extends TileBCore {
 	private int maxChaos = 2000;
@@ -19,7 +21,7 @@ public class TileChaosHolderBase extends TileBCore {
 		maxChaos = amount;
 	}
 
-	public TileChaosHolderBase(TileEntityType<?> tileEntityTypeIn) {
-		super(tileEntityTypeIn);
+	public TileChaosHolderBase(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
+		super(tileEntityTypeIn, pos, state);
 	}
 }

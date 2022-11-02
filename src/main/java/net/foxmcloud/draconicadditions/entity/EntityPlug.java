@@ -1,28 +1,28 @@
 package net.foxmcloud.draconicadditions.entity;
 
 import com.brandon3055.brandonscore.utils.ItemNBTHelper;
+import com.mojang.math.Vector3d;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class EntityPlug extends Entity {
 
-	private PlayerEntity player;
+	private Player player;
 
-	public EntityPlug(EntityType<?> type, World worldIn) {
+	public EntityPlug(EntityType<?> type, Level worldIn) {
 		super(type, worldIn);
 		this.init(null);
 	}
 
-	public EntityPlug(EntityType<?> type, World worldIn, PlayerEntity player, double x, double y, double z, Direction facing) {
+	public EntityPlug(EntityType<?> type, Level worldIn, Player player, double x, double y, double z, Direction facing) {
 		super(type, worldIn);
 		this.init(player);
 		float yaw = 0;
@@ -53,11 +53,11 @@ public class EntityPlug extends Entity {
 		this.setRot(yaw, pitch);
 	}
 
-	public EntityPlug(EntityType<?> type, World worldIn, PlayerEntity player, BlockPos pos, Direction facing) {
+	public EntityPlug(EntityType<?> type, Level worldIn, Player player, BlockPos pos, Direction facing) {
 		this(type, worldIn, player, (double) pos.getX(), (double) pos.getY(), (double) pos.getZ(), facing);
 	}
 
-	public EntityPlug(EntityType<?> type, World worldIn, PlayerEntity player, Vector3d vec, Direction facing) {
+	public EntityPlug(EntityType<?> type, Level worldIn, Player player, Vector3d vec, Direction facing) {
 		this(type, worldIn, player, vec.x, vec.y, vec.z, facing);
 	}
 
@@ -80,31 +80,27 @@ public class EntityPlug extends Entity {
 		//this.level.profiler.endSection();
 	}
 
-	protected void init(PlayerEntity player) {
+	protected void init(Player player) {
 		//this.setSize(1F, 1F);
 		//this.ignoreFrustumCheck = true;
 		this.player = player;
 	}
 
 	@Override
-	protected void readAdditionalSaveData(CompoundNBT compound) {}
+	protected void readAdditionalSaveData(CompoundTag compound) {}
 
 	@Override
-	protected void addAdditionalSaveData(CompoundNBT compound) {}
+	protected void addAdditionalSaveData(CompoundTag compound) {}
 
-	public PlayerEntity getPlayer() {
+	public Player getPlayer() {
 		return player;
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		// TODO Auto-generated method stub
-	}
+	protected void defineSynchedData() {}
 
 	@Override
-	public IPacket<?> getAddEntityPacket() {
-		// TODO Auto-generated method stub
+	public Packet<?> getAddEntityPacket() {
 		return null;
 	}
-
 }

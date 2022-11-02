@@ -1,27 +1,20 @@
 package net.foxmcloud.draconicadditions.client.render.entity;
 
-import org.lwjgl.opengl.GL11;
-
-import com.brandon3055.draconicevolution.client.handler.ClientEventHandler;
-import com.mojang.blaze3d.systems.RenderSystem;
-
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.entity.EntityChaosHeart;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
 
 public class RenderChaosHeart extends EntityRenderer<EntityChaosHeart> {
 
-	public RenderChaosHeart(EntityRendererManager renderManager) {
-		super(renderManager);
+	public RenderChaosHeart(EntityRendererProvider.Context context) {
+		super(context);
 	}
 
 	@SuppressWarnings("deprecation")
 	public void doRender(EntityChaosHeart entity, double x, double y, double z, float entityYaw, float partialTicks) {
+		/*
 		RenderSystem.pushMatrix();
 		RenderSystem.translated(x, y + (Math.cos((ClientEventHandler.elapsedTicks + partialTicks) / 20D) * 0.1) - 0.5, z);
 		RenderSystem.rotatef((entity.rotation + (entity.rotationInc * partialTicks)) * 40, 0, 1, 0);
@@ -61,6 +54,7 @@ public class RenderChaosHeart extends EntityRenderer<EntityChaosHeart> {
 		RenderSystem.enableLighting();
 
 		RenderSystem.popMatrix();
+		*/
 	}
 
 	@Override

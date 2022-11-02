@@ -2,7 +2,7 @@ package net.foxmcloud.draconicadditions.items;
 
 import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public interface ISimpleCountdown {
 

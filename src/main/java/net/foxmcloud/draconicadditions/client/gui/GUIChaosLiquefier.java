@@ -11,18 +11,18 @@ import com.brandon3055.brandonscore.inventory.ContainerSlotLayout;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosLiquefier;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 
 public class GUIChaosLiquefier extends ModularGuiContainer<ContainerBCTile<TileChaosLiquefier>> {
-	public PlayerEntity player;
+	public Player player;
 	private TileChaosLiquefier tile;
 	private final String GUITranslation;
 	protected GuiToolkit<GUIChaosLiquefier> toolkit;
 
-	public GUIChaosLiquefier(ContainerBCTile<TileChaosLiquefier> container, PlayerInventory playerInventory, ITextComponent title) {
+	public GUIChaosLiquefier(ContainerBCTile<TileChaosLiquefier> container, Inventory playerInventory, Component title) {
 		super(container, playerInventory, title);
 		this.tile = container.tile;
 		this.player = playerInventory.player;

@@ -2,31 +2,31 @@ package net.foxmcloud.draconicadditions.items.armor;
 
 import javax.annotation.Nullable;
 
-import codechicken.lib.util.SneakyUtils;
+import com.brandon3055.draconicevolution.client.model.VBOBipedModel;
+
+import net.covers1624.quack.util.SneakyUtils;
 import net.foxmcloud.draconicadditions.client.model.InfusedPotatoArmorModel;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterials;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class InfusedPotatoArmor extends ArmorItem {
 
 	// Armor Slots - 0=Feet, 1=Legs, 2=Chest, 3=Head
-	public InfusedPotatoArmor(Properties props, EquipmentSlotType slotType) {
-		super(ArmorMaterial.LEATHER, slotType, props);
+	public InfusedPotatoArmor(Properties props, EquipmentSlot slotType) {
+		super(ArmorMaterials.LEATHER, slotType, props);
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	private BipedModel<?> model;
+	private VBOBipedModel<?> model;
 
 	@Nullable
-	@Override
 	@OnlyIn(Dist.CLIENT)
-	public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
+	public <A extends VBOBipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
 		if (model == null) {
 			model = new InfusedPotatoArmorModel(1F, armorSlot);
 		}

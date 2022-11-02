@@ -1,27 +1,27 @@
 package net.foxmcloud.draconicadditions.client.render.entity;
 
+import com.mojang.blaze3d.vertex.BufferBuilder;
+
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.entity.EntityPlug;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.HandSide;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public class RenderPlug extends EntityRenderer<EntityPlug> {
 
-	private EntityRendererManager renderManager;
+	private EntityRendererProvider.Context context;
 	
-	public RenderPlug(EntityRendererManager renderManager) {
-		super(renderManager);
-		this.renderManager = renderManager;
+	public RenderPlug(EntityRendererProvider.Context context) {
+		super(context);
+		this.context = context;
 	}
 
 	public void doRender(EntityPlug entity, double x, double y, double z, float entityYaw, float partialTicks) {
-		PlayerEntity entityplayer = entity.getPlayer();
+		/*
+		Player entityplayer = entity.getPlayer();
 
 		if (entityplayer != null) {
 			//this.bindEntityTexture(entity);
@@ -96,8 +96,8 @@ public class RenderPlug extends EntityRenderer<EntityPlug> {
 			bufferbuilder.vertex(1, 1, 0).uv(1, 0).endVertex();
 			tessellator.end();
 			RenderSystem.popMatrix();
-			*/
 		}
+		*/
 	}
 
 	@Override

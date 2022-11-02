@@ -13,38 +13,37 @@ import com.mojang.datafixers.util.Pair;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.lib.DAContent;
-import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.LootTableProvider;
-import net.minecraft.loot.LootParameterSet;
-import net.minecraft.loot.LootParameterSets;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.LootTableManager;
-import net.minecraft.loot.ValidationTracker;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.LootTables;
+import net.minecraft.world.level.storage.loot.ValidationContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class LootTableGenerator extends LootTableProvider {
 
-	private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> lootTables = ImmutableList.of(Pair.of(BlockLootTables::new, LootParameterSets.BLOCK));
+    private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> lootTables = ImmutableList.of(Pair.of(BlockLootTables::new, LootContextParamSets.BLOCK));
 
 	public LootTableGenerator(DataGenerator dataGeneratorIn) {
 		super(dataGeneratorIn);
 	}
 	@Override
-	protected void validate(Map<ResourceLocation, LootTable> map, ValidationTracker validationtracker) {
-		map.forEach((p_218436_2_, p_218436_3_) -> LootTableManager.validate(validationtracker, p_218436_2_, p_218436_3_));
+    protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationtracker) {
+        map.forEach((rl, lt) -> LootTables.validate(validationtracker, rl, lt));
 	}
 
-	@Override
-	protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> getTables() {
-		return lootTables;
-	}
+    @Override
+    protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables() {
+        return lootTables;
+    }
 
-	public static class BlockLootTables extends net.minecraft.data.loot.BlockLootTables {
+    public static class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 
-		protected void addTables() {
+        protected void addTables() {
 			dropSelf(DAContent.chaosLiquefier);
 		}
 
@@ -52,6 +51,5 @@ public class LootTableGenerator extends LootTableProvider {
 		protected Iterable<Block> getKnownBlocks() {
 			return ForgeRegistries.BLOCKS.getValues().stream().filter(block -> Objects.requireNonNull(block.getRegistryName()).getNamespace().equals(DraconicAdditions.MODID)).collect(Collectors.toList());
 		}
-
 	}
 }
