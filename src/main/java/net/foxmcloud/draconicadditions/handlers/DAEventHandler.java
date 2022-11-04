@@ -1,16 +1,23 @@
 package net.foxmcloud.draconicadditions.handlers;
 
+import com.brandon3055.draconicevolution.init.DEContent;
+import com.brandon3055.draconicevolution.items.InfoTablet;
+
 import net.foxmcloud.draconicadditions.CommonMethods.BlockStorage;
 import net.foxmcloud.draconicadditions.items.curios.ModularHarness;
+import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec2;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -59,6 +66,19 @@ public class DAEventHandler {
 						player.displayClientMessage(new TranslatableComponent("info.da.modular_harness.storeSuccess"), true);
 					}
 					event.setCanceled(true);
+				}
+			}
+		}
+	}
+	
+	public void onEntitySpawn(EntityJoinWorldEvent e) {
+		if (e.getEntity() instanceof ItemEntity) {
+			ItemEntity entity = (ItemEntity)e.getEntity();
+			ItemStack stack = entity.getItem();
+			if (stack.getItem() == DEContent.dragon_heart) {
+				CompoundTag nbt = stack.getTag();
+				if (nbt != null && nbt.contains("guardian_heart") && nbt.getBoolean("guardian_heart")) {
+					entity.setItem(new ItemStack(DAContent.chaosHeart));
 				}
 			}
 		}

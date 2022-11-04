@@ -17,7 +17,8 @@ public class ChaosInBloodProvider<T extends INBTSerializable<CompoundTag>> imple
 	public static final Capability<IChaosInBlood> PLAYER_CAP = CapabilityManager.get(new CapabilityToken<>() {});
 	private T capability;
 	
-    @Nonnull
+    @SuppressWarnings("hiding")
+	@Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
 		return capability == PLAYER_CAP ? LazyOptional.of(() -> capability).cast() : LazyOptional.empty();

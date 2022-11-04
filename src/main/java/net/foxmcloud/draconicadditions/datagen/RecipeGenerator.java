@@ -39,12 +39,21 @@ public class RecipeGenerator extends RecipeProvider {
 	private static void blocks(Consumer<FinishedRecipe> consumer) {
 		if (chaosLiquefier != null) {
 			FusionRecipeBuilder.fusionRecipe(chaosLiquefier)
-			.catalyst(DEContent.generator)
+			.catalyst(DEContent.crafting_core)
 			.energy(2500000)
 			.techLevel(TechLevel.CHAOTIC)
 			.ingredient(chaosHeart)
 			.ingredient(chaosContainer)
 			.build(consumer, folder("blocks", chaosLiquefier));
+		}
+		
+		if (chaosInfuser != null) {
+			FusionRecipeBuilder.fusionRecipe(chaosInfuser)
+			.catalyst(DEContent.energy_transfuser)
+			.energy(2000000)
+			.techLevel(TechLevel.CHAOTIC)
+			.ingredient(chaosContainer)
+			.build(consumer, folder("blocks", chaosInfuser));
 		}
 	}
 

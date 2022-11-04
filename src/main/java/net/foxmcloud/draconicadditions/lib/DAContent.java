@@ -13,8 +13,9 @@ import com.brandon3055.brandonscore.inventory.ContainerBCTile;
 import com.brandon3055.draconicevolution.init.TechProperties;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
+import net.foxmcloud.draconicadditions.blocks.machines.ChaosInfuser;
 import net.foxmcloud.draconicadditions.blocks.machines.ChaosLiquefier;
-import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosLiquefier;
+import net.foxmcloud.draconicadditions.blocks.tileentity.*;
 import net.foxmcloud.draconicadditions.inventory.GUILayoutFactories;
 import net.foxmcloud.draconicadditions.items.Hermal;
 import net.foxmcloud.draconicadditions.items.armor.InfusedPotatoArmor;
@@ -46,26 +47,37 @@ public class DAContent {
 	// Tile Entities
 	@ObjectHolder("chaos_liquefier")
 	public static BlockEntityType<TileChaosLiquefier> tileChaosLiquefier;
+	
+	@ObjectHolder("chaos_infuser")
+	public static BlockEntityType<TileChaosInfuser> tileChaosInfuser;
+
 
 	@SubscribeEvent
 	public static void registerBlockEntity(RegistryEvent.Register<BlockEntityType<?>> event) {
 		event.getRegistry().register(BlockEntityType.Builder.of(TileChaosLiquefier::new, chaosLiquefier).build(null).setRegistryName("chaos_liquefier"));
+		event.getRegistry().register(BlockEntityType.Builder.of(TileChaosInfuser::new, chaosInfuser).build(null).setRegistryName("chaos_infuser"));
 	}
 
 	@ObjectHolder("chaos_liquefier")
 	public static MenuType<ContainerBCTile<TileChaosLiquefier>> containerChaosLiquefier;
+	
+	@ObjectHolder("chaos_infuser")
+	public static MenuType<ContainerBCTile<TileChaosInfuser>> containerChaosInfuser;
 
 	@SubscribeEvent
 	public static void registerContainers(RegistryEvent.Register<MenuType<?>> event) {
 		event.getRegistry().register(IForgeMenuType.create((id, inv, data) -> new ContainerBCTile<>(containerChaosLiquefier, id, inv, data, GUILayoutFactories.CHAOS_LIQUEFIER_LAYOUT)).setRegistryName("chaos_liquefier"));
+		event.getRegistry().register(IForgeMenuType.create((id, inv, data) -> new ContainerBCTile<>(containerChaosInfuser, id, inv, data, GUILayoutFactories.CHAOS_INFUSER_LAYOUT)).setRegistryName("chaos_infuser"));
 	}
 
 	@ObjectHolder("chaos_liquefier") public static ChaosLiquefier chaosLiquefier;
+	@ObjectHolder("chaos_infuser")   public static ChaosInfuser chaosInfuser;
 
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
         Properties machine = Properties.of(Material.METAL, MaterialColor.COLOR_GRAY).strength(3.0F, 8F).noOcclusion().requiresCorrectToolForDrops();
 		event.getRegistry().register(new ChaosLiquefier(machine).setRegistryName("chaos_liquefier"));
+		event.getRegistry().register(new ChaosInfuser(machine).setRegistryName("chaos_infuser"));
 	}
 
 	// Crafting Components
@@ -111,6 +123,7 @@ public class DAContent {
 		// Blocks
 
 		registerItem(event, new ItemBlockBCore(chaosLiquefier, new Item.Properties().tab(DAGroup)).setRegistryName(Objects.requireNonNull(chaosLiquefier.getRegistryName())));
+		registerItem(event, new ItemBlockBCore(chaosInfuser, new Item.Properties().tab(DAGroup)).setRegistryName(Objects.requireNonNull(chaosInfuser.getRegistryName())));
 
 		// Items
 
@@ -119,10 +132,10 @@ public class DAContent {
 		registerItem(event, new Item(new Item.Properties().tab(DAGroup)).setRegistryName("inert_potato_legs"));
 		registerItem(event, new Item(new Item.Properties().tab(DAGroup)).setRegistryName("inert_potato_boots"));
 		registerItem(event, new Item(new Item.Properties().tab(DAGroup)).setRegistryName("chaos_heart"));
-		registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlot.HEAD).setRegistryName("infused_potato_helm"));
-		registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlot.CHEST).setRegistryName("infused_potato_chest"));
-		registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlot.LEGS).setRegistryName("infused_potato_legs"));
-		registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlot.FEET).setRegistryName("infused_potato_boots"));
+		//registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlot.HEAD).setRegistryName("infused_potato_helm"));
+		//registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlot.CHEST).setRegistryName("infused_potato_chest"));
+		//registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlot.LEGS).setRegistryName("infused_potato_legs"));
+		//registerItem(event, new InfusedPotatoArmor(new Item.Properties().tab(DAGroup), EquipmentSlot.FEET).setRegistryName("infused_potato_boots"));
 		registerItem(event, new ChaosContainer(chaoticTier).setRegistryName("chaos_container"));
 		registerItem(event, new ModularNecklace(wyvernTier).setRegistryName("wyvern_necklace"));
 		registerItem(event, new ModularNecklace(draconicTier).setRegistryName("draconic_necklace"));
@@ -136,8 +149,6 @@ public class DAContent {
 	// Blocks
 
 	/*
-	@ModFeature(name = "chaos_stabilizer_core", tileEntity = TileChaosStabilizerCore.class, itemBlock = ItemBlockBCore.class)
-	public static ChaosStabilizerCore chaosStabilizerCore = new ChaosStabilizerCore();
 
 	@ModFeature(name = "armor_generator", tileEntity = TileArmorGenerator.class, itemBlock = ItemBlockBCore.class)
 	public static ArmorGenerator armorGenerator = new ArmorGenerator();
@@ -145,28 +156,7 @@ public class DAContent {
 	@ModFeature(name = "chaotic_armor_generator", tileEntity = TileChaoticArmorGenerator.class, itemBlock = ItemBlockBCore.class)
 	public static ChaoticArmorGenerator chaoticArmorGenerator = new ChaoticArmorGenerator();
 
-	@ModFeature(name = "item_drainer", tileEntity = TileItemDrainer.class, itemBlock = ItemBlockBCore.class)
-	public static ItemDrainer itemDrainer = new ItemDrainer();
-
-	@ModFeature(name = "chaos_liquefier", tileEntity = TileChaosLiquefier.class, itemBlock = ItemBlockBCore.class)
-	public static ChaosLiquefier chaosLiquefier = new ChaosLiquefier();
-
-	@ModFeature(name = "capacitor_supplier", tileEntity = TileCapacitorSupplier.class, itemBlock = ItemBlockBCore.class)
-	public static CapacitorSupplier capacitorSupplier = new CapacitorSupplier();
-
-	//@ModFeature(name = "chaos_infuser", tileEntity = TileChaosInfuser.class, itemBlock = ItemBlockBCore.class)
-	//public static ChaosInfuser chaosInfuser = new ChaosInfuser();
-
 	// Tools
-
-	@ModFeature(name = "chaotic_staff_of_power")
-	public static ChaoticStaffOfPower chaoticStaffOfPower = new ChaoticStaffOfPower();
-
-	@ModFeature(name = "chaotic_bow")
-	public static ChaoticBow chaoticBow = new ChaoticBow();
-
-	@ModFeature(name = "chaos_container", stateOverride = "tools#type=chaoscontainer")
-	public static ChaosContainer chaosContainer = new ChaosContainer();
 
 	@ModFeature(name = "portable_wired_charger", variantMap = {
 			"0:type=basic", "1:type=wyvern", "2:type=draconic", "3:type=chaotic",
@@ -188,20 +178,6 @@ public class DAContent {
 
 	@ModFeature(name = "hermal_boots", stateOverride = "armor#type=potatoBoots", isActive = false)
 	public static HermalArmor hermalBoots = new HermalArmor(3, EntityEquipmentSlot.FEET);
-
-	// Chaotic Armor
-
-	@ModFeature(name = "chaotic_helm", stateOverride = "armor#type=chaoticHelm")
-	public static ChaoticArmor chaoticHelm = new ChaoticArmor(0, EntityEquipmentSlot.HEAD);
-
-	@ModFeature(name = "chaotic_chest", stateOverride = "armor#type=chaoticChest")
-	public static ChaoticArmor chaoticChest = new ChaoticArmor(1, EntityEquipmentSlot.CHEST);
-
-	@ModFeature(name = "chaotic_legs", stateOverride = "armor#type=chaoticLegs")
-	public static ChaoticArmor chaoticLegs = new ChaoticArmor(2, EntityEquipmentSlot.LEGS);
-
-	@ModFeature(name = "chaotic_boots", stateOverride = "armor#type=chaoticBoots")
-	public static ChaoticArmor chaoticBoots = new ChaoticArmor(3, EntityEquipmentSlot.FEET);
 
 	// Other Baubles
 

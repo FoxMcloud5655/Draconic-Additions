@@ -45,6 +45,7 @@ public class LootTableGenerator extends LootTableProvider {
 
         protected void addTables() {
 			dropSelf(DAContent.chaosLiquefier);
+			dropSelf(DAContent.chaosInfuser);
 		}
 
 		@Override

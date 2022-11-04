@@ -22,6 +22,7 @@ public class LangGenerator extends LanguageProvider {
 
 	private void blocks(PrefixHelper helper) {
 		helper.add(DAContent.chaosLiquefier, "Chaos Liquefier");
+		helper.add(DAContent.chaosInfuser, "Chaos Infuser");
 	}
 
 	private void items(PrefixHelper helper) {

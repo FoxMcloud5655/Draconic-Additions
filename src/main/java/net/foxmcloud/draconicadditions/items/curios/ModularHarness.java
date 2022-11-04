@@ -145,6 +145,7 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 		return identifier.equals(SlotTypePreset.BACK.getIdentifier());
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {

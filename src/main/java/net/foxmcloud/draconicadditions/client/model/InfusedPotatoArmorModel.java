@@ -82,7 +82,6 @@ public class InfusedPotatoArmorModel extends VBOBipedModel<LivingEntity> {
 		*/
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void render(PoseStack pose, MultiBufferSource source, LivingEntity entity, ItemStack itemstack, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		if (entity == null || entity instanceof ArmorStand) {

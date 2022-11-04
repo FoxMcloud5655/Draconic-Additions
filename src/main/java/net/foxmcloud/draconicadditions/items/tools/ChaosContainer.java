@@ -231,6 +231,7 @@ public class ChaosContainer extends ModularEnergyItem implements IChaosContainer
 		return Math.max((int)Math.round(((double)EnergyUtils.getEnergyStored(stack) / EnergyUtils.getMaxEnergyStored(stack)) * 40), 2);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flags) {
 		if (!Screen.hasShiftDown()) {
