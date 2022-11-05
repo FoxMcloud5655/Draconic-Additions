@@ -2,7 +2,7 @@ package net.foxmcloud.draconicadditions.lib;
 
 import static com.brandon3055.brandonscore.api.TechLevel.*;
 import static com.brandon3055.draconicevolution.api.modules.ModuleTypes.AUTO_FEED;
-import static net.foxmcloud.draconicadditions.modules.ModuleTypes.TICK_ACCEL;
+import static net.foxmcloud.draconicadditions.modules.ModuleTypes.*;
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import com.brandon3055.draconicevolution.init.ModuleCfg;
 
 import net.foxmcloud.draconicadditions.DAConfig;
 import net.foxmcloud.draconicadditions.DraconicAdditions;
-import net.foxmcloud.draconicadditions.modules.TickAccelData;
+import net.foxmcloud.draconicadditions.modules.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
@@ -41,6 +41,12 @@ public class DAModules {
 
 	@ObjectHolder("chaotic_tick_accel")
 	public static Module<TickAccelData> chaoticTickAccel;
+	
+	@ObjectHolder("stable_chaos")
+	public static Module<StableChaosData> semiStableChaos;
+	
+	@ObjectHolder("chaos_injector")
+	public static Module<ChaosInjectorData> chaosInjector;
 
 	private static transient ArrayList<ResourceLocation> ITEM_REGISTRY_ORDER = new ArrayList<>();
 	public static transient Map<BaseModule<?>, Item> moduleItemMap = new LinkedHashMap<>();
@@ -50,6 +56,8 @@ public class DAModules {
 		register(new ModuleImpl<>(AUTO_FEED, CHAOTIC, autoFeedData((float)DAConfig.chaoticFeedAmount)), "chaotic_auto_feed");
 		register(new ModuleImpl<>(TICK_ACCEL, DRACONIC, tickAccelData(DAConfig.draconicAccelTicks)), "draconic_tick_accel");
 		register(new ModuleImpl<>(TICK_ACCEL, CHAOTIC, tickAccelData(DAConfig.chaoticAccelTicks)), "chaotic_tick_accel");
+		register(new ModuleImpl<>(STABLE_CHAOS, CHAOTIC, stableChaosData(DAConfig.semiStableChaosMax)), "stable_chaos");
+		register(new ModuleImpl<>(CHAOS_INJECTOR, CHAOTIC, chaosInjectorData(DAConfig.chaosInjectorRate)), "chaos_injector");
 	}
 
 	private static Function<Module<AutoFeedData>, AutoFeedData> autoFeedData(float defFoodStorage) {
@@ -63,6 +71,20 @@ public class DAModules {
 		return e -> {
 			int speed = ModuleCfg.getModuleInt(e, "tick_accel", defTickSpeed);
 			return new TickAccelData(speed);
+		};
+	}
+	
+	private static Function<Module<StableChaosData>, StableChaosData> stableChaosData(int defMaxChaos) {
+		return e -> {
+			int maxChaos = ModuleCfg.getModuleInt(e, "stable_chaos", defMaxChaos);
+			return new StableChaosData(maxChaos);
+		};
+	}
+	
+	private static Function<Module<ChaosInjectorData>, ChaosInjectorData> chaosInjectorData(int defRate) {
+		return e -> {
+			int rate = ModuleCfg.getModuleInt(e, "chaos_injector", defRate);
+			return new ChaosInjectorData(rate);
 		};
 	}
 

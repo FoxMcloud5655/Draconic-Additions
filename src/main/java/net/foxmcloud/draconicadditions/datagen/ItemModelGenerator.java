@@ -46,6 +46,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 		simpleModule(DAModules.chaoticAutoFeed);
 		simpleModule(DAModules.draconicTickAccel);
 		simpleModule(DAModules.chaoticTickAccel);
+		simpleModule(DAModules.semiStableChaos);
+		simpleModule(DAModules.chaosInjector);
 	}
 
 	private void simpleItem(Item item) {

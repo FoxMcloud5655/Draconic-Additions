@@ -41,6 +41,8 @@ public class DAConfig extends DEConfig {
 	public static double chaoticFeedAmount = 1000;
 	public static int draconicAccelTicks = 1;
 	public static int chaoticAccelTicks = 2;
+	public static int semiStableChaosMax = 1000;
+	public static int chaosInjectorRate = 2;
 
 	// Misc
 
@@ -100,6 +102,14 @@ public class DAConfig extends DEConfig {
 		moduleTweaks.getValue("chaoticAccelTicks").syncTagToClient().setDefaultInt(2)
 		.setComment("Same as the above, but for the Chaotic Tick Accelerator.")
 		.onSync((tag, type) -> chaoticAccelTicks = tag.getInt());
+		
+		moduleTweaks.getValue("semiStableChaosMax").syncTagToClient().setDefaultInt(1000)
+		.setComment("The maximum amount of liquid chaos each Semi-Stable Chaos Holder can contain.")
+		.onSync((tag, type) -> semiStableChaosMax = tag.getInt());
+		
+		moduleTweaks.getValue("chaosInjectorRate").syncTagToClient().setDefaultInt(2)
+		.setComment("How many half-hearts the Chaos Injection System can extract/fill every 5 ticks.")
+		.onSync((tag, type) -> chaosInjectorRate = tag.getInt());
 
 		// Misc
 

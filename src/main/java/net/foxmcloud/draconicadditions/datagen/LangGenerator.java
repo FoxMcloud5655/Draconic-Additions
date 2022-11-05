@@ -54,11 +54,19 @@ public class LangGenerator extends LanguageProvider {
 	private void modules(PrefixHelper helper) {
 		helper.setPrefix("module." + DraconicAdditions.MODID);
 		helper.add(DAModules.chaoticAutoFeed,   "Chaotic Auto Feed Module");
+		helper.add(ModuleTypes.TICK_ACCEL,      "Tick Accelerator");
 		helper.add(DAModules.draconicTickAccel, "Draconic Tick Accelerator");
 		helper.add(DAModules.chaoticTickAccel,  "Chaotic Tick Accelerator");
-		helper.add(ModuleTypes.TICK_ACCEL,      "Tick Accelerator");
 		helper.add("tick_accel.name",           "Additional Ticks");
 		helper.add("tick_accel.value",          "%s Ticks");
+		helper.add(ModuleTypes.STABLE_CHAOS,    "Chaos Stabilizer");
+		helper.add(DAModules.semiStableChaos,   "Semi-Stable Chaos Holder");
+		helper.add("stable_chaos.name",         "Stored Chaos");
+		helper.add("stable_chaos.value",        "%s / %s B");
+		helper.add(ModuleTypes.CHAOS_INJECTOR,  "Chaos Injection System");
+		helper.add(DAModules.chaosInjector,     "Chaos Injector");
+		helper.add("chaos_injector.name",       "Rate of Injection");
+		helper.add("chaos_injector.value",      "%s Half-Hearts");
 	}
 
 	private void gui(PrefixHelper helper) {
@@ -70,7 +78,8 @@ public class LangGenerator extends LanguageProvider {
 
 	private void info(PrefixHelper helper) {
 		helper.setPrefix("info.da");
-		helper.add("storedchaos", "Stored Chaos: %s / %s B");
+		helper.add("storedChaos", "Stored Chaos: %s / %s B");
+		helper.add("maxChaos", "Max Chaos: %s B");
 		helper.add("chaos.noShield", "The Chaos Container requires shield boosting modules to operate.");
 		helper.add("chaos.xfer.to", "Transferred %s B to %s");
 		helper.add("chaos.xfer.from", "Transferred %s B from %s");
