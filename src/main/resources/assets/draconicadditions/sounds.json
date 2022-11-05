@@ -1,12 +1,16 @@
 {
-  "unplug": {
-    "category": "block",
-    "sounds": [
-      {
-        "name": "draconicadditions:unplug",
-        "stream": false
-      }
-    ]
-  }
+    "unplug": {
+        "category": "block",
+        "sounds": [{
+            "name": "draconicadditions:unplug",
+            "stream": false
+        }]
+    },
+    "boom": {
+        "category": "block",
+        "sounds": [{
+            "name": "draconicadditions:boom",
+            "stream": false
+        }]
+    }
 }
-
