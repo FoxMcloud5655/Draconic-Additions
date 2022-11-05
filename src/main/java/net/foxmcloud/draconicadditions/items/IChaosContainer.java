@@ -1,6 +1,7 @@
 package net.foxmcloud.draconicadditions.items;
 
 import com.brandon3055.brandonscore.utils.ItemNBTHelper;
+import com.brandon3055.draconicevolution.api.modules.ModuleCategory;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -8,6 +9,8 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 
 public interface IChaosContainer {
+	
+	public static final ModuleCategory CHAOS_CONTAINER = new ModuleCategory();
 
 	/**
 	 * Adds chaos to the container.  Returns the amount of chaos that was not added.
@@ -36,6 +39,6 @@ public interface IChaosContainer {
 	}
 
 	public default Component getChaosInfo(ItemStack stack) {
-		return new TranslatableComponent("info.da.storedchaos", getChaos(stack), getMaxChaos(stack)).withStyle(ChatFormatting.GRAY);
+		return new TranslatableComponent("info.da.storedChaos", getChaos(stack), getMaxChaos(stack)).withStyle(ChatFormatting.GRAY);
 	}
 }

@@ -36,16 +36,14 @@ public class TileChaosLiquefier extends TileChaosHolderBase implements IChangeLi
 	private int chargeRate = 10000000;
 	public int maxCharge = 200;
 
-	public TileItemStackHandler itemHandler = new TileItemStackHandler(2);
-
 	public final ManagedInt charge = register(new ManagedInt("charge", 0, DataFlags.SAVE_BOTH_SYNC_TILE, DataFlags.TRIGGER_UPDATE));
 	public final ManagedInt chargeTo = register(new ManagedInt("chargeTo", maxCharge, DataFlags.SAVE_BOTH_SYNC_TILE, DataFlags.TRIGGER_UPDATE));
 	public final ManagedBool active = register(new ManagedBool("active", false, DataFlags.SAVE_BOTH_SYNC_TILE, DataFlags.TRIGGER_UPDATE));
 
-	public OPStorage opStorage = new OPStorage(2000000000, 20000000, 20000000);
-
 	public TileChaosLiquefier(BlockPos pos, BlockState state) {
 		super(DAContent.tileChaosLiquefier, pos, state);
+		itemHandler = new TileItemStackHandler(2);
+		opStorage = new OPStorage(2000000000, 20000000, 20000000);
 		capManager.setManaged("energy", CapabilityOP.OP, opStorage).saveBoth().syncContainer();
 		capManager.setManaged("inventory", CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, itemHandler).saveBoth().syncTile();
 		itemHandler.setStackValidator(this::isItemValidForSlot);

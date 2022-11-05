@@ -34,6 +34,7 @@ public class RecipeGenerator extends RecipeProvider {
 	protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
 		blocks(consumer);
 		items(consumer);
+		modules(consumer);
 	}
 
 	private static void blocks(Consumer<FinishedRecipe> consumer) {
@@ -221,7 +222,9 @@ public class RecipeGenerator extends RecipeProvider {
 			.unlockedBy("has_core_chaotic", has(core_chaotic))
 			.save(consumer, folder("items", harnessChaotic));
 		}
-
+	}
+	
+	private static void modules(Consumer<FinishedRecipe> consumer) {
 		if (chaoticAutoFeed != null) {
 			ShapedRecipeBuilder.shaped(chaoticAutoFeed.getItem())
 			.pattern("FCF")

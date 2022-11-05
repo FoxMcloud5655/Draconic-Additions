@@ -9,11 +9,15 @@ import com.brandon3055.brandonscore.lib.IInteractTile;
 import com.brandon3055.brandonscore.lib.IRSSwitchable;
 import com.brandon3055.brandonscore.lib.datamanager.DataFlags;
 import com.brandon3055.brandonscore.lib.datamanager.ManagedBool;
+import com.brandon3055.draconicevolution.api.capability.DECapabilities;
+import com.brandon3055.draconicevolution.api.capability.ModuleHost;
 import com.brandon3055.draconicevolution.handlers.DESounds;
 
 import net.foxmcloud.draconicadditions.inventory.GUILayoutFactories;
 import net.foxmcloud.draconicadditions.items.IChaosContainer;
 import net.foxmcloud.draconicadditions.lib.DAContent;
+import net.foxmcloud.draconicadditions.modules.ModuleTypes;
+import net.foxmcloud.draconicadditions.modules.StableChaosData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -33,14 +37,12 @@ public class TileChaosInfuser extends TileChaosHolderBase implements IChangeList
 	private int chargeRate = 1000000;
 	public int maxCharge = 200;
 
-	public TileItemStackHandler itemHandler = new TileItemStackHandler(2);
-
 	public final ManagedBool active = register(new ManagedBool("active", false, DataFlags.SAVE_BOTH_SYNC_TILE, DataFlags.TRIGGER_UPDATE));
-
-	public OPStorage opStorage = new OPStorage(2000000000, 20000000, 20000000);
 
 	public TileChaosInfuser(BlockPos pos, BlockState state) {
 		super(DAContent.tileChaosInfuser, pos, state);
+		itemHandler = new TileItemStackHandler(2);
+		opStorage = new OPStorage(2000000000, 20000000, 20000000);
 		capManager.setManaged("energy", CapabilityOP.OP, opStorage).saveBoth().syncContainer();
 		capManager.setManaged("inventory", CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, itemHandler).saveBoth().syncTile();
 		itemHandler.setStackValidator(this::isItemValidForSlot);
@@ -59,12 +61,13 @@ public class TileChaosInfuser extends TileChaosHolderBase implements IChangeList
 		}
 		else {
 			ItemStack stack = itemHandler.getStackInSlot(0);
-			if (!stack.isEmpty() && isItemValidForSlot(0, stack) && chaos.get() > 0) {
-				IChaosContainer chaosItem = (IChaosContainer)stack.getItem();
-				if (chaosItem.getMaxChaos(stack) > 0 && chaosItem.getChaos(stack) < chaosItem.getMaxChaos(stack) && opStorage.getOPStored() >= chargeRate) {
+			if (!stack.isEmpty() && isItemValidForSlot(0, stack) && chaos.get() > 0 && opStorage.getOPStored() >= chargeRate) {
+				ModuleHost host = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).orElse(null);
+				StableChaosData data = host.getModuleData(ModuleTypes.STABLE_CHAOS);
+				if (data.getChaos() < data.getMaxChaos()) {
 					active.set(true);
 					opStorage.extractOP(chargeRate, false);
-					chaos.add(chaosItem.addChaos(stack, 1) - 1);
+					chaos.add(data.addChaos(1) - 1);
 				}
 				else active.set(false);
 			}
@@ -73,10 +76,12 @@ public class TileChaosInfuser extends TileChaosHolderBase implements IChangeList
 	}
 
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		if (stack.getItem() instanceof IChaosContainer) {
-			return true;
+		ModuleHost host = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).orElse(null);
+		if (host != null) {
+			StableChaosData data = host.getModuleData(ModuleTypes.STABLE_CHAOS);
+			return data != null ? data.getMaxChaos() > 0 : false;
 		}
-		else return false;
+		return false;
 	}
 
 	@Override

@@ -45,8 +45,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
 public class ChaosContainer extends ModularEnergyItem implements IChaosContainer, IInvCharge, ISimpleCountdown {
-	public static final ModuleCategory CHAOSCONTAINER = new ModuleCategory();
-
 	public ChaosContainer(TechProperties props) {
 		super(props);
 	}
@@ -54,7 +52,7 @@ public class ChaosContainer extends ModularEnergyItem implements IChaosContainer
 	@Override
 	public ModuleHostImpl createHost(ItemStack stack) {
 		ModuleHostImpl host = super.createHost(stack);
-		host.addCategories(CHAOSCONTAINER);
+		host.addCategories(CHAOS_CONTAINER);
 		host.addAdditionalType(ModuleTypes.SHIELD_BOOST);
 		return host;
 	}
@@ -202,7 +200,7 @@ public class ChaosContainer extends ModularEnergyItem implements IChaosContainer
 
 	@Override
 	public int getMaxChaos(ItemStack stack) {
-		ModuleHost host = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).orElse(new ModuleHostImpl(TechLevel.CHAOTIC, 4, 4, "curios", false, CHAOSCONTAINER));
+		ModuleHost host = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).orElse(new ModuleHostImpl(TechLevel.CHAOTIC, 4, 4, "curios", false, CHAOS_CONTAINER));
 		return host.getModuleData(ModuleTypes.SHIELD_BOOST, new ShieldData(0, 0)).getShieldCapacity() * 10;
 	}
 

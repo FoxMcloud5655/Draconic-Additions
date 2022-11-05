@@ -73,7 +73,8 @@ public class LangGenerator extends LanguageProvider {
 		helper.setPrefix("gui." + DraconicAdditions.MODID);
 		helper.add("chaos_liquefier", "Chaos Liquefier");
 		helper.add("chaos_liquefier.chaosSlot.hover", "Accepts Chaos Shards and Chaos Hearts.");
-		helper.add("chaos_liquefier.chaosText", "Chaos: %sB / %sB");
+		helper.add("chaos_injector", "Chaos Injector");
+		helper.add("chaos_injector.chaosSlot.hover", "Accepts any modular item with a Chaos Stabilizer Module.");
 	}
 
 	private void info(PrefixHelper helper) {
