@@ -1,9 +1,15 @@
 package net.foxmcloud.draconicadditions.handlers;
 
-import com.brandon3055.draconicevolution.init.DEContent;
-import com.brandon3055.draconicevolution.items.InfoTablet;
+import java.util.ArrayList;
+import java.util.Arrays;
 
+import com.brandon3055.draconicevolution.api.event.ModularItemInitEvent;
+import com.brandon3055.draconicevolution.api.modules.lib.ModuleHostImpl;
+import com.brandon3055.draconicevolution.init.DEContent;
+
+import net.covers1624.quack.util.SneakyUtils;
 import net.foxmcloud.draconicadditions.CommonMethods.BlockStorage;
+import net.foxmcloud.draconicadditions.items.IChaosContainer;
 import net.foxmcloud.draconicadditions.items.curios.ModularHarness;
 import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.minecraft.core.BlockPos;
@@ -12,6 +18,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -71,6 +78,25 @@ public class DAEventHandler {
 		}
 	}
 	
+	@SubscribeEvent
+	public void addCategoriesToContainers(ModularItemInitEvent e) {
+		ArrayList<Item> validChaosContainers = new ArrayList<Item>(Arrays.asList(
+			DEContent.axe_chaotic,
+			DEContent.bow_chaotic,
+			DEContent.chestpiece_chaotic,
+			DEContent.pickaxe_chaotic,
+			DEContent.shovel_chaotic,
+			DEContent.staff_chaotic,
+			DEContent.sword_chaotic
+		));
+		ItemStack stack = e.getStack();
+		if (validChaosContainers.contains(stack.getItem())) {
+			ModuleHostImpl host = SneakyUtils.unsafeCast(e.getHost());
+			host.addCategories(IChaosContainer.CHAOS_CONTAINER);
+		}
+	}
+	
+	@SubscribeEvent
 	public void onEntitySpawn(EntityJoinWorldEvent e) {
 		if (e.getEntity() instanceof ItemEntity) {
 			ItemEntity entity = (ItemEntity)e.getEntity();

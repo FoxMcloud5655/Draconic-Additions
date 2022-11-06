@@ -17,7 +17,7 @@ import net.foxmcloud.draconicadditions.inventory.GUILayoutFactories;
 import net.foxmcloud.draconicadditions.items.IChaosContainer;
 import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.foxmcloud.draconicadditions.modules.ModuleTypes;
-import net.foxmcloud.draconicadditions.modules.StableChaosData;
+import net.foxmcloud.draconicadditions.modules.data.StableChaosData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -35,6 +35,7 @@ import net.minecraftforge.network.NetworkHooks;
 public class TileChaosInfuser extends TileChaosHolderBase implements IChangeListener, IRSSwitchable, IInteractTile, MenuProvider {
 
 	private int chargeRate = 1000000;
+	private int rateMultiplier = 2;
 	public int maxCharge = 200;
 
 	public final ManagedBool active = register(new ManagedBool("active", false, DataFlags.SAVE_BOTH_SYNC_TILE, DataFlags.TRIGGER_UPDATE));
@@ -61,13 +62,14 @@ public class TileChaosInfuser extends TileChaosHolderBase implements IChangeList
 		}
 		else {
 			ItemStack stack = itemHandler.getStackInSlot(0);
-			if (!stack.isEmpty() && isItemValidForSlot(0, stack) && chaos.get() > 0 && opStorage.getOPStored() >= chargeRate) {
+			int opToTake = chargeRate * rateMultiplier;
+			if (!stack.isEmpty() && isItemValidForSlot(0, stack) && chaos.get() > 0 && opStorage.extractOP(opToTake, true) >= opToTake) {
 				ModuleHost host = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).orElse(null);
 				StableChaosData data = host.getModuleData(ModuleTypes.STABLE_CHAOS);
 				if (data.getChaos() < data.getMaxChaos()) {
 					active.set(true);
-					opStorage.extractOP(chargeRate, false);
-					chaos.add(data.addChaos(1) - 1);
+					opStorage.extractOP(opToTake, false);
+					chaos.add(data.addChaos(rateMultiplier) - rateMultiplier);
 				}
 				else active.set(false);
 			}

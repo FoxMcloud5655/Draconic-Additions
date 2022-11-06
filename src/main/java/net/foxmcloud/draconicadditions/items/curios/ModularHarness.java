@@ -29,7 +29,7 @@ import net.foxmcloud.draconicadditions.CommonMethods.BlockStorage;
 import net.foxmcloud.draconicadditions.DAConfig;
 import net.foxmcloud.draconicadditions.items.ModularEnergyItem;
 import net.foxmcloud.draconicadditions.modules.ModuleTypes;
-import net.foxmcloud.draconicadditions.modules.TickAccelData;
+import net.foxmcloud.draconicadditions.modules.data.TickAccelData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -169,7 +169,7 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 	}
 
 	public static boolean storeBlockEntity(Level world, BlockPos pos, ItemStack stack, LivingEntity entity, boolean removeBlock) {
-		if (world instanceof ServerLevel) { //TODO: Review if this is needed.
+		if (world instanceof ServerLevel) {
 			if (world.getBlockEntity(pos) != null) {
 				BlockStorage block = new BlockStorage(world, pos, removeBlock);
 				block.storeBlockInTag(stack.getOrCreateTag());

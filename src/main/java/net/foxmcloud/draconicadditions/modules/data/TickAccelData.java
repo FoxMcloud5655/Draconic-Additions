@@ -1,4 +1,4 @@
-package net.foxmcloud.draconicadditions.modules;
+package net.foxmcloud.draconicadditions.modules.data;
 
 import java.util.Map;
 

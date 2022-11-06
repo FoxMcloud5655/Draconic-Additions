@@ -22,6 +22,9 @@ import com.brandon3055.draconicevolution.init.ModuleCfg;
 import net.foxmcloud.draconicadditions.DAConfig;
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.modules.*;
+import net.foxmcloud.draconicadditions.modules.data.ChaosInjectorData;
+import net.foxmcloud.draconicadditions.modules.data.StableChaosData;
+import net.foxmcloud.draconicadditions.modules.data.TickAccelData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
@@ -76,14 +79,14 @@ public class DAModules {
 	
 	private static Function<Module<StableChaosData>, StableChaosData> stableChaosData(int defMaxChaos) {
 		return e -> {
-			int maxChaos = ModuleCfg.getModuleInt(e, "stable_chaos", defMaxChaos);
+			int maxChaos = ModuleCfg.getModuleInt(e, "max_chaos", defMaxChaos);
 			return new StableChaosData(maxChaos);
 		};
 	}
 	
 	private static Function<Module<ChaosInjectorData>, ChaosInjectorData> chaosInjectorData(int defRate) {
 		return e -> {
-			int rate = ModuleCfg.getModuleInt(e, "chaos_injector", defRate);
+			int rate = ModuleCfg.getModuleInt(e, "injection_rate", defRate);
 			return new ChaosInjectorData(rate);
 		};
 	}

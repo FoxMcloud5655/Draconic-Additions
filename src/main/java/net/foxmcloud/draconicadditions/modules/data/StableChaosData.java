@@ -1,4 +1,4 @@
-package net.foxmcloud.draconicadditions.modules;
+package net.foxmcloud.draconicadditions.modules.data;
 
 import java.util.Map;
 
@@ -28,18 +28,6 @@ public class StableChaosData implements ModuleData<StableChaosData> {
 
 	public int getMaxChaos() {
 		return maxChaos;
-	}
-
-	public int addChaos(int chaos) {
-		int chaosToAdd = Math.min(getMaxChaos() - getChaos(), chaos);
-		storedChaos += chaosToAdd;
-		return chaos - chaosToAdd;
-	}
-
-	public int removeChaos(int chaos) {
-		int chaosToRemove = Math.min(getChaos(), chaos);
-		storedChaos -= chaosToRemove;
-		return chaosToRemove;
 	}
 
 	@Override

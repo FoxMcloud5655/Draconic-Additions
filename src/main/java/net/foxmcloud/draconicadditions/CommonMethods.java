@@ -200,7 +200,7 @@ public class CommonMethods {
 						String tileID = tileEntity.getType().getRegistryName().toString();
 						if (savedID.contentEquals(tileID)) {
 							tileEntity.deserializeNBT(tileNBT);
-							tileEntity.setLevel(world); //TODO: Position is not reset; make sure this works.
+							tileEntity.setLevel(world);
 							if (permanent) tileEntity.requestModelDataUpdate();
 						}
 					}
