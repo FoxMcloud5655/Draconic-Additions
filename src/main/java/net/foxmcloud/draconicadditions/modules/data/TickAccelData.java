@@ -25,7 +25,7 @@ public class TickAccelData implements ModuleData<TickAccelData> {
 	}
 
 	@Override
-	public void addInformation(Map<Component, Component> map, ModuleContext context, boolean stack) {
+	public void addInformation(Map<Component, Component> map, ModuleContext context, boolean stack) { //TODO: Remove stack parameter.
 		map.put(new TranslatableComponent("module.draconicadditions.tick_accel.name"), new TranslatableComponent("module.draconicadditions.tick_accel.value", ticks));
 	}
 }

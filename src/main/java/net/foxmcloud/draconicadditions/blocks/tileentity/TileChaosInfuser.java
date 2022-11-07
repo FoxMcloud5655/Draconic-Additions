@@ -1,5 +1,9 @@
 package net.foxmcloud.draconicadditions.blocks.tileentity;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.stream.Stream;
+
 import com.brandon3055.brandonscore.api.power.OPStorage;
 import com.brandon3055.brandonscore.capability.CapabilityOP;
 import com.brandon3055.brandonscore.inventory.ContainerBCTile;
@@ -11,6 +15,8 @@ import com.brandon3055.brandonscore.lib.datamanager.DataFlags;
 import com.brandon3055.brandonscore.lib.datamanager.ManagedBool;
 import com.brandon3055.draconicevolution.api.capability.DECapabilities;
 import com.brandon3055.draconicevolution.api.capability.ModuleHost;
+import com.brandon3055.draconicevolution.api.modules.data.ModuleData;
+import com.brandon3055.draconicevolution.api.modules.lib.ModuleEntity;
 import com.brandon3055.draconicevolution.handlers.DESounds;
 
 import net.foxmcloud.draconicadditions.inventory.GUILayoutFactories;
@@ -18,6 +24,7 @@ import net.foxmcloud.draconicadditions.items.IChaosContainer;
 import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.foxmcloud.draconicadditions.modules.ModuleTypes;
 import net.foxmcloud.draconicadditions.modules.data.StableChaosData;
+import net.foxmcloud.draconicadditions.modules.entities.StableChaosEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -63,15 +70,31 @@ public class TileChaosInfuser extends TileChaosHolderBase implements IChangeList
 		else {
 			ItemStack stack = itemHandler.getStackInSlot(0);
 			int opToTake = chargeRate * rateMultiplier;
-			if (!stack.isEmpty() && isItemValidForSlot(0, stack) && chaos.get() > 0 && opStorage.extractOP(opToTake, true) >= opToTake) {
+			if (!stack.isEmpty() && isItemValidForSlot(0, stack) && chaos.get() > 0 && opStorage.extractOP(opToTake, true) >= chargeRate) {
 				ModuleHost host = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).orElse(null);
-				StableChaosData data = host.getModuleData(ModuleTypes.STABLE_CHAOS);
-				if (data.getChaos() < data.getMaxChaos()) {
-					active.set(true);
-					opStorage.extractOP(opToTake, false);
-					chaos.add(data.addChaos(rateMultiplier) - rateMultiplier);
+				Stream<ModuleEntity> chaosEntities = host.getEntitiesByType(ModuleTypes.STABLE_CHAOS);
+				ArrayList<StableChaosEntity> sortedChaosEntities = StableChaosEntity.getSortedListFromStream(chaosEntities);
+				if (sortedChaosEntities.size() == 0) {
+					active.set(false);
+					return;
 				}
-				else active.set(false);
+				int remainingChaosToTransfer = Math.min(rateMultiplier, chaos.get());
+				for (StableChaosEntity ce : sortedChaosEntities) {
+					StableChaosData data = (StableChaosData)ce.getModule().getData();
+					if (ce.getChaos() < data.getMaxChaos()) {
+						active.set(true);
+						long opRemoved = opStorage.extractOP(chargeRate * remainingChaosToTransfer, false);
+						int chaosAdded = ce.modifyChaos((int)(opRemoved / chargeRate));
+						remainingChaosToTransfer -= chaosAdded;
+						if (remainingChaosToTransfer == 0) {
+							break;
+						}
+					}
+				}
+				chaos.subtract(Math.min(rateMultiplier, chaos.get()) - remainingChaosToTransfer);
+				if (remainingChaosToTransfer == rateMultiplier) {
+					active.set(false);
+				}
 			}
 			else active.set(false);
 		}

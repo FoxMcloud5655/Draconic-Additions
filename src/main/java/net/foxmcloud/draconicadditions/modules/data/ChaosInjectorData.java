@@ -25,7 +25,7 @@ public class ChaosInjectorData implements ModuleData<ChaosInjectorData> {
 	}
 
 	@Override
-	public void addInformation(Map<Component, Component> map, ModuleContext context, boolean stack) {
-		map.put(new TranslatableComponent("module.draconicadditions.chaos_injector.name"), new TranslatableComponent("module.draconicadditions.chaos_injector.value", rate));
+	public void addInformation(Map<Component, Component> map, ModuleContext context, boolean stack) { //TODO: Remove stack parameter.
+		map.put(new TranslatableComponent("module.draconicadditions.chaos_injector.name"), new TranslatableComponent("module.draconicadditions.chaos_injector.value", rate / 2.0));
 	}
 }

@@ -47,6 +47,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 		simpleModule(DAModules.draconicTickAccel);
 		simpleModule(DAModules.chaoticTickAccel);
 		simpleModule(DAModules.semiStableChaos);
+		simpleModule(DAModules.stableChaos);
+		simpleModule(DAModules.unstableChaos);
 		simpleModule(DAModules.chaosInjector);
 	}
 

@@ -61,12 +61,16 @@ public class LangGenerator extends LanguageProvider {
 		helper.add("tick_accel.value",          "%s Ticks");
 		helper.add(ModuleTypes.STABLE_CHAOS,    "Chaos Stabilizer");
 		helper.add(DAModules.semiStableChaos,   "Semi-Stable Chaos Holder");
-		helper.add("stable_chaos.name",         "Stored Chaos");
-		helper.add("stable_chaos.value",        "%s / %s B");
+		helper.add(DAModules.stableChaos,       "Stable Chaos Holder");
+		helper.add(DAModules.unstableChaos,     "Unstable Chaos Holder");
+		helper.add("maxChaos.name",             "Max Chaos Stored");
+		helper.add("maxChaos.value",            "%s B");
+		helper.add("maxInstability.name",       "Instability");
+		helper.add("maxInstability.value",      "%s%%");
 		helper.add(ModuleTypes.CHAOS_INJECTOR,  "Chaos Injection System");
 		helper.add(DAModules.chaosInjector,     "Chaos Injector");
 		helper.add("chaos_injector.name",       "Rate of Injection");
-		helper.add("chaos_injector.value",      "%s Half-Hearts");
+		helper.add("chaos_injector.value",      "%s Hearts");
 	}
 
 	private void gui(PrefixHelper helper) {
@@ -90,6 +94,7 @@ public class LangGenerator extends LanguageProvider {
 		helper.add("hermal.craft", "Ultimate power in something so seemingly mundane.");
 		helper.add("hermal.eat.attempt", "This seems like a bad idea...");
 		helper.add("hermal.eat.success", "No one contests the power of hermal.");
+		helper.add("instability", "Current Instability: %s%%");
 		helper.add("modular_harness.cantmove", "This block doesn't seem to budge...");
 		helper.add("modular_harness.storeSuccess", "You place the machine into your harness.");
 		helper.add("modular_harness.placeSuccess", "You take the machine off of your harness and set it back down.");

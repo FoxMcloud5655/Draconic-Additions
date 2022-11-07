@@ -9,21 +9,16 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 
 public class StableChaosData implements ModuleData<StableChaosData> {
-	private int storedChaos;
+	private int maxInstability;
 	private final int maxChaos;
 
-	public StableChaosData(int maxChaos) {
-		this.storedChaos = 0;
+	public StableChaosData(int maxInstability, int maxChaos) {
+		this.maxInstability = maxInstability;
 		this.maxChaos = maxChaos;
 	}
 
-	public StableChaosData(int storedChaos, int maxChaos) {
-		this.storedChaos = storedChaos;
-		this.maxChaos = maxChaos;
-	}
-
-	public int getChaos() {
-		return storedChaos;
+	public int getMaxInstability() {
+		return maxInstability;
 	}
 
 	public int getMaxChaos() {
@@ -32,11 +27,12 @@ public class StableChaosData implements ModuleData<StableChaosData> {
 
 	@Override
 	public StableChaosData combine(StableChaosData other) {
-		return new StableChaosData(storedChaos + other.storedChaos, maxChaos + other.maxChaos);
+		return new StableChaosData(maxInstability + other.maxInstability, maxChaos + other.maxChaos);
 	}
 
 	@Override
-	public void addInformation(Map<Component, Component> map, ModuleContext context, boolean stack) {
-		map.put(new TranslatableComponent("module.draconicadditions.stable_chaos.name"), new TranslatableComponent("module.draconicadditions.stable_chaos.value", storedChaos, maxChaos));
+	public void addInformation(Map<Component, Component> map, ModuleContext context, boolean stack) { //TODO: Remove stack parameter.
+		map.put(new TranslatableComponent("module.draconicadditions.maxChaos.name"), new TranslatableComponent("module.draconicadditions.maxChaos.value", maxChaos));
+		map.put(new TranslatableComponent("module.draconicadditions.maxInstability.name"), new TranslatableComponent("module.draconicadditions.maxInstability.value", maxInstability));
 	}
 }

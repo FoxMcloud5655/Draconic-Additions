@@ -2,6 +2,7 @@ package net.foxmcloud.draconicadditions.lib;
 
 import static com.brandon3055.brandonscore.api.TechLevel.*;
 import static com.brandon3055.draconicevolution.api.modules.ModuleTypes.AUTO_FEED;
+import static net.foxmcloud.draconicadditions.DAConfig.*;
 import static net.foxmcloud.draconicadditions.modules.ModuleTypes.*;
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
@@ -19,7 +20,6 @@ import com.brandon3055.draconicevolution.api.modules.lib.ModuleImpl;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleItem;
 import com.brandon3055.draconicevolution.init.ModuleCfg;
 
-import net.foxmcloud.draconicadditions.DAConfig;
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.modules.*;
 import net.foxmcloud.draconicadditions.modules.data.ChaosInjectorData;
@@ -45,8 +45,14 @@ public class DAModules {
 	@ObjectHolder("chaotic_tick_accel")
 	public static Module<TickAccelData> chaoticTickAccel;
 	
-	@ObjectHolder("stable_chaos")
+	@ObjectHolder("semi_stable_chaos")
 	public static Module<StableChaosData> semiStableChaos;
+	
+	@ObjectHolder("stable_chaos")
+	public static Module<StableChaosData> stableChaos;
+	
+	@ObjectHolder("unstable_chaos")
+	public static Module<StableChaosData> unstableChaos;
 	
 	@ObjectHolder("chaos_injector")
 	public static Module<ChaosInjectorData> chaosInjector;
@@ -56,11 +62,13 @@ public class DAModules {
 	private static transient CyclingItemGroup moduleGroup = new CyclingItemGroup(DraconicAdditions.MODID + ".modules", 40, () -> moduleItemMap.values().toArray(new Item[0]), ITEM_REGISTRY_ORDER);
 
 	private static void registerModules() {
-		register(new ModuleImpl<>(AUTO_FEED, CHAOTIC, autoFeedData((float)DAConfig.chaoticFeedAmount)), "chaotic_auto_feed");
-		register(new ModuleImpl<>(TICK_ACCEL, DRACONIC, tickAccelData(DAConfig.draconicAccelTicks)), "draconic_tick_accel");
-		register(new ModuleImpl<>(TICK_ACCEL, CHAOTIC, tickAccelData(DAConfig.chaoticAccelTicks)), "chaotic_tick_accel");
-		register(new ModuleImpl<>(STABLE_CHAOS, CHAOTIC, stableChaosData(DAConfig.semiStableChaosMax)), "stable_chaos");
-		register(new ModuleImpl<>(CHAOS_INJECTOR, CHAOTIC, chaosInjectorData(DAConfig.chaosInjectorRate)), "chaos_injector");
+		register(new ModuleImpl<>(AUTO_FEED, CHAOTIC, autoFeedData((float)chaoticFeedAmount)), "chaotic_auto_feed");
+		register(new ModuleImpl<>(TICK_ACCEL, DRACONIC, tickAccelData(draconicAccelTicks)), "draconic_tick_accel");
+		register(new ModuleImpl<>(TICK_ACCEL, CHAOTIC, tickAccelData(chaoticAccelTicks)), "chaotic_tick_accel");
+		register(new ModuleImpl<>(STABLE_CHAOS, CHAOTIC, stableChaosData(semiStableInstabilityMax, semiStableChaosMax)), "semi_stable_chaos");
+		register(new ModuleImpl<>(STABLE_CHAOS, CHAOTIC, stableChaosData(stableInstabilityMax, stableChaosMax)), "stable_chaos");
+		register(new ModuleImpl<>(STABLE_CHAOS, CHAOTIC, stableChaosData(unstableInstabilityMax, unstableChaosMax)), "unstable_chaos");
+		register(new ModuleImpl<>(CHAOS_INJECTOR, CHAOTIC, chaosInjectorData(chaosInjectorRate)), "chaos_injector");
 	}
 
 	private static Function<Module<AutoFeedData>, AutoFeedData> autoFeedData(float defFoodStorage) {
@@ -72,22 +80,21 @@ public class DAModules {
 
 	private static Function<Module<TickAccelData>, TickAccelData> tickAccelData(int defTickSpeed) {
 		return e -> {
-			int speed = ModuleCfg.getModuleInt(e, "tick_accel", defTickSpeed);
-			return new TickAccelData(speed);
+			return new TickAccelData(ModuleCfg.getModuleInt(e, "tick_accel", defTickSpeed));
 		};
 	}
 	
-	private static Function<Module<StableChaosData>, StableChaosData> stableChaosData(int defMaxChaos) {
+	private static Function<Module<StableChaosData>, StableChaosData> stableChaosData(int maxInstability, int defMaxChaos) {
 		return e -> {
-			int maxChaos = ModuleCfg.getModuleInt(e, "max_chaos", defMaxChaos);
-			return new StableChaosData(maxChaos);
+			return new StableChaosData(
+				ModuleCfg.getModuleInt(e, "max_instability", maxInstability),
+				ModuleCfg.getModuleInt(e, "max_chaos", defMaxChaos));
 		};
 	}
 	
 	private static Function<Module<ChaosInjectorData>, ChaosInjectorData> chaosInjectorData(int defRate) {
 		return e -> {
-			int rate = ModuleCfg.getModuleInt(e, "injection_rate", defRate);
-			return new ChaosInjectorData(rate);
+			return new ChaosInjectorData(ModuleCfg.getModuleInt(e, "injection_rate", defRate));
 		};
 	}
 

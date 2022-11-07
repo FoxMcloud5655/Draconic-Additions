@@ -42,6 +42,11 @@ public class DAConfig extends DEConfig {
 	public static int draconicAccelTicks = 1;
 	public static int chaoticAccelTicks = 2;
 	public static int semiStableChaosMax = 1000;
+	public static int semiStableInstabilityMax = 100;
+	public static int stableChaosMax = 1000;
+	public static int stableInstabilityMax = 20;
+	public static int unstableChaosMax = 5000;
+	public static int unstableInstabilityMax = 200;
 	public static int chaosInjectorRate = 2;
 
 	// Misc
@@ -106,6 +111,26 @@ public class DAConfig extends DEConfig {
 		moduleTweaks.getValue("semiStableChaosMax").syncTagToClient().setDefaultInt(1000)
 		.setComment("The maximum amount of liquid chaos each Semi-Stable Chaos Holder can contain.")
 		.onSync((tag, type) -> semiStableChaosMax = tag.getInt());
+		
+		moduleTweaks.getValue("semiStableInstabilityMax").syncTagToClient().setDefaultInt(100)
+		.setComment("The maximum amount of entropy each Semi-Stable Chaos Holder can have when modifying the amount of chaos stored.")
+		.onSync((tag, type) -> semiStableInstabilityMax = tag.getInt());
+		
+		moduleTweaks.getValue("stableChaosMax").syncTagToClient().setDefaultInt(1000)
+		.setComment("The maximum amount of liquid chaos each Stable Chaos Holder can contain.")
+		.onSync((tag, type) -> stableChaosMax = tag.getInt());
+		
+		moduleTweaks.getValue("stableInstabilityMax").syncTagToClient().setDefaultInt(20)
+		.setComment("The maximum amount of entropy each Stable Chaos Holder can have when modifying the amount of chaos stored.")
+		.onSync((tag, type) -> stableInstabilityMax = tag.getInt());
+		
+		moduleTweaks.getValue("unstableChaosMax").syncTagToClient().setDefaultInt(5000)
+		.setComment("The maximum amount of liquid chaos each Unstable Chaos Holder can contain.")
+		.onSync((tag, type) -> unstableChaosMax = tag.getInt());
+		
+		moduleTweaks.getValue("unstableInstabilityMax").syncTagToClient().setDefaultInt(200)
+		.setComment("The maximum amount of entropy each Unstable Chaos Holder can have when modifying the amount of chaos stored.")
+		.onSync((tag, type) -> unstableInstabilityMax = tag.getInt());
 		
 		moduleTweaks.getValue("chaosInjectorRate").syncTagToClient().setDefaultInt(2)
 		.setComment("How many half-hearts the Chaos Injection System can extract/fill every 5 ticks.")
