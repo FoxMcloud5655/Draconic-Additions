@@ -25,12 +25,12 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.util.thread.EffectiveSide;
 
-public class StableChaosEntity extends ModuleEntity implements Comparable {
+public class StableChaosEntity extends ModuleEntity<StableChaosData> implements Comparable {
 	private static final int rfCostLimit = 1000000;
 	private int chaos = 0;
 	private float instability = 0;
 
-	public StableChaosEntity(Module<?> module) {
+	public StableChaosEntity(Module<StableChaosData> module) {
 		super(module);
 	}
 
@@ -139,9 +139,9 @@ public class StableChaosEntity extends ModuleEntity implements Comparable {
 		return data.getMaxInstability() - otherData.getMaxInstability();
 	}
 
-	public static ArrayList<StableChaosEntity> getSortedListFromStream(Stream<ModuleEntity> stream) {
+	public static ArrayList<StableChaosEntity> getSortedListFromStream(Stream<ModuleEntity<?>> chaosEntities) {
 		ArrayList<StableChaosEntity> orderedChaosEntities = new ArrayList<>();
-		stream.forEach(entity -> orderedChaosEntities.add((StableChaosEntity)entity));
+		chaosEntities.forEach(entity -> orderedChaosEntities.add((StableChaosEntity)entity));
 		Collections.sort(orderedChaosEntities);
 		return orderedChaosEntities;
 	}

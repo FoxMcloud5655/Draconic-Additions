@@ -72,7 +72,7 @@ public class TileChaosInfuser extends TileChaosHolderBase implements IChangeList
 			int opToTake = chargeRate * rateMultiplier;
 			if (!stack.isEmpty() && isItemValidForSlot(0, stack) && chaos.get() > 0 && opStorage.extractOP(opToTake, true) >= chargeRate) {
 				ModuleHost host = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).orElse(null);
-				Stream<ModuleEntity> chaosEntities = host.getEntitiesByType(ModuleTypes.STABLE_CHAOS);
+				Stream<ModuleEntity<?>> chaosEntities = host.getEntitiesByType(ModuleTypes.STABLE_CHAOS);
 				ArrayList<StableChaosEntity> sortedChaosEntities = StableChaosEntity.getSortedListFromStream(chaosEntities);
 				if (sortedChaosEntities.size() == 0) {
 					active.set(false);
