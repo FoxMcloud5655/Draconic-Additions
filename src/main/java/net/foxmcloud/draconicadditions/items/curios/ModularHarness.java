@@ -137,7 +137,7 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 	@Override
 	public ModularOPStorage createOPStorage(ItemStack stack, ModuleHostImpl host) {
 		long capacity = (long)(EquipCfg.getBaseEnergy(techLevel) * DAConfig.harnessCapacityMultiplier);
-		return new ModularOPStorage(host, capacity, capacity / 64, true);
+		return new ModularOPStorage(host, capacity, capacity / 64).setIOMode(true, true);
 	}
 
 	@Override
