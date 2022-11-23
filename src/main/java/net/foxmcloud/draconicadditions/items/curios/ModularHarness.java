@@ -141,7 +141,7 @@ public class ModularHarness extends ModularEnergyItem implements IInvCharge {
 	}
 
 	@Override
-	public boolean canEquip(LivingEntity livingEntity, String identifier) {
+	public boolean canEquip(ItemStack stack, LivingEntity livingEntity, String identifier) {
 		return identifier.equals(SlotTypePreset.BACK.getIdentifier());
 	}
 

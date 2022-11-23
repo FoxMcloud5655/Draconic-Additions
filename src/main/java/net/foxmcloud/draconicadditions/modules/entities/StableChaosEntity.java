@@ -8,6 +8,8 @@ import java.util.stream.Stream;
 import org.jetbrains.annotations.NotNull;
 
 import com.brandon3055.brandonscore.api.power.IOPStorageModifiable;
+import com.brandon3055.brandonscore.api.render.GuiHelper;
+import com.brandon3055.brandonscore.utils.HolidayHelper;
 import com.brandon3055.draconicevolution.api.modules.Module;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleContext;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleEntity;
@@ -17,12 +19,16 @@ import com.brandon3055.draconicevolution.lib.WTFException;
 
 import net.foxmcloud.draconicadditions.modules.data.StableChaosData;
 import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.util.thread.EffectiveSide;
 
 public class StableChaosEntity extends ModuleEntity<StableChaosData> implements Comparable {

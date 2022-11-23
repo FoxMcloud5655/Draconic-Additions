@@ -35,7 +35,7 @@ public interface IChaosContainer {
 	}
 
 	public default int getMaxChaos(ItemStack stack) {
-		return 1000;
+		return 0;
 	}
 
 	public default Component getChaosInfo(ItemStack stack) {

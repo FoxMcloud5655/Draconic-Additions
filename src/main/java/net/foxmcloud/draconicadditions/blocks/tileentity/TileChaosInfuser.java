@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.stream.Stream;
 
+import com.brandon3055.brandonscore.api.TechLevel;
 import com.brandon3055.brandonscore.api.power.OPStorage;
 import com.brandon3055.brandonscore.capability.CapabilityOP;
 import com.brandon3055.brandonscore.inventory.ContainerBCTile;
@@ -15,10 +16,16 @@ import com.brandon3055.brandonscore.lib.datamanager.DataFlags;
 import com.brandon3055.brandonscore.lib.datamanager.ManagedBool;
 import com.brandon3055.draconicevolution.api.capability.DECapabilities;
 import com.brandon3055.draconicevolution.api.capability.ModuleHost;
+import com.brandon3055.draconicevolution.api.modules.ModuleCategory;
 import com.brandon3055.draconicevolution.api.modules.data.ModuleData;
+import com.brandon3055.draconicevolution.api.modules.lib.ModularOPStorage;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleEntity;
+import com.brandon3055.draconicevolution.api.modules.lib.SimpleModuleHost;
 import com.brandon3055.draconicevolution.handlers.DESounds;
+import com.brandon3055.draconicevolution.init.ModuleCfg;
+import com.brandon3055.draconicevolution.inventory.ContainerDETile;
 
+import net.foxmcloud.draconicadditions.inventory.ContainerDATile;
 import net.foxmcloud.draconicadditions.inventory.GUILayoutFactories;
 import net.foxmcloud.draconicadditions.items.IChaosContainer;
 import net.foxmcloud.draconicadditions.lib.DAContent;
@@ -46,11 +53,11 @@ public class TileChaosInfuser extends TileChaosHolderBase implements IChangeList
 	public int maxCharge = 200;
 
 	public final ManagedBool active = register(new ManagedBool("active", false, DataFlags.SAVE_BOTH_SYNC_TILE, DataFlags.TRIGGER_UPDATE));
-
+	
 	public TileChaosInfuser(BlockPos pos, BlockState state) {
 		super(DAContent.tileChaosInfuser, pos, state);
 		itemHandler = new TileItemStackHandler(2);
-		opStorage = new OPStorage(2000000000, 20000000, 20000000);
+		opStorage = new ModularOPStorage(this, 2000000000, 20000000, 20000000);
 		capManager.setManaged("energy", CapabilityOP.OP, opStorage).saveBoth().syncContainer();
 		capManager.setManaged("inventory", CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, itemHandler).saveBoth().syncTile();
 		itemHandler.setStackValidator(this::isItemValidForSlot);
@@ -111,7 +118,7 @@ public class TileChaosInfuser extends TileChaosHolderBase implements IChangeList
 
 	@Override
 	public AbstractContainerMenu createMenu(int currentWindowIndex, Inventory playerInventory, Player player) {
-		return new ContainerBCTile<>(DAContent.containerChaosInfuser, currentWindowIndex, player.getInventory(), this, GUILayoutFactories.CHAOS_INFUSER_LAYOUT);
+		return new ContainerDATile<>(DAContent.containerChaosInfuser, currentWindowIndex, player.getInventory(), this, GUILayoutFactories.CHAOS_INFUSER_LAYOUT);
 	}
 
 	@Override

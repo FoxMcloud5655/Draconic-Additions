@@ -11,11 +11,13 @@ import com.brandon3055.brandonscore.blocks.ItemBlockBCore;
 import com.brandon3055.brandonscore.client.utils.CyclingItemGroup;
 import com.brandon3055.brandonscore.inventory.ContainerBCTile;
 import com.brandon3055.draconicevolution.init.TechProperties;
+import com.brandon3055.draconicevolution.inventory.ContainerDETile;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.blocks.machines.ChaosInfuser;
 import net.foxmcloud.draconicadditions.blocks.machines.ChaosLiquefier;
 import net.foxmcloud.draconicadditions.blocks.tileentity.*;
+import net.foxmcloud.draconicadditions.inventory.ContainerDATile;
 import net.foxmcloud.draconicadditions.inventory.GUILayoutFactories;
 import net.foxmcloud.draconicadditions.items.Hermal;
 import net.foxmcloud.draconicadditions.items.armor.InfusedPotatoArmor;
@@ -59,15 +61,15 @@ public class DAContent {
 	}
 
 	@ObjectHolder("chaos_liquefier")
-	public static MenuType<ContainerBCTile<TileChaosLiquefier>> containerChaosLiquefier;
+	public static MenuType<ContainerDATile<TileChaosLiquefier>> containerChaosLiquefier;
 	
 	@ObjectHolder("chaos_infuser")
-	public static MenuType<ContainerBCTile<TileChaosInfuser>> containerChaosInfuser;
+	public static MenuType<ContainerDATile<TileChaosInfuser>> containerChaosInfuser;
 
 	@SubscribeEvent
 	public static void registerContainers(RegistryEvent.Register<MenuType<?>> event) {
-		event.getRegistry().register(IForgeMenuType.create((id, inv, data) -> new ContainerBCTile<>(containerChaosLiquefier, id, inv, data, GUILayoutFactories.CHAOS_LIQUEFIER_LAYOUT)).setRegistryName("chaos_liquefier"));
-		event.getRegistry().register(IForgeMenuType.create((id, inv, data) -> new ContainerBCTile<>(containerChaosInfuser, id, inv, data, GUILayoutFactories.CHAOS_INFUSER_LAYOUT)).setRegistryName("chaos_infuser"));
+		event.getRegistry().register(IForgeMenuType.create((id, inv, data) -> new ContainerDATile<>(containerChaosLiquefier, id, inv, data, GUILayoutFactories.CHAOS_LIQUEFIER_LAYOUT)).setRegistryName("chaos_liquefier"));
+		event.getRegistry().register(IForgeMenuType.create((id, inv, data) -> new ContainerDATile<>(containerChaosInfuser, id, inv, data, GUILayoutFactories.CHAOS_INFUSER_LAYOUT)).setRegistryName("chaos_infuser"));
 	}
 
 	@ObjectHolder("chaos_liquefier") public static ChaosLiquefier chaosLiquefier;

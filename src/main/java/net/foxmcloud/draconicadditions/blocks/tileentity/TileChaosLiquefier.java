@@ -11,9 +11,12 @@ import com.brandon3055.brandonscore.lib.datamanager.DataFlags;
 import com.brandon3055.brandonscore.lib.datamanager.ManagedBool;
 import com.brandon3055.brandonscore.lib.datamanager.ManagedInt;
 import com.brandon3055.brandonscore.utils.EnergyUtils;
+import com.brandon3055.draconicevolution.api.modules.lib.ModularOPStorage;
 import com.brandon3055.draconicevolution.handlers.DESounds;
 import com.brandon3055.draconicevolution.init.DEContent;
+import com.brandon3055.draconicevolution.inventory.ContainerDETile;
 
+import net.foxmcloud.draconicadditions.inventory.ContainerDATile;
 import net.foxmcloud.draconicadditions.inventory.GUILayoutFactories;
 import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.minecraft.core.BlockPos;
@@ -43,7 +46,7 @@ public class TileChaosLiquefier extends TileChaosHolderBase implements IChangeLi
 	public TileChaosLiquefier(BlockPos pos, BlockState state) {
 		super(DAContent.tileChaosLiquefier, pos, state);
 		itemHandler = new TileItemStackHandler(2);
-		opStorage = new OPStorage(2000000000, 20000000, 20000000);
+		opStorage = new ModularOPStorage(this, 2000000000, 20000000, 20000000);
 		capManager.setManaged("energy", CapabilityOP.OP, opStorage).saveBoth().syncContainer();
 		capManager.setManaged("inventory", CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, itemHandler).saveBoth().syncTile();
 		itemHandler.setStackValidator(this::isItemValidForSlot);
@@ -109,15 +112,15 @@ public class TileChaosLiquefier extends TileChaosHolderBase implements IChangeLi
 		if (isItemValidForSlot(0, stack)) {
 			switch (chaosID(stack.getItem())) {
 			case 1:
-				return 1300;
+				return 11664;
 			case 2:
-				return 150;
+				return 1296;
 			case 3:
-				return 17;
+				return 144;
 			case 4:
-				return 2;
+				return 16;
 			case 5:
-				return 1800;
+				return 20000;
 			default:
 				return 0;
 			}
@@ -129,13 +132,13 @@ public class TileChaosLiquefier extends TileChaosHolderBase implements IChangeLi
 		if (isItemValidForSlot(0, stack)) {
 			switch (chaosID(stack.getItem())) {
 			case 1:
-				return maxCharge;
+				return (int)(maxCharge / 1.5);
 			case 2:
-				return maxCharge / 2;
-			case 3:
 				return maxCharge / 4;
-			case 4:
+			case 3:
 				return maxCharge / 8;
+			case 4:
+				return maxCharge / 16;
 			case 5:
 				return maxCharge;
 			default:
@@ -171,7 +174,7 @@ public class TileChaosLiquefier extends TileChaosHolderBase implements IChangeLi
 
 	@Override
 	public AbstractContainerMenu createMenu(int currentWindowIndex, Inventory playerInventory, Player player) {
-		return new ContainerBCTile<>(DAContent.containerChaosLiquefier, currentWindowIndex, player.getInventory(), this, GUILayoutFactories.CHAOS_LIQUEFIER_LAYOUT);
+		return new ContainerDATile<>(DAContent.containerChaosLiquefier, currentWindowIndex, player.getInventory(), this, GUILayoutFactories.CHAOS_LIQUEFIER_LAYOUT);
 	}
 
 	@Override

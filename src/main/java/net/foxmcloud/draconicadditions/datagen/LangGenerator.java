@@ -64,7 +64,7 @@ public class LangGenerator extends LanguageProvider {
 		helper.add(DAModules.stableChaos,       "Stable Chaos Holder");
 		helper.add(DAModules.unstableChaos,     "Unstable Chaos Holder");
 		helper.add("maxChaos.name",             "Max Chaos Stored");
-		helper.add("maxChaos.value",            "%s B");
+		helper.add("maxChaos.value",            "%s mB");
 		helper.add("maxInstability.name",       "Instability");
 		helper.add("maxInstability.value",      "%s%%");
 		helper.add(ModuleTypes.CHAOS_INJECTOR,  "Chaos Injection System");
@@ -83,11 +83,11 @@ public class LangGenerator extends LanguageProvider {
 
 	private void info(PrefixHelper helper) {
 		helper.setPrefix("info.da");
-		helper.add("storedChaos", "Stored Chaos: %s / %s B");
+		helper.add("storedChaos", "Stored Chaos: %s / %s mB");
 		helper.add("maxChaos", "Max Chaos: %s B");
 		helper.add("chaos.noShield", "The Chaos Container requires shield boosting modules to operate.");
-		helper.add("chaos.xfer.to", "Transferred %s B to %s");
-		helper.add("chaos.xfer.from", "Transferred %s B from %s");
+		helper.add("chaos.xfer.to", "Transferred %s mB to %s");
+		helper.add("chaos.xfer.from", "Transferred %s mB from %s");
 		helper.add("chaos.warning", "WARNING: Your %s is on the verge of exploding!");
 		helper.add("chaos.explode", "The %s explodes in your hand!");
 		helper.add("hermal.lore", "pls no eat");

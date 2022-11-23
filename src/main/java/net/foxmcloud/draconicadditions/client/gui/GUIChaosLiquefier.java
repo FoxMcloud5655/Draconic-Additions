@@ -8,22 +8,26 @@ import com.brandon3055.brandonscore.client.gui.modulargui.GuiElementManager;
 import com.brandon3055.brandonscore.client.gui.modulargui.ModularGuiContainer;
 import com.brandon3055.brandonscore.client.gui.modulargui.guielements.GuiLabel;
 import com.brandon3055.brandonscore.client.gui.modulargui.guielements.GuiTexture;
+import com.brandon3055.brandonscore.client.gui.modulargui.templates.TBasicMachine;
 import com.brandon3055.brandonscore.client.gui.modulargui.templates.TGuiBase;
 import com.brandon3055.brandonscore.inventory.ContainerBCTile;
 import com.brandon3055.brandonscore.inventory.ContainerSlotLayout;
+import com.brandon3055.draconicevolution.client.gui.modular.TModularMachine;
+import com.brandon3055.draconicevolution.inventory.ContainerDETile;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosLiquefier;
+import net.foxmcloud.draconicadditions.inventory.ContainerDATile;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
-public class GUIChaosLiquefier extends ModularGuiContainer<ContainerBCTile<TileChaosLiquefier>> {
+public class GUIChaosLiquefier extends ModularGuiContainer<ContainerDATile<TileChaosLiquefier>> {
 	private TileChaosLiquefier tile;
 	private final String GUITranslation;
 	protected GuiToolkit<GUIChaosLiquefier> toolkit;
 
-	public GUIChaosLiquefier(ContainerBCTile<TileChaosLiquefier> container, Inventory inv, Component title) {
+	public GUIChaosLiquefier(ContainerDATile<TileChaosLiquefier> container, Inventory inv, Component title) {
 		super(container, inv, title);
 		this.tile = container.tile;
 		GUITranslation = "gui." + DraconicAdditions.MODID + "." + tile.getBlockState().getBlock().getRegistryName().getPath();
@@ -32,8 +36,7 @@ public class GUIChaosLiquefier extends ModularGuiContainer<ContainerBCTile<TileC
 
 	@Override
 	public void addElements(GuiElementManager manager) {
-		manager.clear();
-        TGuiBase template = new TGuiBase(this);
+		TBasicMachine template = new TModularMachine(this, tile, false);
         template.background = GuiTexture.newDynamicTexture(xSize(), ySize(), () -> BCGuiSprites.getThemed("background_dynamic"));
         template.background.onReload(guiTex -> guiTex.setPos(guiLeft(), guiTop()));
         toolkit.loadTemplate(template);

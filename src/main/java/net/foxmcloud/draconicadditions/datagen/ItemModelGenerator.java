@@ -14,7 +14,7 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 /**
- * Created by brandon3055 on 28/2/20.
+ * Created by FoxMcloud5655 on 23/11/22.
  */
 public class ItemModelGenerator extends ItemModelProvider {
 

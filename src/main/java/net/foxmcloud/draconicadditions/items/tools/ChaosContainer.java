@@ -52,7 +52,7 @@ public class ChaosContainer extends ModularEnergyItem implements IChaosContainer
 	@Override
 	public ModuleHostImpl createHost(ItemStack stack) {
 		ModuleHostImpl host = super.createHost(stack);
-		host.addCategories(CHAOS_CONTAINER);
+		//host.addCategories(CHAOS_CONTAINER);
 		host.addAdditionalType(ModuleTypes.SHIELD_BOOST);
 		return host;
 	}
@@ -176,11 +176,11 @@ public class ChaosContainer extends ModularEnergyItem implements IChaosContainer
 	@Override
 	public int getMaxChaos(ItemStack stack) {
 		ModuleHost host = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).orElse(new ModuleHostImpl(TechLevel.CHAOTIC, 4, 4, "curios", false, CHAOS_CONTAINER));
-		return host.getModuleData(ModuleTypes.SHIELD_BOOST, new ShieldData(0, 0)).getShieldCapacity() * 10;
+		return host.getModuleData(ModuleTypes.SHIELD_BOOST, new ShieldData(0, 0)).getShieldCapacity() * 50;
 	}
 
 	private double getRFCostPerChaos(ShieldData shielding) {
-		return ((shielding.getShieldCapacity() * shielding.getShieldCapacity() * EquipCfg.shieldPassiveModifier) / shielding.getShieldRecharge()) * DAConfig.chaosContainerRFMultiplier;
+		return (((shielding.getShieldCapacity() / 2) * (shielding.getShieldCapacity() / 2) * EquipCfg.shieldPassiveModifier) / shielding.getShieldRecharge()) * DAConfig.chaosContainerRFMultiplier;
 	}
 
 	private long getRFCost(ItemStack stack) {
