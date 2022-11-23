@@ -88,8 +88,8 @@ public class LangGenerator extends LanguageProvider {
 		helper.add("chaos.noShield", "The Chaos Container requires shield boosting modules to operate.");
 		helper.add("chaos.xfer.to", "Transferred %s B to %s");
 		helper.add("chaos.xfer.from", "Transferred %s B from %s");
-		helper.add("chaos.warning", "WARNING: Inadaquate shielding!");
-		helper.add("chaos.explode", "The Chaos Container explodes in your hand!");
+		helper.add("chaos.warning", "WARNING: Your %s is on the verge of exploding!");
+		helper.add("chaos.explode", "The %s explodes in your hand!");
 		helper.add("hermal.lore", "pls no eat");
 		helper.add("hermal.craft", "Ultimate power in something so seemingly mundane.");
 		helper.add("hermal.eat.attempt", "This seems like a bad idea...");

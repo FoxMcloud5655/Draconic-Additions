@@ -70,12 +70,12 @@ public class ChaosContainer extends ModularEnergyItem implements IChaosContainer
 				player.displayClientMessage(new TranslatableComponent("info.da.chaos.explode"), true);
 				stack.shrink(1);
 			}
-			else if (isOverCapacity(stack) && hasShielding(stack)) {
+			else if (shouldAlarm(stack) && hasShielding(stack)) {
 				if (getCurrentCountdown(stack) <= 0 || getCountdownAmount(stack) <= getCurrentCountdown(stack)) {
 					resetCountdown(stack);
 				}
 				if (advanceCountdown(stack)) {
-					player.displayClientMessage(new TranslatableComponent("info.da.chaos.warning").withStyle(ChatFormatting.RED), true);
+					player.displayClientMessage(new TranslatableComponent("info.da.chaos.warning", getName(stack)).withStyle(ChatFormatting.RED), true);
 				}
 				else if (getCurrentCountdown(stack) == getCountdownAmount(stack) / 2) {
 					player.displayClientMessage(new TextComponent(""), true);
@@ -89,7 +89,7 @@ public class ChaosContainer extends ModularEnergyItem implements IChaosContainer
 	public void handleTick(ItemStack stack, LivingEntity entity, @Nullable EquipmentSlot slot, boolean inEquipModSlot) {
 		if (!(entity instanceof Player)) return;
 		Player player = (Player) entity;
-		if (player.level.isClientSide && isOverCapacity(stack) && hasShielding(stack) && !player.isCreative() && !player.isSpectator()) {
+		if (player.level.isClientSide && shouldAlarm(stack) && hasShielding(stack) && !player.isCreative() && !player.isSpectator()) {
 			if (getCurrentCountdown(stack) <= 0) {
 				float pitch = 1.5F + ((float)(1 - (double)EnergyUtils.getEnergyStored(stack) / EnergyUtils.getMaxEnergyStored(stack)) * 0.5F);
 				player.level.playSound(player, new BlockPos(player.getX(), player.getY(), player.getZ()), DESounds.beam, SoundSource.MASTER, 1.0F, pitch);
@@ -163,31 +163,6 @@ public class ChaosContainer extends ModularEnergyItem implements IChaosContainer
 		return InteractionResult.PASS;
 	}
 
-	/*
-	@Override
-	public ActionResult<ItemStack> onItemRightClick(Level world, Player player, EnumHand hand) {
-		ItemStack stack = player.getHeldItem(hand);
-		IChaosInBlood pCap = player.getCapability(ChaosInBloodProvider.PLAYER_CAP, null);
-		if (pCap != null && player.isEntityAlive() && pCap.getChaos() > 0) {
-			int chaosToAdd = (int)(Math.min(pCap.getChaos(), 2) * 4);
-			addChaos(stack, chaosToAdd);
-			pCap.removeChaos(chaosToAdd / 4.0F);
-			if (pCap.getChaos() <= 0.25) {
-				ItemStack chest = player.inventory.armorItemInSlot(2);
-				if (chest.getItem() == DAContent.chaoticChest && ItemNBTHelper.getBoolean(chest, "injecting", false)) {
-					ItemNBTHelper.setBoolean(chest, "injecting", false);
-					player.displayClientMessage(new TranslatableComponent("msg.da.chaosInjection.failsafe"), true);
-				}
-			}
-			else {
-				player.displayClientMessage(new TranslatableComponent("msg.da.chaosContainer.charge"), true);
-			}
-			return new ActionResult<ItemStack>(InteractionResult.FAIL, stack);
-		}
-		return new ActionResult<ItemStack>(InteractionResult.PASS, stack);
-	}
-	 */
-
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
 		return getChaos(oldStack) != getChaos(newStack);
@@ -211,13 +186,11 @@ public class ChaosContainer extends ModularEnergyItem implements IChaosContainer
 	private long getRFCost(ItemStack stack) {
 		ModuleHost host = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).orElseThrow(IllegalStateException::new);
 		ShieldData shielding = host.getModuleData(ModuleTypes.SHIELD_BOOST, new ShieldData(0, 0));
-		return Math.round(getRFCostPerChaos(shielding) * getChaos(stack) * (isOverCapacity(stack) && hasShielding(stack) ? Math.pow(2, (double)getChaos(stack) / getMaxChaos(stack)) : 1D));
+		return Math.round(getRFCostPerChaos(shielding) * getChaos(stack) * (getChaos(stack) > getMaxChaos(stack) && hasShielding(stack) ? Math.pow(2, (double)getChaos(stack) / getMaxChaos(stack)) : 1D));
 	}
 
-	private boolean isOverCapacity(ItemStack stack) {
-		int chaos = getChaos(stack);
-		int maxChaos = getMaxChaos(stack);
-		return getChaos(stack) > getMaxChaos(stack);
+	private boolean shouldAlarm(ItemStack stack) {
+		return getChaos(stack) > getMaxChaos(stack) || getEnergyStored(stack) < EnergyUtils.getMaxEnergyStored(stack) / 2;
 	}
 
 	private boolean hasShielding(ItemStack stack) {
@@ -243,8 +216,8 @@ public class ChaosContainer extends ModularEnergyItem implements IChaosContainer
 			if (rfCost >= 0) {
 				tooltip.add(new TranslatableComponent("info.da.opCost", Utils.formatNumber(rfCost)).withStyle(ChatFormatting.GRAY));
 			}
-			if (isOverCapacity(stack) && hasShielding(stack)) {
-				tooltip.add(getCurrentCountdown(stack) > getCountdownAmount(stack) / 2 ? new TranslatableComponent("info.da.chaos.warning").withStyle(ChatFormatting.RED) : new TextComponent(""));
+			if (shouldAlarm(stack) && hasShielding(stack)) {
+				tooltip.add(getCurrentCountdown(stack) > getCountdownAmount(stack) / 2 ? new TranslatableComponent("info.da.chaos.warning", getName(stack)).withStyle(ChatFormatting.RED) : new TextComponent(""));
 			}
 		}
 		boolean hasEnergy = EnergyUtils.getMaxEnergyStored(stack) > 0;
