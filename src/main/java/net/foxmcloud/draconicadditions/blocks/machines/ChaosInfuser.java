@@ -2,6 +2,7 @@ package net.foxmcloud.draconicadditions.blocks.machines;
 
 import com.brandon3055.brandonscore.blocks.BlockBCore;
 
+import com.brandon3055.brandonscore.blocks.EntityBlockBCore;
 import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -13,7 +14,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 
-public class ChaosInfuser extends BlockBCore implements EntityBlock {
+public class ChaosInfuser extends EntityBlockBCore {
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
 
