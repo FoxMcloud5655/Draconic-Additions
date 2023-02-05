@@ -5,11 +5,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
+import com.brandon3055.brandonscore.api.power.IOPStorage;
+import com.brandon3055.brandonscore.handlers.ProcessHandler;
+import com.brandon3055.draconicevolution.blocks.reactor.ProcessExplosion;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-import com.brandon3055.brandonscore.api.power.IOPStorageModifiable;
-import com.brandon3055.brandonscore.api.render.GuiHelper;
-import com.brandon3055.brandonscore.utils.HolidayHelper;
 import com.brandon3055.draconicevolution.api.modules.Module;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleContext;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleEntity;
@@ -19,20 +21,16 @@ import com.brandon3055.draconicevolution.lib.WTFException;
 
 import net.foxmcloud.draconicadditions.modules.data.StableChaosData;
 import net.minecraft.Util;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.util.thread.EffectiveSide;
 
 public class StableChaosEntity extends ModuleEntity<StableChaosData> implements Comparable {
-	private static final int rfCostLimit = 1000000;
+	private static final double rfCostLimit = 1000000;
 	private int chaos = 0;
 	private float instability = 0;
 
@@ -42,33 +40,37 @@ public class StableChaosEntity extends ModuleEntity<StableChaosData> implements 
 
 	@Override
 	public void tick(ModuleContext moduleContext) {
-		if (EffectiveSide.get().isServer()) {
-			if (chaos <= 0) {
-				instability = 0;
-				return;
+		if (!EffectiveSide.get().isServer()) return;
+		if (chaos <= 0) {
+			instability = 0;
+			return;
+		}
+		if (instability > 0) {
+			long rfCost = getRFCost();
+			IOPStorage storage = moduleContext.getOpStorage();
+			if (storage != null && storage.modifyEnergyStored(-rfCost) == Math.abs(rfCost)) {
+				StableChaosData data = (StableChaosData)module.getData();
+				instability -= instability > data.getMaxInstability() ? Math.min(10, instability - data.getMaxInstability()) : 0.25;
 			}
-			if (instability > 0) {
-				long rfCost = getRFCost();
-				IOPStorageModifiable storage = moduleContext.getOpStorage();
-				if (storage != null && storage.modifyEnergyStored(-rfCost) == rfCost) {
-					StableChaosData data = (StableChaosData)module.getData();
-					instability -= instability > data.getMaxInstability() ? Math.min(10, instability - data.getMaxInstability()) : 0.25;
+			else {
+				BlockPos expLoc;
+				ServerLevel level;
+				if (moduleContext instanceof StackModuleContext stackContext) {
+					expLoc = stackContext.getEntity().blockPosition();
+					level = (ServerLevel)stackContext.getEntity().level;
+					//stackContext.getEntity().sendMessage(new TextComponent("You're lucky this didn't explode in your face."), Util.NIL_UUID);
+				}
+				else if (moduleContext instanceof TileModuleContext tileContext) {
+					expLoc = tileContext.getTile().getBlockPos();
+					level = (ServerLevel)tileContext.getTile().getLevel();
 				}
 				else {
-					BlockPos expLoc;
-					if (moduleContext instanceof StackModuleContext stackContext) {
-						expLoc = stackContext.getEntity().blockPosition();
-						stackContext.getEntity().sendMessage(new TextComponent("You're lucky this didn't explode in your face."), Util.NIL_UUID);
-					}
-					else if (moduleContext instanceof TileModuleContext tileContext) {
-						expLoc = tileContext.getTile().getBlockPos();
-					}
-					else {
-						throw new WTFException("ModuleContext for StableChaosEntity wasn't in a stack or a tile?!");
-					}
-					chaos = 0;
-					instability = 0;
+					throw new WTFException("ModuleContext for StableChaosEntity wasn't in a stack or a tile?!");
 				}
+				ProcessExplosion explosionProcess = new ProcessExplosion(expLoc, 10, level, 0);
+				ProcessHandler.addProcess(explosionProcess);
+				chaos = 0;
+				instability = 0;
 			}
 		}
 	}
@@ -82,7 +84,7 @@ public class StableChaosEntity extends ModuleEntity<StableChaosData> implements 
 	}
 
 	public long getRFCost() {
-		return Math.min((long)Math.pow(4, instability / 40) * (chaos / 10), rfCostLimit);
+		return (long)Math.min(Math.pow(4, Math.min(instability, 1250) / 40) * (chaos / 10), rfCostLimit);
 	}
 
 	// Returns how much chaos was successfully pulled/pushed to/from this storage.

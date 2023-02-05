@@ -18,7 +18,7 @@ public class ModuleGrid extends com.brandon3055.draconicevolution.api.modules.li
     }
 
     @Override
-    public InstallResult cellClicked(GridPos pos, int button, ClickType clickType) {
+    public InstallResult cellClicked(GridPos pos, double x, double y, int button, ClickType clickType) {
         ItemStack stack = player.player.containerMenu.getCarried();
         Module<?> module = ModuleItem.getModule(stack);
         boolean holdingStack = !stack.isEmpty();
