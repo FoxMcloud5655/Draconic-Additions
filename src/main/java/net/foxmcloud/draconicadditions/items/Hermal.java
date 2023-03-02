@@ -68,9 +68,8 @@ public class Hermal extends RecordItem implements IModularEnergyItem {
 					EnergyUtils.insertEnergy(player.getOffhandItem(), DAConfig.hermalRFAmount, false);
 				}
 			}
-			else stack.setTag(null);
 		});
-		
+		stack.setTag(null);
 	}
 	
 	@Override
