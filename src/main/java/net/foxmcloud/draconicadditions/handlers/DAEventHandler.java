@@ -102,7 +102,7 @@ public class DAEventHandler {
 			ItemEntity entity = (ItemEntity)e.getEntity();
 			ItemStack stack = entity.getItem();
 			if (stack.getItem() == DEContent.dragon_heart) {
-				CompoundTag nbt = stack.getTag();
+				CompoundTag nbt = entity.getPersistentData();
 				if (nbt != null && nbt.contains("guardian_heart") && nbt.getBoolean("guardian_heart")) {
 					entity.setItem(new ItemStack(DAContent.chaosHeart));
 				}
