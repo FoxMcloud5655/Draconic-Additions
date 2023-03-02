@@ -1,6 +1,5 @@
 package net.foxmcloud.draconicadditions.client.gui;
 
-import com.brandon3055.brandonscore.blocks.TileBCore;
 import com.brandon3055.brandonscore.client.BCGuiSprites;
 import com.brandon3055.brandonscore.client.gui.GuiToolkit;
 import com.brandon3055.brandonscore.client.gui.GuiToolkit.LayoutPos;
@@ -10,15 +9,12 @@ import com.brandon3055.brandonscore.client.gui.modulargui.ModularGuiContainer;
 import com.brandon3055.brandonscore.client.gui.modulargui.guielements.GuiLabel;
 import com.brandon3055.brandonscore.client.gui.modulargui.guielements.GuiTexture;
 import com.brandon3055.brandonscore.client.gui.modulargui.templates.TBasicMachine;
-import com.brandon3055.brandonscore.client.gui.modulargui.templates.TGuiBase;
-import com.brandon3055.brandonscore.inventory.ContainerBCTile;
 import com.brandon3055.brandonscore.inventory.ContainerSlotLayout;
 import com.brandon3055.draconicevolution.client.gui.modular.TModularMachine;
 import com.brandon3055.draconicevolution.inventory.ContainerDETile;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosHolderBase;
-import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosInfuser;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;

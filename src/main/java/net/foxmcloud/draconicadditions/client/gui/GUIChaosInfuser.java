@@ -9,11 +9,8 @@ import com.brandon3055.brandonscore.client.gui.modulargui.ModularGuiContainer;
 import com.brandon3055.brandonscore.client.gui.modulargui.guielements.GuiLabel;
 import com.brandon3055.brandonscore.client.gui.modulargui.guielements.GuiTexture;
 import com.brandon3055.brandonscore.client.gui.modulargui.templates.TBasicMachine;
-import com.brandon3055.brandonscore.client.gui.modulargui.templates.TGuiBase;
-import com.brandon3055.brandonscore.inventory.ContainerBCTile;
 import com.brandon3055.brandonscore.inventory.ContainerSlotLayout;
 import com.brandon3055.draconicevolution.client.gui.modular.TModularMachine;
-import com.brandon3055.draconicevolution.inventory.ContainerDETile;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosInfuser;

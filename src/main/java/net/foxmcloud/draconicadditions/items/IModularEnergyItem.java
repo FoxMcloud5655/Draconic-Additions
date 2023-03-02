@@ -6,23 +6,18 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.brandon3055.brandonscore.api.TechLevel;
 import com.brandon3055.brandonscore.capability.MultiCapabilityProvider;
 import com.brandon3055.draconicevolution.api.modules.lib.ModularOPStorage;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleHostImpl;
 import com.brandon3055.draconicevolution.init.EquipCfg;
-import com.brandon3055.draconicevolution.init.TechProperties;
 import com.brandon3055.draconicevolution.integration.equipment.EquipmentManager;
 import com.brandon3055.draconicevolution.integration.equipment.IDEEquipment;
 import com.brandon3055.draconicevolution.items.equipment.IModularItem;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public interface IModularEnergyItem extends IModularItem, IDEEquipment {
 

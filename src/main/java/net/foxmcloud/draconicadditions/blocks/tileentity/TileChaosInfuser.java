@@ -1,13 +1,9 @@
 package net.foxmcloud.draconicadditions.blocks.tileentity;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.stream.Stream;
 
-import com.brandon3055.brandonscore.api.TechLevel;
-import com.brandon3055.brandonscore.api.power.OPStorage;
 import com.brandon3055.brandonscore.capability.CapabilityOP;
-import com.brandon3055.brandonscore.inventory.ContainerBCTile;
 import com.brandon3055.brandonscore.inventory.TileItemStackHandler;
 import com.brandon3055.brandonscore.lib.IChangeListener;
 import com.brandon3055.brandonscore.lib.IInteractTile;
@@ -16,18 +12,12 @@ import com.brandon3055.brandonscore.lib.datamanager.DataFlags;
 import com.brandon3055.brandonscore.lib.datamanager.ManagedBool;
 import com.brandon3055.draconicevolution.api.capability.DECapabilities;
 import com.brandon3055.draconicevolution.api.capability.ModuleHost;
-import com.brandon3055.draconicevolution.api.modules.ModuleCategory;
-import com.brandon3055.draconicevolution.api.modules.data.ModuleData;
 import com.brandon3055.draconicevolution.api.modules.lib.ModularOPStorage;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleEntity;
-import com.brandon3055.draconicevolution.api.modules.lib.SimpleModuleHost;
 import com.brandon3055.draconicevolution.handlers.DESounds;
-import com.brandon3055.draconicevolution.init.ModuleCfg;
-import com.brandon3055.draconicevolution.inventory.ContainerDETile;
 
 import net.foxmcloud.draconicadditions.inventory.ContainerDATile;
 import net.foxmcloud.draconicadditions.inventory.GUILayoutFactories;
-import net.foxmcloud.draconicadditions.items.IChaosContainer;
 import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.foxmcloud.draconicadditions.modules.ModuleTypes;
 import net.foxmcloud.draconicadditions.modules.data.StableChaosData;

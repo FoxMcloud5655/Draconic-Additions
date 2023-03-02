@@ -1,8 +1,6 @@
 package net.foxmcloud.draconicadditions.blocks.tileentity;
 
-import com.brandon3055.brandonscore.api.power.OPStorage;
 import com.brandon3055.brandonscore.capability.CapabilityOP;
-import com.brandon3055.brandonscore.inventory.ContainerBCTile;
 import com.brandon3055.brandonscore.inventory.TileItemStackHandler;
 import com.brandon3055.brandonscore.lib.IChangeListener;
 import com.brandon3055.brandonscore.lib.IInteractTile;
@@ -14,7 +12,6 @@ import com.brandon3055.brandonscore.utils.EnergyUtils;
 import com.brandon3055.draconicevolution.api.modules.lib.ModularOPStorage;
 import com.brandon3055.draconicevolution.handlers.DESounds;
 import com.brandon3055.draconicevolution.init.DEContent;
-import com.brandon3055.draconicevolution.inventory.ContainerDETile;
 
 import net.foxmcloud.draconicadditions.inventory.ContainerDATile;
 import net.foxmcloud.draconicadditions.inventory.GUILayoutFactories;

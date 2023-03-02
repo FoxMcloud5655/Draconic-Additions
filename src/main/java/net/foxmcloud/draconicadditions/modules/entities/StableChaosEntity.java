@@ -5,27 +5,24 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.brandon3055.brandonscore.api.power.IOPStorage;
-import com.brandon3055.brandonscore.handlers.ProcessHandler;
-import com.brandon3055.draconicevolution.blocks.reactor.ProcessExplosion;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
+import com.brandon3055.brandonscore.api.power.IOPStorage;
+import com.brandon3055.brandonscore.handlers.ProcessHandler;
 import com.brandon3055.draconicevolution.api.modules.Module;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleContext;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleEntity;
 import com.brandon3055.draconicevolution.api.modules.lib.StackModuleContext;
 import com.brandon3055.draconicevolution.api.modules.lib.TileModuleContext;
+import com.brandon3055.draconicevolution.blocks.reactor.ProcessExplosion;
 import com.brandon3055.draconicevolution.lib.WTFException;
 
 import net.foxmcloud.draconicadditions.modules.data.StableChaosData;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.util.thread.EffectiveSide;
 

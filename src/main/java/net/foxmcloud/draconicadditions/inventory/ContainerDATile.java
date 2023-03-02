@@ -1,17 +1,16 @@
 package net.foxmcloud.draconicadditions.inventory;
 
-import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosHolderBase;
-import net.foxmcloud.draconicadditions.modules.ModuleGrid;
 import org.jetbrains.annotations.Nullable;
 
 import com.brandon3055.brandonscore.blocks.TileBCore;
-import com.brandon3055.brandonscore.inventory.ContainerBCTile;
 import com.brandon3055.brandonscore.inventory.ContainerSlotLayout;
 import com.brandon3055.draconicevolution.api.capability.DECapabilities;
 import com.brandon3055.draconicevolution.api.capability.ModuleHost;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleHostContainer;
 import com.brandon3055.draconicevolution.inventory.ContainerDETile;
 
+import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosHolderBase;
+import net.foxmcloud.draconicadditions.modules.ModuleGrid;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;

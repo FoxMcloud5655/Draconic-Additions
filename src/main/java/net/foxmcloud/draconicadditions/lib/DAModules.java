@@ -21,10 +21,7 @@ import com.brandon3055.draconicevolution.api.modules.lib.ModuleItem;
 import com.brandon3055.draconicevolution.init.ModuleCfg;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
-import net.foxmcloud.draconicadditions.modules.*;
-import net.foxmcloud.draconicadditions.modules.data.ChaosInjectorData;
-import net.foxmcloud.draconicadditions.modules.data.StableChaosData;
-import net.foxmcloud.draconicadditions.modules.data.TickAccelData;
+import net.foxmcloud.draconicadditions.modules.data.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;

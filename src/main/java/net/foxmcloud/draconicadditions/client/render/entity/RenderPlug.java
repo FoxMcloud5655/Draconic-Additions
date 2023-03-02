@@ -1,14 +1,10 @@
 package net.foxmcloud.draconicadditions.client.render.entity;
 
-import com.mojang.blaze3d.vertex.BufferBuilder;
-
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.entity.EntityPlug;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 
 public class RenderPlug extends EntityRenderer<EntityPlug> {
 

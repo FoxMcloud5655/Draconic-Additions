@@ -10,7 +10,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.common.Tags;
 
 public class DACuriosIntegration extends CuriosIntegration {
 	public static final TagKey<Item> CHARM_TAG = ItemTags.create(new ResourceLocation("curios", "charm"));

@@ -1,13 +1,11 @@
 package net.foxmcloud.draconicadditions.blocks.machines;
 
-import com.brandon3055.brandonscore.blocks.BlockBCore;
-
 import com.brandon3055.brandonscore.blocks.EntityBlockBCore;
+
 import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
