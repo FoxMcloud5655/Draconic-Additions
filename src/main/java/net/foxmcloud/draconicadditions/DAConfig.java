@@ -33,7 +33,7 @@ public class DAConfig extends DEConfig {
 
 	// Tools
 
-	public static long hermalRFAmount = 1000;
+	public static long hermalRFAmount = 10000;
 	public static double chaosContainerRFMultiplier = 1;
 
 	// Modules
@@ -51,6 +51,7 @@ public class DAConfig extends DEConfig {
 
 	// Misc
 
+	public static double fusionCraftingCosts = 1;
 	public static boolean enableMemes = false;
 
 	private static void loadServer() {
@@ -83,7 +84,7 @@ public class DAConfig extends DEConfig {
 		ConfigCategory toolTweaks = serverTag.getCategory("Tool Tweaks");
 		toolTweaks.setComment("These allow you to tweak the stats of the tools found in this mod.");
 
-		toolTweaks.getValue("hermalRFAmount").syncTagToClient().setDefaultLong(1000)
+		toolTweaks.getValue("hermalRFAmount").syncTagToClient().setDefaultLong(10000)
 		.setComment("Sets how much RF Hermal provides when powered.")
 		.onSync((tag, type) -> hermalRFAmount = tag.getLong());
 
@@ -139,8 +140,12 @@ public class DAConfig extends DEConfig {
 		// Misc
 
 		ConfigCategory miscTweaks = serverTag.getCategory("Misc Tweaks");
-		miscTweaks.setComment("Allows you to tweak various things about Draconic Evolution and Draconic Additions as a whole, such as fusion crafting power costs.");
+		miscTweaks.setComment("Allows you to tweak various things about Draconic Evolution and Draconic Additions as a whole, such as Fusion Crafting power costs.");
 
+		miscTweaks.getValue("fusionCraftingCosts").syncTagToClient().setDefaultDouble(1)
+		.setComment("Allows you to multiply all Fusion Crafting OP costs across both Draconic Evolution and Draconic Additions by this amount.")
+		.onSync((tag, type) -> fusionCraftingCosts = tag.getDouble());
+		
 		miscTweaks.getValue("enableMemes").syncTagToClient().setDefaultBoolean(false)
 		.setComment("Enables non-canon content.  Not suited for general play, but content isn't unbalanced.")
 		.onSync((tag, type) -> enableMemes = tag.getBoolean());

@@ -26,6 +26,7 @@ public class LangGenerator extends LanguageProvider {
 	}
 
 	private void items(PrefixHelper helper) {
+		helper.setPrefix("item." + DraconicAdditions.MODID);
 		helper.add(DAContent.chaosHeart,         "Chaos Heart");
 		helper.add(DAContent.inertPotatoHelm,    "Inert Potato Helmet");
 		helper.add(DAContent.inertPotatoChest,   "Inert Potato Chestplate");
@@ -43,6 +44,7 @@ public class LangGenerator extends LanguageProvider {
 		helper.add(DAContent.harnessDraconic,    "Draconic Harness");
 		helper.add(DAContent.harnessChaotic,     "Chaotic Harness");
 		helper.add(DAContent.hermal,             "hermal");
+		helper.add("hermal.desc",                "hermal?");
 	}
 
 	private void itemGroups(PrefixHelper helper) {

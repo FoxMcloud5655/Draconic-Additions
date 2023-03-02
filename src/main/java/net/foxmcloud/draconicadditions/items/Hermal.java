@@ -20,6 +20,7 @@ import com.brandon3055.draconicevolution.init.DEModules;
 import com.brandon3055.draconicevolution.init.TechProperties;
 
 import net.foxmcloud.draconicadditions.DAConfig;
+import net.foxmcloud.draconicadditions.lib.DASounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -34,15 +35,16 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
-public class Hermal extends Item implements IModularEnergyItem {
+public class Hermal extends RecordItem implements IModularEnergyItem {
 
 	public TechLevel techLevel;
 	
 	public Hermal(TechProperties props) {
-		super(props);
+		super(1, () -> DASounds.hermal, props);
 		techLevel = props.getTechLevel();
 	}
 	
@@ -67,8 +69,9 @@ public class Hermal extends Item implements IModularEnergyItem {
 					EnergyUtils.insertEnergy(player.getOffhandItem(), DAConfig.hermalRFAmount, false);
 				}
 			}
+			else stack.setTag(null);
 		});
-		stack.setTag(null);
+		
 	}
 	
 	@Override
