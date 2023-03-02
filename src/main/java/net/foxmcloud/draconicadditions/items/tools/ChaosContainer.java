@@ -242,4 +242,19 @@ public class ChaosContainer extends Item implements IModularEnergyItem, IChaosCo
 			}
 		}
 	}
+	
+    @Override
+    public boolean isBarVisible(ItemStack stack) {
+        return damageBarVisible(stack);
+    }
+
+    @Override
+    public int getBarWidth(ItemStack stack) {
+        return damageBarWidth(stack);
+    }
+
+    @Override
+    public int getBarColor(ItemStack stack) {
+        return damageBarColour(stack);
+    }
 }

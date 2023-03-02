@@ -220,4 +220,19 @@ public class ModularHarness extends Item implements IModularEnergyItem, IInvChar
 		});
 		return isReceiving.getValue();
 	}
+	
+    @Override
+    public boolean isBarVisible(ItemStack stack) {
+        return damageBarVisible(stack);
+    }
+
+    @Override
+    public int getBarWidth(ItemStack stack) {
+        return damageBarWidth(stack);
+    }
+
+    @Override
+    public int getBarColor(ItemStack stack) {
+        return damageBarColour(stack);
+    }
 }

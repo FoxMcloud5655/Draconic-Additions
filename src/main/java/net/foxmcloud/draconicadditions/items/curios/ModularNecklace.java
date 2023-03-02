@@ -90,13 +90,23 @@ public class ModularNecklace extends Item implements IModularEnergyItem, ElytraE
                         energy += EquipCfg.getElytraEnergy(module.getModule().getModuleTechLevel()) * flightSpeed;
                     }
                 }
+    public boolean isBarVisible(ItemStack stack) {
+        return damageBarVisible(stack);
+    }
 
                 if (!entity.level.isClientSide && !creative) {
                     storage.modifyEnergyStored(-energy);
                 }
             }
         });
+    @Override
+    public int getBarWidth(ItemStack stack) {
+        return damageBarWidth(stack);
+    }
 
         return true;
+    @Override
+    public int getBarColor(ItemStack stack) {
+        return damageBarColour(stack);
     }
 }
