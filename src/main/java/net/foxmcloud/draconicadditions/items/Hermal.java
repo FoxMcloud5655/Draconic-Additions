@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.brandon3055.brandonscore.api.TechLevel;
 import com.brandon3055.brandonscore.utils.EnergyUtils;
 import com.brandon3055.draconicevolution.api.capability.DECapabilities;
 import com.brandon3055.draconicevolution.api.modules.ModuleCategory;
@@ -19,7 +20,6 @@ import com.brandon3055.draconicevolution.init.DEModules;
 import com.brandon3055.draconicevolution.init.TechProperties;
 
 import net.foxmcloud.draconicadditions.DAConfig;
-import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -32,14 +32,23 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
-public class Hermal extends ModularEnergyItem {
+public class Hermal extends Item implements IModularEnergyItem {
 
+	public TechLevel techLevel;
+	
 	public Hermal(TechProperties props) {
 		super(props);
+		techLevel = props.getTechLevel();
+	}
+	
+	@Override
+	public TechLevel getTechLevel() {
+		return techLevel;
 	}
 
 	@Override
@@ -64,7 +73,7 @@ public class Hermal extends ModularEnergyItem {
 	
 	@Override
 	public ModuleHostImpl createHost(ItemStack stack) {
-		ModuleHostImpl host = new ModuleHostImpl(techLevel, 1, 1, "hermal", removeInvalidModules);
+		ModuleHostImpl host = new ModuleHostImpl(getTechLevel(), 1, 1, "hermal", removeInvalidModules);
 		host.addCategories(ModuleCategory.ENERGY);
 		return host;
 	}

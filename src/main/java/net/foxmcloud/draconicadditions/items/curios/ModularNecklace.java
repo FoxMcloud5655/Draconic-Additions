@@ -5,6 +5,7 @@ import static com.brandon3055.draconicevolution.init.ModuleCfg.removeInvalidModu
 import javax.annotation.Nullable;
 
 import com.brandon3055.brandonscore.api.ElytraEnabledItem;
+import com.brandon3055.brandonscore.api.TechLevel;
 import com.brandon3055.brandonscore.api.power.IOPStorage;
 import com.brandon3055.draconicevolution.api.capability.DECapabilities;
 import com.brandon3055.draconicevolution.api.capability.ModuleHost;
@@ -17,17 +18,26 @@ import com.brandon3055.draconicevolution.init.EquipCfg;
 import com.brandon3055.draconicevolution.init.TechProperties;
 
 import net.foxmcloud.draconicadditions.DAConfig;
-import net.foxmcloud.draconicadditions.items.ModularEnergyItem;
+import net.foxmcloud.draconicadditions.items.IModularEnergyItem;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class ModularNecklace extends ModularEnergyItem implements ElytraEnabledItem {
+public class ModularNecklace extends Item implements IModularEnergyItem, ElytraEnabledItem {
 
+	private TechLevel techLevel;
+	
 	public ModularNecklace(TechProperties props) {
 		super(props);
+		techLevel = props.getTechLevel();
+	}
+	
+	@Override
+	public TechLevel getTechLevel() {
+		return techLevel;
 	}
 
 	@Override

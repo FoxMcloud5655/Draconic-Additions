@@ -24,40 +24,27 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class ModularEnergyItem extends Item implements IModularItem, IDEEquipment {
-
-	protected final TechLevel techLevel;
-
-	public ModularEnergyItem(TechProperties props) {
-		super(props);
-		this.techLevel = props.getTechLevel();
-	}
+public interface IModularEnergyItem extends IModularItem, IDEEquipment {
 
 	@Override
-	public TechLevel getTechLevel() {
-		return techLevel;
-	}
-
-	@Override
-	public ModuleHostImpl createHost(ItemStack stack) {
-		ModuleHostImpl host = new ModuleHostImpl(techLevel, 1 + techLevel.index, 1 + techLevel.index, "curios", removeInvalidModules);
+	default ModuleHostImpl createHost(ItemStack stack) {
+		ModuleHostImpl host = new ModuleHostImpl(getTechLevel(), 1 + getTechLevel().index, 1 + getTechLevel().index, "curios", removeInvalidModules);
 		return host;
 	}
 
 	@Nullable
 	@Override
-	public ModularOPStorage createOPStorage(ItemStack stack, ModuleHostImpl host) {
-		long capacity = EquipCfg.getBaseEnergy(techLevel);
+	default ModularOPStorage createOPStorage(ItemStack stack, ModuleHostImpl host) {
+		long capacity = EquipCfg.getBaseEnergy(getTechLevel());
 		return new ModularOPStorage(host, capacity, capacity / 64);
 	}
 
 	@Override
-	public void initCapabilities(ItemStack stack, ModuleHostImpl host, MultiCapabilityProvider provider) {
+	default void initCapabilities(ItemStack stack, ModuleHostImpl host, MultiCapabilityProvider provider) {
 		EquipmentManager.addCaps(stack, provider);
 	}
 
-	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flags) {
+	default void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flags) {
 		addModularItemInformation(stack, world, tooltip, flags);
 	}
 }

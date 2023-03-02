@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
+import com.brandon3055.brandonscore.api.TechLevel;
 import com.brandon3055.brandonscore.api.power.IOPStorage;
 import com.brandon3055.brandonscore.api.power.IOPStorageModifiable;
 import com.brandon3055.brandonscore.utils.EnergyUtils;
@@ -27,7 +28,7 @@ import com.brandon3055.draconicevolution.integration.equipment.EquipmentManager;
 
 import net.foxmcloud.draconicadditions.CommonMethods.BlockStorage;
 import net.foxmcloud.draconicadditions.DAConfig;
-import net.foxmcloud.draconicadditions.items.ModularEnergyItem;
+import net.foxmcloud.draconicadditions.items.IModularEnergyItem;
 import net.foxmcloud.draconicadditions.modules.ModuleTypes;
 import net.foxmcloud.draconicadditions.modules.data.TickAccelData;
 import net.minecraft.ChatFormatting;
@@ -39,6 +40,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -51,12 +53,21 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
-public class ModularHarness extends ModularEnergyItem implements IInvCharge {
+public class ModularHarness extends Item implements IModularEnergyItem, IInvCharge {
+	
 	public static final ModuleCategory HARNESS = new ModuleCategory();
 	private static final String receive = "receive_energy_from_machine";
 	private static final String tickAccelSpeed = "tick_accel_speed";
+	private TechLevel techLevel;
+	
 	public ModularHarness(TechProperties props) {
 		super(props);
+		techLevel = props.getTechLevel();
+	}
+	
+	@Override
+	public TechLevel getTechLevel() {
+		return techLevel;
 	}
 
 	@Override

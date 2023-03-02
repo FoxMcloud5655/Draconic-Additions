@@ -11,7 +11,6 @@ import com.brandon3055.brandonscore.utils.Utils;
 import com.brandon3055.draconicevolution.api.IInvCharge;
 import com.brandon3055.draconicevolution.api.capability.DECapabilities;
 import com.brandon3055.draconicevolution.api.capability.ModuleHost;
-import com.brandon3055.draconicevolution.api.modules.ModuleCategory;
 import com.brandon3055.draconicevolution.api.modules.ModuleTypes;
 import com.brandon3055.draconicevolution.api.modules.data.ShieldData;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleHostImpl;
@@ -25,8 +24,8 @@ import net.foxmcloud.draconicadditions.CommonMethods;
 import net.foxmcloud.draconicadditions.DAConfig;
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosHolderBase;
 import net.foxmcloud.draconicadditions.items.IChaosContainer;
+import net.foxmcloud.draconicadditions.items.IModularEnergyItem;
 import net.foxmcloud.draconicadditions.items.ISimpleCountdown;
-import net.foxmcloud.draconicadditions.items.ModularEnergyItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -39,19 +38,29 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
-public class ChaosContainer extends ModularEnergyItem implements IChaosContainer, IInvCharge, ISimpleCountdown {
+public class ChaosContainer extends Item implements IModularEnergyItem, IChaosContainer, IInvCharge, ISimpleCountdown {
+	
+	private TechLevel techLevel;
+	
 	public ChaosContainer(TechProperties props) {
 		super(props);
+		techLevel = props.getTechLevel();
+	}
+	
+	@Override
+	public TechLevel getTechLevel() {
+		return techLevel;
 	}
 
 	@Override
 	public ModuleHostImpl createHost(ItemStack stack) {
-		ModuleHostImpl host = super.createHost(stack);
+		ModuleHostImpl host = IModularEnergyItem.super.createHost(stack);
 		//host.addCategories(CHAOS_CONTAINER);
 		host.addAdditionalType(ModuleTypes.SHIELD_BOOST);
 		return host;
