@@ -1,4 +1,10 @@
 {
+    "hermal": {
+        "sounds": [{
+            "name": "draconicadditions:records/hermal",
+            "stream": true
+        }]
+    },
     "unplug": {
         "category": "block",
         "sounds": [{
