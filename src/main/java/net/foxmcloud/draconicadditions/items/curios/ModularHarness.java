@@ -9,7 +9,6 @@ import javax.annotation.Nullable;
 
 import com.brandon3055.brandonscore.api.TechLevel;
 import com.brandon3055.brandonscore.api.power.IOPStorage;
-import com.brandon3055.brandonscore.api.power.IOPStorageModifiable;
 import com.brandon3055.brandonscore.utils.EnergyUtils;
 import com.brandon3055.brandonscore.utils.Utils;
 import com.brandon3055.draconicevolution.api.IInvCharge;
@@ -46,8 +45,10 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.TickingBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -88,32 +89,38 @@ public class ModularHarness extends Item implements IModularEnergyItem, IInvChar
 		if (tile == null) {
 			return;
 		}
+		BlockState state = tile.getBlockState();
 		stack.getCapability(DECapabilities.OP_STORAGE).ifPresent(e -> {
-			IOPStorageModifiable storage = (IOPStorageModifiable)e;
 			IOPStorage teStorage = EnergyUtils.getStorage(tile, null);
 			if (teStorage != null) {
 				if (isReceiving(stack)) {
-					storage.receiveOP(EnergyUtils.extractEnergy(tile, Math.min(storage.receiveOP(storage.maxReceive(), true), teStorage.getOPStored()), null, false), false);
+					e.receiveOP(EnergyUtils.extractEnergy(tile, Math.min(e.receiveOP(e.maxReceive(), true), teStorage.getOPStored()), null, false), false);
 					DEContent.capacitor_chaotic.handleTick(stack, entity, slot, inEquipModSlot);
 				}
 				else if (tile != null) {
-					storage.extractOP(EnergyUtils.insertEnergy(tile, storage.extractOP(storage.maxExtract(), true), null, false), false);
+					e.extractOP(EnergyUtils.insertEnergy(tile, e.extractOP(e.maxExtract(), true), null, false), false);
 				}
 			}
-			if (tile instanceof TickingBlockEntity) {
-				TickingBlockEntity tickingTile = (TickingBlockEntity)tile;
+			if (state.getBlock() instanceof EntityBlock block) {
+				BlockEntityTicker ticker = block.getTicker(world, state, tile.getType());
+				if (ticker == null) {
+					return;
+				}
 				int ticksToProcess = getCurrentTickSpeed(stack) - 1;
 				int rfCost = getRFCostForTicks(ticksToProcess);
-				if (storage.extractOP(rfCost, true) >= rfCost) {
-					storage.extractOP(rfCost, false);
+				if (e.extractOP(rfCost, true) >= rfCost) {
+					e.extractOP(rfCost, false);
 					for (int i = 0; i < ticksToProcess; i++) {
-						tickingTile.tick();
+						ticker.tick(world, pos, state, tile);
 					}
 				}
 			}
 		});
-		if (tile instanceof TickingBlockEntity) {
-			((TickingBlockEntity)tile).tick();
+		if (state.getBlock() instanceof EntityBlock block) {
+			BlockEntityTicker ticker = block.getTicker(world, state, tile.getType());
+			if (ticker != null) {
+				ticker.tick(world, pos, state, tile);
+			}
 		}
 		storeBlockEntity(world, pos, stack, entity, false);
 		oldBlock.restoreBlock(null, false);

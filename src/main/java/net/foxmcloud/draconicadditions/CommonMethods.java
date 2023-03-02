@@ -97,30 +97,31 @@ public class CommonMethods {
 	 * @param blockState The block state to set at the given position.
 	 */
 
-	public static void overwriteBlockStateUnsafe(Level world, BlockPos pos, BlockState blockState) {
+	public static boolean overwriteBlockStateUnsafe(Level world, BlockPos pos, BlockState blockState) {
 		pos = pos.immutable();
 		int x = pos.getX() & 15;
-		int y = pos.getY();
+		int y = pos.getY() & 15;
 		int z = pos.getZ() & 15;
 		LevelChunk chunk = world.getChunkAt(pos);
+		if (!world.isLoaded(pos)) {
+			return false;
+		}
 		if (world.isClientSide) {
 			chunk.setBlockState(pos, blockState, false);
-			return;
+			return true;
 		}
-		LevelChunkSection chunksection = chunk.getSections()[y >> 4];
-		if (chunksection.hasOnlyAir()) {
-			return; //TODO: Figure out when this happens.
-		}
+		LevelChunkSection chunksection = chunk.getSection(chunk.getSectionIndex(pos.getY()));
 		BlockEntity oldTile = world.getBlockEntity(pos);
-		BlockState oldState = chunksection.getStates().getAndSetUnchecked(x, y & 15, z, blockState);
+		BlockState oldState = chunksection.getStates().getAndSetUnchecked(x, y, z, blockState);
 		if (oldState == blockState) {
-			return;
+			return true;
 		}
 		if (blockState.hasBlockEntity()) {
 			if (oldTile != null && !oldTile.getType().getRegistryName().toString().contentEquals(blockState.getBlock().getRegistryName().toString())) {
 				world.setBlockEntity(((EntityBlock)blockState.getBlock()).newBlockEntity(pos, blockState));
 			}
 		}
+		return true;
 	}
 
 	public static CompoundTag createFakeNBT(BlockPos pos) {
@@ -173,7 +174,7 @@ public class CommonMethods {
 				tileNBT = tileEntity.serializeNBT();
 				if (removeBlock) {
 					world.getBlockEntity(pos).deserializeNBT(createFakeNBT(pos));
-					world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+					overwriteBlockStateUnsafe(world, pos, Blocks.AIR.defaultBlockState());
 				}
 			}
 		}
@@ -248,7 +249,7 @@ public class CommonMethods {
 			BlockStorage block = new BlockStorage(world, pos, removeBlock);
 			storeBlockInTag(block.blockState, block.tileNBT, nbt);
 			if (removeBlock) {
-				world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+				overwriteBlockStateUnsafe(world, pos, Blocks.AIR.defaultBlockState());
 			}
 			return nbt;
 		}
