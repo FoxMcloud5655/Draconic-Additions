@@ -58,7 +58,7 @@ public class ModularHarness extends Item implements IModularEnergyItem, IInvChar
 	
 	public static final ModuleCategory HARNESS = new ModuleCategory();
 	private static final String receive = "receive_energy_from_machine";
-	private static final String tickAccelSpeed = "tick_accel_speed";
+	private static final String tickAccelSpeed = "tick_accel.speed";
 	private TechLevel techLevel;
 	
 	public ModularHarness(TechProperties props) {

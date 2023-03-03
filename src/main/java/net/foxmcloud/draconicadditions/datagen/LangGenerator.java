@@ -107,7 +107,7 @@ public class LangGenerator extends LanguageProvider {
 	private void itemProps(PrefixHelper helper) {
 		helper.setPrefix("item_prop." + DraconicEvolution.MODID);
 		helper.add("receive_energy_from_machine", "Receive RF From Machine");
-		helper.add("tick_accel_speed", "Additional Ticks");
+		helper.add("tick_accel.speed", "Additional Ticks");
 	}
 
 	@Override
