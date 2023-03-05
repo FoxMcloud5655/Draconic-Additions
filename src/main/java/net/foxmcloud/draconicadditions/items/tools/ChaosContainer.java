@@ -110,7 +110,7 @@ public class ChaosContainer extends Item implements IModularEnergyItem, IChaosCo
 	@Override
 	public boolean onDroppedByPlayer(ItemStack stack, Player player) {
 		if (getChaos(stack) > 0 && !player.isCreative()) {
-			player.displayClientMessage(new TranslatableComponent("msg.da.chaosContainer.cantdrop"), true);
+			player.displayClientMessage(new TranslatableComponent("info.da.chaos.cantdrop", stack.getHoverName()), true);
 			return false;
 		}
 		else {
