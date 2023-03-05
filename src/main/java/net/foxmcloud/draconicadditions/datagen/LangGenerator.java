@@ -94,6 +94,13 @@ public class LangGenerator extends LanguageProvider {
 		helper.add("chaos.explode", "The %s explodes in your hand!");
 		helper.add("chaos.cantdrop", "Dropping this %s seems like a very bad idea right now.");
 		helper.add("chaos.cantmove", "Moving this %s seems like a very bad idea right now.");
+		helper.add("chaos_injector.noShield", "WARNING: No shield detected!");
+		helper.add("chaos_injector.noStorage", "WARNING: You cannot inject or vent chaos without Chaos Holder Modules!");
+		helper.add("chaos_injector.storageEmpty", "WARNING: Injection failed! Cause: No chaos found in Chaos Holder Modules.");
+		helper.add("chaos_injector.storageFull", "WARNING: Unable to vent chaos; your Chaos Holder Modules are full!");
+		helper.add("chaos_injector.shieldDisabled", "WARNING: Your shield is disabled!");
+		helper.add("chaos_injector.shieldCapacityLow", "WARNING: Your shield might not be high enough to survive injection!");
+		helper.add("chaos_injector.shieldLow", "WARNING: Your shielding is getting low!");
 		helper.add("hermal.lore", "pls no eat");
 		helper.add("hermal.craft", "Ultimate power in something so seemingly mundane.");
 		helper.add("hermal.eat.attempt", "This seems like a bad idea...");
@@ -105,11 +112,17 @@ public class LangGenerator extends LanguageProvider {
 		helper.add("modular_harness.storedBlock", "Currently Stored: ");
 		helper.add("opCost", "OP Cost: %s OP/t");
 	}
+	
+	private void deaths(PrefixHelper helper) {
+		helper.setPrefix("death.attack");
+		helper.add("chaosInjection", "%s exploded in a gory mess when trying to play with powers beyond their control");
+	}
 
 	private void itemProps(PrefixHelper helper) {
 		helper.setPrefix("item_prop." + DraconicEvolution.MODID);
 		helper.add("receive_energy_from_machine", "Receive RF From Machine");
 		helper.add("tick_accel.speed", "Additional Ticks");
+		helper.add("chaos_injector.rate", "Blood | Injection Rate | Chaos");
 	}
 
 	@Override
@@ -121,6 +134,7 @@ public class LangGenerator extends LanguageProvider {
 		modules(helper);
 		gui(helper);
 		info(helper);
+		deaths(helper);
 		itemProps(helper);
 	}
 
