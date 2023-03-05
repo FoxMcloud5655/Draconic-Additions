@@ -84,6 +84,9 @@ public class ModularHarness extends Item implements IModularEnergyItem, IInvChar
 		}
 		Level world = entity.level;
 		BlockPos pos = entity.blockPosition().above();
+		if (!world.isInWorldBounds(pos)) {
+			return;
+		}
 		BlockStorage oldBlock = new BlockStorage(world, pos, false);
 		BlockEntity tile = placeAndGetBlockEntity(world, pos, entity.getRotationVector(), stack);
 		if (tile == null) {
