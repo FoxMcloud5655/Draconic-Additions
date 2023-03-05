@@ -79,8 +79,8 @@ public class LangGenerator extends LanguageProvider {
 		helper.setPrefix("gui." + DraconicAdditions.MODID);
 		helper.add("chaos_liquefier", "Chaos Liquefier");
 		helper.add("chaos_liquefier.chaosSlot.hover", "Accepts Chaos Shards and Chaos Hearts.");
-		helper.add("chaos_injector", "Chaos Injector");
-		helper.add("chaos_injector.chaosSlot.hover", "Accepts any modular item with a Chaos Stabilizer Module.");
+		helper.add("chaos_infuser", "Chaos Infuser");
+		helper.add("chaos_infuser.chaosSlot.hover", "Accepts any modular item with a Chaos Stabilizer Module.");
 	}
 
 	private void info(PrefixHelper helper) {
@@ -92,6 +92,8 @@ public class LangGenerator extends LanguageProvider {
 		helper.add("chaos.xfer.from", "Transferred %s mB from %s");
 		helper.add("chaos.warning", "WARNING: Your %s is on the verge of exploding!");
 		helper.add("chaos.explode", "The %s explodes in your hand!");
+		helper.add("chaos.cantdrop", "Dropping this %s seems like a very bad idea right now.");
+		helper.add("chaos.cantmove", "Moving this %s seems like a very bad idea right now.");
 		helper.add("hermal.lore", "pls no eat");
 		helper.add("hermal.craft", "Ultimate power in something so seemingly mundane.");
 		helper.add("hermal.eat.attempt", "This seems like a bad idea...");
