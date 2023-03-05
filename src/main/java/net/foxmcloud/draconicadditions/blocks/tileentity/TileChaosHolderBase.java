@@ -27,11 +27,11 @@ public class TileChaosHolderBase extends TileBCore {
 	public SimpleModuleHost moduleHost = new SimpleModuleHost(TechLevel.CHAOTIC, 6, 6, ModuleCfg.removeInvalidModules, ModuleCategory.ENERGY).addAdditionalType(ModuleTypes.SHIELD_BOOST);
 
 	public int getMaxChaos() {
-		return moduleHost.getModuleData(ModuleTypes.SHIELD_BOOST, new ShieldData(0, 0)).getShieldCapacity() * 10;
+		return moduleHost.getModuleData(ModuleTypes.SHIELD_BOOST, new ShieldData(0, 0)).shieldCapacity() * 10;
 	}
 
 	public boolean canRemoveModule(ModuleEntity entity) {
-		return !(entity.getModule().getData() instanceof ShieldData data && getMaxChaos() - data.getShieldCapacity() * 10 < chaos.get());
+		return !(entity.getModule().getData() instanceof ShieldData data && getMaxChaos() - data.shieldCapacity() * 10 < chaos.get());
 	}
 
 	public TileChaosHolderBase(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
