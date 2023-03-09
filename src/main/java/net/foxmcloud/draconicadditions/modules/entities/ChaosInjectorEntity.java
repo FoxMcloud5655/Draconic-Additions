@@ -118,12 +118,7 @@ public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> impleme
 					}
 					else if (entity instanceof ServerPlayer player) {
 						StableChaosData allData = host.getModuleData(ModuleTypes.STABLE_CHAOS);
-						if (allData != null && allData.getMaxChaos() > 0) {
-							player.displayClientMessage(new TranslatableComponent("info.da.chaos_injector.storageFull").withStyle(ChatFormatting.RED), true);
-						}
-						else {
-							player.displayClientMessage(new TranslatableComponent("info.da.chaos_injector.noStorage").withStyle(ChatFormatting.RED), true);
-						}
+						player.displayClientMessage(allData != null && allData.getMaxChaos() > 0 ? new TranslatableComponent("info.da.chaos_injector.storageFull").withStyle(ChatFormatting.RED) : new TranslatableComponent("info.da.chaos_injector.noStorage").withStyle(ChatFormatting.RED), true);
 					}
 					else if (entity instanceof Player player) {
 						player.level.playSound(player, new BlockPos(player.getX(), player.getY(), player.getZ()), DESounds.beam, SoundSource.MASTER, 1.0F, 2.0F);
