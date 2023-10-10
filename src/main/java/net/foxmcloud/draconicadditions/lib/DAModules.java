@@ -17,7 +17,7 @@ import com.brandon3055.draconicevolution.api.modules.data.AutoFeedData;
 import com.brandon3055.draconicevolution.api.modules.data.NoData;
 import com.brandon3055.draconicevolution.api.modules.lib.BaseModule;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleImpl;
-import com.brandon3055.draconicevolution.api.modules.lib.ModuleItem;
+import com.brandon3055.draconicevolution.api.modules.items.ModuleItem;
 import com.brandon3055.draconicevolution.init.ModuleCfg;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;

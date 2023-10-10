@@ -1,6 +1,7 @@
 package net.foxmcloud.draconicadditions.modules;
 
 import com.brandon3055.draconicevolution.api.modules.Module;
+import com.brandon3055.draconicevolution.api.modules.items.ModuleItem;
 import com.brandon3055.draconicevolution.api.modules.lib.*;
 import com.google.common.collect.ImmutableList;
 import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosHolderBase;
