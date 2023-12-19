@@ -19,6 +19,7 @@ import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -59,11 +60,9 @@ public class TileChaosLiquefier extends TileChaosHolderBase implements IChangeLi
 				if (charge.get() >= 0 && charge.get() < chargeTo.get() - 1) {
 					float beamPitch = (1.5F * charge.get() / maxCharge) + 0.5F;
 					level.playLocalSound(worldPosition.getX() + 0.5D, worldPosition.getY(), worldPosition.getZ() + 0.5D, DESounds.beam, SoundSource.BLOCKS, 0.2F, beamPitch, false);
-					// charge.get() += 1;
 				}
 				else {
 					level.playLocalSound(worldPosition.getX() + 0.5D, worldPosition.getY(), worldPosition.getZ() + 0.5D, DESounds.boom, SoundSource.BLOCKS, 1.0F, 2.0F, false);
-					// charge.get() = 0;
 				}
 			}
 		}
@@ -98,54 +97,60 @@ public class TileChaosLiquefier extends TileChaosHolderBase implements IChangeLi
 		if (chaos.get() > getMaxChaos()) {
 			chaos.set(getMaxChaos());
 		}
-		stack.shrink(1);
-		if (stack.getCount() == 0) {
-			stack = ItemStack.EMPTY;
-		}
-		charge.set(0);
-	}
-
-	public int calcChaos(ItemStack stack) {
-		if (isItemValidForSlot(0, stack)) {
-			switch (chaosID(stack.getItem())) {
-			case 1:
-				return 11664;
-			case 2:
-				return 1296;
-			case 3:
-				return 144;
-			case 4:
-				return 16;
-			case 5:
-				return 20000;
-			default:
-				return 0;
+		if (chaosID(stack.getItem()) == 5) {
+			if (stack.getCount() > 1) {
+				stack.shrink(1);
+				Containers.dropItemStack(level, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), DEContent.dragon_heart.getDefaultInstance());
+			}
+			else {
+				stack = DEContent.dragon_heart.getDefaultInstance();
 			}
 		}
-		else return 0;
+		else {
+			stack.shrink(1);
+			if (stack.getCount() == 0) {
+				stack = ItemStack.EMPTY;
+			}
+		}
+		charge.set(0);
+		itemHandler.setStackInSlot(0, stack);
+	}
+
+	public static int calcChaos(ItemStack stack) {
+		switch (chaosID(stack.getItem())) {
+		case 1:
+			return 11664;
+		case 2:
+			return 1296;
+		case 3:
+			return 144;
+		case 4:
+			return 16;
+		case 5:
+			return 20000;
+		default:
+			return 0;
+		}
 	}
 
 	public int calcCharge(ItemStack stack) {
-		if (isItemValidForSlot(0, stack)) {
-			switch (chaosID(stack.getItem())) {
-			case 1:
-				return (int)(maxCharge / 1.5);
-			case 2:
-				return maxCharge / 4;
-			case 3:
-				return maxCharge / 8;
-			case 4:
-				return maxCharge / 16;
-			case 5:
-				return maxCharge;
-			default:
-				return 0;
-			}
+		switch (chaosID(stack.getItem())) {
+		case 1:
+			return (int)(maxCharge / 1.5);
+		case 2:
+			return maxCharge / 4;
+		case 3:
+			return maxCharge / 8;
+		case 4:
+			return maxCharge / 16;
+		case 5:
+			return maxCharge;
+		default:
+			return 0;
 		}
-		else return 0;
 	}
 
-	public int chaosID(Item item) {
+	public static int chaosID(Item item) {
 		if (item == DEContent.chaos_shard)
 			return 1;
 		else if (item == DEContent.chaos_frag_large)

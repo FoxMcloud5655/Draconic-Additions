@@ -15,6 +15,7 @@ import com.brandon3055.draconicevolution.api.capability.ModuleHost;
 import com.brandon3055.draconicevolution.api.modules.lib.ModularOPStorage;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleEntity;
 import com.brandon3055.draconicevolution.handlers.DESounds;
+import com.brandon3055.draconicevolution.init.DEContent;
 
 import net.foxmcloud.draconicadditions.inventory.ContainerDATile;
 import net.foxmcloud.draconicadditions.inventory.GUILayoutFactories;
@@ -69,6 +70,18 @@ public class TileChaosInfuser extends TileChaosHolderBase implements IChangeList
 			int opToTake = chargeRate * rateMultiplier;
 			if (!stack.isEmpty() && isItemValidForSlot(0, stack) && chaos.get() > 0 && opStorage.extractOP(opToTake, true) >= chargeRate) {
 				ModuleHost host = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).orElse(null);
+				if (host == null) {
+					opToTake = chargeRate * stack.getCount();
+					if (chaos.get() >= 20000 * stack.getCount() && opStorage.extractOP(opToTake, true) >= opToTake) {
+						chaos.subtract(20000 * stack.getCount());
+						opStorage.extractOP(opToTake, false);
+						ItemStack heart = DAContent.chaosHeart.getDefaultInstance();
+						heart.setCount(stack.getCount());
+						itemHandler.setStackInSlot(0, heart);
+					}
+					active.set(false);
+					return;
+				}
 				Stream<ModuleEntity<?>> chaosEntities = host.getEntitiesByType(ModuleTypes.STABLE_CHAOS);
 				ArrayList<StableChaosEntity> sortedChaosEntities = StableChaosEntity.getSortedListFromStream(chaosEntities);
 				if (sortedChaosEntities.size() == 0) {
@@ -102,6 +115,9 @@ public class TileChaosInfuser extends TileChaosHolderBase implements IChangeList
 		if (host != null) {
 			StableChaosData data = host.getModuleData(ModuleTypes.STABLE_CHAOS);
 			return data != null ? data.getMaxChaos() > 0 : false;
+		}
+		else if (stack.getItem() == DEContent.dragon_heart) {
+			return true;
 		}
 		return false;
 	}
