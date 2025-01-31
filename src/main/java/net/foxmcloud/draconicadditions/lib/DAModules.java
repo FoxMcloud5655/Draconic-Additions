@@ -68,7 +68,8 @@ public class DAModules {
 		return e -> {
 			return new StableChaosData(
 				ModuleCfg.getModuleInt(e, "max_instability", maxInstability),
-				ModuleCfg.getModuleInt(e, "max_chaos", defMaxChaos));
+				ModuleCfg.getModuleInt(e, "max_chaos", defMaxChaos)
+			);
 		};
 	}
 	

@@ -89,8 +89,8 @@ public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> impleme
 			if (getRate() == 0 && isChaotic) {
 				rate.setValue(1);
 			}
-			boolean shouldTick = !entity.level().isClientSide && getRate() != 0 && (entity.tickCount % Math.max(20 / Math.abs(getRate()), 1) == 0);
-			if (getRate() > 0 && shouldTick) {
+			boolean shouldTickChaos = !entity.level().isClientSide && getRate() != 0 && (entity.tickCount % Math.max(20 / Math.abs(getRate()), 1) == 0);
+			if (getRate() > 0 && shouldTickChaos) {
 				if (!isChaotic) {
 					if (entity.getHealth() < hpDrainAmount) {
 						if (!entity.level().isClientSide) {
@@ -110,7 +110,7 @@ public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> impleme
 					modifyChaos(1);
 				}
 			}
-			else if (getRate() < 0 && shouldTick) {
+			else if (getRate() < 0 && shouldTickChaos) {
 				if (!isChaotic && storedHP > 0) {
 					drainBlood(entity, -hpDrainAmount);
 				}
