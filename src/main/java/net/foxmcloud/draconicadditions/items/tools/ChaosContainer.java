@@ -210,7 +210,7 @@ public class ChaosContainer extends Item implements IModularEnergyItem, IChaosCo
 	}
 
 	private boolean shouldAlarm(ItemStack stack) {
-		return getChaos(stack) > getMaxChaos(stack) || getEnergyStored(stack) < EnergyUtils.getMaxEnergyStored(stack) / 2;
+		return getChaos(stack) > 0 && (getChaos(stack) > getMaxChaos(stack) || getEnergyStored(stack) < EnergyUtils.getMaxEnergyStored(stack) / 2);
 	}
 
 	private boolean hasShielding(ItemStack stack) {
