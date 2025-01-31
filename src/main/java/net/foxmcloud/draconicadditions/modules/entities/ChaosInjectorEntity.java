@@ -183,7 +183,7 @@ public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> impleme
 						storedHP = 0;
 						prevHP = 1;
 						boolean hasActuallyDied = false;
-						int timesToKillEntity = 100;
+						int timesToKillEntity = 10;
 						while (!hasActuallyDied && timesToKillEntity-- >= 0) {
 							entity.setHealth(0);
 							entity.die(DADamage.injectionDeath(entity.level()));
