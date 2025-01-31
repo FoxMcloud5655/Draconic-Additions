@@ -65,6 +65,7 @@ dependencies {
 	implementation fg.deobf("io.codechicken:CodeChickenLib:${config.mc_version}-${config.ccl_version}:universal")
 
 	runtimeOnly(fg.deobf("mezz.jei:jei-${config.mc_version}-forge:${config.jei_version}"))
+	runtimeOnly(fg.deobf("io.codechicken:EnderStorage:${config.mc_version}-${config.ender_storage_version}:universal"))
 
 	runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${config.curios_version}")
 	compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${config.curios_version}:api")
