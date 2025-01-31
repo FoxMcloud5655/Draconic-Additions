@@ -58,7 +58,7 @@ public class TileChaosCrystalizer extends TileChaosHolderBase implements IChange
 		}
 		else {
 			ItemStack stack = itemHandler.getStackInSlot(0);
-			boolean valid = isTileEnabled() && (stack.isEmpty() || stack.getCount() < stack.getItem().getMaxStackSize(stack)) && chaos.get() > calcChaos(itemToMake);
+			boolean valid = isTileEnabled() && (stack.isEmpty() || stack.getCount() < stack.getItem().getMaxStackSize(stack)) && chaos.get() >= calcChaos(itemToMake);
 			active.set(valid);
 			if (valid) {
 				int finalCharge = calcCharge(itemToMake);
