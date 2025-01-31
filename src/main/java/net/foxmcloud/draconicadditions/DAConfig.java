@@ -49,7 +49,7 @@ public class DAConfig extends DEConfig {
 	public static double chaoticFeedAmount = 1000;
 	public static int draconicAccelTicks = 1;
 	public static int chaoticAccelTicks = 2;
-	public static int semiStableChaosMax = 1000;
+	public static int semiStableChaosMax = 2500;
 	public static int semiStableInstabilityMax = 100;
 	public static int stableChaosMax = 1000;
 	public static int stableInstabilityMax = 20;
@@ -130,7 +130,7 @@ public class DAConfig extends DEConfig {
 		.setComment("Same as the above, but for the Chaotic Tick Accelerator.")
 		.onSync((tag, type) -> chaoticAccelTicks = tag.getInt());
 		
-		moduleTweaks.getValue("semiStableChaosMax").syncTagToClient().setDefaultInt(1000)
+		moduleTweaks.getValue("semiStableChaosMax").syncTagToClient().setDefaultInt(2500)
 		.setComment("The maximum amount of liquid chaos each Semi-Stable Chaos Holder can contain.")
 		.onSync((tag, type) -> semiStableChaosMax = tag.getInt());
 		
