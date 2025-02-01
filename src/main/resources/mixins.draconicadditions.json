@@ -1,0 +1,11 @@
+{
+	"required": false,
+	"minVersion": "0.8",
+	"package": "net.foxmcloud.draconicadditions.mixins",
+	"refmap": "mixins.draconicadditions.refmap.json",
+	"target": "@env(DEFAULT)",
+	"compatibilityLevel": "JAVA_17",
+	"client": [
+		"HUDTotemDisplay"
+	]
+}
