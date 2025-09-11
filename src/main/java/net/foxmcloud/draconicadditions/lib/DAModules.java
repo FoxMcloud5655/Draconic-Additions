@@ -15,6 +15,8 @@ import com.brandon3055.draconicevolution.init.DEModules;
 import com.brandon3055.draconicevolution.init.ModuleCfg;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
+import net.foxmcloud.draconicadditions.modules.data.BombProjectileData;
+import net.foxmcloud.draconicadditions.modules.data.BombProjectileData.TYPE;
 import net.foxmcloud.draconicadditions.modules.data.ChaosInjectorData;
 import net.foxmcloud.draconicadditions.modules.data.StableChaosData;
 import net.foxmcloud.draconicadditions.modules.data.TickAccelData;
@@ -42,14 +44,20 @@ public class DAModules {
 	public static final RegistryObject<Module<?>> stableChaos = MODULES.register("stable_chaos", () -> new ModuleImpl<>(STABLE_CHAOS, CHAOTIC, stableChaosData(stableInstabilityMax, stableChaosMax)));
 	public static final RegistryObject<Module<?>> unstableChaos = MODULES.register("unstable_chaos", () -> new ModuleImpl<>(STABLE_CHAOS, CHAOTIC, stableChaosData(unstableInstabilityMax, unstableChaosMax)));
 	public static final RegistryObject<Module<?>> chaosInjector = MODULES.register("chaos_injector", () -> new ModuleImpl<>(CHAOS_INJECTOR, CHAOTIC, chaosInjectorData(chaosInjectorRate)));
+	public static final RegistryObject<Module<?>> bombProjectile = MODULES.register("bomb_projectile", () -> new ModuleImpl<>(BOMB_PROJECTILE, DRACONIC, bombProjectileData(TYPE.NORMAL, 5)));
+	public static final RegistryObject<Module<?>> bombProjectileElectric = MODULES.register("bomb_projectile_electric", () -> new ModuleImpl<>(BOMB_PROJECTILE, DRACONIC, bombProjectileData(TYPE.ELECTRIC, 3)));
+	public static final RegistryObject<Module<?>> bombProjectileChaotic = MODULES.register("bomb_projectile_chaotic", () -> new ModuleImpl<>(BOMB_PROJECTILE, CHAOTIC, bombProjectileData(TYPE.CHAOTIC, 10)));
 	
-    public static final RegistryObject<ModuleItem<?>> itemChaoticAutoFeed   = ITEMS.register("item_chaotic_auto_feed",   () -> new ModuleItem<>(chaoticAutoFeed));
-	public static final RegistryObject<ModuleItem<?>> itemDraconicTickAccel = ITEMS.register("item_draconic_tick_accel", () -> new ModuleItem<>(draconicTickAccel));
-	public static final RegistryObject<ModuleItem<?>> itemChaoticTickAccel  = ITEMS.register("item_chaotic_tick_accel",  () -> new ModuleItem<>(chaoticTickAccel));
-	public static final RegistryObject<ModuleItem<?>> itemSemiStableChaos   = ITEMS.register("item_semi_stable_chaos",   () -> new ModuleItem<>(semiStableChaos));
-	public static final RegistryObject<ModuleItem<?>> itemStableChaos       = ITEMS.register("item_stable_chaos",        () -> new ModuleItem<>(stableChaos));
-	public static final RegistryObject<ModuleItem<?>> itemUnstableChaos     = ITEMS.register("item_unstable_chaos",      () -> new ModuleItem<>(unstableChaos));
-	public static final RegistryObject<ModuleItem<?>> itemChaosInjector     = ITEMS.register("item_chaos_injector",      () -> new ModuleItem<>(chaosInjector));
+    public static final RegistryObject<ModuleItem<?>> itemChaoticAutoFeed        = ITEMS.register("item_chaotic_auto_feed",        () -> new ModuleItem<>(chaoticAutoFeed));
+	public static final RegistryObject<ModuleItem<?>> itemDraconicTickAccel      = ITEMS.register("item_draconic_tick_accel",      () -> new ModuleItem<>(draconicTickAccel));
+	public static final RegistryObject<ModuleItem<?>> itemChaoticTickAccel       = ITEMS.register("item_chaotic_tick_accel",       () -> new ModuleItem<>(chaoticTickAccel));
+	public static final RegistryObject<ModuleItem<?>> itemSemiStableChaos        = ITEMS.register("item_semi_stable_chaos",        () -> new ModuleItem<>(semiStableChaos));
+	public static final RegistryObject<ModuleItem<?>> itemStableChaos            = ITEMS.register("item_stable_chaos",             () -> new ModuleItem<>(stableChaos));
+	public static final RegistryObject<ModuleItem<?>> itemUnstableChaos          = ITEMS.register("item_unstable_chaos",           () -> new ModuleItem<>(unstableChaos));
+	public static final RegistryObject<ModuleItem<?>> itemChaosInjector          = ITEMS.register("item_chaos_injector",           () -> new ModuleItem<>(chaosInjector));
+	public static final RegistryObject<ModuleItem<?>> itemBombProjectile         = ITEMS.register("item_bomb_projectile",          () -> new ModuleItem<>(bombProjectile));
+	public static final RegistryObject<ModuleItem<?>> itemBombProjectileElectric = ITEMS.register("item_bomb_projectile_electric", () -> new ModuleItem<>(bombProjectileElectric));
+	public static final RegistryObject<ModuleItem<?>> itemBombProjectileChaotic  = ITEMS.register("item_bomb_projectile_chaotic",  () -> new ModuleItem<>(bombProjectileChaotic));
 
 	private static Function<Module<AutoFeedData>, AutoFeedData> autoFeedData(float defFoodStorage) {
 		return e -> {
@@ -76,6 +84,15 @@ public class DAModules {
 	private static Function<Module<ChaosInjectorData>, ChaosInjectorData> chaosInjectorData(int defRate) {
 		return e -> {
 			return new ChaosInjectorData(ModuleCfg.getModuleInt(e, "injection_rate", defRate));
+		};
+	}
+	
+	private static Function<Module<BombProjectileData>, BombProjectileData> bombProjectileData(TYPE type, int radius) {
+		return e -> {
+			return new BombProjectileData(
+				TYPE.valueOf(ModuleCfg.getModuleInt(e, "type", type.ordinal())),
+				ModuleCfg.getModuleInt(e, "radius", radius)
+			);
 		};
 	}
 }
