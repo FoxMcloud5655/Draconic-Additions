@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "draconicevolution:medium_chaos_frag"
+    },
+    "P": {
+      "item": "minecraft:poisonous_potato"
+    }
+  },
+  "pattern": [
+    "CCC",
+    "CPC",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "draconicadditions:hermal"
+  }
+}

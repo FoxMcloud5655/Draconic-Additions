@@ -3,6 +3,7 @@ package net.foxmcloud.draconicadditions.items;
 import static com.brandon3055.draconicevolution.init.ModuleCfg.removeInvalidModules;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
@@ -11,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import com.brandon3055.brandonscore.api.TechLevel;
 import com.brandon3055.brandonscore.utils.EnergyUtils;
 import com.brandon3055.draconicevolution.api.capability.DECapabilities;
+import com.brandon3055.draconicevolution.api.capability.ModuleHost;
 import com.brandon3055.draconicevolution.api.modules.ModuleCategory;
 import com.brandon3055.draconicevolution.api.modules.ModuleTypes;
 import com.brandon3055.draconicevolution.api.modules.data.EnergyData;
@@ -21,7 +23,7 @@ import com.brandon3055.draconicevolution.init.DEModules;
 import com.brandon3055.draconicevolution.init.TechProperties;
 
 import net.foxmcloud.draconicadditions.DAConfig;
-import net.foxmcloud.draconicadditions.lib.DASounds;
+import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -32,17 +34,17 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.RecordItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
-public class Hermal extends RecordItem implements IModularEnergyItem {
+public class Hermal extends Item implements IModularEnergyItem {
 
 	public TechLevel techLevel;
 	
 	public Hermal(TechProperties props) {
-		super(1, DASounds.hermal, props, 100);
+		super(props.jukeboxPlayable(DAContent.JUKEBOX_SONG_HERMAL));
 		techLevel = props.getTechLevel();
 	}
 	
@@ -56,7 +58,8 @@ public class Hermal extends RecordItem implements IModularEnergyItem {
 		if (!(entity instanceof Player) || entity.level().isClientSide) {
 			return;
 		}
-		stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).ifPresent(host -> {
+		try (ModuleHost host = DECapabilities.getHost(stack)) {
+            assert host != null;
 			EnergyData data = host.getModuleData(ModuleTypes.ENERGY_STORAGE);
 			if (data != null && data.capacity() == ((EnergyData)DEModules.CHAOTIC_ENERGY.get().getData()).capacity()) {
 				Player player = (Player)entity;
@@ -67,20 +70,19 @@ public class Hermal extends RecordItem implements IModularEnergyItem {
 					EnergyUtils.insertEnergy(player.getOffhandItem(), DAConfig.hermalRFAmount, false);
 				}
 			}
-		});
-		stack.setTag(null);
+		}
+		//stack.setTag(null);
 	}
 	
 	@Override
-	public ModuleHostImpl createHost(ItemStack stack) {
+	public @NotNull ModuleHostImpl instantiateHost(ItemStack stack) {
 		ModuleHostImpl host = new ModuleHostImpl(getTechLevel(), 1, 1, "hermal", removeInvalidModules);
 		host.addCategories(ModuleCategory.ENERGY);
 		return host;
 	}
 	
-	@Nullable
 	@Override
-	public ModularOPStorage createOPStorage(ItemStack stack, ModuleHostImpl host) {
+	public @NotNull ModularOPStorage instantiateOPStorage(ItemStack stack, Supplier<ModuleHost> hostSupplier) {
 		return null;
 	}
 

@@ -5,8 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.jetbrains.annotations.NotNull;
-
+import com.brandon3055.brandonscore.api.BCStreamCodec;
 import com.brandon3055.brandonscore.api.power.IOPStorage;
 import com.brandon3055.brandonscore.handlers.ProcessHandler;
 import com.brandon3055.draconicevolution.api.modules.Module;
@@ -15,24 +14,53 @@ import com.brandon3055.draconicevolution.api.modules.lib.ModuleEntity;
 import com.brandon3055.draconicevolution.api.modules.lib.StackModuleContext;
 import com.brandon3055.draconicevolution.api.modules.lib.TileModuleContext;
 import com.brandon3055.draconicevolution.blocks.reactor.ProcessExplosion;
+import com.brandon3055.draconicevolution.init.DEModules;
 import com.brandon3055.draconicevolution.lib.WTFException;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import net.foxmcloud.draconicadditions.lib.DAItemData;
 import net.foxmcloud.draconicadditions.modules.data.StableChaosData;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fml.util.thread.EffectiveSide;
+import net.neoforged.fml.util.thread.EffectiveSide;
 
 public class StableChaosEntity extends ModuleEntity<StableChaosData> implements Comparable<StableChaosEntity> {
 	private static final double rfCostLimit = 1000000;
 	private int chaos = 0;
 	private float instability = 0;
+	
+	public static final Codec<StableChaosEntity> CODEC = RecordCodecBuilder.create(builder -> builder.group(
+		DEModules.codec().fieldOf("module").forGetter(ModuleEntity::getModule),
+		Codec.INT.fieldOf("gridx").forGetter(ModuleEntity::getGridX),
+		Codec.INT.fieldOf("gridy").forGetter(ModuleEntity::getGridY)
+	).apply(builder, StableChaosEntity::new));
+
+	public static final StreamCodec<RegistryFriendlyByteBuf, StableChaosEntity> STREAM_CODEC = BCStreamCodec.composite(
+		DEModules.streamCodec(), ModuleEntity::getModule,
+		ByteBufCodecs.INT, ModuleEntity::getGridX,
+		ByteBufCodecs.INT, ModuleEntity::getGridY,
+		StableChaosEntity::new
+	);
 
 	public StableChaosEntity(Module<StableChaosData> module) {
 		super(module);
 	}
+	
+	@SuppressWarnings("unchecked")
+	StableChaosEntity(Module<?> module, int gridX, int gridY) {
+        super((Module<StableChaosData>) module, gridX, gridY);
+	}
+	
+    @Override
+    public ModuleEntity<?> copy() {
+        return new StableChaosEntity(module, getGridX(), getGridY());
+    }
 
 	@Override
 	public void tick(ModuleContext moduleContext) {
@@ -99,33 +127,15 @@ public class StableChaosEntity extends ModuleEntity<StableChaosData> implements 
 	}
 
 	@Override
-	public void writeToItemStack(ItemStack stack, ModuleContext context) {
-		super.writeToItemStack(stack, context);
-		stack.getOrCreateTag().putInt("chaos", chaos);
-		stack.getOrCreateTag().putFloat("instability", instability);
+	public void saveEntityToStack(ItemStack stack, ModuleContext context) {
+		stack.set(DAItemData.CHAOS, chaos);
+		stack.set(DAItemData.INSTABILITY, instability);
 	}
 
 	@Override
-	public void readFromItemStack(ItemStack stack, ModuleContext context) {
-		super.readFromItemStack(stack, context);
-		if (stack.hasTag()) {
-			chaos = stack.getOrCreateTag().getInt("chaos");
-			instability = stack.getOrCreateTag().getInt("instability");
-		}
-	}
-
-	@Override
-	public void writeToNBT(CompoundTag compound) {
-		super.writeToNBT(compound);
-		compound.putInt("chaos", chaos);
-		compound.putFloat("instability", instability);
-	}
-
-	@Override
-	public void readFromNBT(CompoundTag compound) {
-		super.readFromNBT(compound);
-		chaos = compound.getInt("chaos");
-		instability = compound.getInt("instability");
+	public void loadEntityFromStack(ItemStack stack, ModuleContext context) {
+		chaos = stack.getOrDefault(DAItemData.CHAOS, chaos);
+		instability = stack.getOrDefault(DAItemData.INSTABILITY, instability);
 	}
 
 	@Override
@@ -138,8 +148,8 @@ public class StableChaosEntity extends ModuleEntity<StableChaosData> implements 
 	
 	@Override
 	public int compareTo(StableChaosEntity o) {
-		StableChaosData data = (StableChaosData)module.getData();
-		StableChaosData otherData = (StableChaosData)((StableChaosEntity)o).getModule().getData();
+		StableChaosData data = module.getData();
+		StableChaosData otherData = o.getModule().getData();
 		return data.getMaxInstability() - otherData.getMaxInstability();
 	}
 

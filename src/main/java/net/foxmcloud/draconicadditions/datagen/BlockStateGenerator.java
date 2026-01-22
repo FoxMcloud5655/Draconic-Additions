@@ -12,10 +12,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 /**
  * Created by brandon3055 on 28/2/20.
@@ -28,7 +28,7 @@ public class BlockStateGenerator extends BlockStateProvider {
 
 	@Override
 	protected void registerStatesAndModels() {
-		ResourceLocation machineTop = new ResourceLocation(DraconicEvolution.MODID, "block/parts/machine_top");
+		ResourceLocation machineTop = ResourceLocation.fromNamespaceAndPath(DraconicEvolution.MODID, "block/parts/machine_top");
 		simpleBlock(DAContent.chaosLiquifier.get(), models().cubeBottomTop("chaos_liquifier", modLoc("block/chaos_liquifier_front"), machineTop, machineTop));
 		simpleBlock(DAContent.chaosInfuser.get(), models().cubeBottomTop("chaos_infuser", modLoc("block/chaos_infuser_front"), machineTop, machineTop));
 		simpleBlock(DAContent.chaosExtractor.get(), models().cubeBottomTop("chaos_extractor", modLoc("block/chaos_extractor_front"), machineTop, machineTop));

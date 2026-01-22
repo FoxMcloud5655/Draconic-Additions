@@ -23,7 +23,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -31,8 +31,9 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.network.NetworkHooks;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.Capabilities.ItemHandler;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 public class TileChaosExtractor extends TileChaosHolderBase implements IChangeListener, IInteractTile, MenuProvider {
 	
@@ -44,12 +45,18 @@ public class TileChaosExtractor extends TileChaosHolderBase implements IChangeLi
 		super(DAContent.tileChaosExtractor.get(), pos, state);
 		itemHandler = new TileItemStackHandler(this, 2);
 		opStorage = new ModularOPStorage(this, 1000000, 50000, 50000);
-		capManager.setManaged("energy", CapabilityOP.OP, opStorage).saveBoth().syncContainer();
-		capManager.setInternalManaged("inventory", ForgeCapabilities.ITEM_HANDLER, itemHandler).saveBoth().syncTile();
+		capManager.setManaged("energy", CapabilityOP.BLOCK, opStorage).saveBoth().syncContainer();
+		capManager.setInternalManaged("inventory", Capabilities.ItemHandler.BLOCK, itemHandler).saveBoth().syncTile();
 		itemHandler.setStackValidator(this::isItemValidForSlot);
 		setupPowerSlot(itemHandler, 1, opStorage, false);
 		installIOTracker(opStorage);
 	}
+	
+    public static void register(RegisterCapabilitiesEvent event) {
+        energyCapability(event, DAContent.tileChaosExtractor);
+        capability(event, DAContent.tileChaosExtractor, ItemHandler.BLOCK);
+        capability(event, DAContent.tileChaosExtractor, DECapabilities.Host.BLOCK);
+    }
 
 	@Override
 	public void tick() {
@@ -101,8 +108,8 @@ public class TileChaosExtractor extends TileChaosHolderBase implements IChangeLi
 	}
 	
 	private StableChaosEntity getFirstValidChaosEntity(ItemStack stack) {
-		ModuleHost host = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).orElse(null);
-		if (host != null) {
+		try (ModuleHost host = DECapabilities.getHost(stack)) {
+            assert host != null;
 			ArrayList<StableChaosEntity> entities = StableChaosEntity.getSortedListFromStream(host.getEntitiesByType(DAModuleTypes.STABLE_CHAOS));
 			for (StableChaosEntity entity : entities) {
 				if (entity.getChaos() > 0) {
@@ -118,11 +125,12 @@ public class TileChaosExtractor extends TileChaosHolderBase implements IChangeLi
 		return new ChaosExtractorMenu(currentWindowIndex, player.getInventory(), this);
 	}
 
-	@Override
-	public boolean onBlockActivated(BlockState state, Player player, InteractionHand handIn, BlockHitResult hit) {
-		if (player instanceof ServerPlayer) {
-			NetworkHooks.openScreen((ServerPlayer) player, this, worldPosition);
-		}
-		return true;
-	}
+    @Override
+    public InteractionResult useWithoutItem(BlockState state, Player player, BlockHitResult hit) {
+        if (player instanceof ServerPlayer) {
+            player.openMenu(this, worldPosition);
+            return InteractionResult.CONSUME;
+        }
+        return InteractionResult.SUCCESS;
+    }
 }

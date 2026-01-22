@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "draconicevolution:item_draconic_auto_feed"
+    },
+    "C": {
+      "item": "minecraft:cookie"
+    },
+    "D": {
+      "item": "draconicevolution:draconium_core"
+    },
+    "F": {
+      "item": "draconicevolution:medium_chaos_frag"
+    }
+  },
+  "pattern": [
+    "FCF",
+    "DAD",
+    "FCF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "draconicadditions:item_chaotic_auto_feed"
+  }
+}

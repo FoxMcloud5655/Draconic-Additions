@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "draconicevolution:medium_chaos_frag"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "M": {
+      "item": "draconicevolution:module_core"
+    }
+  },
+  "pattern": [
+    "CGC",
+    "GMG",
+    "CGC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "draconicadditions:item_chaos_injector"
+  }
+}

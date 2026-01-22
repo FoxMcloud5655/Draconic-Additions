@@ -1,13 +1,13 @@
 package net.foxmcloud.draconicadditions.items.tools;
 
-import java.awt.TextComponent;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.brandon3055.brandonscore.api.TechLevel;
 import com.brandon3055.brandonscore.utils.EnergyUtils;
-import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 import com.brandon3055.brandonscore.utils.Utils;
 import com.brandon3055.draconicevolution.api.IInvCharge;
 import com.brandon3055.draconicevolution.api.capability.DECapabilities;
@@ -28,6 +28,7 @@ import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosHolderBase;
 import net.foxmcloud.draconicadditions.items.IChaosContainer;
 import net.foxmcloud.draconicadditions.items.IModularEnergyItem;
 import net.foxmcloud.draconicadditions.items.ISimpleCountdown;
+import net.foxmcloud.draconicadditions.lib.DAItemData;
 import net.foxmcloud.draconicadditions.modules.entities.ChaosInjectorEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
@@ -48,22 +49,22 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
 public class ChaosContainer extends Item implements IModularEnergyItem, IChaosContainer, IInvCharge, ISimpleCountdown {
-	
+
 	private TechLevel techLevel;
-	
+
 	public ChaosContainer(TechProperties props) {
 		super(props);
 		techLevel = props.getTechLevel();
 	}
-	
+
 	@Override
 	public TechLevel getTechLevel() {
 		return techLevel;
 	}
 
 	@Override
-	public ModuleHostImpl createHost(ItemStack stack) {
-		ModuleHostImpl host = IModularEnergyItem.super.createHost(stack);
+	public @NotNull ModuleHostImpl instantiateHost(ItemStack stack) {
+		ModuleHostImpl host = IModularEnergyItem.super.instantiateHost(stack);
 		host.addAdditionalType(ModuleTypes.SHIELD_BOOST);
 		return host;
 	}
@@ -97,7 +98,7 @@ public class ChaosContainer extends Item implements IModularEnergyItem, IChaosCo
 	}
 
 	@Override
-	public void handleTick(ItemStack stack, LivingEntity entity, @Nullable EquipmentSlot slot, boolean inEquipModSlot) {
+	public void handleTick(ModuleHost host, ItemStack stack, LivingEntity entity, @Nullable EquipmentSlot slot, boolean inEquipModSlot) {
 		if (!(entity instanceof Player)) return;
 		Player player = (Player) entity;
 		if (player.level().isClientSide && shouldAlarm(stack) && hasShielding(stack) && !player.isCreative() && !player.isSpectator()) {
@@ -116,11 +117,12 @@ public class ChaosContainer extends Item implements IModularEnergyItem, IChaosCo
 			return false;
 		}
 		else {
-			ItemNBTHelper.setLong(stack, "cheatCheck", 0);
+			stack.set(DAItemData.CHEAT_CHECK, 0L);
 			return true;
 		}
 	}
-	
+
+	@SuppressWarnings("unused")
 	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity, InteractionHand hand) {
 		if (false) { // TODO: DE currently has an issue with DEDamage where it crashes the game.
 			if (getChaos(stack) > 0 && !entity.isInvulnerableTo(DEDamage.chaosImplosion(entity.level()))) {
@@ -169,11 +171,11 @@ public class ChaosContainer extends Item implements IModularEnergyItem, IChaosCo
 		}
 		return handleChaosInBlood(player, stack).getResult();
 	}
-	
+
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		return handleChaosInBlood(player, player.getItemInHand(hand));
 	}
-	
+
 	private InteractionResultHolder<ItemStack> handleChaosInBlood(Player player, ItemStack stack) {
 		ChaosInjectorEntity injector = ChaosInjectorEntity.getInjectorEntity(player);
 		if (injector != null && injector.isChaosInBlood()) {
@@ -195,7 +197,10 @@ public class ChaosContainer extends Item implements IModularEnergyItem, IChaosCo
 
 	@Override
 	public int getMaxChaos(ItemStack stack) {
-		ModuleHost host = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).orElse(new ModuleHostImpl(TechLevel.CHAOTIC, 4, 4, "curios", false, CHAOS_CONTAINER));
+		ModuleHost host = DECapabilities.getHost(stack);
+		if (host == null) {
+			host = new ModuleHostImpl(TechLevel.CHAOTIC, 4, 4, "curios", false, CHAOS_CONTAINER);
+		}
 		return host.getModuleData(ModuleTypes.SHIELD_BOOST, new ShieldData(0, 0)).shieldCapacity() * 50;
 	}
 
@@ -204,7 +209,7 @@ public class ChaosContainer extends Item implements IModularEnergyItem, IChaosCo
 	}
 
 	private long getRFCost(ItemStack stack) {
-		ModuleHost host = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).orElseThrow(IllegalStateException::new);
+		ModuleHost host = DECapabilities.getHost(stack);
 		ShieldData shielding = host.getModuleData(ModuleTypes.SHIELD_BOOST, new ShieldData(0, 0));
 		return Math.round(getRFCostPerChaos(shielding) * getChaos(stack) * (getChaos(stack) > getMaxChaos(stack) && hasShielding(stack) ? Math.pow(2, (double)getChaos(stack) / getMaxChaos(stack)) : 1D));
 	}
@@ -224,14 +229,14 @@ public class ChaosContainer extends Item implements IModularEnergyItem, IChaosCo
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flagIn) {
 		if (!Screen.hasShiftDown()) {
 			tooltip.add(Component.translatable("[Modular Item]").withStyle(ChatFormatting.BLUE));
 		}
 		tooltip.add(getChaosInfo(stack));
 		EnergyUtils.addEnergyInfo(stack, tooltip);
-		ModuleHost host = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).orElse(null);
-		if (host != null) {
+		try (ModuleHost host = DECapabilities.getHost(stack)) {
+			assert host != null;
 			long rfCost = getRFCost(stack);
 			if (rfCost >= 0) {
 				tooltip.add(Component.translatable("info.da.opCost", Utils.formatNumber(rfCost)).withStyle(ChatFormatting.GRAY));
@@ -253,24 +258,24 @@ public class ChaosContainer extends Item implements IModularEnergyItem, IChaosCo
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean isEquipped(ItemStack stack, EquipmentSlot slot, boolean inEquipmentSlot) {
 		return false;
 	}
-	
-    @Override
-    public boolean isBarVisible(ItemStack stack) {
-        return damageBarVisible(stack);
-    }
 
-    @Override
-    public int getBarWidth(ItemStack stack) {
-        return damageBarWidth(stack);
-    }
+	@Override
+	public boolean isBarVisible(ItemStack stack) {
+		return damageBarVisible(stack);
+	}
 
-    @Override
-    public int getBarColor(ItemStack stack) {
-        return damageBarColour(stack);
-    }
+	@Override
+	public int getBarWidth(ItemStack stack) {
+		return damageBarWidth(stack);
+	}
+
+	@Override
+	public int getBarColor(ItemStack stack) {
+		return damageBarColour(stack);
+	}
 }

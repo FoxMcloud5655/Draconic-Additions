@@ -6,14 +6,15 @@ import com.brandon3055.draconicevolution.api.modules.ModuleRegistry;
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.foxmcloud.draconicadditions.lib.DAModules;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 /**
  * Created by FoxMcloud5655 on 23/11/22.
@@ -26,91 +27,113 @@ public class ItemModelGenerator extends ItemModelProvider {
 
 	@Override
 	protected void registerModels() {
-		blockItem(DAContent.chaosLiquifier.get());
-		blockItem(DAContent.chaosInfuser.get());
-		blockItem(DAContent.chaosExtractor.get());
-		blockItem(DAContent.chaosCrystalizer.get());
-		simpleItem(DAContent.chaosHeart.get());
-		simpleItem(DAContent.inertPotatoHelm.get());
-		simpleItem(DAContent.inertPotatoChest.get());
-		simpleItem(DAContent.inertPotatoLegs.get());
-		simpleItem(DAContent.inertPotatoBoots.get());
-		simpleArmor(DAContent.infusedPotatoHelm.get());
-		simpleArmor(DAContent.infusedPotatoChest.get());
-		simpleArmor(DAContent.infusedPotatoLegs.get());
-		simpleArmor(DAContent.infusedPotatoBoots.get());
-		simpleItem(DAContent.chaosContainer.get(), "item/tools/animated");
-		simpleCurios(DAContent.necklaceWyvern.get());
-		simpleCurios(DAContent.necklaceDraconic.get());
-		simpleCurios(DAContent.necklaceChaotic.get());
-		simpleCurios(DAContent.harnessWyvern.get());
-		simpleCurios(DAContent.harnessDraconic.get());
-		simpleCurios(DAContent.harnessChaotic.get());
-		simpleItem(DAContent.hermal.get(), new ResourceLocation("minecraft", "item/poisonous_potato"));
-		simpleModule(DAModules.chaoticAutoFeed.get());
-		simpleModule(DAModules.draconicTickAccel.get());
-		simpleModule(DAModules.chaoticTickAccel.get());
-		simpleModule(DAModules.semiStableChaos.get());
-		simpleModule(DAModules.stableChaos.get());
-		simpleModule(DAModules.unstableChaos.get());
-		simpleModule(DAModules.chaosInjector.get());
+		blockItem(DAContent.chaosLiquifier);
+		blockItem(DAContent.chaosInfuser);
+		blockItem(DAContent.chaosExtractor);
+		blockItem(DAContent.chaosCrystalizer);
+		simpleItem(DAContent.chaosHeart);
+		simpleItem(DAContent.inertPotatoHelm);
+		simpleItem(DAContent.inertPotatoChest);
+		simpleItem(DAContent.inertPotatoLegs);
+		simpleItem(DAContent.inertPotatoBoots);
+		simpleArmor(DAContent.infusedPotatoHelm);
+		simpleArmor(DAContent.infusedPotatoChest);
+		simpleArmor(DAContent.infusedPotatoLegs);
+		simpleArmor(DAContent.infusedPotatoBoots);
+		simpleItem(DAContent.chaosContainer, "item/tools/animated");
+		simpleCurios(DAContent.necklaceWyvern);
+		simpleCurios(DAContent.necklaceDraconic);
+		simpleCurios(DAContent.necklaceChaotic);
+		//simpleCurios(DAContent.harnessWyvern);
+		//simpleCurios(DAContent.harnessDraconic);
+		//simpleCurios(DAContent.harnessChaotic);
+		simpleItem(DAContent.hermal, ResourceLocation.fromNamespaceAndPath("minecraft", "item/poisonous_potato"));
+		simpleModule(DAModules.chaoticAutoFeed);
+		//simpleModule(DAModules.draconicTickAccel);
+		//simpleModule(DAModules.chaoticTickAccel);
+		simpleModule(DAModules.semiStableChaos);
+		simpleModule(DAModules.stableChaos);
+		simpleModule(DAModules.unstableChaos);
+		simpleModule(DAModules.chaosInjector);
 	}
 
-	private void simpleItem(Item item) {
+	private void simpleItem(DeferredHolder<? extends Item, ? extends Item> item) {
 		simpleItem(item, "item/crafting");
 	}
 
-	private void simpleArmor(Item item) {
+	private void simpleArmor(DeferredHolder<? extends Item, ? extends Item> item) {
 		simpleItem(item, "item/armor");
 	}
 
-	private void simpleCurios(Item item) {
+	private void simpleCurios(DeferredHolder<? extends Item, ? extends Item> item) {
 		simpleItem(item, "item/curios");
 	}
 
-	private void simpleItem(Item item, String textureFolder) {
-		if (item == null) return;
-		ResourceLocation reg = ForgeRegistries.ITEMS.getKey(item);
-		simpleItem(item, new ResourceLocation(reg.getNamespace(), textureFolder + "/" + reg.getPath()));
+	protected void simpleItem(DeferredHolder<? extends Item, ? extends Item> item, String textureFolder) {
+		ResourceLocation reg = item.getId();
+		simpleItem(item, ResourceLocation.fromNamespaceAndPath(reg.getNamespace(), textureFolder + "/" + reg.getPath()));
 	}
 
-	private void simpleItem(Item item, ResourceLocation texture) {
-		if (item == null) return;
-		ResourceLocation reg = ForgeRegistries.ITEMS.getKey(item);
+	protected void simpleItem(DeferredHolder<? extends Item, ? extends Item> item, ResourceLocation texture) {
+		ResourceLocation reg = item.getId();
 		getBuilder(reg.getPath())
 		.parent(new ModelFile.UncheckedModelFile("item/generated"))
 		.texture("layer0", texture);
 	}
 
-	private void simpleModule(Module<?> module) {
+	protected void simpleItem(Item item, ResourceLocation texture) {
+		ResourceLocation reg = BuiltInRegistries.ITEM.getKey(item);
+		getBuilder(reg.getPath())
+		.parent(new ModelFile.UncheckedModelFile("item/generated"))
+		.texture("layer0", texture);
+	}
+
+	private void simpleModule(DeferredHolder<? extends Module<?>, ? extends Module<?>> module) {
 		simpleModule(module, "item/modules");
 	}
 
-	private void simpleModule(Module<?> module, String textureFolder) {
-		if (module == null || module.getItem() == null) return;
-		ResourceLocation reg = ModuleRegistry.getRegistry().getKey(module);
-		simpleItem(module.getItem(), new ResourceLocation(reg.getNamespace(), textureFolder + "/" + reg.getPath().replace("_module", "")));
+	private void simpleModule(DeferredHolder<? extends Module<?>, ? extends Module<?>> module, String textureFolder) {
+		if (module == null || !module.isBound()) return;
+		Module<?> boundModule = module.get();
+		ResourceLocation reg = ModuleRegistry.getRegistry().getKey(boundModule);
+		simpleItem(boundModule.getItem(), ResourceLocation.fromNamespaceAndPath(reg.getNamespace(), textureFolder + "/" + reg.getPath().replace("_module", "")));
 	}
 
-	private void blockItem(Block block) {
-		if (block == null) return;
-		ResourceLocation reg = ForgeRegistries.BLOCKS.getKey(block);
-		blockItem(block, new ResourceLocation(reg.getNamespace(), "block/" + reg.getPath()));
-	}
-
-	private void blockItem(Block block, ResourceLocation blockModel) {
-		if (block == null) return;
-		ResourceLocation reg = ForgeRegistries.BLOCKS.getKey(block);
+	protected void multiLayerItem(DeferredHolder<? extends Item, ? extends Item> item, ResourceLocation texture, ResourceLocation overlay) {
+		ResourceLocation reg = item.getId();
 		getBuilder(reg.getPath())
-		.parent(new ModelFile.UncheckedModelFile(blockModel));
+		.parent(new ModelFile.UncheckedModelFile("item/generated"))
+		.texture("layer0", texture)
+		.texture("layer1", overlay);
 	}
 
-	private void dummyModel(Block block) {
-		dummyModel(block.asItem());
+	protected void multiLayerItem(Item item, ResourceLocation texture, ResourceLocation overlay) {
+		ResourceLocation reg = BuiltInRegistries.ITEM.getKey(item);
+		getBuilder(reg.getPath())
+		.parent(new ModelFile.UncheckedModelFile("item/generated"))
+		.texture("layer0", texture)
+		.texture("layer1", overlay);
 	}
 
-	private void dummyModel(Item item) {
-		getBuilder(ForgeRegistries.ITEMS.getKey(item).getPath())
+	protected void blockItem(DeferredHolder<? extends Block, ? extends Block> block) {
+		if (block == null) return;
+		ResourceLocation reg = block.getId();
+		blockItem(block, ResourceLocation.fromNamespaceAndPath(reg.getNamespace(), "block/" + reg.getPath()));
+	}
+
+	protected void blockItem(DeferredHolder<? extends Block, ? extends Block> block, ResourceLocation blockModel) {
+		if (block == null) return;
+		ResourceLocation reg = block.getId();
+		getBuilder(reg.getPath()).parent(new ModelFile.UncheckedModelFile(blockModel));
+	}
+
+	protected void dummyBlock(DeferredHolder<? extends Block, ? extends Block> block) {
+		getBuilder(block.getId().getPath())//
+		.parent(new ModelFile.UncheckedModelFile("builtin/generated"));
+	}
+
+	protected void dummyItem(DeferredHolder<? extends Item, ? extends Item> item) {
+		getBuilder(item.getId().getPath())//
 		.parent(new ModelFile.UncheckedModelFile("builtin/generated"));
 	}
 

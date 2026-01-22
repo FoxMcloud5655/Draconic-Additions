@@ -7,8 +7,8 @@ import java.util.stream.Stream;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.brandon3055.brandonscore.api.BCStreamCodec;
 import com.brandon3055.draconicevolution.api.capability.DECapabilities;
-import com.brandon3055.draconicevolution.api.capability.ModuleHost;
 import com.brandon3055.draconicevolution.api.config.ConfigProperty;
 import com.brandon3055.draconicevolution.api.config.IntegerProperty;
 import com.brandon3055.draconicevolution.api.modules.Module;
@@ -17,25 +17,27 @@ import com.brandon3055.draconicevolution.api.modules.lib.ModuleContext;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleEntity;
 import com.brandon3055.draconicevolution.api.modules.lib.StackModuleContext;
 import com.brandon3055.draconicevolution.handlers.DESounds;
+import com.brandon3055.draconicevolution.init.DEModules;
 import com.brandon3055.draconicevolution.integration.equipment.EquipmentManager;
 import com.brandon3055.draconicevolution.items.equipment.IModularItem;
 import com.brandon3055.draconicevolution.network.DraconicNetwork;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.foxmcloud.draconicadditions.lib.DADamage;
+import net.foxmcloud.draconicadditions.lib.DAItemData;
 import net.foxmcloud.draconicadditions.modules.DAModuleTypes;
 import net.foxmcloud.draconicadditions.modules.data.ChaosInjectorData;
 import net.foxmcloud.draconicadditions.modules.data.StableChaosData;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -43,9 +45,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.util.LazyOptional;
 
-public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> implements Comparable {
+public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> implements Comparable<ChaosInjectorEntity> {
 	private static final int maxChaos = 40;
 	private static final int hpDrainAmount = 1;
 	private static final double shieldDrainDivider = 2;
@@ -59,14 +60,37 @@ public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> impleme
 	private int warningCountdown = 0;
 	private int prevWarningCountdown = 0;
 
-	private IntegerProperty rate;
+	private IntegerProperty rate = new IntegerProperty("chaos_injector.rate", 0).setFormatter(ConfigProperty.IntegerFormatter.RAW).range(-module.getData().getInjectRate(), module.getData().getInjectRate());;
 
+	public static final Codec<ChaosInjectorEntity> CODEC = RecordCodecBuilder.create(builder -> builder.group(
+		DEModules.codec().fieldOf("module").forGetter(ModuleEntity::getModule),
+		Codec.INT.fieldOf("gridx").forGetter(ModuleEntity::getGridX),
+		Codec.INT.fieldOf("gridy").forGetter(ModuleEntity::getGridY),
+		IntegerProperty.CODEC.fieldOf("chaos_injector.rate").forGetter(e -> e.rate)
+	).apply(builder, ChaosInjectorEntity::new));
+
+	public static final StreamCodec<RegistryFriendlyByteBuf, ChaosInjectorEntity> STREAM_CODEC = BCStreamCodec.composite(
+		DEModules.streamCodec(), ModuleEntity::getModule,
+		ByteBufCodecs.INT, ModuleEntity::getGridX,
+		ByteBufCodecs.INT, ModuleEntity::getGridY,
+		IntegerProperty.STREAM_CODEC, e -> e.rate,
+		ChaosInjectorEntity::new
+	);
+	
 	public ChaosInjectorEntity(Module<ChaosInjectorData> module) {
 		super(module);
-		addProperty(rate = new IntegerProperty("chaos_injector.rate", 0).setFormatter(ConfigProperty.IntegerFormatter.RAW)
-				.range(-module.getData().getInjectRate(), module.getData().getInjectRate()));
-		this.savePropertiesToItem = true;
 	}
+	
+	@SuppressWarnings("unchecked")
+	ChaosInjectorEntity(Module<?> module, int gridX, int gridY, IntegerProperty rate) {
+        super((Module<ChaosInjectorData>) module, gridX, gridY);
+        this.rate = rate;
+    }
+	
+    @Override
+    public ModuleEntity<?> copy() {
+        return new ChaosInjectorEntity(module, getGridX(), getGridY(), rate.copy());
+    }
 
 	public int getRate() {
 		return rate.getValue();
@@ -89,11 +113,12 @@ public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> impleme
 			if (getRate() == 0 && isChaotic) {
 				rate.setValue(1);
 			}
-			boolean shouldTickChaos = !entity.level().isClientSide && getRate() != 0 && (entity.tickCount % Math.max(20 / Math.abs(getRate()), 1) == 0);
+			Level level = entity.level();
+			boolean shouldTickChaos = !level.isClientSide && getRate() != 0 && (entity.tickCount % Math.max(20 / Math.abs(getRate()), 1) == 0);
 			if (getRate() > 0 && shouldTickChaos) {
 				if (!isChaotic) {
 					if (entity.getHealth() < hpDrainAmount) {
-						if (!entity.level().isClientSide) {
+						if (!level.isClientSide) {
 							if (modifyChaosInStorage(-1) == -1) {
 								modifyChaos(1);
 							}
@@ -123,7 +148,7 @@ public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> impleme
 						player.displayClientMessage(allData != null && allData.getMaxChaos() > 0 ? Component.translatable("info.da.chaos_injector.storageFull").withStyle(ChatFormatting.RED) : Component.translatable("info.da.chaos_injector.noStorage").withStyle(ChatFormatting.RED), true);
 					}
 					else if (entity instanceof Player player) {
-						player.level().playSound(player, player.blockPosition(), DESounds.BEAM.get(), SoundSource.MASTER, 1.0F, 2.0F);
+						level.playSound(player, player.blockPosition(), DESounds.BEAM.get(), SoundSource.MASTER, 1.0F, 2.0F);
 					}
 					if (chaos == 0) {
 						entity.setHealth(1);
@@ -144,8 +169,8 @@ public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> impleme
 						int cooldownAmount = Math.max((int)Math.round(factor * 40), 2);
 						float pitch = 1.5F + ((float)(1 - factor) * 0.5F);
 						prevWarningCountdown = cooldownAmount;
-						if (player.level().isClientSide) {
-							player.level().playSound(player, player.blockPosition(), DESounds.BEAM.get(), SoundSource.MASTER, 1.0F, pitch);
+						if (level.isClientSide) {
+							level.playSound(player, player.blockPosition(), DESounds.BEAM.get(), SoundSource.MASTER, 1.0F, pitch);
 						}
 						else {
 							((ServerPlayer)player).displayClientMessage(Component.translatable("info.da.chaos_injector.shieldLow").withStyle(ChatFormatting.RED), true);
@@ -153,7 +178,7 @@ public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> impleme
 						warningCountdown = cooldownAmount;
 					}
 				}
-				if (entity.level().isClientSide) {
+				if (level.isClientSide) {
 					entity.addEffect(new MobEffectInstance(MobEffects.WITHER, 2, 1, false, false, false));
 					entity.setHealth(chaos / (maxChaos / 20F));
 				}
@@ -173,10 +198,10 @@ public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> impleme
 					}
 					else shouldDie = true;
 					if (shouldDie) {
-						Level level = entity.level();
-						DamageSource damageSource = DADamage.injectionDeath(level);
+						ServerLevel serverLevel = (ServerLevel)level;
+						DamageSource damageSource = DADamage.injectionDeath(serverLevel);
 						entity.getCombatTracker().recordDamage(damageSource, Float.MAX_VALUE / 5F);
-						DraconicNetwork.sendExplosionEffect(((ServerLevel)entity.level()).dimension(), entity.blockPosition(), Math.min(10, chaos * 4), false);
+						DraconicNetwork.sendExplosionEffect(serverLevel.registryAccess(), serverLevel.dimension(), entity.blockPosition(), Math.min(10, chaos * 4), false);
 						chaos = 0;
 						isChaotic = false;
 						rate.setValue(-1);
@@ -206,8 +231,8 @@ public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> impleme
 						float pitch = 1.5F + ((float)(1 - prevHP / entity.getMaxHealth()) * 0.5F);
 						prevWarningCountdown = cooldownAmount;
 						if (shield == null) {
-							if (player.level().isClientSide) {
-								player.level().playSound(player, player.blockPosition(), DESounds.BEAM.get(), SoundSource.MASTER, 1.0F, pitch);
+							if (level.isClientSide) {
+								level.playSound(player, player.blockPosition(), DESounds.BEAM.get(), SoundSource.MASTER, 1.0F, pitch);
 							}
 							else {
 								((ServerPlayer)player).displayClientMessage(Component.translatable("info.da.chaos_injector.noShield").withStyle(ChatFormatting.RED), true);
@@ -215,8 +240,8 @@ public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> impleme
 							warningCountdown = cooldownAmount;
 						}
 						else if (!shield.isShieldEnabled()) {
-							if (player.level().isClientSide) {
-								player.level().playSound(player, player.blockPosition(), DESounds.BEAM.get(), SoundSource.MASTER, 1.0F, pitch);
+							if (level.isClientSide) {
+								level.playSound(player, player.blockPosition(), DESounds.BEAM.get(), SoundSource.MASTER, 1.0F, pitch);
 							}
 							else {
 								((ServerPlayer)player).displayClientMessage(Component.translatable("info.da.chaos_injector.shieldDisabled").withStyle(ChatFormatting.RED), true);
@@ -224,7 +249,7 @@ public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> impleme
 							warningCountdown = cooldownAmount;
 						}
 						else if (shieldCooldownWhenInjecting && shield.getShieldPoints() < 1500 / shieldDrainDivider) {
-							if (!player.level().isClientSide) {
+							if (!level.isClientSide) {
 								((ServerPlayer)player).displayClientMessage(Component.translatable("info.da.chaos_injector.shieldCapacityLow").withStyle(ChatFormatting.YELLOW), true);
 							}
 							warningCountdown = 20;
@@ -303,62 +328,27 @@ public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> impleme
 	}
 
 	@Override
-	public void writeToItemStack(ItemStack stack, ModuleContext context) {
-		super.writeToItemStack(stack, context);
-		stack.getOrCreateTag().putInt("chaos", chaos);
-		stack.getOrCreateTag().putBoolean("injecting", isChaotic);
-		stack.getOrCreateTag().putFloat("storedHP", storedHP);
-		stack.getOrCreateTag().putFloat("prevRate", prevRate);
-		stack.getOrCreateTag().putFloat("prevHP", prevHP);
-		stack.getOrCreateTag().putInt("warningCountdown", warningCountdown);
-		stack.getOrCreateTag().putInt("prevWarningCountdown", prevWarningCountdown);
+	public void saveEntityToStack(ItemStack stack, ModuleContext context) {
+		stack.set(DAItemData.CHAOS, chaos);
+		stack.set(DAItemData.INJECTING, isChaotic);
+		stack.set(DAItemData.STORED_HP, storedHP);
+		stack.set(DAItemData.PREV_HP, prevHP);
+		stack.set(DAItemData.PREV_RATE, prevRate);
+		stack.set(DAItemData.WARNING_COUNTDOWN, warningCountdown);
+		stack.set(DAItemData.PREV_WARNING_COUNTDOWN, prevWarningCountdown);
 	}
 
 	@Override
-	public void readFromItemStack(ItemStack stack, ModuleContext context) {
-		super.readFromItemStack(stack, context);
-		if (stack.hasTag()) {
-			chaos = stack.getOrCreateTag().getInt("chaos");
-			isChaotic = stack.getOrCreateTag().getBoolean("injecting");
-			storedHP = stack.getOrCreateTag().getFloat("storedHP");
-			prevRate = stack.getOrCreateTag().getInt("prevRate");
-			prevHP = stack.getOrCreateTag().getFloat("prevHP");
-			warningCountdown = stack.getOrCreateTag().getInt("warningCountdown");
-			prevWarningCountdown = stack.getOrCreateTag().getInt("prevWarningCountdown");
-		}
+	public void loadEntityFromStack(ItemStack stack, ModuleContext context) {
+		chaos = stack.getOrDefault(DAItemData.CHAOS, chaos);
+		isChaotic = stack.getOrDefault(DAItemData.INJECTING, isChaotic);
+		storedHP = stack.getOrDefault(DAItemData.STORED_HP, storedHP);
+		prevHP = stack.getOrDefault(DAItemData.PREV_HP, prevHP);
+		prevRate = stack.getOrDefault(DAItemData.PREV_RATE, prevRate);
+		warningCountdown = stack.getOrDefault(DAItemData.WARNING_COUNTDOWN, warningCountdown);
+		prevWarningCountdown = stack.getOrDefault(DAItemData.PREV_WARNING_COUNTDOWN, prevWarningCountdown);
 	}
 
-	@Override
-	public void writeToNBT(CompoundTag compound) {
-		super.writeToNBT(compound);
-		compound.putInt("chaos", chaos);
-		compound.putBoolean("injecting", isChaotic);
-		compound.putFloat("storedHP", storedHP);
-		compound.putFloat("prevRate", prevRate);
-		compound.putFloat("prevHP", prevHP);
-		compound.putInt("warningCountdown", warningCountdown);
-		compound.putInt("prevWarningCountdown", prevWarningCountdown);
-	}
-
-	@Override
-	public void readFromNBT(CompoundTag compound) {
-		super.readFromNBT(compound);
-		chaos = compound.getInt("chaos");
-		isChaotic = compound.getBoolean("injecting");
-		storedHP = compound.getFloat("storedHP");
-		prevRate = compound.getInt("prevRate");
-		prevHP = compound.getFloat("prevHP");
-		warningCountdown = compound.getInt("warningCountdown");
-		prevWarningCountdown = compound.getInt("prevWarningCountdown");
-	}
-
-	@Override
-	public int compareTo(@NotNull Object o) {
-		ChaosInjectorData data = (ChaosInjectorData)module.getData();
-		ChaosInjectorData otherData = (ChaosInjectorData)((ChaosInjectorEntity)o).getModule().getData();
-		return data.getInjectRate() - otherData.getInjectRate();
-	}
-	
 	@Override
     public boolean moduleClicked(Player player, double x, double y, int button, ClickType clickType) {
 		boolean cantInteract = isChaotic || getRate() > 0;
@@ -371,19 +361,20 @@ public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> impleme
 	public static ChaosInjectorEntity getInjectorEntity(LivingEntity entity) {
 		List<ItemStack> items = EquipmentManager.findItems(e -> e.getItem() instanceof IModularItem, entity);
 		for (ItemStack stack : items) {
-			IModularItem item = ((IModularItem)stack.getItem());
-			LazyOptional<ModuleHost> cap = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY);
-			if (!cap.isPresent()) {
-				continue;
-			}
-			ModuleHost host = cap.orElseThrow(IllegalStateException::new);
-			ArrayList<ChaosInjectorEntity> entities = getSortedListFromStream(host.getEntitiesByType(DAModuleTypes.CHAOS_INJECTOR));
+			ArrayList<ChaosInjectorEntity> entities = getSortedListFromStream(DECapabilities.getHost(stack).getEntitiesByType(DAModuleTypes.CHAOS_INJECTOR));
 			if (entities.isEmpty()) {
 				continue;
 			}
 			return entities.get(0);
 		}
 		return null;
+	}
+	
+	@Override
+	public int compareTo(ChaosInjectorEntity o) {
+		ChaosInjectorData data = module.getData();
+		ChaosInjectorData otherData = o.getModule().getData();
+		return data.getInjectRate() - otherData.getInjectRate();
 	}
 
 	public static ArrayList<ChaosInjectorEntity> getSortedListFromStream(Stream<ModuleEntity<?>> chaosEntities) {
@@ -392,4 +383,6 @@ public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> impleme
 		Collections.sort(orderedInjectorEntities);
 		return orderedInjectorEntities;
 	}
+
+
 }

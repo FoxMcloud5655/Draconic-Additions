@@ -1,30 +1,23 @@
 package net.foxmcloud.draconicadditions;
 
-import javax.annotation.Nullable;
-
-import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 import com.brandon3055.draconicevolution.handlers.DESounds;
 
 import codechicken.lib.vec.Vector3;
+import net.foxmcloud.draconicadditions.lib.DAItemData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraft.world.phys.Vec2;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class CommonMethods {
 
@@ -39,13 +32,13 @@ public class CommonMethods {
 	 * @return True if the item was removed for longer than the grace period, false otherwise.
 	 */
 	public static boolean cheatCheck(ItemStack stack, Level world) {
-		long containerTime = ItemNBTHelper.getLong(stack, "cheatCheck", 0);
+		long containerTime = stack.get(DAItemData.CHEAT_CHECK.get());
 		long serverTime = world.getGameTime();
 		boolean isCheating = false;
 		if (containerTime < serverTime - gracePeriod && containerTime > gracePeriod)  {
 			isCheating = true;
 		}
-		ItemNBTHelper.setLong(stack, "cheatCheck", serverTime);
+		stack.set(DAItemData.CHEAT_CHECK.get(), serverTime);
 		return isCheating;
 	}
 
@@ -116,7 +109,7 @@ public class CommonMethods {
 			return true;
 		}
 		if (blockState.hasBlockEntity()) {
-			if (oldTile != null && !BlockEntityType.getKey(oldTile.getType()).toString().contentEquals(ForgeRegistries.BLOCKS.getKey(blockState.getBlock()).toString())) {
+			if (oldTile != null && !BlockEntityType.getKey(oldTile.getType()).toString().contentEquals(BuiltInRegistries.BLOCK.getKey(blockState.getBlock()).toString())) {
 				world.setBlockEntity(((EntityBlock)blockState.getBlock()).newBlockEntity(pos, blockState));
 			}
 		}
@@ -139,6 +132,7 @@ public class CommonMethods {
 	 * before the tick finishes, like in the {@link net.foxmcloud.draconicadditions.items.curios.ModularHarness}.
 	 */
 
+	/*
 	public static class BlockStorage {
 		private Level oldWorld;
 		private BlockPos oldPos;
@@ -254,7 +248,7 @@ public class CommonMethods {
 		}
 
 		public static CompoundTag storeBlockInTag(BlockState blockState, CompoundTag tileNBT, CompoundTag nbt) {
-			String blockName = ForgeRegistries.BLOCKS.getKey(blockState.getBlock()).toString();
+			String blockName = BuiltInRegistries.BLOCK.getKey(blockState.getBlock()).toString();
 			nbt.putString("storedBlock", blockName);
 			nbt.putInt("storedBlockState", Block.getId(blockState));
 			if (tileNBT != null) {
@@ -290,6 +284,7 @@ public class CommonMethods {
 			}
 			return true;
 		}
+		/*
 
 		/**
 		 * Used as a fallback in case {@link net.foxmcloud.draconicadditions.CommonMethods.BlockStorage.getBlockStateFromTag} fails.
@@ -297,9 +292,9 @@ public class CommonMethods {
 		 * @param nbt The Compound NBT Tag to extract the block from.
 		 * @return The block stored in the NBT Tag, or null if it doesn't exist.
 		 */
-		public static Block getBlockFromTag(CompoundTag nbt) {
-			return nbt == null ? null : ForgeRegistries.BLOCKS.getValue(new ResourceLocation(nbt.getString("storedBlock")));
-		}
+		//public static Block getBlockFromTag(CompoundTag nbt) {
+		//	return nbt == null ? null : BuiltInRegistries.BLOCK.getValue(ResourceLocation.parse(nbt.getString("storedBlock")));
+		//}
 
 		/**
 		 * Used to get the stored BlockState from the NBT Tag.
@@ -308,8 +303,8 @@ public class CommonMethods {
 		 * @return The BlockState stored in the NBT Tag, or null if it doesn't exist.
 		 */
 
-		public static BlockState getBlockStateFromTag(CompoundTag nbt) {
-			return nbt != null && nbt.contains("storedBlockState") ? Block.stateById(nbt.getInt("storedBlockState")) : null;
-		}
-	}
+		//public static BlockState getBlockStateFromTag(CompoundTag nbt) {
+		//	return nbt != null && nbt.contains("storedBlockState") ? Block.stateById(nbt.getInt("storedBlockState")) : null;
+		//}
+	//}
 }

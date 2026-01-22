@@ -10,6 +10,7 @@ import com.brandon3055.brandonscore.lib.datamanager.ManagedBool;
 import com.brandon3055.brandonscore.lib.datamanager.ManagedInt;
 import com.brandon3055.brandonscore.network.BCoreNetwork;
 import com.brandon3055.brandonscore.utils.EnergyUtils;
+import com.brandon3055.draconicevolution.api.capability.DECapabilities;
 import com.brandon3055.draconicevolution.api.modules.lib.ModularOPStorage;
 import com.brandon3055.draconicevolution.handlers.DESounds;
 import com.brandon3055.draconicevolution.init.DEContent;
@@ -21,6 +22,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -29,8 +31,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.network.NetworkHooks;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.capabilities.Capabilities.ItemHandler;
 
 public class TileChaosLiquifier extends TileChaosHolderBase implements IChangeListener, IInteractTile, MenuProvider {
 
@@ -44,12 +47,18 @@ public class TileChaosLiquifier extends TileChaosHolderBase implements IChangeLi
 		super(DAContent.tileChaosLiquifier.get(), pos, state);
 		itemHandler = new TileItemStackHandler(this, 2);
 		opStorage = new ModularOPStorage(this, 200000000, 2000000, 2000000);
-		capManager.setManaged("energy", CapabilityOP.OP, opStorage).saveBoth().syncContainer();
-		capManager.setInternalManaged("inventory", ForgeCapabilities.ITEM_HANDLER, itemHandler).saveBoth().syncTile();
+		capManager.setManaged("energy", CapabilityOP.BLOCK, opStorage).saveBoth().syncContainer();
+		capManager.setInternalManaged("inventory", Capabilities.ItemHandler.BLOCK, itemHandler).saveBoth().syncTile();
 		itemHandler.setStackValidator(this::isItemValidForSlot);
 		setupPowerSlot(itemHandler, 1, opStorage, false);
 		installIOTracker(opStorage);
 	}
+	
+    public static void register(RegisterCapabilitiesEvent event) {
+        energyCapability(event, DAContent.tileChaosLiquifier);
+        capability(event, DAContent.tileChaosLiquifier, ItemHandler.BLOCK);
+        capability(event, DAContent.tileChaosLiquifier, DECapabilities.Host.BLOCK);
+    }
 
 	@Override
 	public void tick() {
@@ -112,11 +121,12 @@ public class TileChaosLiquifier extends TileChaosHolderBase implements IChangeLi
 		return new ChaosLiquifierMenu(currentWindowIndex, player.getInventory(), this);
 	}
 
-	@Override
-	public boolean onBlockActivated(BlockState state, Player player, InteractionHand handIn, BlockHitResult hit) {
-		if (player instanceof ServerPlayer) {
-			NetworkHooks.openScreen((ServerPlayer) player, this, worldPosition);
-		}
-		return true;
-	}
+    @Override
+    public InteractionResult useWithoutItem(BlockState state, Player player, BlockHitResult hit) {
+        if (player instanceof ServerPlayer) {
+            player.openMenu(this, worldPosition);
+            return InteractionResult.CONSUME;
+        }
+        return InteractionResult.SUCCESS;
+    }
 }

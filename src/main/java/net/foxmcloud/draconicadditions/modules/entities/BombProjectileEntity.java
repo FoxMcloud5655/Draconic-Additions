@@ -1,3 +1,4 @@
+/*
 package net.foxmcloud.draconicadditions.modules.entities;
 
 import java.util.ArrayList;
@@ -26,8 +27,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 
 public class BombProjectileEntity extends ModuleEntity<BombProjectileData> implements EntityOverridesItemUse, Comparable {
 
@@ -89,7 +90,7 @@ public class BombProjectileEntity extends ModuleEntity<BombProjectileData> imple
 				charge = 0;
 				return;
 			}
-			ModuleHost host = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).orElseThrow(IllegalStateException::new);
+			ModuleHost host = DECapabilities.getHost(stack);
 			ProjectileData projData = host.getModuleData(ModuleTypes.PROJ_MODIFIER, new ProjectileData(0, 0, 0, 0, 0));
 			float velocity = (charge / 100F) * (projData.velocity() + 1);
 			double xAng = player.getLookAngle().x;
@@ -149,3 +150,4 @@ public class BombProjectileEntity extends ModuleEntity<BombProjectileData> imple
 		return orderedBombEntities;
 	}
 }
+*/

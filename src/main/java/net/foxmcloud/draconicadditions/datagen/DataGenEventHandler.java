@@ -15,13 +15,13 @@ import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.loading.LoadingModList;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber (bus = EventBusSubscriber.Bus.MOD)
 public class DataGenEventHandler {
 
 	@SubscribeEvent
@@ -35,9 +35,8 @@ public class DataGenEventHandler {
 		}
 
 		if (event.includeServer()) {
-			gen.addProvider(true, new RecipeGenerator(gen.getPackOutput()));
-			gen.addProvider(event.includeServer(), new LootTableProvider(event.getGenerator().getPackOutput(), Set.of(), List.of(new LootTableProvider.SubProviderEntry(BlockLootProvider::new, LootContextParamSets.BLOCK))));
-
+			gen.addProvider(true, new RecipeGenerator(event.getLookupProvider(), gen.getPackOutput()));
+			gen.addProvider(event.includeServer(), new LootTableProvider(event.getGenerator().getPackOutput(), Set.of(), List.of(new LootTableProvider.SubProviderEntry(BlockLootProvider::new, LootContextParamSets.BLOCK)), event.getLookupProvider()));
 			BlockTagGenerator blockGenerator = new BlockTagGenerator(gen.getPackOutput(), event.getLookupProvider(), DraconicAdditions.MODID, event.getExistingFileHelper());
 			gen.addProvider(true, blockGenerator);
 			gen.addProvider(true, new ItemTagGenerator(gen.getPackOutput(), event.getLookupProvider(), blockGenerator.contentsGetter(), DraconicAdditions.MODID, event.getExistingFileHelper()));
@@ -51,7 +50,7 @@ public class DataGenEventHandler {
 
 		@Override
 		protected void addTags(HolderLookup.Provider pProvider) {
-			if (ModList.get().isLoaded("curios")) {
+			if (LoadingModList.get().getModFileById("curios") != null) {
 				DACuriosIntegration.generateTags(this::tag);
 			}
 		}

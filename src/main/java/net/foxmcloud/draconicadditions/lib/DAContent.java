@@ -2,117 +2,178 @@ package net.foxmcloud.draconicadditions.lib;
 
 import com.brandon3055.brandonscore.api.TechLevel;
 import com.brandon3055.brandonscore.blocks.ItemBlockBCore;
+import com.brandon3055.brandonscore.capability.CapabilityOP;
+import com.brandon3055.draconicevolution.api.DataComponentAccessor;
+import com.brandon3055.draconicevolution.api.capability.DECapabilities;
+import com.brandon3055.draconicevolution.api.capability.ModuleProvider;
+import com.brandon3055.draconicevolution.api.modules.lib.ModularOPStorage;
+import com.brandon3055.draconicevolution.api.modules.lib.ModuleHostImpl;
 import com.brandon3055.draconicevolution.init.DEContent;
 import com.brandon3055.draconicevolution.init.TechProperties;
+import com.brandon3055.draconicevolution.integration.equipment.EquipmentManager;
+import com.brandon3055.draconicevolution.integration.equipment.IDEEquipment;
+import com.brandon3055.draconicevolution.items.equipment.IModularEnergyItem;
+import com.brandon3055.draconicevolution.items.equipment.IModularItem;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
-import net.foxmcloud.draconicadditions.blocks.machines.ChaosCrystalizer;
-import net.foxmcloud.draconicadditions.blocks.machines.ChaosExtractor;
-import net.foxmcloud.draconicadditions.blocks.machines.ChaosInfuser;
-import net.foxmcloud.draconicadditions.blocks.machines.ChaosLiquifier;
-import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosCrystalizer;
-import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosExtractor;
-import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosInfuser;
-import net.foxmcloud.draconicadditions.blocks.tileentity.TileChaosLiquifier;
-import net.foxmcloud.draconicadditions.inventory.ChaosBaseMenu;
-import net.foxmcloud.draconicadditions.inventory.ChaosCrystalizerMenu;
-import net.foxmcloud.draconicadditions.inventory.ChaosExtractorMenu;
-import net.foxmcloud.draconicadditions.inventory.ChaosInfuserMenu;
-import net.foxmcloud.draconicadditions.inventory.ChaosLiquifierMenu;
-import net.foxmcloud.draconicadditions.items.Hermal;
-import net.foxmcloud.draconicadditions.items.armor.InfusedPotatoArmor;
-import net.foxmcloud.draconicadditions.items.armor.InfusedPotatoArmorChest;
-import net.foxmcloud.draconicadditions.items.curios.ModularHarness;
-import net.foxmcloud.draconicadditions.items.curios.ModularNecklace;
-import net.foxmcloud.draconicadditions.items.tools.ChaosContainer;
+import net.foxmcloud.draconicadditions.blocks.machines.*;
+import net.foxmcloud.draconicadditions.blocks.tileentity.*;
+import net.foxmcloud.draconicadditions.inventory.*;
+import net.foxmcloud.draconicadditions.items.*;
+import net.foxmcloud.draconicadditions.items.armor.*;
+import net.foxmcloud.draconicadditions.items.curios.*;
+import net.foxmcloud.draconicadditions.items.tools.*;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.JukeboxSong;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class DAContent {
 
-	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, DraconicAdditions.MODID);
-	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, DraconicAdditions.MODID);
-	public static final DeferredRegister<BlockEntityType<?>> TILES_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, DraconicAdditions.MODID);
-	public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, DraconicAdditions.MODID);
-	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, DraconicAdditions.MODID);
-	
-	public static final TechProperties hermalTier = (TechProperties) new TechProperties(TechLevel.CHAOTIC).rarity(Rarity.UNCOMMON).durability(-1).fireResistant()
-			.food(new FoodProperties.Builder().alwaysEat().nutrition(0).saturationMod(0).build());
+	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK, DraconicAdditions.MODID);
+	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, DraconicAdditions.MODID);
+	public static final DeferredRegister<BlockEntityType<?>> TILES_ENTITIES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, DraconicAdditions.MODID);
+	public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(BuiltInRegistries.MENU, DraconicAdditions.MODID);
+	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, DraconicAdditions.MODID);
 
-	public static void init() {
-		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-		BLOCKS.register(eventBus);
-		ITEMS.register(eventBus);
-		TILES_ENTITIES.register(eventBus);
-		MENU_TYPES.register(eventBus);
-		ENTITY_TYPES.register(eventBus);
+	public static final TechProperties hermalTier = (TechProperties) new TechProperties(TechLevel.CHAOTIC).rarity(Rarity.UNCOMMON).durability(-1).fireResistant()
+			.food(new FoodProperties.Builder().alwaysEdible().nutrition(0).saturationModifier(0).build());
+
+	public static void init(IEventBus modBus) {
+		BLOCKS.register(modBus);
+		ITEMS.register(modBus);
+		TILES_ENTITIES.register(modBus);
+		MENU_TYPES.register(modBus);
+		ENTITY_TYPES.register(modBus);
+		modBus.addListener(DAContent::registerCapabilities);
+	}
+
+	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+		DAContent.ITEMS.getEntries().forEach(holder -> {
+			Item item = holder.get();
+			if (item instanceof IModularItem) {
+				event.registerItem(DECapabilities.Host.ITEM, (stack, v) -> getItemHostCap(stack), item);
+				if (item instanceof IModularEnergyItem) {
+					event.registerItem(CapabilityOP.ITEM, (stack, v) -> getEnergyCap(stack), item);
+					event.registerItem(Capabilities.EnergyStorage.ITEM, (stack, v) -> getEnergyCap(stack), item);
+				}
+			}
+			if (item instanceof IDEEquipment) {
+				EquipmentManager.registerCapability(event, item);
+			}
+			if (item instanceof ModuleProvider<?> provider) {
+				event.registerItem(DECapabilities.Module.ITEM, (stack, context) -> provider, item);
+			}
+		});
+
+		DAModules.ITEMS.getEntries().forEach(holder -> {
+			Item item = holder.get();
+			if (item instanceof ModuleProvider<?> provider) {
+				event.registerItem(DECapabilities.Module.ITEM, (stack, context) -> provider, item);
+			}
+		});
+		
+		TileChaosCrystalizer.register(event);
+		TileChaosExtractor.register(event);
+		TileChaosInfuser.register(event);
+		TileChaosLiquifier.register(event);
+	}
+
+	// Stolen from DE's CapabilityData until it's made public rather than private!
+
+	private static ModuleHostImpl getItemHostCap(ItemStack stack) {
+		if (!(stack.getItem() instanceof IModularItem item)) {
+			throw new IllegalStateException("ITEM_HOST_DATA can only be used on an ItemStack who's item implements IModularItem!");
+		}
+		ModuleHostImpl host = item.createHostCapForRegistration(stack);
+		assert host != null;
+		host.updateDataAccess(DataComponentAccessor.itemStack(stack));
+		return host;
+	}
+
+	private static ModularOPStorage getEnergyCap(ItemStack stack) {
+		if (!(stack.getItem() instanceof IModularEnergyItem item)) {
+			throw new IllegalStateException("ITEM_HOST_DATA can only be used on an ItemStack who's item implements IModularEnergyItem!");
+		}
+		ModularOPStorage storage = item.createOPCapForRegistration(stack);
+		assert storage != null;
+		storage.updateDataAccess(DataComponentAccessor.itemStack(stack));
+		return storage;
 	}
 
 	// Tile Entities
+
+	public static final DeferredHolder<Block, ChaosLiquifier> chaosLiquifier = BLOCKS.register("chaos_liquifier", () -> new ChaosLiquifier(DEContent.HARDENED_MACHINE));
+	public static final DeferredHolder<Item, ItemBlockBCore> itemChaosLiquifier = ITEMS.register("chaos_liquifier", () -> new ItemBlockBCore(chaosLiquifier.get(), new Item.Properties()));
+	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileChaosLiquifier>> tileChaosLiquifier = TILES_ENTITIES.register("chaos_liquifier", () -> BlockEntityType.Builder.of(TileChaosLiquifier::new, chaosLiquifier.get()).build(null));
+	public static final DeferredHolder<MenuType<?>, MenuType<ChaosBaseMenu>> menuChaosLiquifier = MENU_TYPES.register("chaos_liquifier", () -> IMenuTypeExtension.create(ChaosLiquifierMenu::new));
+
+	public static final DeferredHolder<Block, ChaosInfuser> chaosInfuser     = BLOCKS.register("chaos_infuser",   () -> new ChaosInfuser(DEContent.HARDENED_MACHINE));
+	public static final DeferredHolder<Item, ItemBlockBCore> itemChaosInfuser = ITEMS.register("chaos_infuser", () -> new ItemBlockBCore(chaosInfuser.get(), new Item.Properties()));
+	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileChaosInfuser>> tileChaosInfuser = TILES_ENTITIES.register("chaos_infuser", () -> BlockEntityType.Builder.of(TileChaosInfuser::new, chaosInfuser.get()).build(null));
+	public static final DeferredHolder<MenuType<?>, MenuType<ChaosBaseMenu>> menuChaosInfuser = MENU_TYPES.register("chaos_infuser", () -> IMenuTypeExtension.create(ChaosInfuserMenu::new));
+
+	public static final DeferredHolder<Block, ChaosExtractor> chaosExtractor = BLOCKS.register("chaos_extractor", () -> new ChaosExtractor(DEContent.HARDENED_MACHINE));
+	public static final DeferredHolder<Item, ItemBlockBCore> itemChaosExtractor = ITEMS.register("chaos_extractor", () -> new ItemBlockBCore(chaosExtractor.get(), new Item.Properties()));
+	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileChaosExtractor>> tileChaosExtractor = TILES_ENTITIES.register("chaos_extractor", () -> BlockEntityType.Builder.of(TileChaosExtractor::new, chaosExtractor.get()).build(null));
+	public static final DeferredHolder<MenuType<?>, MenuType<ChaosBaseMenu>> menuChaosExtractor = MENU_TYPES.register("chaos_extractor", () -> IMenuTypeExtension.create(ChaosExtractorMenu::new));
+
+	public static final DeferredHolder<Block, ChaosCrystalizer> chaosCrystalizer = BLOCKS.register("chaos_crystalizer", () -> new ChaosCrystalizer(DEContent.HARDENED_MACHINE));
+	public static final DeferredHolder<Item, ItemBlockBCore> itemChaosCrystalizer = ITEMS.register("chaos_crystalizer", () -> new ItemBlockBCore(chaosCrystalizer.get(), new Item.Properties()));
+	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileChaosCrystalizer>> tileChaosCrystalizer = TILES_ENTITIES.register("chaos_crystalizer", () -> BlockEntityType.Builder.of(TileChaosCrystalizer::new, chaosCrystalizer.get()).build(null));
+	public static final DeferredHolder<MenuType<?>, MenuType<ChaosBaseMenu>> menuChaosCrystalizer = MENU_TYPES.register("chaos_crystalizer", () -> IMenuTypeExtension.create(ChaosCrystalizerMenu::new));
+
+	// Music Discs - Format stolen from Alex's Caves; thanks for showing me how to do this.
 	
-	public static final RegistryObject<ChaosLiquifier> chaosLiquifier = BLOCKS.register("chaos_liquifier", () -> new ChaosLiquifier(DEContent.HARDENED_MACHINE));
-    public static final RegistryObject<ItemBlockBCore> itemChaosLiquifier = ITEMS.register("chaos_liquifier", () -> new ItemBlockBCore(chaosLiquifier.get(), new Item.Properties()));
-	public static final RegistryObject<BlockEntityType<TileChaosLiquifier>> tileChaosLiquifier = TILES_ENTITIES.register("chaos_liquifier", () -> BlockEntityType.Builder.of(TileChaosLiquifier::new, chaosLiquifier.get()).build(null));
-	public static final RegistryObject<MenuType<ChaosBaseMenu>> menuChaosLiquifier = MENU_TYPES.register("chaos_liquifier", () -> IForgeMenuType.create(ChaosLiquifierMenu::new));
-
-	public static final RegistryObject<ChaosInfuser> chaosInfuser     = BLOCKS.register("chaos_infuser",   () -> new ChaosInfuser(DEContent.HARDENED_MACHINE));
-    public static final RegistryObject<ItemBlockBCore> itemChaosInfuser = ITEMS.register("chaos_infuser", () -> new ItemBlockBCore(chaosInfuser.get(), new Item.Properties()));
-	public static final RegistryObject<BlockEntityType<TileChaosInfuser>> tileChaosInfuser = TILES_ENTITIES.register("chaos_infuser", () -> BlockEntityType.Builder.of(TileChaosInfuser::new, chaosInfuser.get()).build(null));
-	public static final RegistryObject<MenuType<ChaosBaseMenu>> menuChaosInfuser = MENU_TYPES.register("chaos_infuser", () -> IForgeMenuType.create(ChaosInfuserMenu::new));
-
-    public static final RegistryObject<ChaosExtractor> chaosExtractor = BLOCKS.register("chaos_extractor", () -> new ChaosExtractor(DEContent.HARDENED_MACHINE));
-    public static final RegistryObject<ItemBlockBCore> itemChaosExtractor = ITEMS.register("chaos_extractor", () -> new ItemBlockBCore(chaosExtractor.get(), new Item.Properties()));
-	public static final RegistryObject<BlockEntityType<TileChaosExtractor>> tileChaosExtractor = TILES_ENTITIES.register("chaos_extractor", () -> BlockEntityType.Builder.of(TileChaosExtractor::new, chaosExtractor.get()).build(null));
-	public static final RegistryObject<MenuType<ChaosBaseMenu>> menuChaosExtractor = MENU_TYPES.register("chaos_extractor", () -> IForgeMenuType.create(ChaosExtractorMenu::new));
+	public static final ResourceKey<JukeboxSong> JUKEBOX_SONG_HERMAL = ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(DraconicAdditions.MODID, "hermal"));
 	
-	public static final RegistryObject<ChaosCrystalizer> chaosCrystalizer = BLOCKS.register("chaos_crystalizer", () -> new ChaosCrystalizer(DEContent.HARDENED_MACHINE));
-    public static final RegistryObject<ItemBlockBCore> itemChaosCrystalizer = ITEMS.register("chaos_crystalizer", () -> new ItemBlockBCore(chaosCrystalizer.get(), new Item.Properties()));
-	public static final RegistryObject<BlockEntityType<TileChaosCrystalizer>> tileChaosCrystalizer = TILES_ENTITIES.register("chaos_crystalizer", () -> BlockEntityType.Builder.of(TileChaosCrystalizer::new, chaosCrystalizer.get()).build(null));
-	public static final RegistryObject<MenuType<ChaosBaseMenu>> menuChaosCrystalizer = MENU_TYPES.register("chaos_crystalizer", () -> IForgeMenuType.create(ChaosCrystalizerMenu::new));
-
 	// Crafting Components
 
-	public static final RegistryObject<Item> inertPotatoHelm  = ITEMS.register("inert_potato_helm",  () -> new Item(new Item.Properties()));
-	public static final RegistryObject<Item> inertPotatoChest = ITEMS.register("inert_potato_chest", () -> new Item(new Item.Properties()));
-	public static final RegistryObject<Item> inertPotatoLegs  = ITEMS.register("inert_potato_legs",  () -> new Item(new Item.Properties()));
-	public static final RegistryObject<Item> inertPotatoBoots = ITEMS.register("inert_potato_boots", () -> new Item(new Item.Properties()));
-	public static final RegistryObject<Item> chaosHeart       = ITEMS.register("chaos_heart",        () -> new Item(new Item.Properties()));
-	public static final RegistryObject<Hermal> hermal         = ITEMS.register("hermal",             () -> new Hermal(hermalTier));
+	public static final DeferredHolder<Item, Item> inertPotatoHelm  = ITEMS.register("inert_potato_helm",  () -> new Item(new Item.Properties()));
+	public static final DeferredHolder<Item, Item> inertPotatoChest = ITEMS.register("inert_potato_chest", () -> new Item(new Item.Properties()));
+	public static final DeferredHolder<Item, Item> inertPotatoLegs  = ITEMS.register("inert_potato_legs",  () -> new Item(new Item.Properties()));
+	public static final DeferredHolder<Item, Item> inertPotatoBoots = ITEMS.register("inert_potato_boots", () -> new Item(new Item.Properties()));
+	public static final DeferredHolder<Item, Item> chaosHeart       = ITEMS.register("chaos_heart",        () -> new Item(new Item.Properties()));
+	public static final DeferredHolder<Item, Hermal> hermal         = ITEMS.register("hermal",             () -> new Hermal(hermalTier));
 
 	// Armor
 
-	public static final RegistryObject<InfusedPotatoArmor> infusedPotatoHelm  = ITEMS.register("infused_potato_helm",  () -> new InfusedPotatoArmor(new Item.Properties(), net.minecraft.world.item.ArmorItem.Type.HELMET));
-	public static final RegistryObject<InfusedPotatoArmorChest> infusedPotatoChest = ITEMS.register("infused_potato_chest", () -> new InfusedPotatoArmorChest(new Item.Properties()));
-	public static final RegistryObject<InfusedPotatoArmor> infusedPotatoLegs  = ITEMS.register("infused_potato_legs",  () -> new InfusedPotatoArmor(new Item.Properties(), net.minecraft.world.item.ArmorItem.Type.LEGGINGS));
-	public static final RegistryObject<InfusedPotatoArmor> infusedPotatoBoots = ITEMS.register("infused_potato_boots", () -> new InfusedPotatoArmor(new Item.Properties(), net.minecraft.world.item.ArmorItem.Type.BOOTS));
+	public static final DeferredHolder<Item, InfusedPotatoArmor> infusedPotatoHelm  = ITEMS.register("infused_potato_helm",  () -> new InfusedPotatoArmor(new Item.Properties(), net.minecraft.world.item.ArmorItem.Type.HELMET));
+	public static final DeferredHolder<Item, InfusedPotatoArmorChest> infusedPotatoChest = ITEMS.register("infused_potato_chest", () -> new InfusedPotatoArmorChest(new Item.Properties()));
+	public static final DeferredHolder<Item, InfusedPotatoArmor> infusedPotatoLegs  = ITEMS.register("infused_potato_legs",  () -> new InfusedPotatoArmor(new Item.Properties(), net.minecraft.world.item.ArmorItem.Type.LEGGINGS));
+	public static final DeferredHolder<Item, InfusedPotatoArmor> infusedPotatoBoots = ITEMS.register("infused_potato_boots", () -> new InfusedPotatoArmor(new Item.Properties(), net.minecraft.world.item.ArmorItem.Type.BOOTS));
 
 	// Tools
 
-	public static final RegistryObject<ChaosContainer> chaosContainer = ITEMS.register("chaos_container", () -> new ChaosContainer(DEContent.CHAOTIC_TOOLS));
+	public static final DeferredHolder<Item, ChaosContainer> chaosContainer = ITEMS.register("chaos_container", () -> new ChaosContainer(DEContent.CHAOTIC_TOOLS));
 
 	// Curios
 
-	public static final RegistryObject<ModularNecklace> necklaceWyvern   = ITEMS.register("wyvern_necklace",   () -> new ModularNecklace(DEContent.WYVERN_TOOLS));
-	public static final RegistryObject<ModularNecklace> necklaceDraconic = ITEMS.register("draconic_necklace", () -> new ModularNecklace(DEContent.DRACONIC_TOOLS));
-	public static final RegistryObject<ModularNecklace> necklaceChaotic  = ITEMS.register("chaotic_necklace",  () -> new ModularNecklace(DEContent.CHAOTIC_TOOLS));
-	public static final RegistryObject<ModularHarness>  harnessWyvern    = ITEMS.register("wyvern_harness",    () -> new ModularHarness(DEContent.WYVERN_TOOLS));
-	public static final RegistryObject<ModularHarness>  harnessDraconic  = ITEMS.register("draconic_harness",  () -> new ModularHarness(DEContent.DRACONIC_TOOLS));
-	public static final RegistryObject<ModularHarness>  harnessChaotic   = ITEMS.register("chaotic_harness",   () -> new ModularHarness(DEContent.CHAOTIC_TOOLS));
+	public static final DeferredHolder<Item, ModularNecklace> necklaceWyvern   = ITEMS.register("wyvern_necklace",   () -> new ModularNecklace(DEContent.WYVERN_TOOLS));
+	public static final DeferredHolder<Item, ModularNecklace> necklaceDraconic = ITEMS.register("draconic_necklace", () -> new ModularNecklace(DEContent.DRACONIC_TOOLS));
+	public static final DeferredHolder<Item, ModularNecklace> necklaceChaotic  = ITEMS.register("chaotic_necklace",  () -> new ModularNecklace(DEContent.CHAOTIC_TOOLS));
+	//public static final DeferredHolder<Item, ModularHarness>  harnessWyvern    = ITEMS.register("wyvern_harness",    () -> new ModularHarness(DEContent.WYVERN_TOOLS));
+	//public static final DeferredHolder<Item, ModularHarness>  harnessDraconic  = ITEMS.register("draconic_harness",  () -> new ModularHarness(DEContent.DRACONIC_TOOLS));
+	//public static final DeferredHolder<Item, ModularHarness>  harnessChaotic   = ITEMS.register("chaotic_harness",   () -> new ModularHarness(DEContent.CHAOTIC_TOOLS));
 
-// Blocks
+	// Blocks
 
-/*
+	/*
 
 	@ModFeature(name = "armor_generator", tileEntity = TileArmorGenerator.class, itemBlock = ItemBlockBCore.class)
 	public static ArmorGenerator armorGenerator = new ArmorGenerator();
@@ -158,5 +219,5 @@ public class DAContent {
 
 	@ModFeature(name = "chaos_crystal_stable")
 	public static ChaosCrystalStable chaosCrystalStable = new ChaosCrystalStable();
- */
+	 */
 }

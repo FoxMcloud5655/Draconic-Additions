@@ -1,8 +1,8 @@
 package net.foxmcloud.draconicadditions.items;
 
-import com.brandon3055.brandonscore.utils.ItemNBTHelper;
 import com.brandon3055.draconicevolution.api.modules.ModuleCategory;
 
+import net.foxmcloud.draconicadditions.lib.DAItemData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -16,7 +16,7 @@ public interface IChaosContainer {
 	 */
 	public default int addChaos(ItemStack stack, int chaos) {
 		int chaosToAdd = Math.min(getMaxChaos(stack) - getChaos(stack), chaos);
-		ItemNBTHelper.setInteger(stack, "chaos", ItemNBTHelper.getInteger(stack, "chaos", 0) + chaosToAdd);
+		stack.set(DAItemData.CHAOS, getChaos(stack) + chaosToAdd);
 		return chaos - chaosToAdd;
 	}
 
@@ -25,12 +25,13 @@ public interface IChaosContainer {
 	 */
 	public default int removeChaos(ItemStack stack, int chaos) {
 		int chaosToRemove = Math.min(getChaos(stack), chaos);
-		ItemNBTHelper.setInteger(stack, "chaos", ItemNBTHelper.getInteger(stack, "chaos", 0) - chaosToRemove);
+		stack.set(DAItemData.CHAOS, getChaos(stack) - chaosToRemove);
 		return chaosToRemove;
 	}
 
 	public default int getChaos(ItemStack stack) {
-		return ItemNBTHelper.getInteger(stack, "chaos", 0);
+		Integer chaos = stack.get(DAItemData.CHAOS);
+		return chaos != null ? chaos : 0;
 	}
 
 	public default int getMaxChaos(ItemStack stack) {

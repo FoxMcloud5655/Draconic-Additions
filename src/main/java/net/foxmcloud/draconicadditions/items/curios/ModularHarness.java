@@ -1,12 +1,14 @@
+/*
 package net.foxmcloud.draconicadditions.items.curios;
 
 import static com.brandon3055.draconicevolution.init.ModuleCfg.removeInvalidModules;
 
-import java.awt.TextComponent;
 import java.util.List;
 import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.NotNull;
 
 import com.brandon3055.brandonscore.api.TechLevel;
 import com.brandon3055.brandonscore.api.power.IOPStorage;
@@ -14,6 +16,7 @@ import com.brandon3055.brandonscore.utils.EnergyUtils;
 import com.brandon3055.brandonscore.utils.Utils;
 import com.brandon3055.draconicevolution.api.IInvCharge;
 import com.brandon3055.draconicevolution.api.capability.DECapabilities;
+import com.brandon3055.draconicevolution.api.capability.ModuleHost;
 import com.brandon3055.draconicevolution.api.capability.PropertyProvider;
 import com.brandon3055.draconicevolution.api.config.BooleanProperty;
 import com.brandon3055.draconicevolution.api.config.ConfigProperty.IntegerFormatter;
@@ -26,13 +29,11 @@ import com.brandon3055.draconicevolution.init.EquipCfg;
 import com.brandon3055.draconicevolution.init.TechProperties;
 import com.brandon3055.draconicevolution.integration.equipment.EquipmentManager;
 
-import net.foxmcloud.draconicadditions.CommonMethods.BlockStorage;
 import net.foxmcloud.draconicadditions.DAConfig;
 import net.foxmcloud.draconicadditions.items.IModularEnergyItem;
 import net.foxmcloud.draconicadditions.modules.DAModuleTypes;
 import net.foxmcloud.draconicadditions.modules.data.TickAccelData;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -41,6 +42,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -49,8 +51,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec2;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
 public class ModularHarness extends Item implements IModularEnergyItem, IInvCharge {
@@ -76,7 +78,7 @@ public class ModularHarness extends Item implements IModularEnergyItem, IInvChar
 	}
 
 	@Override
-	public void handleTick(ItemStack stack, LivingEntity entity, @Nullable EquipmentSlot slot, boolean inEquipModSlot) {
+	public void handleTick(ModuleHost host, ItemStack stack, LivingEntity entity, @Nullable EquipmentSlot slot, boolean inEquipModSlot) {
 		boolean validEquipSlot = slot != null ? false : inEquipModSlot && DAConfig.harnessTickInCuriosSlot;
 		if ((!validEquipSlot && !DAConfig.harnessTickOutOfCuriosSlot) || !hasAttachedBlockEntity(stack, entity.level())) {
 			return;
@@ -129,7 +131,7 @@ public class ModularHarness extends Item implements IModularEnergyItem, IInvChar
 	}
 
 	@Override
-	public ModuleHostImpl createHost(ItemStack stack) {
+	public @NotNull ModuleHostImpl instantiateHost(ItemStack stack) {
 		ModuleHostImpl host = new ModuleHostImpl(techLevel, techLevel.index, 2, "harness", removeInvalidModules);
 		host.addCategories(ModuleCategory.ENERGY, HARNESS);
 		host.addPropertyBuilder(props -> {
@@ -153,9 +155,8 @@ public class ModularHarness extends Item implements IModularEnergyItem, IInvChar
 		return host;
 	}
 
-	@Nullable
 	@Override
-	public ModularOPStorage createOPStorage(ItemStack stack, ModuleHostImpl host) {
+	public @NotNull ModularOPStorage instantiateOPStorage(ItemStack stack, Supplier<ModuleHost> hostSupplier) {
 		long capacity = (long)(EquipCfg.getBaseEnergy(techLevel) * DAConfig.harnessCapacityMultiplier);
 		return new ModularOPStorage(host, capacity, capacity / 64).setIOMode(true, true);
 	}
@@ -168,7 +169,7 @@ public class ModularHarness extends Item implements IModularEnergyItem, IInvChar
 	@SuppressWarnings("deprecation")
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flagIn) {
 		String name = getAttachedName(stack);
 		if (name != null && name != "") {
 			tooltip.add(Component.translatable("info.da.modular_harness.storedBlock").withStyle(ChatFormatting.GOLD).append(Component.literal(getAttachedName(stack)).withStyle(ChatFormatting.GRAY)));
@@ -218,7 +219,7 @@ public class ModularHarness extends Item implements IModularEnergyItem, IInvChar
 		return null;
 	}
 
-	public static boolean hasAttachedBlockEntity(ItemStack stack, Level world) {
+	public static boolean hasAttachedBlockEntity(ItemStack stack) {
 		return stack.getOrCreateTag().contains("storedBlockState");
 	}
 
@@ -245,3 +246,4 @@ public class ModularHarness extends Item implements IModularEnergyItem, IInvChar
         return damageBarColour(stack);
     }
 }
+*/

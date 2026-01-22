@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:poisonous_potato"
+    },
+    "P": {
+      "item": "minecraft:potato"
+    }
+  },
+  "pattern": [
+    "PBP",
+    "P P"
+  ],
+  "result": {
+    "count": 1,
+    "id": "draconicadditions:inert_potato_helm"
+  }
+}

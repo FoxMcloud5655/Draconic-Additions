@@ -17,7 +17,7 @@ import net.minecraft.world.level.Level;
 public class DADamage {
 	private static Map<ResourceKey<DamageType>, DamageSource> SOURCES = new HashMap<>();
 
-	public static final ResourceKey<DamageType> injectionDeath = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(DraconicAdditions.MODID, "chaos_injection"));
+	public static final ResourceKey<DamageType> injectionDeath = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(DraconicAdditions.MODID, "chaos_injection"));
 
 	public static DamageSource injectionDeath(Level level) {
 		return getSource(level, injectionDeath);

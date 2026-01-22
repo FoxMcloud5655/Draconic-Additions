@@ -31,7 +31,7 @@ public abstract class TileChaosHolderBase extends TileBCore implements IRSSwitch
 
 	public final ManagedInt chaos = register(new ManagedInt("chaos", 0, DataFlags.SAVE_BOTH_SYNC_TILE, DataFlags.TRIGGER_UPDATE));
 
-	public SimpleModuleHost moduleHost = new SimpleModuleHost(TechLevel.CHAOTIC, 6, 6, ModuleCfg.removeInvalidModules, ModuleCategory.ENERGY).addAdditionalType(ModuleTypes.SHIELD_BOOST);
+	public SimpleModuleHost moduleHost = new SimpleModuleHost(TechLevel.CHAOTIC, 6, 6, ModuleCfg.removeInvalidModules, ModuleCategory.ENERGY);
 
 	public int getMaxChaos() {
 		return moduleHost.getModuleData(ModuleTypes.SHIELD_BOOST, new ShieldData(0, 0)).shieldCapacity() * 10;
@@ -43,7 +43,9 @@ public abstract class TileChaosHolderBase extends TileBCore implements IRSSwitch
 
 	public TileChaosHolderBase(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
 		super(tileEntityTypeIn, pos, state);
-		capManager.setManaged("module_host", DECapabilities.MODULE_HOST_CAPABILITY, moduleHost).saveBoth().syncContainer();
+		moduleHost.addAdditionalType(ModuleTypes.SHIELD_BOOST);
+		capManager.set(DECapabilities.Host.BLOCK, moduleHost); // NOT CORRECT, since it doesn't save the modules when saved or loaded.
+		//capManager.setManaged("module_host", DECapabilities.Host.BLOCK, moduleHost).saveBoth().syncContainer(); // This is correct, but can't compile.
 	}
 	
 	public boolean isItemValidForSlot(int index, ItemStack stack) {

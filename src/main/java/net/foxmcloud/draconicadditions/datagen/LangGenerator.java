@@ -14,7 +14,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.common.data.LanguageProvider;
 
 public class LangGenerator extends LanguageProvider {
 	public LangGenerator(PackOutput gen) {
@@ -43,9 +43,9 @@ public class LangGenerator extends LanguageProvider {
 		helper.add(DAContent.necklaceWyvern.get(),     "Wyvern Necklace");
 		helper.add(DAContent.necklaceDraconic.get(),   "Draconic Necklace");
 		helper.add(DAContent.necklaceChaotic.get(),    "Chaotic Necklace");
-		helper.add(DAContent.harnessWyvern.get(),      "Wyvern Harness");
-		helper.add(DAContent.harnessDraconic.get(),    "Draconic Harness");
-		helper.add(DAContent.harnessChaotic.get(),     "Chaotic Harness");
+		//helper.add(DAContent.harnessWyvern.get(),      "Wyvern Harness");
+		//helper.add(DAContent.harnessDraconic.get(),    "Draconic Harness");
+		//helper.add(DAContent.harnessChaotic.get(),     "Chaotic Harness");
 		helper.add(DAContent.hermal.get(),             "hermal");
 		helper.add("hermal.desc",                "hermal?");
 	}
@@ -58,9 +58,9 @@ public class LangGenerator extends LanguageProvider {
 	private void modules(PrefixHelper helper) {
 		helper.setPrefix("module." + DraconicAdditions.MODID);
 		helper.add(DAModules.chaoticAutoFeed.get(),   "Chaotic Auto Feed Module");
-		helper.add(DAModuleTypes.TICK_ACCEL,          "Tick Accelerator");
-		helper.add(DAModules.draconicTickAccel.get(), "Draconic Tick Accelerator");
-		helper.add(DAModules.chaoticTickAccel.get(),  "Chaotic Tick Accelerator");
+		//helper.add(DAModuleTypes.TICK_ACCEL,          "Tick Accelerator");
+		//helper.add(DAModules.draconicTickAccel.get(), "Draconic Tick Accelerator");
+		//helper.add(DAModules.chaoticTickAccel.get(),  "Chaotic Tick Accelerator");
 		helper.add("tick_accel.name",                 "Additional Ticks");
 		helper.add("tick_accel.value",                "%s Ticks");
 		helper.add(DAModuleTypes.STABLE_CHAOS,        "Chaos Stabilizer");

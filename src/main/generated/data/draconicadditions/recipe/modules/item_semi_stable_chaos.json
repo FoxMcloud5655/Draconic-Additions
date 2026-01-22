@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "draconicevolution:large_chaos_frag"
+    },
+    "H": {
+      "item": "draconicevolution:dragon_heart"
+    },
+    "R": {
+      "item": "draconicevolution:item_draconic_shield_recovery"
+    },
+    "S": {
+      "item": "draconicevolution:item_draconic_shield_capacity"
+    }
+  },
+  "pattern": [
+    "CRC",
+    "SHS",
+    "CRC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "draconicadditions:item_semi_stable_chaos"
+  }
+}

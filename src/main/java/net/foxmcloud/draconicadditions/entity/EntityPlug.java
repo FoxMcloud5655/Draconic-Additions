@@ -2,13 +2,10 @@ package net.foxmcloud.draconicadditions.entity;
 
 import org.joml.Vector3d;
 
-import com.brandon3055.brandonscore.utils.ItemNBTHelper;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
@@ -73,7 +70,7 @@ public class EntityPlug extends Entity {
 			if (stack.isEmpty()/* || !(stack.getItem() instanceof PortableWiredCharger)*/) {
 				this.kill();
 			}
-			else if (!this.firstTick && !ItemNBTHelper.getBoolean(stack, "pluggedIn", false)) {
+			else if (!this.firstTick/* && !ItemNBTHelper.getBoolean(stack, "pluggedIn", false)*/) {
 				this.kill();
 			}
 		}
@@ -99,10 +96,5 @@ public class EntityPlug extends Entity {
 	}
 
 	@Override
-	protected void defineSynchedData() {}
-
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return null;
-	}
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {}
 }

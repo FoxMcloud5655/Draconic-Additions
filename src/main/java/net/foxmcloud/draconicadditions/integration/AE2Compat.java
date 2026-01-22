@@ -1,7 +1,7 @@
 package net.foxmcloud.draconicadditions.integration;
 
-import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.ModList;
+import net.neoforged.fml.InterModComms;
+import net.neoforged.fml.ModList;
 
 public class AE2Compat {
 	public static void init() {

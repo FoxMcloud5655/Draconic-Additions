@@ -18,38 +18,37 @@ import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.modules.data.ChaosInjectorData;
 import net.foxmcloud.draconicadditions.modules.data.StableChaosData;
 import net.foxmcloud.draconicadditions.modules.data.TickAccelData;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
 
 public class DAModules {
 	public static final DeferredRegister<Module<?>> MODULES = DeferredRegister.create(DEModules.MODULE_KEY, DraconicAdditions.MODID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, DraconicAdditions.MODID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, DraconicAdditions.MODID);
     
-    public static void init() {
-        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        MODULES.register(eventBus);
-        ITEMS.register(eventBus);
+    public static void init(IEventBus modBus) {
+        MODULES.register(modBus);
+        ITEMS.register(modBus);
     }
 
-	public static final RegistryObject<Module<?>> chaoticAutoFeed = MODULES.register("chaotic_auto_feed", () -> new ModuleImpl<>(AUTO_FEED, CHAOTIC, autoFeedData((float)chaoticFeedAmount)));
-	public static final RegistryObject<Module<?>> draconicTickAccel = MODULES.register("draconic_tick_accel", () -> new ModuleImpl<>(TICK_ACCEL, DRACONIC, tickAccelData(draconicAccelTicks)));
-	public static final RegistryObject<Module<?>> chaoticTickAccel = MODULES.register("chaotic_tick_accel", () -> new ModuleImpl<>(TICK_ACCEL, CHAOTIC, tickAccelData(chaoticAccelTicks)));
-	public static final RegistryObject<Module<?>> semiStableChaos = MODULES.register("semi_stable_chaos", () -> new ModuleImpl<>(STABLE_CHAOS, CHAOTIC, stableChaosData(semiStableInstabilityMax, semiStableChaosMax)));
-	public static final RegistryObject<Module<?>> stableChaos = MODULES.register("stable_chaos", () -> new ModuleImpl<>(STABLE_CHAOS, CHAOTIC, stableChaosData(stableInstabilityMax, stableChaosMax)));
-	public static final RegistryObject<Module<?>> unstableChaos = MODULES.register("unstable_chaos", () -> new ModuleImpl<>(STABLE_CHAOS, CHAOTIC, stableChaosData(unstableInstabilityMax, unstableChaosMax)));
-	public static final RegistryObject<Module<?>> chaosInjector = MODULES.register("chaos_injector", () -> new ModuleImpl<>(CHAOS_INJECTOR, CHAOTIC, chaosInjectorData(chaosInjectorRate)));
+	public static final DeferredHolder<Module<?>, Module<?>> chaoticAutoFeed = MODULES.register("chaotic_auto_feed", () -> new ModuleImpl<>(AUTO_FEED, CHAOTIC, autoFeedData((float)chaoticFeedAmount)));
+	//public static final DeferredHolder<Module<?>, Module<?>> draconicTickAccel = MODULES.register("draconic_tick_accel", () -> new ModuleImpl<>(TICK_ACCEL, DRACONIC, tickAccelData(draconicAccelTicks)));
+	//public static final DeferredHolder<Module<?>, Module<?>> chaoticTickAccel = MODULES.register("chaotic_tick_accel", () -> new ModuleImpl<>(TICK_ACCEL, CHAOTIC, tickAccelData(chaoticAccelTicks)));
+	public static final DeferredHolder<Module<?>, Module<?>> semiStableChaos = MODULES.register("semi_stable_chaos", () -> new ModuleImpl<>(STABLE_CHAOS, CHAOTIC, stableChaosData(semiStableInstabilityMax, semiStableChaosMax)));
+	public static final DeferredHolder<Module<?>, Module<?>> stableChaos = MODULES.register("stable_chaos", () -> new ModuleImpl<>(STABLE_CHAOS, CHAOTIC, stableChaosData(stableInstabilityMax, stableChaosMax)));
+	public static final DeferredHolder<Module<?>, Module<?>> unstableChaos = MODULES.register("unstable_chaos", () -> new ModuleImpl<>(STABLE_CHAOS, CHAOTIC, stableChaosData(unstableInstabilityMax, unstableChaosMax)));
+	public static final DeferredHolder<Module<?>, Module<?>> chaosInjector = MODULES.register("chaos_injector", () -> new ModuleImpl<>(CHAOS_INJECTOR, CHAOTIC, chaosInjectorData(chaosInjectorRate)));
 	
-    public static final RegistryObject<ModuleItem<?>> itemChaoticAutoFeed   = ITEMS.register("item_chaotic_auto_feed",   () -> new ModuleItem<>(chaoticAutoFeed));
-	public static final RegistryObject<ModuleItem<?>> itemDraconicTickAccel = ITEMS.register("item_draconic_tick_accel", () -> new ModuleItem<>(draconicTickAccel));
-	public static final RegistryObject<ModuleItem<?>> itemChaoticTickAccel  = ITEMS.register("item_chaotic_tick_accel",  () -> new ModuleItem<>(chaoticTickAccel));
-	public static final RegistryObject<ModuleItem<?>> itemSemiStableChaos   = ITEMS.register("item_semi_stable_chaos",   () -> new ModuleItem<>(semiStableChaos));
-	public static final RegistryObject<ModuleItem<?>> itemStableChaos       = ITEMS.register("item_stable_chaos",        () -> new ModuleItem<>(stableChaos));
-	public static final RegistryObject<ModuleItem<?>> itemUnstableChaos     = ITEMS.register("item_unstable_chaos",      () -> new ModuleItem<>(unstableChaos));
-	public static final RegistryObject<ModuleItem<?>> itemChaosInjector     = ITEMS.register("item_chaos_injector",      () -> new ModuleItem<>(chaosInjector));
+    public static final DeferredHolder<Item, ModuleItem<?>> itemChaoticAutoFeed   = ITEMS.register("item_chaotic_auto_feed",   () -> new ModuleItem<>(chaoticAutoFeed));
+	//public static final DeferredHolder<Item, ModuleItem<?>> itemDraconicTickAccel = ITEMS.register("item_draconic_tick_accel", () -> new ModuleItem<>(draconicTickAccel));
+	//public static final DeferredHolder<Item, ModuleItem<?>> itemChaoticTickAccel  = ITEMS.register("item_chaotic_tick_accel",  () -> new ModuleItem<>(chaoticTickAccel));
+	public static final DeferredHolder<Item, ModuleItem<?>> itemSemiStableChaos   = ITEMS.register("item_semi_stable_chaos",   () -> new ModuleItem<>(semiStableChaos));
+	public static final DeferredHolder<Item, ModuleItem<?>> itemStableChaos       = ITEMS.register("item_stable_chaos",        () -> new ModuleItem<>(stableChaos));
+	public static final DeferredHolder<Item, ModuleItem<?>> itemUnstableChaos     = ITEMS.register("item_unstable_chaos",      () -> new ModuleItem<>(unstableChaos));
+	public static final DeferredHolder<Item, ModuleItem<?>> itemChaosInjector     = ITEMS.register("item_chaos_injector",      () -> new ModuleItem<>(chaosInjector));
 
 	private static Function<Module<AutoFeedData>, AutoFeedData> autoFeedData(float defFoodStorage) {
 		return e -> {

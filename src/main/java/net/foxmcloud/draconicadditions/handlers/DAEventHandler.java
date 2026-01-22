@@ -6,22 +6,14 @@ import java.util.Arrays;
 import com.brandon3055.draconicevolution.api.capability.DECapabilities;
 import com.brandon3055.draconicevolution.api.capability.ModuleHost;
 import com.brandon3055.draconicevolution.api.event.ModularItemInitEvent;
-import com.brandon3055.draconicevolution.api.modules.ModuleTypes;
-import com.brandon3055.draconicevolution.api.modules.entities.ShieldControlEntity;
-import com.brandon3055.draconicevolution.api.modules.entities.UndyingEntity;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleHostImpl;
 import com.brandon3055.draconicevolution.client.gui.modular.ModularItemGui;
 import com.brandon3055.draconicevolution.client.gui.modular.itemconfig.ConfigurableItemGui;
 import com.brandon3055.draconicevolution.init.DEContent;
-import com.brandon3055.draconicevolution.init.DEDamage;
 import com.brandon3055.draconicevolution.items.equipment.IModularArmor;
-import com.brandon3055.draconicevolution.items.equipment.ModularChestpiece;
 
 import net.covers1624.quack.util.SneakyUtils;
-import net.foxmcloud.draconicadditions.CommonMethods.BlockStorage;
 import net.foxmcloud.draconicadditions.items.IChaosContainer;
-import net.foxmcloud.draconicadditions.items.armor.InfusedPotatoArmor;
-import net.foxmcloud.draconicadditions.items.curios.ModularHarness;
 import net.foxmcloud.draconicadditions.items.tools.ChaosContainer;
 import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.foxmcloud.draconicadditions.modules.DAModuleTypes;
@@ -29,42 +21,39 @@ import net.foxmcloud.draconicadditions.modules.entities.ChaosInjectorEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec2;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ScreenEvent;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingHealEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotTypePreset;
-import top.theillusivec4.curios.api.type.ISlotType;
-import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.client.event.ScreenEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 public class DAEventHandler {
 
+	public static void init() {
+		//NeoForge.EVENT_BUS.addListener(DAEventHandler::rightClickBlock);
+		NeoForge.EVENT_BUS.addListener(DAEventHandler::chaosInjectionDeath);
+		NeoForge.EVENT_BUS.addListener(DAEventHandler::blockHealingWhenInjecting);
+		NeoForge.EVENT_BUS.addListener(DAEventHandler::blockShieldDamageWhenInjecting);
+		NeoForge.EVENT_BUS.addListener(DAEventHandler::blockChaosItemMoving);
+		NeoForge.EVENT_BUS.addListener(DAEventHandler::addCategoriesToContainers);
+		NeoForge.EVENT_BUS.addListener(DAEventHandler::onEntitySpawn);
+	}
+
+	/*
 	@SubscribeEvent(priority = EventPriority.HIGH)
-	public void rightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+	public static void rightClickBlock(PlayerInteractEvent.RightClickBlock event) {
 		Level world = event.getLevel();
 		if (world.isClientSide) {
 			return;
@@ -91,14 +80,14 @@ public class DAEventHandler {
 		}
 		BlockPos abovePos = event.getPos().above();
 		BlockState aboveState = world.getBlockState(abovePos);
-		if (ModularHarness.hasAttachedBlockEntity(harness, world)) {
+		if (ModularHarness.hasAttachedBlockEntity(harness)) {
 			if (event.getFace() != Direction.UP || aboveState.getBlock() != Blocks.AIR) {
 				return;
 			}
 			Vec2 pRot = player.getRotationVector();
 			Vec2 rotation = new Vec2(-pRot.x, pRot.y + 180);
 			String blockName = ModularHarness.getAttachedName(harness);
-			if (BlockStorage.restoreBlockFromTag(world, abovePos, rotation, harness.getTag(), true, true)) {
+			if (BlockStorage.restoreBlockFromTag(world, abovePos, rotation, harness.get(ItemData.), true, true)) {
 				player.displayClientMessage(Component.translatable("info.da.modular_harness.placeSuccess", blockName), true);
 				event.setCanceled(true);
 			}
@@ -110,9 +99,10 @@ public class DAEventHandler {
 			event.setCanceled(true);
 		}
 	}
-	
+	*/
+
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public boolean chaosInjectionDeath(LivingDeathEvent event) {
+	public static boolean chaosInjectionDeath(LivingDeathEvent event) {
 		ChaosInjectorEntity injector = ChaosInjectorEntity.getInjectorEntity(event.getEntity());
 		if (injector != null && injector.isChaosInBlood()) {
 			event.setCanceled(true);
@@ -120,9 +110,9 @@ public class DAEventHandler {
 		}
 		return false;
 	}
-	
+
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public boolean blockHealingWhenInjecting(LivingHealEvent event) {
+	public static boolean blockHealingWhenInjecting(LivingHealEvent event) {
 		ChaosInjectorEntity injector = ChaosInjectorEntity.getInjectorEntity(event.getEntity());
 		if (injector != null && (injector.getRate() > 0 || injector.isChaosInBlood())) {
 			event.setCanceled(true);
@@ -130,9 +120,9 @@ public class DAEventHandler {
 		}
 		return false;
 	}
-	
+
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public boolean blockShieldDamageWhenInjecting(LivingAttackEvent event) {
+	public static boolean blockShieldDamageWhenInjecting(LivingIncomingDamageEvent event) {
 		ChaosInjectorEntity injector = ChaosInjectorEntity.getInjectorEntity(event.getEntity());
 		if (injector != null && injector.isChaosInBlood()) {
 			event.setCanceled(true);
@@ -140,20 +130,10 @@ public class DAEventHandler {
 		}
 		return false;
 	}
-	
-	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public boolean blockShieldDamageWhenInjecting(LivingDamageEvent event) {
-		ChaosInjectorEntity injector = ChaosInjectorEntity.getInjectorEntity(event.getEntity());
-		if (injector != null && injector.isChaosInBlood()) {
-			event.setCanceled(true);
-			return true;
-		}
-		return false;
-	}
-	
+
 	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent(priority = EventPriority.HIGH)
-	public void blockChaosItemMoving(ScreenEvent.MouseButtonPressed.Pre event) {
+	public static void blockChaosItemMoving(ScreenEvent.MouseButtonPressed.Pre event) {
 		if (!(event.getScreen() instanceof AbstractContainerScreen)) {
 			return;
 		}
@@ -176,42 +156,40 @@ public class DAEventHandler {
 			event.setCanceled(true);
 		}
 		else if (stack.getItem() instanceof IModularArmor && !player.isCreative()) {
-			LazyOptional<ModuleHost> cap = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY);
-			if (!cap.isPresent()) {
-				return;
-			}
-			ModuleHost host = cap.orElseThrow(IllegalStateException::new);
-			ArrayList<ChaosInjectorEntity> entities = ChaosInjectorEntity.getSortedListFromStream(host.getEntitiesByType(DAModuleTypes.CHAOS_INJECTOR));
-			if (entities.isEmpty()) {
-				return;
-			}
-			if (entities.get(0) != null && (entities.get(0).isChaosInBlood() || entities.get(0).getRate() > 0)) {
-				player.displayClientMessage(Component.translatable("info.da.chaos.cantmove", stack.getHoverName()), true);
-				event.setCanceled(true);
+			try (ModuleHost host = DECapabilities.getHost(stack)) {
+				assert host != null;
+				ArrayList<ChaosInjectorEntity> entities = ChaosInjectorEntity.getSortedListFromStream(host.getEntitiesByType(DAModuleTypes.CHAOS_INJECTOR));
+				if (entities.isEmpty()) {
+					return;
+				}
+				if (entities.get(0) != null && (entities.get(0).isChaosInBlood() || entities.get(0).getRate() > 0)) {
+					player.displayClientMessage(Component.translatable("info.da.chaos.cantmove", stack.getHoverName()), true);
+					event.setCanceled(true);
+				}
 			}
 		}
 	}
-	
+
 	@SubscribeEvent
-	public void addCategoriesToContainers(ModularItemInitEvent e) {
+	public static void addCategoriesToContainers(ModularItemInitEvent e) {
 		ArrayList<Item> validChaosContainers = new ArrayList<Item>(Arrays.asList(
-			DEContent.AXE_CHAOTIC.get(),
-			DEContent.BOW_CHAOTIC.get(),
-			DEContent.CHESTPIECE_CHAOTIC.get(),
-			DEContent.PICKAXE_CHAOTIC.get(),
-			DEContent.SHOVEL_CHAOTIC.get(),
-			DEContent.STAFF_CHAOTIC.get(),
-			DEContent.SWORD_CHAOTIC.get()
-		));
+				DEContent.AXE_CHAOTIC.get(),
+				DEContent.BOW_CHAOTIC.get(),
+				DEContent.CHESTPIECE_CHAOTIC.get(),
+				DEContent.PICKAXE_CHAOTIC.get(),
+				DEContent.SHOVEL_CHAOTIC.get(),
+				DEContent.STAFF_CHAOTIC.get(),
+				DEContent.SWORD_CHAOTIC.get()
+				));
 		ItemStack stack = e.getStack();
 		if (validChaosContainers.contains(stack.getItem())) {
 			ModuleHostImpl host = SneakyUtils.unsafeCast(e.getHost());
 			host.addCategories(IChaosContainer.CHAOS_CONTAINER);
 		}
 	}
-	
+
 	@SubscribeEvent
-	public void onEntitySpawn(EntityJoinLevelEvent e) {
+	public static void onEntitySpawn(EntityJoinLevelEvent e) {
 		if (!(e.getEntity() instanceof ItemEntity)) {
 			return;
 		}

@@ -1,0 +1,38 @@
+{
+  "type": "draconicevolution:fusion_crafting",
+  "catalyst": {
+    "item": "minecraft:bucket"
+  },
+  "ingredients": [
+    {
+      "consume": true,
+      "ingredient": {
+        "item": "draconicevolution:infused_obsidian"
+      }
+    },
+    {
+      "consume": true,
+      "ingredient": {
+        "item": "draconicevolution:infused_obsidian"
+      }
+    },
+    {
+      "consume": true,
+      "ingredient": {
+        "item": "draconicevolution:wyvern_energy_core"
+      }
+    },
+    {
+      "consume": true,
+      "ingredient": {
+        "item": "draconicevolution:dislocator"
+      }
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "draconicadditions:chaos_container"
+  },
+  "techLevel": "draconic",
+  "totalEnergy": 250000
+}

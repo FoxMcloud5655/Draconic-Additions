@@ -9,6 +9,7 @@ import com.brandon3055.brandonscore.lib.datamanager.ManagedBool;
 import com.brandon3055.brandonscore.lib.datamanager.ManagedInt;
 import com.brandon3055.brandonscore.network.BCoreNetwork;
 import com.brandon3055.brandonscore.utils.EnergyUtils;
+import com.brandon3055.draconicevolution.api.capability.DECapabilities;
 import com.brandon3055.draconicevolution.api.modules.lib.ModularOPStorage;
 import com.brandon3055.draconicevolution.handlers.DESounds;
 import com.brandon3055.draconicevolution.init.DEContent;
@@ -20,6 +21,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -27,10 +29,11 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.network.NetworkHooks;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.capabilities.Capabilities.ItemHandler;
 
-public class TileChaosCrystalizer extends TileChaosHolderBase implements IChangeListener, IInteractTile, MenuProvider {
+public class TileChaosCrystalizer extends TileChaosHolderBase implements IInteractTile, MenuProvider {
 
 	private int chargeRate = 10000;
 	private ItemStack itemToMake = DEContent.CHAOS_FRAG_SMALL.get().getDefaultInstance();
@@ -43,11 +46,17 @@ public class TileChaosCrystalizer extends TileChaosHolderBase implements IChange
 		super(DAContent.tileChaosCrystalizer.get(), pos, state);
 		itemHandler = new TileItemStackHandler(this, 2);
 		opStorage = new ModularOPStorage(this, 1000000, 50000, 50000);
-		capManager.setManaged("energy", CapabilityOP.OP, opStorage).saveBoth().syncContainer();
-		capManager.setInternalManaged("inventory", ForgeCapabilities.ITEM_HANDLER, itemHandler).saveBoth().syncTile();
+		capManager.setManaged("energy", CapabilityOP.BLOCK, opStorage).saveBoth().syncContainer();
+		capManager.setInternalManaged("inventory", Capabilities.ItemHandler.BLOCK, itemHandler).saveBoth().syncTile();
 		itemHandler.setStackValidator(this::isItemValidForSlot);
 		setupPowerSlot(itemHandler, 1, opStorage, false);
 		installIOTracker(opStorage);
+	}
+
+	public static void register(RegisterCapabilitiesEvent event) {
+		energyCapability(event, DAContent.tileChaosCrystalizer);
+		capability(event, DAContent.tileChaosCrystalizer, ItemHandler.BLOCK);
+		capability(event, DAContent.tileChaosCrystalizer, DECapabilities.Host.BLOCK);
 	}
 
 	@Override
@@ -107,10 +116,11 @@ public class TileChaosCrystalizer extends TileChaosHolderBase implements IChange
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, Player player, InteractionHand handIn, BlockHitResult hit) {
+	public InteractionResult useWithoutItem(BlockState state, Player player, BlockHitResult hit) {
 		if (player instanceof ServerPlayer) {
-			NetworkHooks.openScreen((ServerPlayer) player, this, worldPosition);
+			player.openMenu(this, worldPosition);
+			return InteractionResult.CONSUME;
 		}
-		return true;
+		return InteractionResult.SUCCESS;
 	}
 }

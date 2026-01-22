@@ -1,3 +1,4 @@
+/*
 package net.foxmcloud.draconicadditions.entity;
 
 import net.minecraft.core.particles.ParticleOptions;
@@ -38,7 +39,7 @@ public class EntityBombProjectile extends AbstractHurtingProjectile {
 		super.onHit(result);
 		if (!this.level().isClientSide) {
 			Entity entity = this.getOwner();
-			boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this.getOwner());
+			boolean flag = net.neoforged.neoforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this.getOwner());
 			this.level().explode((Entity)null, this.getX(), this.getY(), this.getZ(), (float)this.explosionPower, flag, flag ? Level.ExplosionInteraction.TNT : Level.ExplosionInteraction.NONE);
 			this.discard();
 		}
@@ -76,3 +77,4 @@ public class EntityBombProjectile extends AbstractHurtingProjectile {
 		this.explosionPower = tag.getByte("ExplosionPower");
 	}
 }
+*/

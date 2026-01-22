@@ -1,0 +1,20 @@
+{
+  "type": "draconicevolution:fusion_crafting",
+  "catalyst": {
+    "item": "draconicevolution:energy_transfuser"
+  },
+  "ingredients": [
+    {
+      "consume": true,
+      "ingredient": {
+        "item": "draconicadditions:chaos_container"
+      }
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "draconicadditions:chaos_infuser"
+  },
+  "techLevel": "chaotic",
+  "totalEnergy": 2000000
+}

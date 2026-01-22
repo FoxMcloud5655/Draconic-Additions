@@ -1,5 +1,5 @@
-// 1.20.1	2024-06-29T03:55:19.4081712	Loot Tables
-54bf2b0a7d27e913fccf51145ae2aaf943052bdc data/draconicadditions/loot_tables/blocks/chaos_crystalizer.json
-bc626aeb5ed944444f594c73955ca970951867af data/draconicadditions/loot_tables/blocks/chaos_extractor.json
-056e5e7f0e3c6cc173a11f89a1a4902fc44c4c55 data/draconicadditions/loot_tables/blocks/chaos_infuser.json
-8b714bf09aa3106940f0aa8dd72a7c80d9a6c1a0 data/draconicadditions/loot_tables/blocks/chaos_liquifier.json
+// 1.21.1	2026-01-19T05:27:49.5583132	Loot Tables
+54bf2b0a7d27e913fccf51145ae2aaf943052bdc data/draconicadditions/loot_table/blocks/chaos_crystalizer.json
+bc626aeb5ed944444f594c73955ca970951867af data/draconicadditions/loot_table/blocks/chaos_extractor.json
+056e5e7f0e3c6cc173a11f89a1a4902fc44c4c55 data/draconicadditions/loot_table/blocks/chaos_infuser.json
+8b714bf09aa3106940f0aa8dd72a7c80d9a6c1a0 data/draconicadditions/loot_table/blocks/chaos_liquifier.json

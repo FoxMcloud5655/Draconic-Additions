@@ -3,10 +3,12 @@ package net.foxmcloud.draconicadditions.items;
 import static com.brandon3055.draconicevolution.init.ModuleCfg.removeInvalidModules;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
 import com.brandon3055.brandonscore.capability.MultiCapabilityProvider;
+import com.brandon3055.draconicevolution.api.capability.ModuleHost;
 import com.brandon3055.draconicevolution.api.modules.lib.ModularOPStorage;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleHostImpl;
 import com.brandon3055.draconicevolution.init.EquipCfg;
@@ -22,24 +24,14 @@ import net.minecraft.world.level.Level;
 public interface IModularEnergyItem extends IModularItem, IDEEquipment {
 
 	@Override
-	default ModuleHostImpl createHost(ItemStack stack) {
+	default ModuleHostImpl instantiateHost(ItemStack stack) {
 		ModuleHostImpl host = new ModuleHostImpl(getTechLevel(), 1 + getTechLevel().index, 1 + getTechLevel().index, "curios", removeInvalidModules);
 		return host;
 	}
 
-	@Nullable
 	@Override
-	default ModularOPStorage createOPStorage(ItemStack stack, ModuleHostImpl host) {
+	default ModularOPStorage instantiateOPStorage(ItemStack stack, Supplier<ModuleHost> hostSupplier) {
 		long capacity = EquipCfg.getBaseEnergy(getTechLevel());
-		return new ModularOPStorage(host, capacity, capacity / 64);
-	}
-
-	@Override
-	default void initCapabilities(ItemStack stack, ModuleHostImpl host, MultiCapabilityProvider provider) {
-		EquipmentManager.addCaps(stack, provider);
-	}
-
-	default void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flags) {
-		addModularItemInformation(stack, world, tooltip, flags);
+		return new ModularOPStorage(hostSupplier, capacity, capacity / 64);
 	}
 }

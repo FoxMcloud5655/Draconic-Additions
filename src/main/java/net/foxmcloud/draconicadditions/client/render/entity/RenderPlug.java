@@ -16,7 +16,7 @@ public class RenderPlug extends EntityRenderer<EntityPlug> {
 	}
 
 	public void doRender(EntityPlug entity, double x, double y, double z, float entityYaw, float partialTicks) {
-		/*
+	/*
 		Player entityplayer = entity.getPlayer();
 
 		if (entityplayer != null) {
@@ -98,6 +98,6 @@ public class RenderPlug extends EntityRenderer<EntityPlug> {
 
 	@Override
 	public ResourceLocation getTextureLocation(EntityPlug entity) {
-		return new ResourceLocation(DraconicAdditions.MODID, "entity/plug");
+		return ResourceLocation.fromNamespaceAndPath(DraconicAdditions.MODID, "entity/plug");
 	}
 }

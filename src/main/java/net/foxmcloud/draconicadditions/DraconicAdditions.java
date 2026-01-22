@@ -5,22 +5,21 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.brandon3055.brandonscore.BrandonsCore;
-import com.brandon3055.brandonscore.utils.LogHelperBC;
+import com.brandon3055.brandonscore.utils.Utils;
 import com.brandon3055.draconicevolution.DraconicEvolution;
 import com.brandon3055.draconicevolution.api.DraconicAPI;
-import com.brandon3055.draconicevolution.utils.LogHelper;
 
 import net.foxmcloud.draconicadditions.handlers.DAEventHandler;
 import net.foxmcloud.draconicadditions.integration.AE2Compat;
 import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.foxmcloud.draconicadditions.lib.DACreativeTabs;
+import net.foxmcloud.draconicadditions.lib.DAItemData;
 import net.foxmcloud.draconicadditions.lib.DAModules;
 import net.foxmcloud.draconicadditions.lib.DASounds;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.common.Mod;
 
 @Mod(DraconicAdditions.MODID)
 public class DraconicAdditions {
@@ -28,40 +27,36 @@ public class DraconicAdditions {
 	public static final String NAME = "Draconic Additions";
 	public static final String VERSION = "${mod_version}";
 	public static final String MODID_PREFIX = MODID + ":";
-
+	
 	public static Logger logger = LogManager.getLogger(DraconicAdditions.MODID);
 
-	public DraconicAdditions() {
+	public DraconicAdditions(IEventBus modBus) {
 		runChecks();
 		DraconicAPI.addModuleProvider(MODID);
 		DAConfig.load();
-		DAContent.init();
-		DAModules.init();
-		DASounds.init();
-		DACreativeTabs.init();
+		DAItemData.init(modBus);
+		DAContent.init(modBus);
+		DAModules.init(modBus);
+		DASounds.init(modBus);
+		DACreativeTabs.init(modBus);
 		AE2Compat.init();
-		MinecraftForge.EVENT_BUS.register(new DAEventHandler());
+		DAEventHandler.init();
 		//FusionCostMultiplier.init();
-		DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientInit::init);
+		Utils.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientInit.init(modBus));
 	}
 	
 	@SuppressWarnings("deprecation")
 	private static void runChecks() {
 		if (ModList.get().isLoaded("draconicevolution")) {
-			DraconicAdditions.logger.log(Level.INFO, "Hey, Brandon's Core!  How's it going?");
-			BrandonsCore.LOGGER.log(Level.INFO, "Oh hey, doin good. just looking for DE.");
-			DraconicAdditions.logger.log(Level.INFO, "Yeah, just finished talking to them.  They're through the door behind me.  Speaking of locating mods, have you seen Curios?");
+			DraconicAdditions.logger.log(Level.INFO, "Hey, Brandon's Co- What have you done!?");
+			BrandonsCore.LOGGER.log(Level.INFO, "RUN FOR IT!!!");
 			if (ModList.get().isLoaded("curios")) {
-				BrandonsCore.LOGGER.log(Level.INFO, "Yup, just go up and to the left a bit, cant miss it");
-				DraconicAdditions.logger.log(Level.INFO, "Thanks!  Just be careful, DE seems a bit...  Unstable.");
-				BrandonsCore.LOGGER.log(Level.INFO, "Sure sure....");
+				DraconicAdditions.logger.log(Level.INFO, "Not before I grab my Curios!");
+				BrandonsCore.LOGGER.log(Level.INFO, "WATEVER MAN");
 			}
 			else {
-				BrandonsCore.LOGGER.log(Level.INFO, "Why should i know that?");
-				DraconicEvolution.LOGGER.log(Level.WARN, "Calculating explosion ETA");
-				BrandonsCore.LOGGER.log(Level.INFO, "DE? What are you, ahh... NO... NONONO! DONT DO THAT!!! STOP THIS NOW!");
-				DraconicEvolution.LOGGER.log(Level.WARN, "**Explosion Imminent!!!**");
-				DraconicAdditions.logger.log(Level.ERROR, "Brandon, WHAT HAVE YOU DONE?!");
+				DraconicAdditions.logger.log(Level.INFO, "Not before I-");
+				DraconicEvolution.LOGGER.log(Level.ERROR, "***BOOM!***");
 				throw new Error("Curios is not loaded.  It is required for Draconic Additions to work.");
 			}
 		}

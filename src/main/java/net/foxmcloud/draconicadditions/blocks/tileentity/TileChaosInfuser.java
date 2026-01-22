@@ -26,6 +26,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -33,8 +34,9 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.network.NetworkHooks;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.capabilities.Capabilities.ItemHandler;
 
 public class TileChaosInfuser extends TileChaosHolderBase implements IChangeListener, IInteractTile, MenuProvider {
 
@@ -47,12 +49,18 @@ public class TileChaosInfuser extends TileChaosHolderBase implements IChangeList
 		super(DAContent.tileChaosInfuser.get(), pos, state);
 		itemHandler = new TileItemStackHandler(this, 2);
 		opStorage = new ModularOPStorage(this, 10000000, 100000, 100000);
-		capManager.setManaged("energy", CapabilityOP.OP, opStorage).saveBoth().syncContainer();
-		capManager.setInternalManaged("inventory", ForgeCapabilities.ITEM_HANDLER, itemHandler).saveBoth().syncTile();
+		capManager.setManaged("energy", CapabilityOP.BLOCK, opStorage).saveBoth().syncContainer();
+		capManager.setInternalManaged("inventory", Capabilities.ItemHandler.BLOCK, itemHandler).saveBoth().syncTile();
 		itemHandler.setStackValidator(this::isItemValidForSlot);
 		setupPowerSlot(itemHandler, 1, opStorage, false);
 		installIOTracker(opStorage);
 	}
+	
+    public static void register(RegisterCapabilitiesEvent event) {
+        energyCapability(event, DAContent.tileChaosInfuser);
+        capability(event, DAContent.tileChaosInfuser, ItemHandler.BLOCK);
+        capability(event, DAContent.tileChaosInfuser, DECapabilities.Host.BLOCK);
+    }
 
 	@Override
 	public void tick() {
@@ -65,47 +73,49 @@ public class TileChaosInfuser extends TileChaosHolderBase implements IChangeList
 		}
 		else {
 			ItemStack stack = itemHandler.getStackInSlot(0);
-			int opToTake = chargeRate * rateMultiplier;
-			if (isTileEnabled() && !stack.isEmpty() && isItemValidForSlot(0, stack) && chaos.get() > 0 && opStorage.extractOP(opToTake, true) >= chargeRate) {
-				ModuleHost host = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).orElse(null);
-				if (host == null) {
-					opToTake = chargeRate * stack.getCount();
-					if (chaos.get() >= 20000 * stack.getCount() && opStorage.extractOP(opToTake, true) >= opToTake) {
-						chaos.subtract(20000 * stack.getCount());
-						opStorage.extractOP(opToTake, false);
-						ItemStack heart = DAContent.chaosHeart.get().getDefaultInstance();
-						heart.setCount(stack.getCount());
-						itemHandler.setStackInSlot(0, heart);
-					}
+			if (isTileEnabled() && !stack.isEmpty() && isItemValidForSlot(0, stack) && chaos.get() > 0) {
+				if (isItemValidStorage(stack) && chaos.get() >= 20000 * stack.getCount()) {
+					chaos.subtract(20000 * stack.getCount());
+					ItemStack heart = DAContent.chaosHeart.get().getDefaultInstance();
+					heart.setCount(stack.getCount());
+					itemHandler.setStackInSlot(0, heart);
 					active.set(false);
 					return;
 				}
-				Stream<ModuleEntity<?>> chaosEntities = host.getEntitiesByType(DAModuleTypes.STABLE_CHAOS);
-				ArrayList<StableChaosEntity> sortedChaosEntities = StableChaosEntity.getSortedListFromStream(chaosEntities);
-				if (sortedChaosEntities.size() == 0) {
-					active.set(false);
-					return;
-				}
-				int remainingChaosToTransfer = Math.min(rateMultiplier, chaos.get());
-				for (StableChaosEntity ce : sortedChaosEntities) {
-					StableChaosData data = (StableChaosData)ce.getModule().getData();
-					if (ce.getChaos() < data.getMaxChaos()) {
-						active.set(true);
-						long opRemoved = opStorage.extractOP(chargeRate * remainingChaosToTransfer, false);
-						int chaosAdded = ce.modifyChaos((int)(opRemoved / chargeRate));
-						remainingChaosToTransfer -= chaosAdded;
-						if (remainingChaosToTransfer == 0) {
-							break;
-						}
-					}
-				}
-				chaos.subtract(Math.min(rateMultiplier, chaos.get()) - remainingChaosToTransfer);
-				if (remainingChaosToTransfer == rateMultiplier) {
-					active.set(false);
+				else try (ModuleHost host = DECapabilities.getHost(stack)) {
+                    assert host != null;
+                    Stream<ModuleEntity<?>> chaosEntities = host.getEntitiesByType(DAModuleTypes.STABLE_CHAOS);
+    				ArrayList<StableChaosEntity> sortedChaosEntities = StableChaosEntity.getSortedListFromStream(chaosEntities);
+    				if (sortedChaosEntities.size() == 0) {
+    					active.set(false);
+    					return;
+    				}
+    				int remainingChaosToTransfer = Math.min(rateMultiplier, chaos.get());
+    				for (StableChaosEntity ce : sortedChaosEntities) {
+    					StableChaosData data = (StableChaosData)ce.getModule().getData();
+    					if (ce.getChaos() < data.getMaxChaos()) {
+    						active.set(true);
+    						long opRemoved = opStorage.extractOP(chargeRate * remainingChaosToTransfer, true);
+    						int chaosAdded = ce.modifyChaos((int)(opRemoved / chargeRate));
+    						opStorage.extractOP(chargeRate * chaosAdded, false);
+    						remainingChaosToTransfer -= chaosAdded;
+    						if (remainingChaosToTransfer == 0) {
+    							break;
+    						}
+    					}
+    				}
+    				chaos.subtract(Math.min(rateMultiplier, chaos.get()) - remainingChaosToTransfer);
+    				if (remainingChaosToTransfer == rateMultiplier) {
+    					active.set(false);
+    				}
 				}
 			}
 			else active.set(false);
 		}
+	}
+	
+	private boolean isItemValidStorage(ItemStack stack) {
+		return stack.getItem() == DEContent.DRAGON_HEART.get();
 	}
 
 	@Override
@@ -114,12 +124,12 @@ public class TileChaosInfuser extends TileChaosHolderBase implements IChangeList
 			return EnergyUtils.isEnergyItem(stack);
 		}
 		else {
-			ModuleHost host = stack.getCapability(DECapabilities.MODULE_HOST_CAPABILITY).orElse(null);
+			ModuleHost host = DECapabilities.getHost(stack);
 			if (host != null) {
 				StableChaosData data = host.getModuleData(DAModuleTypes.STABLE_CHAOS);
 				return data != null ? data.getMaxChaos() > 0 : false;
 			}
-			else return stack.getItem() == DEContent.DRAGON_HEART.get();
+			else return isItemValidStorage(stack);
 		}
 	}
 
@@ -128,13 +138,14 @@ public class TileChaosInfuser extends TileChaosHolderBase implements IChangeList
 		return new ChaosInfuserMenu(currentWindowIndex, player.getInventory(), this);
 	}
 
-	@Override
-	public boolean onBlockActivated(BlockState state, Player player, InteractionHand handIn, BlockHitResult hit) {
-		if (player instanceof ServerPlayer) {
-			NetworkHooks.openScreen((ServerPlayer) player, this, worldPosition);
-		}
-		return true;
-	}
+    @Override
+    public InteractionResult useWithoutItem(BlockState state, Player player, BlockHitResult hit) {
+        if (player instanceof ServerPlayer) {
+            player.openMenu(this, worldPosition);
+            return InteractionResult.CONSUME;
+        }
+        return InteractionResult.SUCCESS;
+    }
 
 	/*
 	public void spawnParticles(BlockState stateIn, Level worldIn, BlockPos pos, Random rand) {
