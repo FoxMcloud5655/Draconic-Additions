@@ -13,12 +13,6 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 //Add generated resources to main resources.
 sourceSets.main.resources.srcDirs += "src/main/generated"
 
-file('build.properties').withReader {
-	def prop = new Properties()
-	prop.load(it)
-	project.ext.config = new ConfigSlurper().parse prop
-}
-
 def signProps = [:]
 
 mod_version = "${mod_version}.${buildNo}"
@@ -65,7 +59,7 @@ dependencies {
         transitive false
     }
 
-	implementation "com.brandon3055.draconicevolution:Draconic-Evolution:${mc_version}-${de_version}"
+	implementation("com.brandon3055.draconicevolution:Draconic-Evolution:${mc_version}-${de_version}")
 }
 
 processResources {
