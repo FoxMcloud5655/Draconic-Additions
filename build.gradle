@@ -75,7 +75,6 @@ processResources {
 			'lang_version': neo_version.split('\\.')[0],
 			'ccl_version': "[${ccl_version.replace('.+', '')},${ccl_version_max})",
 			'bcore_version': bcore_version,
-			'cct_version': cct_version,
 			'curios_version': mc_version + "-" + curios_version,
 			'de_version': de_version
 	}

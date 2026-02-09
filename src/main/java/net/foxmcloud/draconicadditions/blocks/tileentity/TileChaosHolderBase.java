@@ -44,8 +44,7 @@ public abstract class TileChaosHolderBase extends TileBCore implements IRSSwitch
 	public TileChaosHolderBase(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
 		super(tileEntityTypeIn, pos, state);
 		moduleHost.addAdditionalType(ModuleTypes.SHIELD_BOOST);
-		capManager.set(DECapabilities.Host.BLOCK, moduleHost); // NOT CORRECT, since it doesn't save the modules when saved or loaded.
-		//capManager.setManaged("module_host", DECapabilities.Host.BLOCK, moduleHost).saveBoth().syncContainer(); // This is correct, but can't compile.
+		capManager.setManaged("module_host", DECapabilities.Host.BLOCK, moduleHost).saveBoth().syncContainer();
 	}
 	
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
