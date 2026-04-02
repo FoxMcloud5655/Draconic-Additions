@@ -1,5 +1,6 @@
 package net.foxmcloud.draconicadditions;
 
+import net.foxmcloud.draconicadditions.client.DAClientEventHandler;
 import net.foxmcloud.draconicadditions.client.gui.GUIChaosCrystalizer;
 import net.foxmcloud.draconicadditions.client.gui.GUIChaosExtractor;
 import net.foxmcloud.draconicadditions.client.gui.GUIChaosInfuser;
@@ -11,6 +12,7 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 public class ClientInit {
 	public static void init(IEventBus modBus) {
 		modBus.addListener(ClientInit::registerMenuScreensEvent);
+		DAClientEventHandler.init();
 	}
 	
 	private static void registerMenuScreensEvent(RegisterMenuScreensEvent event) {

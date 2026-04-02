@@ -6,6 +6,7 @@ import codechicken.lib.vec.Vector3;
 import net.foxmcloud.draconicadditions.lib.DAItemData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
@@ -32,14 +33,18 @@ public class CommonMethods {
 	 * @return True if the item was removed for longer than the grace period, false otherwise.
 	 */
 	public static boolean cheatCheck(ItemStack stack, Level world) {
-		long containerTime = stack.get(DAItemData.CHEAT_CHECK.get());
-		long serverTime = world.getGameTime();
-		boolean isCheating = false;
-		if (containerTime < serverTime - gracePeriod && containerTime > gracePeriod)  {
-			isCheating = true;
+		if (stack != null && !stack.isEmpty()) {
+			DataComponentMap map = stack.getComponents();
+			long containerTime = map.getOrDefault(DAItemData.CHEAT_CHECK.get(), 0L);
+			long serverTime = world.getGameTime();
+			boolean isCheating = false;
+			if (containerTime < serverTime - gracePeriod && containerTime > gracePeriod)  {
+				isCheating = true;
+			}
+			stack.set(DAItemData.CHEAT_CHECK.get(), serverTime);
+			return isCheating;
 		}
-		stack.set(DAItemData.CHEAT_CHECK.get(), serverTime);
-		return isCheating;
+		return false;
 	}
 
 	public static void explodeEntity(Vector3 pos, Level world) {

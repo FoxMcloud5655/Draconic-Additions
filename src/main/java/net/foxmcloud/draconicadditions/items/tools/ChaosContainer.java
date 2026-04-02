@@ -12,6 +12,7 @@ import com.brandon3055.brandonscore.utils.Utils;
 import com.brandon3055.draconicevolution.api.IInvCharge;
 import com.brandon3055.draconicevolution.api.capability.DECapabilities;
 import com.brandon3055.draconicevolution.api.capability.ModuleHost;
+import com.brandon3055.draconicevolution.api.modules.ModuleCategory;
 import com.brandon3055.draconicevolution.api.modules.ModuleTypes;
 import com.brandon3055.draconicevolution.api.modules.data.ShieldData;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleHostImpl;
@@ -65,6 +66,7 @@ public class ChaosContainer extends Item implements IModularEnergyItem, IChaosCo
 	@Override
 	public @NotNull ModuleHostImpl instantiateHost(ItemStack stack) {
 		ModuleHostImpl host = IModularEnergyItem.super.instantiateHost(stack);
+
 		host.addAdditionalType(ModuleTypes.SHIELD_BOOST);
 		return host;
 	}
@@ -78,7 +80,7 @@ public class ChaosContainer extends Item implements IModularEnergyItem, IChaosCo
 			if (extractEnergy(player, stack, RFToDrain) < RFToDrain) {
 				Vector3 pos = new Vector3(player.getX(), player.getY(), player.getZ());
 				CommonMethods.explodeEntity(pos, world);
-				player.hurt(DEDamage.chaosImplosion(world), getChaos(stack));
+				player.hurt(world.damageSources().source(DEDamage.CHAOS_IMPLOSION), getChaos(stack));
 				player.displayClientMessage(Component.translatable("info.da.chaos.explode", getName(stack).getString()), true);
 				stack.shrink(1);
 			}
