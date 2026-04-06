@@ -90,7 +90,7 @@ public class Hermal extends Item implements IModularEnergyItem {
 	public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entityLiving) {
 		if (!world.isClientSide) {
 			EntityType.LIGHTNING_BOLT.spawn((ServerLevel)world, stack, null, entityLiving.blockPosition(), MobSpawnType.COMMAND, true, true);
-			entityLiving.hurt(DEDamage.killDamage(world), Float.MAX_VALUE);
+			entityLiving.hurt(DEDamage.killDamage(world), Float.MAX_VALUE / 100F);
 		}
 		else {
 			entityLiving.sendSystemMessage(Component.translatable("info.da.hermal.eat.success"));

@@ -200,7 +200,7 @@ public class ChaosInjectorEntity extends ModuleEntity<ChaosInjectorData> impleme
 					if (shouldDie) {
 						ServerLevel serverLevel = (ServerLevel)level;
 						DamageSource damageSource = DADamage.injectionDeath(serverLevel);
-						entity.getCombatTracker().recordDamage(damageSource, Float.MAX_VALUE / 5F);
+						entity.getCombatTracker().recordDamage(damageSource, Float.MAX_VALUE / 100F);
 						DraconicNetwork.sendExplosionEffect(serverLevel.registryAccess(), serverLevel.dimension(), entity.blockPosition(), Math.min(10, chaos * 4), false);
 						chaos = 0;
 						isChaotic = false;
