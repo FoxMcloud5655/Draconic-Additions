@@ -36,7 +36,7 @@ import net.neoforged.neoforge.capabilities.Capabilities.ItemHandler;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 public class TileChaosExtractor extends TileChaosHolderBase implements IChangeListener, IInteractTile, MenuProvider {
-	
+
 	private int rfCost = 10000;
 
 	public final ManagedBool active = register(new ManagedBool("active", false, DataFlags.SAVE_BOTH_SYNC_TILE, DataFlags.TRIGGER_UPDATE));
@@ -51,12 +51,12 @@ public class TileChaosExtractor extends TileChaosHolderBase implements IChangeLi
 		setupPowerSlot(itemHandler, 1, opStorage, false);
 		installIOTracker(opStorage);
 	}
-	
-    public static void register(RegisterCapabilitiesEvent event) {
-        energyCapability(event, DAContent.tileChaosExtractor);
-        capability(event, DAContent.tileChaosExtractor, ItemHandler.BLOCK);
-        capability(event, DAContent.tileChaosExtractor, DECapabilities.Host.BLOCK);
-    }
+
+	public static void register(RegisterCapabilitiesEvent event) {
+		energyCapability(event, DAContent.tileChaosExtractor);
+		capability(event, DAContent.tileChaosExtractor, ItemHandler.BLOCK);
+		capability(event, DAContent.tileChaosExtractor, DECapabilities.Host.BLOCK);
+	}
 
 	@Override
 	public void tick() {
@@ -106,10 +106,10 @@ public class TileChaosExtractor extends TileChaosHolderBase implements IChangeLi
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
 		return index == 1 ? EnergyUtils.isEnergyItem(stack) : chaosID(stack.getItem()) == 5 || getFirstValidChaosEntity(stack) != null;
 	}
-	
+
 	private StableChaosEntity getFirstValidChaosEntity(ItemStack stack) {
-		try (ModuleHost host = DECapabilities.getHost(stack)) {
-            assert host != null;
+		ModuleHost host = DECapabilities.getHost(stack);
+		if (host != null) {
 			ArrayList<StableChaosEntity> entities = StableChaosEntity.getSortedListFromStream(host.getEntitiesByType(DAModuleTypes.STABLE_CHAOS));
 			for (StableChaosEntity entity : entities) {
 				if (entity.getChaos() > 0) {
@@ -125,12 +125,12 @@ public class TileChaosExtractor extends TileChaosHolderBase implements IChangeLi
 		return new ChaosExtractorMenu(currentWindowIndex, player.getInventory(), this);
 	}
 
-    @Override
-    public InteractionResult useWithoutItem(BlockState state, Player player, BlockHitResult hit) {
-        if (player instanceof ServerPlayer) {
-            player.openMenu(this, worldPosition);
-            return InteractionResult.CONSUME;
-        }
-        return InteractionResult.SUCCESS;
-    }
+	@Override
+	public InteractionResult useWithoutItem(BlockState state, Player player, BlockHitResult hit) {
+		if (player instanceof ServerPlayer) {
+			player.openMenu(this, worldPosition);
+			return InteractionResult.CONSUME;
+		}
+		return InteractionResult.SUCCESS;
+	}
 }
