@@ -8,6 +8,8 @@ import com.brandon3055.draconicevolution.api.modules.lib.ModuleHostImpl;
 import com.brandon3055.draconicevolution.init.DEContent;
 
 import net.covers1624.quack.util.SneakyUtils;
+import net.foxmcloud.draconicadditions.blocks.reactor.tileentity.TileFakeReactorInjector;
+import net.foxmcloud.draconicadditions.blocks.reactor.tileentity.TileFakeReactorStabilizer;
 import net.foxmcloud.draconicadditions.items.IChaosContainer;
 import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.foxmcloud.draconicadditions.modules.entities.ChaosInjectorEntity;
@@ -16,8 +18,8 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.EventPriority;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
@@ -83,7 +85,7 @@ public class DAEventHandler {
 			event.setCanceled(true);
 		}
 	}
-	*/
+	 */
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static boolean chaosInjectionDeath(LivingDeathEvent event) {

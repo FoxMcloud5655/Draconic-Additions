@@ -39,6 +39,7 @@ public class DraconicAdditions {
 		DAModules.init(modBus);
 		DASounds.init(modBus);
 		DACreativeTabs.init(modBus);
+		CapabilityData.init(modBus);
 		AE2Compat.init();
 		DAEventHandler.init();
 		//FusionCostMultiplier.init();

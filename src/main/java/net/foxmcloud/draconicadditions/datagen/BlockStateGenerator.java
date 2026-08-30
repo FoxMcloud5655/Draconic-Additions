@@ -1,6 +1,7 @@
 package net.foxmcloud.draconicadditions.datagen;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import com.brandon3055.draconicevolution.DraconicEvolution;
 
@@ -33,7 +34,17 @@ public class BlockStateGenerator extends BlockStateProvider {
 		simpleBlock(DAContent.chaosInfuser.get(), models().cubeBottomTop("chaos_infuser", modLoc("block/chaos_infuser_front"), machineTop, machineTop));
 		simpleBlock(DAContent.chaosExtractor.get(), models().cubeBottomTop("chaos_extractor", modLoc("block/chaos_extractor_front"), machineTop, machineTop));
 		simpleBlock(DAContent.chaosCrystalizer.get(), models().cubeBottomTop("chaos_crystalizer", modLoc("block/chaos_crystalizer_front"), machineTop, machineTop));
+		dummyBlock(DAContent.fakeReactorCore);
+		dummyBlock(DAContent.fakeReactorInjector);
+		dummyBlock(DAContent.fakeReactorStabilizer);
 	}
+	
+    private void dummyBlock(Supplier<? extends Block> block) {
+        ModelFile model = models()
+                .withExistingParent("dummy", "block")
+                .texture("particle", "minecraft:block/glass");
+        simpleBlock(block.get(), model);
+    }
 
 	public void directionalFromNorth(Block block, ModelFile model) {
 		directionalFromNorth(block, model, 180);

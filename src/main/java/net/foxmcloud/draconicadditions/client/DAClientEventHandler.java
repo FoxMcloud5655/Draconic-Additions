@@ -8,7 +8,10 @@ import com.brandon3055.draconicevolution.client.gui.modular.ModularItemGui;
 import com.brandon3055.draconicevolution.client.gui.modular.itemconfig.ConfigurableItemGui;
 import com.brandon3055.draconicevolution.items.equipment.IModularArmor;
 
+import net.foxmcloud.draconicadditions.client.render.tile.RenderTileFakeReactorComponent;
+import net.foxmcloud.draconicadditions.client.render.tile.RenderTileFakeReactorCore;
 import net.foxmcloud.draconicadditions.items.tools.ChaosContainer;
+import net.foxmcloud.draconicadditions.lib.DAContent;
 import net.foxmcloud.draconicadditions.modules.DAModuleTypes;
 import net.foxmcloud.draconicadditions.modules.entities.ChaosInjectorEntity;
 import net.minecraft.client.Minecraft;
@@ -20,8 +23,8 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.EventPriority;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.common.NeoForge;
 
@@ -31,7 +34,6 @@ public class DAClientEventHandler {
 		NeoForge.EVENT_BUS.addListener(DAClientEventHandler::blockChaosItemMoving);
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent(priority = EventPriority.HIGH)
 	public static void blockChaosItemMoving(ScreenEvent.MouseButtonPressed.Pre event) {
 		if (!(event.getScreen() instanceof AbstractContainerScreen)) {

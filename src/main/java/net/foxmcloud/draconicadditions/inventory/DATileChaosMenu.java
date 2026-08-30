@@ -21,19 +21,19 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.fml.util.thread.EffectiveSide;
 
-public abstract class DATileMenu<T extends TileBCore> extends ContainerBCTile<T> implements ModuleHostContainer {
+public abstract class DATileChaosMenu<T extends TileBCore> extends ContainerBCTile<T> implements ModuleHostContainer {
 
 	protected ModuleGrid moduleGrid;
 	protected ModuleHost moduleHost = null;
 	private int gridWidth;
 	private int gridHeight;
 
-	public DATileMenu(@Nullable MenuType<?> type, int windowId, Inventory player, FriendlyByteBuf extraData) {
+	public DATileChaosMenu(@Nullable MenuType<?> type, int windowId, Inventory player, FriendlyByteBuf extraData) {
 		super(type, windowId, player, extraData);
 		initHost(tile, player);
 	}
 
-	public DATileMenu(@Nullable MenuType<?> type, int windowId, Inventory player, T tile) {
+	public DATileChaosMenu(@Nullable MenuType<?> type, int windowId, Inventory player, T tile) {
 		super(type, windowId, player, tile);
 		initHost(tile, player);
 	}

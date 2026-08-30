@@ -22,10 +22,13 @@ public class LangGenerator extends LanguageProvider {
 	}
 
 	private void blocks(PrefixHelper helper) {
-		helper.add(DAContent.chaosLiquifier.get(),   "Chaos Liquifier");
-		helper.add(DAContent.chaosInfuser.get(),     "Chaos Infuser");
-		helper.add(DAContent.chaosExtractor.get(),   "Chaos Extractor");
-		helper.add(DAContent.chaosCrystalizer.get(), "Chaos Crystalizer");
+		helper.add(DAContent.chaosLiquifier.get(),        "Chaos Liquifier");
+		helper.add(DAContent.chaosInfuser.get(),          "Chaos Infuser");
+		helper.add(DAContent.chaosExtractor.get(),        "Chaos Extractor");
+		helper.add(DAContent.chaosCrystalizer.get(),      "Chaos Crystalizer");
+		helper.add(DAContent.fakeReactorCore.get(),       "Fake Reactor Core");
+		helper.add(DAContent.fakeReactorInjector.get(),   "Fake Reactor Injector");
+		helper.add(DAContent.fakeReactorStabilizer.get(), "Fake Reactor Stabilizer");
 	}
 
 	private void items(PrefixHelper helper) {

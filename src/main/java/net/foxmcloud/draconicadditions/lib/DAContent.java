@@ -8,6 +8,8 @@ import com.brandon3055.draconicevolution.api.capability.DECapabilities;
 import com.brandon3055.draconicevolution.api.capability.ModuleProvider;
 import com.brandon3055.draconicevolution.api.modules.lib.ModularOPStorage;
 import com.brandon3055.draconicevolution.api.modules.lib.ModuleHostImpl;
+import com.brandon3055.draconicevolution.blocks.reactor.ReactorComponent;
+import com.brandon3055.draconicevolution.blocks.reactor.tileentity.TileReactorInjector;
 import com.brandon3055.draconicevolution.init.DEContent;
 import com.brandon3055.draconicevolution.init.TechProperties;
 import com.brandon3055.draconicevolution.integration.equipment.EquipmentManager;
@@ -17,6 +19,11 @@ import com.brandon3055.draconicevolution.items.equipment.IModularItem;
 
 import net.foxmcloud.draconicadditions.DraconicAdditions;
 import net.foxmcloud.draconicadditions.blocks.machines.*;
+import net.foxmcloud.draconicadditions.blocks.reactor.FakeReactorComponent;
+import net.foxmcloud.draconicadditions.blocks.reactor.FakeReactorCore;
+import net.foxmcloud.draconicadditions.blocks.reactor.tileentity.TileFakeReactorCore;
+import net.foxmcloud.draconicadditions.blocks.reactor.tileentity.TileFakeReactorInjector;
+import net.foxmcloud.draconicadditions.blocks.reactor.tileentity.TileFakeReactorStabilizer;
 import net.foxmcloud.draconicadditions.blocks.tileentity.*;
 import net.foxmcloud.draconicadditions.inventory.*;
 import net.foxmcloud.draconicadditions.items.*;
@@ -36,6 +43,8 @@ import net.minecraft.world.item.JukeboxSong;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
@@ -87,7 +96,7 @@ public class DAContent {
 				event.registerItem(DECapabilities.Module.ITEM, (stack, context) -> provider, item);
 			}
 		});
-		
+
 		TileChaosCrystalizer.register(event);
 		TileChaosExtractor.register(event);
 		TileChaosInfuser.register(event);
@@ -138,10 +147,25 @@ public class DAContent {
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileChaosCrystalizer>> tileChaosCrystalizer = TILES_ENTITIES.register("chaos_crystalizer", () -> BlockEntityType.Builder.of(TileChaosCrystalizer::new, chaosCrystalizer.get()).build(null));
 	public static final DeferredHolder<MenuType<?>, MenuType<ChaosBaseMenu>> menuChaosCrystalizer = MENU_TYPES.register("chaos_crystalizer", () -> IMenuTypeExtension.create(ChaosCrystalizerMenu::new));
 
+	// Fake Reactor
+
+	public static final DeferredHolder<Block, FakeReactorCore> fakeReactorCore = BLOCKS.register("fake_reactor_core", () -> new FakeReactorCore(DEContent.HARDENED_MACHINE));
+	public static final DeferredHolder<Item, ItemBlockBCore> itemFakeReactorCore = ITEMS.register("fake_reactor_core", () -> new ItemBlockBCore(fakeReactorCore.get(), new Item.Properties()));
+	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileFakeReactorCore>> tileFakeReactorCore = TILES_ENTITIES.register("fake_reactor_core", () -> BlockEntityType.Builder.of(TileFakeReactorCore::new, fakeReactorCore.get()).build(null));
+	public static final DeferredHolder<MenuType<?>, MenuType<FakeReactorMenu>> menuFakeReactorCore = MENU_TYPES.register("fake_reactor_core", () -> IMenuTypeExtension.create(FakeReactorMenu::new));
+
+	public static final DeferredHolder<Block, FakeReactorComponent> fakeReactorStabilizer = BLOCKS.register("fake_reactor_stabilizer", () -> new FakeReactorComponent(Properties.of().mapColor(MapColor.COLOR_GRAY).strength(5.0F, 6000F).noOcclusion(), false));
+	public static final DeferredHolder<Item, ItemBlockBCore> itemFakeReactorStabilizer = ITEMS.register("fake_reactor_stabilizer", () ->  new ItemBlockBCore(fakeReactorStabilizer.get(), new Item.Properties()));
+	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileFakeReactorStabilizer>> tileFakeReactorStabilizer = TILES_ENTITIES.register("fake_reactor_stabilizer", () -> BlockEntityType.Builder.of(TileFakeReactorStabilizer::new, fakeReactorStabilizer.get()).build(null));
+
+	public static final DeferredHolder<Block, FakeReactorComponent> fakeReactorInjector = BLOCKS.register("fake_reactor_injector", () -> new FakeReactorComponent(Properties.of().mapColor(MapColor.COLOR_GRAY).strength(5.0F, 6000F).noOcclusion(), true));
+	public static final DeferredHolder<Item, ItemBlockBCore> itemFakeReactorInjector = ITEMS.register("fake_reactor_injector", () ->  new ItemBlockBCore(fakeReactorInjector.get(), new Item.Properties()));
+	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileFakeReactorInjector>> tileFakeReactorInjector = TILES_ENTITIES.register("fake_reactor_injector", () -> BlockEntityType.Builder.of(TileFakeReactorInjector::new, fakeReactorInjector.get()).build(null));
+
 	// Music Discs - Format stolen from Alex's Caves; thanks for showing me how to do this.
-	
+
 	public static final ResourceKey<JukeboxSong> JUKEBOX_SONG_HERMAL = ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(DraconicAdditions.MODID, "hermal"));
-	
+
 	// Crafting Components
 
 	public static final DeferredHolder<Item, Item> inertPotatoHelm  = ITEMS.register("inert_potato_helm",  () -> new Item(new Item.Properties()));

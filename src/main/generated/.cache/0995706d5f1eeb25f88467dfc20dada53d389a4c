@@ -1,4 +1,4 @@
-// 1.21.1	2026-01-19T05:27:49.5593334	Draconic Additions Item Models
+// 1.21.1	2026-04-25T09:54:38.6707461	Draconic Additions Item Models
 575bd887718e34811d70be054b3d15a0855fc5d0 assets/draconicadditions/models/item/chaos_container.json
 31424154cc23e675362d99bf6b48c7ba4aef9a5a assets/draconicadditions/models/item/chaos_crystalizer.json
 11f5ada45a5dbadaa67924b72955d03ae67be55d assets/draconicadditions/models/item/chaos_extractor.json
@@ -7,6 +7,9 @@ ee50d5b7793bc98f5c0a0a36f3753cdcda5b7087 assets/draconicadditions/models/item/ch
 64de24a83c95284b6d567d3311275095fb07d079 assets/draconicadditions/models/item/chaos_liquifier.json
 6ae466376bdcb2a5c9b7b3fb7bd129f0c8b274d8 assets/draconicadditions/models/item/chaotic_necklace.json
 0de308b9825a583998bd8587d636b2f3144ffcc7 assets/draconicadditions/models/item/draconic_necklace.json
+233cad698d0b796115fd36d96f93a2d39966f0d4 assets/draconicadditions/models/item/fake_reactor_core.json
+233cad698d0b796115fd36d96f93a2d39966f0d4 assets/draconicadditions/models/item/fake_reactor_injector.json
+233cad698d0b796115fd36d96f93a2d39966f0d4 assets/draconicadditions/models/item/fake_reactor_stabilizer.json
 28810e19d11222a1c6a5c3393d1271b20cd53d2d assets/draconicadditions/models/item/hermal.json
 f1749bba540757ed1178353a4ca48348bf9c2cc8 assets/draconicadditions/models/item/inert_potato_boots.json
 c53af43b5ba67a527ce7e205536ce9f6ef858efe assets/draconicadditions/models/item/inert_potato_chest.json

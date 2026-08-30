@@ -23,6 +23,9 @@ public class BlockTagGenerator extends BlockTagsProvider {
 			.add(DAContent.chaosLiquifier.get())
 			.add(DAContent.chaosInfuser.get())
 			.add(DAContent.chaosExtractor.get())
-			.add(DAContent.chaosCrystalizer.get());
+			.add(DAContent.chaosCrystalizer.get())
+			.add(DAContent.fakeReactorCore.get())
+			.add(DAContent.fakeReactorInjector.get())
+			.add(DAContent.fakeReactorStabilizer.get());
 	}
 }

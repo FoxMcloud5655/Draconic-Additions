@@ -1,8 +1,11 @@
-// 1.21.1	2026-01-19T05:27:49.5583132	draconicadditions Recipes.
+// 1.21.1	2026-04-25T09:54:38.6707461	draconicadditions Recipes.
 be8db45070f7067e203cc05c618e975132e704da data/draconicadditions/recipe/blocks/chaos_crystalizer.json
 71f92b8115c6651ecc4ef13af936c3587e720680 data/draconicadditions/recipe/blocks/chaos_extractor.json
 ddec064fc49ca72784866725d91cc2636f935078 data/draconicadditions/recipe/blocks/chaos_infuser.json
 5cdee983c1b9722ef7c29849b1632e4e7b755141 data/draconicadditions/recipe/blocks/chaos_liquifier.json
+0df702c3eee24462b2a4f37ba981644173735c5b data/draconicadditions/recipe/blocks/fake_reactor_core.json
+f66fc23f23bf7bacb28ab581eb21990f39d82aba data/draconicadditions/recipe/blocks/fake_reactor_injector.json
+4cf6228554c221cddc536d35a82cea97e6ef4ac4 data/draconicadditions/recipe/blocks/fake_reactor_stabilizer.json
 2caea457e02f649f2d8818f9d45e170823649e10 data/draconicadditions/recipe/chaotic_necklace.json
 ebfc7c4b09f89c170c9f195011a6426f9773c9cd data/draconicadditions/recipe/draconic_necklace.json
 a4814947bdb89e121d5427c2e000f8880835be4d data/draconicadditions/recipe/items/chaos_container.json

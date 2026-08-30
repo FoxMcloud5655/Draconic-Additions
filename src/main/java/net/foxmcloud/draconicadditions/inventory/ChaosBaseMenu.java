@@ -7,7 +7,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 
-public abstract class ChaosBaseMenu extends DATileMenu<TileChaosHolderBase> {
+public abstract class ChaosBaseMenu extends DATileChaosMenu<TileChaosHolderBase> {
 	public final SlotGroup main = createSlotGroup(0, 2, 1);
 	public final SlotGroup hotBar = createSlotGroup(0, 2, 1);
 	public final SlotGroup slot = createSlotGroup(1, 0);

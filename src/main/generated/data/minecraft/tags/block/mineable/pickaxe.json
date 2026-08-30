@@ -3,6 +3,9 @@
     "draconicadditions:chaos_liquifier",
     "draconicadditions:chaos_infuser",
     "draconicadditions:chaos_extractor",
-    "draconicadditions:chaos_crystalizer"
+    "draconicadditions:chaos_crystalizer",
+    "draconicadditions:fake_reactor_core",
+    "draconicadditions:fake_reactor_injector",
+    "draconicadditions:fake_reactor_stabilizer"
   ]
 }

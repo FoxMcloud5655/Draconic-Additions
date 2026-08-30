@@ -1,0 +1,5 @@
+{
+  "parent": "minecraft:item/generated",
+  "class": "net.foxmcloud.draconicadditions.client.render.item.RenderItemFakeReactorComponent",
+  "loader": "codechickenlib:class"
+}

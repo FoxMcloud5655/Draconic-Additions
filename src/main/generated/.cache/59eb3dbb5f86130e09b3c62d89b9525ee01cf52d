@@ -1,5 +1,8 @@
-// 1.21.1	2026-01-19T05:27:49.5583132	Loot Tables
+// 1.21.1	2026-04-25T09:54:38.6697431	Loot Tables
 54bf2b0a7d27e913fccf51145ae2aaf943052bdc data/draconicadditions/loot_table/blocks/chaos_crystalizer.json
 bc626aeb5ed944444f594c73955ca970951867af data/draconicadditions/loot_table/blocks/chaos_extractor.json
 056e5e7f0e3c6cc173a11f89a1a4902fc44c4c55 data/draconicadditions/loot_table/blocks/chaos_infuser.json
 8b714bf09aa3106940f0aa8dd72a7c80d9a6c1a0 data/draconicadditions/loot_table/blocks/chaos_liquifier.json
+6854b1b8d828c58adc87e7e1e472b5245ba0946d data/draconicadditions/loot_table/blocks/fake_reactor_core.json
+2452fe0aadd6841b4600f23356cb9848abeda4c0 data/draconicadditions/loot_table/blocks/fake_reactor_injector.json
+76f900a0dde9131f451775a3af3a2c879d7790ee data/draconicadditions/loot_table/blocks/fake_reactor_stabilizer.json

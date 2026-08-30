@@ -3,6 +3,8 @@ package net.foxmcloud.draconicadditions;
 import com.brandon3055.draconicevolution.handlers.DESounds;
 
 import codechicken.lib.vec.Vector3;
+import net.foxmcloud.draconicadditions.blocks.reactor.FakeReactorEffectHandler;
+import net.foxmcloud.draconicadditions.blocks.reactor.tileentity.TileFakeReactorCore;
 import net.foxmcloud.draconicadditions.lib.DAItemData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,8 +21,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraft.world.phys.Vec2;
+import net.neoforged.fml.util.thread.EffectiveSide;
 
 public class CommonMethods {
+
+	// Stolen from Draconic Evolution.  Delete when brandon3055 un-hardcodes TileReactorCore!
+	public static FakeReactorEffectHandler createFakeReactorFXHandler(TileFakeReactorCore tile) {
+		if (EffectiveSide.get().isServer()) {
+			return null;
+		}
+		return new FakeReactorEffectHandler(tile);
+	}
 
 	private static final short gracePeriod = 100;
 
