@@ -5,6 +5,9 @@
 	"refmap": "mixins.draconicadditions.refmap.json",
 	"target": "@env(DEFAULT)",
 	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"ArmorLookupPrefersChestpiece"
+	],
 	"client": [
 		"HUDTotemDisplay"
 	]
